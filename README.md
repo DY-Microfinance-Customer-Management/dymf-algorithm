@@ -6,4 +6,7 @@
 ```
 pip install customtkinter
 pip install pillow
+pip install pandas
+pip install openpyxl
+pip install CTkMessagebox
 ```
