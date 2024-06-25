@@ -6,6 +6,7 @@
 ```
 pip install firebase-admin
 pip install PyQt5
+pip install pyqt5-tools
 ```
 
 ### Change .ui file into .py

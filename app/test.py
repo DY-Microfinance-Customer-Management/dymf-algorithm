@@ -44,7 +44,7 @@ class MyApp(QMainWindow):
 
         # Window Default Options
         self.setWindowTitle('DY Microfinance')
-        self.setWindowIcon(QIcon('dy_logo.jpg'))
+        self.setWindowIcon(QIcon('assets/logo.jpg'))
         self.resize(1000, 600)
         self.center()
         self.show()
