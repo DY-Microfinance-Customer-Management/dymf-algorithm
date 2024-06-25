@@ -8,6 +8,11 @@ pip install firebase-admin
 pip install PyQt5
 ```
 
+### Change .ui file into .py
+```
+pyuic5 login_page.ui -o ui_login_page.py
+```
+
 ### Git Force Pull
 ```
 git fetch --all
