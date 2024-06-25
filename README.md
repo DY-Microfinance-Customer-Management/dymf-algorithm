@@ -1,12 +1,16 @@
 # DY Microfinance
 - Loan Program developed by Tkinter
-- [Tkinter Github](https://github.com/TomSchimansky/CustomTkinter)
+- [PyQt5 Doc](https://wikidocs.net/21849)
 
 ### Installation
 ```
-pip install customtkinter
-pip install pillow
-pip install pandas
-pip install openpyxl
-pip install CTkMessagebox
+pip install firebase-admin
+pip install PyQt5
+```
+
+### Git Force Pull
+```
+git fetch --all
+git reset --hard origin/master
+git pull origin master
 ```
