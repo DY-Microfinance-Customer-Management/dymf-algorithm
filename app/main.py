@@ -17,6 +17,8 @@ class LoginDialog(QDialog):
         super().__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.setWindowTitle('로그인')
+        self.setFixedSize(self.size())
 
         # 로그인 버튼 클릭 시 이벤트 핸들러 연결
         self.ui.login_button.clicked.connect(self.login)
