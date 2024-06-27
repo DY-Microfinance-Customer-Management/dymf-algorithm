@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 import firebase_admin
 from firebase_admin import credentials, db
 from ui.ui_login_page import Ui_Dialog  # 변환된 파일을 가져옵니다.
+from ui.ui_customer_registration_page import Ui_MainWindow  # 변환된 파일을 가져옵니다.
 
 # Firebase Admin SDK 초기화
 cred = credentials.Certificate('test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
@@ -15,7 +16,7 @@ firebase_admin.initialize_app(cred, {
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_Dialog()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle('로그인')
         self.setFixedSize(self.size())
