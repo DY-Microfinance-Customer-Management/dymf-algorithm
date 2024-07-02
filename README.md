@@ -20,3 +20,8 @@ git fetch --all
 git reset --hard origin/master
 git pull origin master
 ```
+
+### Stylesheet example
+```
+ui->textBrowser_1->setStyleSheet("background-color: rgb(238, 238, 236);");
+```
