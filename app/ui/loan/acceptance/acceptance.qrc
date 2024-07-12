@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="acceptance">
+    <file>수납 일괄등록.png</file>
+    <file>수납 자료검색.png</file>
+  </qresource>
+</RCC>

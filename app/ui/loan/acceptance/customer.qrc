@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="customer">
+    <file>검색.png</file>
+    <file>장부.png</file>
+  </qresource>
+</RCC>

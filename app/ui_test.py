@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from ui.ui_company_info import Ui_MainWindow  # design.py 파일에서 UI 클래스를 가져옵니다
+from ui.loan.ui_main_page import Ui_MainWindow  # design.py 파일에서 UI 클래스를 가져옵니다
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):

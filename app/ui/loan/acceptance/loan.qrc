@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="loan">
+    <file>담보 검색.png</file>
+    <file>대출 검색.png</file>
+    <file>대출 등록.png</file>
+    <file>발송 검색.png</file>
+    <file>보증인 검색.png</file>
+    <file>상담 검색.png</file>
+    <file>이자 계산기.png</file>
+  </qresource>
+</RCC>
