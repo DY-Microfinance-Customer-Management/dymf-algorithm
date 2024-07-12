@@ -31,6 +31,18 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <widget class="QLabel" name="label">
+      <property name="minimumSize">
+       <size>
+        <width>650</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>650</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>15</pointsize>
@@ -39,12 +51,12 @@
        </font>
       </property>
       <property name="text">
-       <string>회사정보 관리</string>
+       <string>Company Info</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="saveButton">
       <property name="text">
-       <string>저장</string>
+       <string>Save</string>
       </property>
      </widget>
     </widget>
@@ -72,13 +84,13 @@
        </font>
       </property>
       <property name="text">
-       <string>사업자번호</string>
+       <string>Registration No.</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit"/>
+     <widget class="QLineEdit" name="companyRegistrationNumber"/>
     </widget>
     <widget class="QSplitter" name="splitter_2">
      <property name="orientation">
@@ -104,13 +116,13 @@
        </font>
       </property>
       <property name="text">
-       <string>상호</string>
+       <string>Name</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2"/>
+     <widget class="QLineEdit" name="companyName"/>
     </widget>
     <widget class="QSplitter" name="splitter_3">
      <property name="orientation">
@@ -136,13 +148,13 @@
        </font>
       </property>
       <property name="text">
-       <string>대표자명</string>
+       <string>CEO</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3"/>
+     <widget class="QLineEdit" name="companyCEO"/>
     </widget>
     <widget class="QSplitter" name="splitter_4">
      <property name="orientation">
@@ -168,13 +180,13 @@
        </font>
       </property>
       <property name="text">
-       <string>업종</string>
+       <string>Business Type</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4"/>
+     <widget class="QLineEdit" name="companyType"/>
     </widget>
     <widget class="QSplitter" name="splitter_5">
      <property name="orientation">
@@ -200,13 +212,13 @@
        </font>
       </property>
       <property name="text">
-       <string>업태</string>
+       <string>Business Category</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_5"/>
+     <widget class="QLineEdit" name="companyCategory"/>
     </widget>
     <widget class="QSplitter" name="splitter_6">
      <property name="orientation">
@@ -232,18 +244,18 @@
        </font>
       </property>
       <property name="text">
-       <string>주소</string>
+       <string>Address</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_6"/>
+     <widget class="QLineEdit" name="companyAddress1"/>
      <widget class="QSplitter" name="splitter_7">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QLineEdit" name="lineEdit_7"/>
+      <widget class="QLineEdit" name="companyAddress2"/>
      </widget>
     </widget>
     <widget class="QSplitter" name="splitter_14">
@@ -274,13 +286,13 @@
         </font>
        </property>
        <property name="text">
-        <string>대표전화번호</string>
+        <string>Tel</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_8"/>
+      <widget class="QLineEdit" name="companyTel"/>
      </widget>
      <widget class="QSplitter" name="splitter_9">
       <property name="orientation">
@@ -306,13 +318,13 @@
         </font>
        </property>
        <property name="text">
-        <string>FAX 번호</string>
+        <string>Fax</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_9"/>
+      <widget class="QLineEdit" name="companyFax"/>
      </widget>
     </widget>
     <widget class="QSplitter" name="splitter_10">
@@ -339,77 +351,13 @@
        </font>
       </property>
       <property name="text">
-       <string>홈페이지</string>
+       <string>Homepage</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_10"/>
-    </widget>
-    <widget class="QSplitter" name="splitter_12">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QLabel" name="label_12">
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>연체전환 최소미수금</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_12"/>
-    </widget>
-    <widget class="QSplitter" name="splitter_11">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QLabel" name="label_11">
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>연체전환 보류일수</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit_11"/>
+     <widget class="QLineEdit" name="companyHompage"/>
     </widget>
    </widget>
   </widget>
