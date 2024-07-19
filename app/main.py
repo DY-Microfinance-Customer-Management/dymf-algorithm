@@ -1,13 +1,18 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QDialog, QLabel
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QLabel, QStackedWidget, QWidget
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 import firebase_admin
 from firebase_admin import credentials, db
-from ui.ui_login_page import Ui_Dialog  # 변환된 파일을 가져옵니다.
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+from pages.main.login import Ui_MainWindow as Ui_LoginWindow
+from pages.main.home import Ui_MainWindow as Ui_HomeWindow
+from pages.customer.registration import Ui_MainWindow as Ui_CustomerRegistration
+
 
 # Firebase Admin SDK 초기화
-cred = credentials.Certificate('test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
+cred = credentials.Certificate('./configs/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://test-hungun-default-rtdb.firebaseio.com/'
 })
@@ -15,7 +20,7 @@ firebase_admin.initialize_app(cred, {
 class LoginDialog(QDialog):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_Dialog()
+        self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
         self.setWindowTitle('로그인')
         self.setFixedSize(self.size())
@@ -45,12 +50,34 @@ class LoginDialog(QDialog):
                 user_data = ref.get()
                 if user_data and user_data.get('password') == user_pw:
                     self.ui.error_text.setText('로그인에 성공했습니다.')
+                    self.open_main_window()
                 else:
                     self.ui.error_text.setText('사용자 정보가 없습니다.')
             except Exception as e:
                 self.ui.error_text.setText('오류가 발생했습니다: ' + str(e))
         else:
             self.ui.error_text.setText('아이디와 비밀번호를 입력하세요.')
+
+    def open_main_window(self):
+        self.main_window = MainWindow()
+        self.main_window.show()
+        self.close()
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_HomeWindow()
+        self.ui.setupUi(self)
+        self.setWindowTitle('메인 화면')
+
+        # Connect the customer search button to the method
+        self.ui.action_2.triggered.connect(self.open_customer_registration)
+
+    def open_customer_registration(self):
+        self.customer_registration_window = QMainWindow()
+        self.customer_registration_ui = Ui_CustomerRegistration()
+        self.customer_registration_ui.setupUi(self.customer_registration_window)
+        self.customer_registration_window.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
