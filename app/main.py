@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from pages.main.login import Ui_MainWindow as Ui_LoginWindow
 from pages.main.home import Ui_MainWindow as Ui_HomeWindow
-from pages.customer.registration import Ui_MainWindow as Ui_CustomerRegistration
+from pages.customer.registration import Ui_Customer as Ui_CustomerRegistration
 
 
 # Firebase Admin SDK 초기화

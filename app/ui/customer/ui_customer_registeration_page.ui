@@ -260,7 +260,7 @@
            <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
           </property>
           <property name="calendarPopup">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="date">
            <date>
