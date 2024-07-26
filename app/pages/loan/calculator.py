@@ -6,7 +6,7 @@ from typing import Tuple
 
 import pandas as pd
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
@@ -54,6 +54,8 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += amount_per_period
 
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+
             schedule.append({
                 'Period': period,
                 'Payment Date': current_date.strftime('%Y-%m-%d (%A)'),
@@ -63,8 +65,6 @@ class LoanCalculator:
                 'Remaining Balance': round(principal),
             })
 
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
-        
         schedule.append({
             'Period': 'Total',
             'Payment Date': '-',
@@ -95,6 +95,8 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += amount_per_period
 
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+
             schedule.append({
                 'Period': period,
                 'Payment Date': current_date.strftime('%Y-%m-%d (%A)'),
@@ -104,8 +106,6 @@ class LoanCalculator:
                 'Remaining Balance': round(principal),
             })
 
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
-        
         schedule.append({
             'Period': 'Total',
             'Payment Date': '-',
@@ -131,6 +131,8 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += interest_payment
 
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+
             schedule.append({
                 'Period': period,
                 'Payment Date': current_date.strftime('%Y-%m-%d (%A)'),
@@ -140,8 +142,6 @@ class LoanCalculator:
                 'Remaining Balance': round(principal),
             })
 
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
-        
         total_principal_payment = principal
         schedule.append({
             'Period': 'Total',
