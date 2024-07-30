@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import firebase_admin
+from firebase_admin import credentials, db
+
 
 
 class Ui_Customer(object):
@@ -741,6 +744,36 @@ class Ui_Customer(object):
         self.retranslateUi(Customer)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Customer)
+        self.saveButton.clicked.connect(self.save_customer_data)
+
+    def save_customer_data(self):
+        customer_data = {
+            "name": self.name.text(),
+            "nrc_no": self.nrcNo.text(),
+            "birthdate": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
+            "gender": self.gender.currentText(),
+            "marital_status": self.married.currentText(),
+            "mobile": self.phone2.text(),
+            "phone": self.tel2.text(),
+            "email": self.email.text(),
+            "home_postal_code": self.homePostalCode.text(),
+            "home_address": self.homeStreet.text(),
+            "company_postal_code": self.officePostalCode.text(),
+            "company_address": self.officeStreet.text(),
+            "additional_info1": self.info1.text(),
+            "additional_info2": self.info2.text(),
+            "additional_info3": self.info3.text(),
+            "additional_info4": self.info4.text(),
+            "additional_info5": self.info5.text(),
+        }
+
+        try:
+            ref = db.reference('customers')
+            ref.push(customer_data)
+            QtWidgets.QMessageBox.information(None, "Success", "Customer data saved successfully!")
+            self.clear_fields()
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to save customer data: {e}")
 
     def retranslateUi(self, Customer):
         _translate = QtCore.QCoreApplication.translate
