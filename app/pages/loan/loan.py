@@ -66,6 +66,7 @@ class PandasModel(QAbstractTableModel):
 
 def main():
     app = QApplication(sys.argv)
+    window = Ui_MainWindow()
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

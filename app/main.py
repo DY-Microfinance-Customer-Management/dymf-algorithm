@@ -6,8 +6,8 @@ import firebase_admin
 from firebase_admin import credentials, db
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from pages.main.login import Ui_MainWindow as Ui_LoginWindow
-from pages.main.home import Ui_MainWindow as Ui_HomeWindow
+from pages.login import Ui_MainWindow as Ui_LoginWindow
+from pages.home import Ui_MainWindow as Ui_HomeWindow
 from pages.customer.registration import Ui_Customer as Ui_CustomerRegistration
 
 
