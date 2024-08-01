@@ -12,7 +12,7 @@ from pages.customer.registration import Ui_Customer as Ui_CustomerRegistration
 
 
 # Firebase Admin SDK 초기화
-cred = credentials.Certificate('./configs/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
+cred = credentials.Certificate("configs/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://test-hungun-default-rtdb.firebaseio.com/'
 })
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('메인 화면')
 
         # Connect the customer search button to the method
-        self.ui.action_2.triggered.connect(self.open_customer_registration)
+        self.ui.action.triggered.connect(self.open_customer_registration)
 
     def open_customer_registration(self):
         self.customer_registration_window = QMainWindow()

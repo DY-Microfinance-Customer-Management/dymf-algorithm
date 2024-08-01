@@ -745,35 +745,8 @@ class Ui_Customer(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Customer)
         self.saveButton.clicked.connect(self.save_customer_data)
-
-    def save_customer_data(self):
-        customer_data = {
-            "name": self.name.text(),
-            "nrc_no": self.nrcNo.text(),
-            "birthdate": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
-            "gender": self.gender.currentText(),
-            "marital_status": self.married.currentText(),
-            "mobile": self.phone2.text(),
-            "phone": self.tel2.text(),
-            "email": self.email.text(),
-            "home_postal_code": self.homePostalCode.text(),
-            "home_address": self.homeStreet.text(),
-            "company_postal_code": self.officePostalCode.text(),
-            "company_address": self.officeStreet.text(),
-            "additional_info1": self.info1.text(),
-            "additional_info2": self.info2.text(),
-            "additional_info3": self.info3.text(),
-            "additional_info4": self.info4.text(),
-            "additional_info5": self.info5.text(),
-        }
-
-        try:
-            ref = db.reference('customers')
-            ref.push(customer_data)
-            QtWidgets.QMessageBox.information(None, "Success", "Customer data saved successfully!")
-            self.clear_fields()
-        except Exception as e:
-            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to save customer data: {e}")
+        self.newButton.clicked.connect(self.clear_fields)
+        self.editButton.clicked.connect(self.edit_customer_data)
 
     def retranslateUi(self, Customer):
         _translate = QtCore.QCoreApplication.translate
@@ -845,3 +818,226 @@ class Ui_Customer(object):
         self.newButton.setText(_translate("Customer", "New"))
         self.editButton.setText(_translate("Customer", "Edit"))
         self.saveButton.setText(_translate("Customer", "Save"))
+        self.saveButton3.setText(_translate("Customer", "Save"))
+    def clear_fields(self):
+        self.name.clear()
+        self.nrcNo.clear()
+        self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
+        self.gender.setCurrentIndex(0)
+        self.married.setCurrentIndex(0)
+        self.phone1.setCurrentIndex(0)
+        self.phone2.clear()
+        self.phone3.clear()
+        self.tel1.setCurrentIndex(0)
+        self.tel2.clear()
+        self.tel3.clear()
+        self.email.clear()
+        self.loanOfficer.clear()
+        self.homePostalCode.clear()
+        self.homeStreet.clear()
+        self.homeCountry.clear()
+        self.homeCity.clear()
+        self.homeTownship.clear()
+        self.officePostalCode.clear()
+        self.officeCountry.clear()
+        self.officeCity.clear()
+        self.officeTownship.clear()
+        self.officeStreet.clear()
+        self.info1.clear()
+        self.info2.clear()
+        self.info3.clear()
+        self.info4.clear()
+        self.info5.clear()
+
+    def save_customer_data(self):
+        required_fields = {
+            "Name": self.name.text(),
+            "NRC No.": self.nrcNo.text(),
+            "Date of Birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
+            "Gender": self.gender.currentText(),
+            "Marital Status": self.married.currentText(),
+            "Mobile1": self.phone1.currentText(),
+            "Mobile2": self.phone2.text(),
+            "Mobile3": self.phone3.text(),
+            "Phone1": self.tel1.currentText(),
+            "Phone2": self.tel2.text(),
+            "Phone3": self.tel3.text(),
+            "Email": self.email.text(),
+            "Loan Officer": self.loanOfficer.text(),
+            "Home Postal Code": self.homePostalCode.text(),
+            "Home Street": self.homeStreet.text(),
+            "Home Country": self.homeCountry.text(),
+            "Home City": self.homeCity.text(),
+            "Home Township": self.homeTownship.text(),
+            "Company Postal Code": self.officePostalCode.text(),
+            "Company Country": self.officeCountry.text(),
+            "Company City": self.officeCity.text(),
+            "Company Township": self.officeTownship.text(),
+            "Company Street": self.officeStreet.text()
+        }
+
+        missing_fields = [field for field, value in required_fields.items() if not value]
+
+        if missing_fields:
+            QtWidgets.QMessageBox.warning(None, "Missing Fields",
+                                          f"The following fields are required and cannot be empty: {', '.join(missing_fields)}")
+            return
+
+        customer_data = {
+            "name": self.name.text(),
+            "nrc_no": self.nrcNo.text(),
+            "birthdate": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
+            "gender": self.gender.currentText(),
+            "marital_status": self.married.currentText(),
+            "mobile1": self.phone1.currentText(),
+            "mobile2": self.phone2.text(),
+            "mobile3": self.phone3.text(),
+            "phone1": self.tel1.currentText(),
+            "phone2": self.tel2.text(),
+            "phone3": self.tel3.text(),
+            "email": self.email.text(),
+            "loanOfficer": self.loanOfficer.text(),
+            "home_postal_code": self.homePostalCode.text(),
+            "home_country": self.homeCountry.text(),
+            "home_city": self.homeCity.text(),
+            "home_township": self.homeTownship.text(),
+            "home_street": self.homeStreet.text(),
+            "company_postal_code": self.officePostalCode.text(),
+            "company_country": self.officeCountry.text(),
+            "company_city": self.officeCity.text(),
+            "company_township": self.officeTownship.text(),
+            "company_street": self.officeStreet.text(),
+            "additional_info1": self.info1.text(),
+            "additional_info2": self.info2.text(),
+            "additional_info3": self.info3.text(),
+            "additional_info4": self.info4.text(),
+            "additional_info5": self.info5.text(),
+        }
+
+        try:
+            ref = db.reference('customers')
+            ref.child(self.name.text()).set(customer_data)
+
+            ref.push(customer_data)
+            QtWidgets.QMessageBox.information(None, "Success", "Customer data saved successfully!")
+            self.clear_fields()
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to save customer data: {e}")
+
+    def edit_customer_data(self):
+        search_name = self.searchName.text()
+        search_dob = self.searchDateOfBirth.date().toString(QtCore.Qt.ISODate)
+
+        try:
+            ref = db.reference('customers')
+            snapshot = ref.get()
+
+            found = False
+            for key, val in snapshot.items():
+                if val['name'] == search_name and val['birthdate'] == search_dob:
+                    found = True
+                    self.name.setText(val['name'])
+                    self.nrcNo.setText(val['nrc_no'])
+                    self.dateOfBirth.setDate(QtCore.QDate.fromString(val['birthdate'], QtCore.Qt.ISODate))
+                    self.gender.setCurrentText(val['gender'])
+                    self.married.setCurrentText(val['marital_status'])
+                    self.phone1.setCurrentText(val['mobile1'])
+                    self.phone2.setText(val['mobile2'])
+                    self.phone3.setText(val['mobile3'])
+                    self.tel1.setCurrentText(val['phone1'])
+                    self.tel2.setText(val['phone2'])
+                    self.tel3.setText(val['phone3'])
+                    self.email.setText(val['email'])
+                    self.loanOfficer.setText(val['loanOfficer'])
+                    self.homePostalCode.setText(val['home_postal_code'])
+                    self.homeStreet.setText(val['home_street'])
+                    self.homeCountry.setText(val['home_country'])
+                    self.homeCity.setText(val['home_city'])
+                    self.homeTownship.setText(val['home_township'])
+                    self.officePostalCode.setText(val['company_postal_code'])
+                    self.officeCountry.setText(val['company_country'])
+                    self.officeCity.setText(val['company_city'])
+                    self.officeTownship.setText(val['company_township'])
+                    self.officeStreet.setText(val['company_street'])
+                    self.info1.setText(val['additional_info1'])
+                    self.info2.setText(val['additional_info2'])
+                    self.info3.setText(val['additional_info3'])
+                    self.info4.setText(val['additional_info4'])
+                    self.info5.setText(val['additional_info5'])
+                    break
+
+                self.load_counselling_data(search_name, search_dob)
+
+            if not found:
+                QtWidgets.QMessageBox.warning(None, "No Match", "No customer data matches the search criteria.")
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to retrieve customer data: {e}")
+
+    def save_counselling_data(self):
+        required_fields = {
+            "Consultation Details": self.LineEdit_23.text(),
+            "Detailed Information": self.textEdit.toPlainText(),
+            "Actions Taken": self.LineEdit_24.text(),
+        }
+
+        missing_fields = [field for field, value in required_fields.items() if not value]
+
+        if missing_fields:
+            QtWidgets.QMessageBox.warning(None, "Missing Fields",
+                                          f"The following fields are required and cannot be empty: {', '.join(missing_fields)}")
+            return
+
+        counselling_data = {
+            "date_of_consultation": self.DateEdit_4.date().toString(QtCore.Qt.ISODate),
+            "incoming_outgoing": self.ComboBox_3.currentText(),
+            "classification_of_consultation": self.comboBox_3.currentText(),
+            "consultation_details": self.LineEdit_23.text(),
+            "detailed_information": self.textEdit.toPlainText(),
+            "actions_taken": self.LineEdit_24.text(),
+        }
+
+        try:
+            ref = db.reference('customers_counselling')
+            current_date = QtCore.QDate.currentDate().toString(QtCore.Qt.ISODate)
+            customer_name = self.name.text()
+            column_name = f"{customer_name}_{current_date}"
+            ref.child(column_name).set(counselling_data)
+            QtWidgets.QMessageBox.information(None, "Success", "Counselling data saved successfully!")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to save counselling data: {e}")
+
+    def load_counselling_data(self, name, dob):
+        try:
+            ref = db.reference('customers_counselling')
+            snapshot = ref.get()
+
+            counselling_records = []
+            for key, val in snapshot.items():
+                if name in key and dob in key:
+                    counselling_records.append(val)
+
+            if counselling_records:
+                model = QtGui.QStandardItemModel()
+                model.setHorizontalHeaderLabels([
+                    "Date of Consultation", "Incoming/Outgoing", "Classification of Consultation",
+                    "Consultation Details", "Detailed Information", "Actions Taken"
+                ])
+
+                for record in counselling_records:
+                    row = [
+                        QtGui.QStandardItem(record.get("date_of_consultation", "")),
+                        QtGui.QStandardItem(record.get("incoming_outgoing", "")),
+                        QtGui.QStandardItem(record.get("classification_of_consultation", "")),
+                        QtGui.QStandardItem(record.get("consultation_details", "")),
+                        QtGui.QStandardItem(record.get("detailed_information", "")),
+                        QtGui.QStandardItem(record.get("actions_taken", ""))
+                    ]
+                    model.appendRow(row)
+
+                self.tableView.setModel(model)
+            else:
+                QtWidgets.QMessageBox.warning(None, "No Match", "No counselling records found for the customer.")
+
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to load counselling data: {e}")
