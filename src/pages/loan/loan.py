@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView
 from PyQt5.QtCore import Qt, QAbstractTableModel
 import pandas as pd
-from fire import db
+from components.fire import db
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
