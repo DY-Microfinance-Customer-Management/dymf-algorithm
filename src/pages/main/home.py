@@ -1,6 +1,6 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMessageBox
 from PyQt5 import uic
 
 class HomeApp(QMainWindow):
@@ -15,11 +15,21 @@ class HomeApp(QMainWindow):
 
     def open_registration(self):
         from pages.customer.registration import RegistrationApp
-        self.registeration_window = RegistrationApp()
-        self.registeration_window.show()
-        self.close()
+        self.registration_window = RegistrationApp()
+        self.registration_window.show()
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Exit Application', 
+                                     "Are you sure you want to exit?", 
+                                     QMessageBox.Cancel | QMessageBox.Ok, 
+                                     QMessageBox.Cancel)
+        if reply == QMessageBox.Ok:
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = HomeApp()
+    window.show()
     sys.exit(app.exec_())
