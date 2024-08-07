@@ -1,8 +1,6 @@
 import sys
-import math
+import os
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from typing import Tuple
 
 import pandas as pd
 from PyQt5 import uic
@@ -15,7 +13,9 @@ from components.loan_calculator import LoanCalculator
 class CalculatorApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("calculator.ui", self)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        ui_path = os.path.join(current_dir, "calculator.ui")
+        uic.loadUi(ui_path, self)
         self.show()
 
         # Connect the Calculate button to the function
