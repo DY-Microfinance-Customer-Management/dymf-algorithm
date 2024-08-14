@@ -39,7 +39,6 @@ class LoanCalculator:
         principal = self.principal
         total_principal_payment = total_interest_payment = total_principal_n_interest = 0
 
-        current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
         
         for period in range(1, total_period + 1):
             interest_payment = round(principal * self.annual_interest_rate / cycle_cnt)
@@ -50,6 +49,8 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += amount_per_period
 
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+            
             schedule.append({
                 'Period': period,
                 'Payment Date': current_date.strftime('%Y-%m-%d (%A)'),

@@ -1,20 +1,33 @@
 import sys
 import os
 from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QPushButton
-from PyQt5.QtCore import Qt, QAbstractTableModel
-from PyQt5.QtWidgets import QItemDelegate
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
+from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSignal
 import pandas as pd
 from components import DB
 
 class SelectCustomerWindow(QMainWindow):
+    customer_selected = pyqtSignal(dict)  # Signal to send the selected customer data
+
     def __init__(self):
         super(SelectCustomerWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "select_customer.ui")
         uic.loadUi(ui_path, self)
         
+        self.searchBox = self.findChild(QLineEdit, "searchBox")
         self.tableView = self.findChild(QTableView, "tableView")
+
+        # Set the selection behavior to select entire rows
+        self.tableView.setSelectionBehavior(QTableView.SelectRows)
+
+        # Connect the search box to the filter function
+        self.searchBox.textChanged.connect(self.filter_data)
+
+        # Connect table view click and double click
+        self.tableView.clicked.connect(self.handle_table_click)
+        self.tableView.doubleClicked.connect(self.handle_table_double_click)
+
         self.load_data()
 
     def load_data(self):
@@ -27,12 +40,28 @@ class SelectCustomerWindow(QMainWindow):
             data.append(doc.to_dict())
 
         self.df = pd.DataFrame(data)
-        self.model = PandasModel(self.df)
+        self.filtered_df = self.df.copy()  # Keep a copy of the original dataframe
+        self.model = PandasModel(self.filtered_df)
         self.tableView.setModel(self.model)
 
-        # Set ButtonDelegate for the last column
-        delegate = ButtonDelegate(self.tableView, self.df)
-        self.tableView.setItemDelegateForColumn(self.df.shape[1], delegate)
+    def filter_data(self):
+        search_text = self.searchBox.text().lower()
+        self.filtered_df = self.df[self.df['name'].str.lower().str.contains(search_text)]
+        self.model._df = self.filtered_df
+        self.model.layoutChanged.emit()
+
+    def handle_table_click(self, index):
+        if index.isValid():
+            row = index.row()
+            selected_data = self.filtered_df.iloc[row].to_dict()
+            # print(f"Selected data: {selected_data}")
+
+    def handle_table_double_click(self, index):
+        if index.isValid():
+            row = index.row()
+            selected_data = self.filtered_df.iloc[row].to_dict()
+            self.customer_selected.emit(selected_data)
+            self.close()
 
 class PandasModel(QAbstractTableModel):
     def __init__(self, df=pd.DataFrame(), parent=None):
@@ -43,52 +72,21 @@ class PandasModel(QAbstractTableModel):
         return self._df.shape[0]
 
     def columnCount(self, parent=None):
-        return self._df.shape[1] + 1  # Add one column for the button
+        return self._df.shape[1]
 
     def data(self, index, role=Qt.DisplayRole):
         if index.isValid():
             if role == Qt.DisplayRole:
-                if index.column() == self._df.shape[1]:
-                    return "Select"
                 return str(self._df.iloc[index.row(), index.column()])
         return None
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
             if orientation == Qt.Horizontal:
-                if section == self._df.shape[1]:
-                    return "Action"
                 return self._df.columns[section]
             if orientation == Qt.Vertical:
                 return section
         return None
-
-class ButtonDelegate(QItemDelegate):
-    def __init__(self, parent=None, df=pd.DataFrame()):
-        super(ButtonDelegate, self).__init__(parent)
-        self._df = df
-    
-    def createEditor(self, parent, option, index):
-        button = QPushButton(parent)
-        button.setText("Select")
-        button.clicked.connect(lambda: self.handle_button_click(index))
-        return button
-
-    def setEditorData(self, editor, index):
-        pass
-
-    def setModelData(self, editor, model, index):
-        pass
-
-    def updateEditorGeometry(self, editor, option, index):
-        editor.setGeometry(option.rect)
-
-    def handle_button_click(self, index):
-        if index.isValid():
-            row = index.row()
-            selected_data = self._df.iloc[row].to_dict()
-            print(f"Selected data: {selected_data}")
-            # Add logic to handle the selected customer data
 
 def main():
     app = QApplication(sys.argv)

@@ -6,34 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
-    <height>652</height>
+    <width>600</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Select Customer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="searchLineEdit">
-        <property name="placeholderText">
-         <string>Search...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="searchButton">
-        <property name="text">
-         <string>Search</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLineEdit" name="searchBox"/>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QTableView" name="tableView"/>
     </item>
    </layout>

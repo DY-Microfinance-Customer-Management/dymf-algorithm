@@ -28,8 +28,8 @@ class HomeApp(QMainWindow):
         self.customer_registration_window.show()
 
     def open_loan(self):
-        from pages.loan.loan import Ui_MainWindow
-        self.loan_window = Ui_MainWindow()
+        from pages.loan.loan import LoanWindow
+        self.loan_window = LoanWindow()
         self.loan_window.show()
     
     def open_calculator(self):
