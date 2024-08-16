@@ -892,7 +892,7 @@
      <widget class="QLabel" name="totalLabel2">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>890</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -911,7 +911,7 @@
      <widget class="QLabel" name="label_47">
       <property name="geometry">
        <rect>
-        <x>710</x>
+        <x>790</x>
         <y>50</y>
         <width>141</width>
         <height>31</height>
@@ -936,7 +936,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="deleteButton_2">
+     <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
         <x>1210</x>
@@ -980,7 +980,7 @@
      <widget class="QLabel" name="totalLabel4">
       <property name="geometry">
        <rect>
-        <x>1030</x>
+        <x>1110</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -1053,7 +1053,7 @@
      <widget class="QLabel" name="totalLabel3">
       <property name="geometry">
        <rect>
-        <x>920</x>
+        <x>1000</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -1115,7 +1115,7 @@
      <widget class="QLabel" name="label_124">
       <property name="geometry">
        <rect>
-        <x>700</x>
+        <x>780</x>
         <y>580</y>
         <width>101</width>
         <height>31</height>
@@ -1139,9 +1139,9 @@
      <widget class="QTableView" name="repaymentScheduleTable">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>90</y>
-        <width>681</width>
+        <width>751</width>
         <height>481</height>
        </rect>
       </property>
@@ -1149,9 +1149,9 @@
      <widget class="QTableView" name="receivedTable">
       <property name="geometry">
        <rect>
-        <x>700</x>
+        <x>790</x>
         <y>90</y>
-        <width>741</width>
+        <width>651</width>
         <height>481</height>
        </rect>
       </property>
