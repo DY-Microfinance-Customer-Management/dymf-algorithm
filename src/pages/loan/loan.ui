@@ -996,16 +996,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTableWidget" name="repaymentScheduleTable">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>88</y>
-        <width>681</width>
-        <height>481</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QPushButton" name="debtDisposalButton">
       <property name="geometry">
        <rect>
@@ -1059,22 +1049,6 @@
       <property name="text">
        <string>Deduct</string>
       </property>
-     </widget>
-     <widget class="QTableWidget" name="receivedTable">
-      <property name="geometry">
-       <rect>
-        <x>700</x>
-        <y>90</y>
-        <width>711</width>
-        <height>481</height>
-       </rect>
-      </property>
-      <property name="autoScrollMargin">
-       <number>16</number>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>105</number>
-      </attribute>
      </widget>
      <widget class="QLabel" name="totalLabel3">
       <property name="geometry">
@@ -1160,6 +1134,26 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTableView" name="repaymentScheduleTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>681</width>
+        <height>481</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableView" name="receivedTable">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>90</y>
+        <width>741</width>
+        <height>481</height>
+       </rect>
       </property>
      </widget>
     </widget>

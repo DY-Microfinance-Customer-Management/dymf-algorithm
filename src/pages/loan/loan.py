@@ -17,28 +17,24 @@ class LoanWindow(QMainWindow):
         ui_path = os.path.join(current_dir, "loan.ui")
         uic.loadUi(ui_path, self)
 
-        # Set default value for interestRate
         self.interestRate.setText("28")
 
-        # Set all input fields to read-only initially
         self.set_read_only(True)
 
-        # Set loanNumber and loanStatus to always be read-only
         self.loanNumber.setReadOnly(True)
         self.loanStatus.setEnabled(False)
 
-        # Connect the search button to the function
+        self.customer_uid = None  # To store the selected customer's UID
+
         self.customerSearchButton.clicked.connect(self.check_and_open_select_customer_window)
         
-        # Connect the calculate button to the function
         self.calculateButton.clicked.connect(self.on_calculate_button_clicked)
 
-        # Override the closeEvent
         self.setAttribute(Qt.WA_DeleteOnClose)
+        self.existing_loan_id = None  # To track if we're updating an existing document
         self.show()
 
     def set_read_only(self, read_only):
-        # List all the QLineEdit, QDateEdit, and QComboBox fields to set read-only
         line_edits = [
             self.loanAmount, self.interestRate, self.expiry
         ]
@@ -62,7 +58,7 @@ class LoanWindow(QMainWindow):
             combo_box.setEnabled(not read_only)
         
         for check_box in check_boxes:
-            check_box.setEnabled(False)  # Always read-only
+            check_box.setEnabled(False)
 
     def check_and_open_select_customer_window(self):
         if self.customerName.text():
@@ -86,11 +82,11 @@ class LoanWindow(QMainWindow):
     @pyqtSlot(dict)
     def handle_customer_selected(self, customer_data):
         print(f"Customer selected: {customer_data}")
-        # Populate loan.ui fields with customer_data
+
         self.customerName.setText(customer_data.get('name', ''))
         self.customerContact.setText(customer_data.get('phone', ''))
+        self.customer_uid = customer_data.get('uid', '')  # Save customer's UID
         
-        # Convert timestamp to yyyy-mm-dd format
         birth_timestamp = customer_data.get('birth', 0)
         if isinstance(birth_timestamp, (int, float)):
             birth_date = datetime.fromtimestamp(birth_timestamp).strftime('%Y-%m-%d')
@@ -98,20 +94,39 @@ class LoanWindow(QMainWindow):
         else:
             self.customerDateOfBirth.setText('')
 
-        # Set gender checkboxes
         gender = customer_data.get('gender', '')
         self.checkBoxMale.setChecked(gender == 0)
         self.checkBoxFemale.setChecked(gender == 1)
 
-        # Set contractDate to the current date and make it editable
         current_date = QDate.currentDate()
         self.contractDate.setDate(current_date)
         self.contractDate.setReadOnly(False)
 
-        # Generate and set loan number
+        self.check_existing_customer_loan()
+
+    def check_existing_customer_loan(self):
+        # Check if the customer UID already has a loan in the database
+        if not self.customer_uid:
+            QMessageBox.warning(self, "Warning", "Customer UID is missing.")
+            return
+
+        loans_ref = DB.collection("Loan")
+        query = loans_ref.where("customer_uid", "==", self.customer_uid).get()
+
+        if len(query) > 0:
+            # Show message if a loan already exists for this customer
+            reply = QMessageBox.question(
+                self,
+                'Confirm',
+                'A loan already exists for this customer. Do you want to continue?',
+                QMessageBox.Ok | QMessageBox.Cancel
+            )
+
+            if reply != QMessageBox.Ok:
+                self.clear_all_fields()
+                return
+
         self.generate_loan_number()
-        
-        # Make the other fields editable
         self.set_read_only(False)
 
     def generate_loan_number(self):
@@ -140,9 +155,10 @@ class LoanWindow(QMainWindow):
         self.checkBoxMale.setChecked(False)
         self.checkBoxFemale.setChecked(False)
         self.loanNumber.clear()
-        self.contractDate.setDate(QDate.currentDate())  # Reset contractDate
-        # Clear other fields as needed
+        self.contractDate.setDate(QDate.currentDate())
+        self.existing_loan_id = None  # Reset the existing loan tracking
         self.set_read_only(True)
+        self.customer_uid = None  # Clear the stored customer UID
 
     def closeEvent(self, event):
         if self.customerName.text():
@@ -160,25 +176,43 @@ class LoanWindow(QMainWindow):
             event.accept()
 
     def on_calculate_button_clicked(self):
-        # Show the confirmation message box before calculating
-        reply = QMessageBox.question(
-            self,
-            'Confirm',
-            '상환스케줄을 등록하시겠습니까?',
-            QMessageBox.Ok | QMessageBox.Cancel
-        )
+        self.check_existing_loan()
 
-        # If the user cancels, do not proceed with the calculation
-        if reply != QMessageBox.Ok:
+    def check_existing_loan(self):
+        # Check if loanNumber already exists in Firestore
+        loan_number = self.loanNumber.text()
+        if not loan_number:
+            QMessageBox.warning(self, "Warning", "Loan number is missing.")
             return
 
-        # If the user confirms, proceed with the calculation and saving
-        self.calculate_loan_schedule()
-        self.save_loan_to_firestore()
+        loans_ref = DB.collection("Loan")
+        query = loans_ref.where("loanNumber", "==", loan_number).get()
+
+        if len(query) > 0:
+            self.existing_loan_id = query[0].id  # Store the document ID to update later
+            reply = QMessageBox.question(
+                self,
+                'Confirm',
+                'Do you want to re-register the repayment schedule?',
+                QMessageBox.Ok | QMessageBox.Cancel
+            )
+        else:
+            self.existing_loan_id = None
+            reply = QMessageBox.question(
+                self,
+                'Confirm',
+                'Do you want to register the repayment schedule?',
+                QMessageBox.Ok | QMessageBox.Cancel
+            )
+
+        if reply == QMessageBox.Ok:
+            self.calculate_loan_schedule()
+            self.save_loan_to_firestore()
 
     def save_loan_to_firestore(self):
         # Create a dictionary to hold all loan info
         loan_info = {
+            "customer_uid": self.customer_uid,  # Save the customer UID with the loan
             "customerName": self.customerName.text(),
             "customerContact": self.customerContact.text(),
             "customerDateOfBirth": self.customerDateOfBirth.text(),
@@ -193,25 +227,26 @@ class LoanWindow(QMainWindow):
             "loanStatus": self.loanStatus.currentText()
         }
 
-        # Assuming 'self.schedule_df' contains the loan schedule DataFrame
         if hasattr(self, 'schedule_df'):
-            # Convert the schedule DataFrame to a list of dictionaries
             loan_schedule = self.schedule_df.to_dict(orient="records")
             loan_info["loanSchedule"] = loan_schedule
 
         try:
-            # Save the loan info to Firestore
-            DB.collection("Loan").add(loan_info)
+            if self.existing_loan_id:
+                # Update existing document
+                DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
+            else:
+                # Add new document
+                DB.collection("Loan").add(loan_info)
+
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while saving the loan: {e}")
 
     def calculate_loan_schedule(self):
-        # Check if customer is selected
         if not self.customerName.text():
             QMessageBox.warning(self, "Warning", "Please select a customer before calculating.")
             return
 
-        # Check if required fields are filled
         if not all([
             self.loanType.currentText(),
             self.loanAmount.text(),
@@ -227,7 +262,6 @@ class LoanWindow(QMainWindow):
             annual_interest_rate = float(self.interestRate.text()) / 100
             expiration_months = int(self.expiry.text())
 
-            # Map the loanRepaymentCycle text to appropriate cycle value
             cycle_text = self.loanRepaymentCycle.currentText()
             cycle_mapping = {
                 "Monthly": "month",
@@ -241,7 +275,6 @@ class LoanWindow(QMainWindow):
                 QMessageBox.critical(self, "Error", "Invalid repayment cycle selected.")
                 return
 
-            # Create a LoanCalculator object
             calculator = LoanCalculator(
                 start_date=self.contractDate.date().toPyDate(),
                 principal=principal,
@@ -249,7 +282,6 @@ class LoanWindow(QMainWindow):
                 annual_interest_rate=annual_interest_rate
             )
 
-            # Determine which loan type to calculate
             loan_type = self.loanType.currentText().lower()
             if loan_type == "equal":
                 self.schedule_df = calculator.equal_payment(cycle=cycle)
@@ -261,26 +293,64 @@ class LoanWindow(QMainWindow):
                 QMessageBox.critical(self, "Error", "Invalid loan type selected.")
                 return
 
-            # Display the schedule in the QTableView or QTableWidget
             self.display_schedule(self.schedule_df)
+
+            self.update_other_tabs()
 
         except ValueError as e:
             QMessageBox.critical(self, "Error", f"Invalid input: {e}")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An unexpected error occurred: {e}")
 
+    def update_other_tabs(self):
+        # Update fields across other tabs based on the current loan data
+        self.guarantorLoanNumber.setText(self.loanNumber.text())
+        self.collateralLoanNumber.setText(self.loanNumber.text())
+        self.counselingLoanNumber.setText(self.loanNumber.text())
+
+        self.guarantorLoanStatus.setText(self.loanStatus.currentText())
+        self.collateralLoanStatus.setText(self.loanStatus.currentText())
+        self.counselingLoanStatus.setText(self.loanStatus.currentText())
+
+        self.guarantorLoanOfficer.setText(self.loanOfficer.currentText())
+        self.collateralLoanOfficer.setText(self.loanOfficer.currentText())
+        self.counselingLoanOfficer.setText(self.loanOfficer.currentText())
+
+        contract_date_str = self.contractDate.date().toString("yyyy-MM-dd")
+        self.guarantorContractDate.setText(contract_date_str)
+        self.collateralContractDate.setText(contract_date_str)
+        self.counselingContractDate.setText(contract_date_str)
+
+        self.guarantorLoanType.setText(self.loanType.currentText())
+        self.collateralLoanType.setText(self.loanType.currentText())
+        self.counselingLoanType.setText(self.loanType.currentText())
+
+        self.guarantorLoanAmount.setText(self.loanAmount.text())
+        self.collateralLoanAmount.setText(self.loanAmount.text())
+        self.counselingLoanAmount.setText(self.loanAmount.text())
+
+        self.guarantorInterestRate.setText(self.interestRate.text())
+        self.collateralInterestRate.setText(self.interestRate.text())
+        self.counselingInterestRate.setText(self.interestRate.text())
+
+        self.guarantorExpiry.setText(self.expiry.text())
+        self.collateralExpiry.setText(self.expiry.text())
+        self.counselingExpiry.setText(self.expiry.text())
+
+        self.guarantorRepaymentCycle.setText(self.loanRepaymentCycle.currentText())
+        self.collateralRepaymentCycle.setText(self.loanRepaymentCycle.currentText())
+        self.counselingRepaymentCycle.setText(self.loanRepaymentCycle.currentText())
+
     def display_schedule(self, df: pd.DataFrame):
         vertical_header = [str(i) for i in df['Period'].values]
         df = df.drop(columns=['Period'])
         
-        # Define a function to format numbers with commas
         def format_number(value):
             try:
-                return "{:,}".format(int(value))  # Format with commas and 2 decimal places
+                return "{:,}".format(int(value))
             except ValueError:
-                return value  # Return the value as-is if it's not a number
-        
-        # Apply formatting to all numerical columns
+                return value
+
         for column in df.columns:
             df[column] = df[column].apply(format_number)
         
@@ -296,6 +366,10 @@ class LoanWindow(QMainWindow):
         
         self.loanScheduleTable.setModel(model)
         self.loanScheduleTable.resizeColumnsToContents()
+
+        # Set the same model for repaymentScheduleTable
+        self.repaymentScheduleTable.setModel(model)
+        self.repaymentScheduleTable.resizeColumnsToContents()
 
 def main():
     app = QApplication(sys.argv)

@@ -27,8 +27,10 @@ class LoanCalculator:
         elif cycle == 'week':
             cycle_cnt = 52
             total_period = math.ceil(self.total_days / 7)
+        else:
+            raise ValueError(f"Unsupported cycle: {cycle}")
         return cycle_cnt, total_period
-    
+
     def equal_payment(self, cycle: str='month') -> pd.DataFrame:
         cycle_cnt, total_period = self._get_schedule_details(cycle)
         period_interest_rate = ((1 + self.annual_interest_rate / cycle_cnt) ** total_period) - 1
@@ -38,7 +40,6 @@ class LoanCalculator:
         current_date = self.start_date
         principal = self.principal
         total_principal_payment = total_interest_payment = total_principal_n_interest = 0
-
         
         for period in range(1, total_period + 1):
             interest_payment = round(principal * self.annual_interest_rate / cycle_cnt)
@@ -49,7 +50,7 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += amount_per_period
 
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=1 if cycle == 'week' else int(cycle[:-4]))
             
             schedule.append({
                 'Period': period,
@@ -90,7 +91,7 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += amount_per_period
             
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=1 if cycle == 'week' else int(cycle[:-4]))
 
             schedule.append({
                 'Period': period,
@@ -126,7 +127,7 @@ class LoanCalculator:
             total_interest_payment += interest_payment
             total_principal_n_interest += interest_payment
             
-            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=int(cycle[:-4]) if 'week' in cycle else 1)
+            current_date += relativedelta(months=1) if cycle == 'month' else relativedelta(weeks=1 if cycle == 'week' else int(cycle[:-4]))
 
             schedule.append({
                 'Period': period,
