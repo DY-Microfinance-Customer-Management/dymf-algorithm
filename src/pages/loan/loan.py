@@ -36,6 +36,28 @@ class LoanWindow(QMainWindow):
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
 
+        self.guarantorNewButton.setEnabled(False)
+        self.guarantorSaveButton.setEnabled(False)
+        self.guarantorEditButton.setEnabled(False)
+        self.guarantorDeleteButton.setEnabled(False)
+
+        self.collateralNewButton.setEnabled(False)
+        self.collateralSaveButton.setEnabled(False)
+        self.collateralEditButton.setEnabled(False)
+        self.collateralDeleteButton.setEnabled(False)
+
+        self.counselingNewButton.setEnabled(False)
+        self.counselingSaveButton.setEnabled(False)
+        self.counselingEditButton.setEnabled(False)
+        self.counselingDeleteButton.setEnabled(False)
+        
+        # Disable guarantorSearchButton initially
+        self.guarantorSearchButton.setEnabled(False)
+
+        # Disable guarantorType and guarantorRelation initially
+        self.guarantorType.setEnabled(False)
+        self.guarantorRelation.setEnabled(False)
+
         # Set selection behavior for tables
         self.repaymentScheduleTable.setSelectionBehavior(QTableView.SelectRows)
         self.receivedTable.setSelectionBehavior(QTableView.SelectRows)
@@ -48,6 +70,13 @@ class LoanWindow(QMainWindow):
         self.paidButton.clicked.connect(self.on_paid_button_clicked)
         self.deleteButton.clicked.connect(self.on_delete_button_clicked)
 
+        # Connect the guarantor buttons to respective functions
+        self.guarantorNewButton.clicked.connect(self.on_guarantor_new_clicked)
+        self.guarantorSaveButton.clicked.connect(self.on_guarantor_save_clicked)
+
+        # Connect the guarantorSearchButton to open select customer window for guarantor
+        self.guarantorSearchButton.clicked.connect(self.open_select_guarantor_window)
+
         self.selected_row = None  # Track selected row
         self.selected_received_row = None  # Track selected row for receivedTable
 
@@ -55,7 +84,7 @@ class LoanWindow(QMainWindow):
 
     def set_read_only(self, read_only):
         line_edits = [
-            self.loanAmount, self.interestRate, self.expiry
+            self.loanAmount, self.interestRate, self.expiry, self.counselingDate, self.counselingSubject, self.counselingDetails, self.counselingCorrectiveMeasure
         ]
         date_edits = [
             self.contractDate
@@ -98,6 +127,12 @@ class LoanWindow(QMainWindow):
         self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
         self.select_customer_window.show()
 
+    def open_select_guarantor_window(self):
+        # Open the select customer window for selecting a guarantor
+        self.select_guarantor_window = SelectCustomerWindow()
+        self.select_guarantor_window.customer_selected.connect(self.handle_guarantor_selected)
+        self.select_guarantor_window.show()
+
     @pyqtSlot(dict)
     def handle_customer_selected(self, customer_data):
         print(f"Customer selected: {customer_data}")
@@ -122,6 +157,78 @@ class LoanWindow(QMainWindow):
         self.contractDate.setReadOnly(False)
 
         self.check_existing_customer_loan()
+
+    @pyqtSlot(dict)
+    def handle_guarantor_selected(self, guarantor_data):
+        print(f"Guarantor selected: {guarantor_data}")
+        self.guarantorName.setText(guarantor_data.get('name', ''))
+        self.guarantor_uid = guarantor_data.get('uid', '')
+
+    def handle_table_click(self, index):
+        if index.isValid():
+            self.selected_row = index.row()
+            model = index.model()
+            status_value = model.data(model.index(self.selected_row, 1))
+
+            if status_value == "Scheduled":
+                self.paidButton.setEnabled(True)
+            else:
+                self.paidButton.setEnabled(False)
+
+    def handle_received_table_click(self, index):
+        if index.isValid():
+            self.selected_received_row = index.row()
+            self.deleteButton.setEnabled(True)
+            self.receivedTable.selectRow(self.selected_received_row)
+
+    def on_guarantor_new_clicked(self):
+        # Reset the guarantor fields and enable them
+        self.guarantorName.clear()
+        self.guarantorType.setCurrentText("[Select]")
+        self.guarantorRelation.setCurrentText("[Select]")
+        self.guarantorSearchButton.setEnabled(True)
+        self.guarantorType.setEnabled(True)
+        self.guarantorRelation.setEnabled(True)
+        self.guarantorSaveButton.setEnabled(True)
+
+        self.guarantor_uid = None  # Reset selected guarantor UID
+
+    def on_guarantor_save_clicked(self):
+        # Check if all fields are filled correctly
+        if not self.guarantorName.text():
+            QMessageBox.warning(self, "Warning", "Guarantor Name is required.")
+            return
+
+        if self.guarantorType.currentText() == "[Select]" or self.guarantorRelation.currentText() == "[Select]":
+            QMessageBox.warning(self, "Warning", "Please select Guarantor Type and Relation.")
+            return
+
+        # Save guarantor information in the Firestore database
+        if self.existing_loan_id:
+            loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+            loan_doc = loan_ref.get()
+            loan_data = loan_doc.to_dict()
+
+            guarantor_info = {
+                "name": self.guarantorName.text(),
+                "type": self.guarantorType.currentText(),
+                "relation": self.guarantorRelation.currentText(),
+                "uid": self.guarantor_uid
+            }
+
+            # Check if the guarantor with the same UID already exists
+            if "guarantors" in loan_data and any(guarantor["uid"] == self.guarantor_uid for guarantor in loan_data["guarantors"]):
+                QMessageBox.warning(self, "Warning", "This guarantor has already been added.")
+                return
+
+            if loan_data:
+                if "guarantors" not in loan_data:
+                    loan_data["guarantors"] = []
+                
+                loan_data["guarantors"].append(guarantor_info)
+
+                loan_ref.update(loan_data)
+                QMessageBox.information(self, "Success", "Guarantor information saved successfully.")
 
     def check_existing_customer_loan(self):
         if not self.customer_uid:
@@ -170,8 +277,6 @@ class LoanWindow(QMainWindow):
         self.customerDateOfBirth.clear()
         self.loanAmount.clear()
         self.interestRate.clear()
-        self.loanType.clear()
-        self.paymentDueDate.clear()
         self.checkBoxMale.setChecked(False)
         self.checkBoxFemale.setChecked(False)
         self.loanNumber.clear()
@@ -181,6 +286,10 @@ class LoanWindow(QMainWindow):
         self.customer_uid = None  # Clear the stored customer UID
         self.paidButton.setEnabled(False)  # Disable paidButton when fields are cleared
         self.deleteButton.setEnabled(False)  # Disable deleteButton when fields are cleared
+        self.guarantorSearchButton.setEnabled(False)  # Disable guarantor search button when fields are cleared
+        self.guarantorType.setEnabled(False)  # Disable guarantorType combobox
+        self.guarantorRelation.setEnabled(False)  # Disable guarantorRelation combobox
+        self.guarantorName.clear()
 
     def closeEvent(self, event):
         if self.customerName.text():
@@ -266,6 +375,12 @@ class LoanWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while saving the loan: {e}")
 
+        # Enable the guarantor search button and buttons after saving the loan
+        self.guarantorNewButton.setEnabled(True)
+        self.guarantorSaveButton.setEnabled(False)
+        self.guarantorEditButton.setEnabled(True)
+        self.guarantorDeleteButton.setEnabled(True)
+
     def calculate_loan_schedule(self):
         if not self.customerName.text():
             QMessageBox.warning(self, "Warning", "Please select a customer before calculating.")
@@ -325,6 +440,69 @@ class LoanWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An unexpected error occurred: {e}")
 
+    def display_schedule(self, df: pd.DataFrame):
+        df_with_status = df.copy()
+
+        if 'Status' not in df_with_status.columns:
+            df_with_status['Status'] = 0  # Default all statuses to 'Scheduled'
+
+        df_with_status['Status'] = df_with_status['Status'].apply(lambda x: 'Scheduled' if x == 0 else 'Paid')
+
+        # Remove 'Remaining Balance' column if it exists in the repayment table
+        if 'Remaining Balance' in df_with_status.columns:
+            df_with_status = df_with_status.drop(columns=['Remaining Balance'])
+
+        # Remove 'Total' row if it exists
+        if 'Total' in df_with_status['Payment Date'].values:
+            df_with_status = df_with_status[df_with_status['Payment Date'] != 'Total']
+
+        cols = df_with_status.columns.tolist()
+        status_idx = cols.index('Payment Date') + 1
+        cols.insert(status_idx, cols.pop(cols.index('Status')))
+        df_with_status = df_with_status[cols]
+
+        vertical_header = [str(i) for i in df['Period'].values]
+        df_loan_table = df.drop(columns=['Period'])
+        df_with_status = df_with_status.drop(columns=['Period'])
+
+        def format_number(value):
+            try:
+                return "{:,}".format(int(value))
+            except ValueError:
+                return value
+
+        for column in df_loan_table.columns:
+            df_loan_table[column] = df_loan_table[column].apply(format_number)
+
+        for column in df_with_status.columns:
+            df_with_status[column] = df_with_status[column].apply(format_number)
+
+        model_loan_table = QStandardItemModel(df_loan_table.shape[0], df_loan_table.shape[1])
+        model_loan_table.setHorizontalHeaderLabels(df_loan_table.columns.tolist())
+        model_loan_table.setVerticalHeaderLabels(vertical_header)
+
+        for row in range(df_loan_table.shape[0]):
+            for col in range(df_loan_table.shape[1]):
+                item = QStandardItem(df_loan_table.iat[row, col])
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                model_loan_table.setItem(row, col, item)
+
+        model_repayment_table = QStandardItemModel(df_with_status.shape[0], df_with_status.shape[1])
+        model_repayment_table.setHorizontalHeaderLabels(df_with_status.columns.tolist())
+        model_repayment_table.setVerticalHeaderLabels(vertical_header)
+
+        for row in range(df_with_status.shape[0]):
+            for col in range(df_with_status.shape[1]):
+                item = QStandardItem(df_with_status.iat[row, col])
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                model_repayment_table.setItem(row, col, item)
+
+        self.loanScheduleTable.setModel(model_loan_table)
+        self.loanScheduleTable.resizeColumnsToContents()
+
+        self.repaymentScheduleTable.setModel(model_repayment_table)
+        self.repaymentScheduleTable.resizeColumnsToContents()
+
     def update_other_tabs(self):
         self.guarantorLoanNumber.setText(self.loanNumber.text())
         self.collateralLoanNumber.setText(self.loanNumber.text())
@@ -363,180 +541,6 @@ class LoanWindow(QMainWindow):
         self.collateralRepaymentCycle.setText(self.loanRepaymentCycle.currentText())
         self.counselingRepaymentCycle.setText(self.loanRepaymentCycle.currentText())
 
-    def display_schedule(self, df: pd.DataFrame):
-        df_with_status = df.copy()
-
-        # Check if 'Status' column exists, if not, create and set all to 0 (Scheduled)
-        if 'Status' not in df_with_status.columns:
-            df_with_status['Status'] = 0  # Default all statuses to 'Scheduled'
-
-        # Convert Status column values to 'Scheduled' or 'Paid'
-        df_with_status['Status'] = df_with_status['Status'].apply(lambda x: 'Scheduled' if x == 0 else 'Paid')
-
-        # Remove 'Remaining Balance' column if it exists in the repayment table
-        if 'Remaining Balance' in df_with_status.columns:
-            df_with_status = df_with_status.drop(columns=['Remaining Balance'])
-
-        # Remove 'Total' row if it exists
-        if 'Total' in df_with_status['Payment Date'].values:
-            df_with_status = df_with_status[df_with_status['Payment Date'] != 'Total']
-
-        # Reorder the columns to have Status right next to the Payment Date column in the repayment table
-        cols = df_with_status.columns.tolist()
-        status_idx = cols.index('Payment Date') + 1
-        cols.insert(status_idx, cols.pop(cols.index('Status')))
-        df_with_status = df_with_status[cols]
-
-        # Prepare the vertical header for both tables (without modifying Period)
-        vertical_header = [str(i) for i in df['Period'].values]
-
-        # Drop the Period column from the DataFrame before display
-        df_loan_table = df.drop(columns=['Period'])
-        df_with_status = df_with_status.drop(columns=['Period'])
-
-        # Define a function to format numbers with commas
-        def format_number(value):
-            try:
-                return "{:,}".format(int(value))
-            except ValueError:
-                return value
-
-        # Apply formatting to all numerical columns
-        for column in df_loan_table.columns:
-            df_loan_table[column] = df_loan_table[column].apply(format_number)
-
-        for column in df_with_status.columns:
-            df_with_status[column] = df_with_status[column].apply(format_number)
-
-        # Model for loanScheduleTable (without Status)
-        model_loan_table = QStandardItemModel(df_loan_table.shape[0], df_loan_table.shape[1])
-        model_loan_table.setHorizontalHeaderLabels(df_loan_table.columns.tolist())
-        model_loan_table.setVerticalHeaderLabels(vertical_header)
-
-        for row in range(df_loan_table.shape[0]):
-            for col in range(df_loan_table.shape[1]):
-                item = QStandardItem(df_loan_table.iat[row, col])
-                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
-                model_loan_table.setItem(row, col, item)
-
-        # Model for repaymentScheduleTable (with Status, no Remaining Balance and no Total row)
-        model_repayment_table = QStandardItemModel(df_with_status.shape[0], df_with_status.shape[1])
-        model_repayment_table.setHorizontalHeaderLabels(df_with_status.columns.tolist())
-        model_repayment_table.setVerticalHeaderLabels(vertical_header)
-
-        for row in range(df_with_status.shape[0]):
-            for col in range(df_with_status.shape[1]):
-                item = QStandardItem(df_with_status.iat[row, col])
-                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
-                model_repayment_table.setItem(row, col, item)
-
-        # Set the model for loanScheduleTable (without Status)
-        self.loanScheduleTable.setModel(model_loan_table)
-        self.loanScheduleTable.resizeColumnsToContents()
-
-        # Set the model for repaymentScheduleTable (with Status, no Remaining Balance and no Total row)
-        self.repaymentScheduleTable.setModel(model_repayment_table)
-        self.repaymentScheduleTable.resizeColumnsToContents()
-
-    def handle_table_click(self, index):
-        if index.isValid():
-            self.selected_row = index.row()
-            model = index.model()
-            status_value = model.data(model.index(self.selected_row, 1))
-
-            if status_value == "Scheduled":
-                self.paidButton.setEnabled(True)
-            else:
-                self.paidButton.setEnabled(False)
-
-    def handle_received_table_click(self, index):
-        if index.isValid():
-            self.selected_received_row = index.row()
-            self.deleteButton.setEnabled(True)
-            self.receivedTable.selectRow(self.selected_received_row)
-
-    def load_data_into_tables(self):
-        if not self.existing_loan_id:
-            return
-
-        loan_ref = DB.collection("Loan").document(self.existing_loan_id)
-        loan_doc = loan_ref.get()
-        loan_data = loan_doc.to_dict()
-
-        if loan_data and "loanSchedule" in loan_data:
-            repayment_data = []
-            received_data = []
-
-            # Extract loan schedule and filter out Total row and remove "Remaining Balance" column
-            for i, schedule in enumerate(loan_data["loanSchedule"]):
-                # Exclude the last Total row by checking the index
-                if i == len(loan_data["loanSchedule"]) - 1:
-                    continue
-                
-                # Remove "Remaining Balance" from schedule if it exists
-                schedule.pop("Remaining Balance", None)
-                
-                if schedule["status"] == 0:  # Scheduled
-                    repayment_data.append(schedule)
-                elif schedule["status"] == 1:  # Paid
-                    received_data.append(schedule)
-
-            # Clear the models before loading new data
-            self.clear_table(self.repaymentScheduleTable)
-            self.clear_table(self.receivedTable)
-
-            # Load repayment data into repaymentScheduleTable (without the last row)
-            if repayment_data:
-                self.load_table(self.repaymentScheduleTable, repayment_data, status_included=True)
-
-            # Load received data into receivedTable
-            if received_data:
-                self.load_table(self.receivedTable, received_data, status_included=True)
-
-    def load_table(self, table, data, status_included=False):
-        if not data:
-            return
-
-        # Define the correct column order excluding "Remaining Balance"
-        column_order = ["Payment Date", "Status", "Principal", "Interest", "Total"]
-
-        model = QStandardItemModel(len(data), len(column_order))
-        model.setHorizontalHeaderLabels(column_order)
-
-        for row_idx, row_data in enumerate(data):
-            period_value = row_data.get("Period", 0)
-
-            # Ensure period_value is an integer
-            try:
-                period_value = int(period_value)
-            except ValueError:
-                period_value = 0  # Handle case where Period might not be convertible
-
-            row_idx = period_value - 1  # Adjust for zero-based index
-
-            for col_idx, column in enumerate(column_order):
-                value = row_data.get(column, "")
-
-                # Handle Status column: if status_included is True and column is Status
-                if column == "Status":
-                    if status_included:
-                        status_value = row_data.get("status", 0)
-                        if status_value == 0:
-                            value = "Scheduled"
-                        elif status_value == 1:
-                            value = "Paid"
-
-                item = QStandardItem(str(value))
-                item.setFlags(item.flags() & ~Qt.ItemIsEditable)  # Make the item non-editable
-                model.setItem(row_idx, col_idx, item)
-
-        table.setModel(model)
-        table.resizeColumnsToContents()
-
-    def clear_table(self, table):
-        model = QStandardItemModel(0, 0)  # Empty model to clear the table
-        table.setModel(model)
-
     def on_paid_button_clicked(self):
         if self.selected_row is not None and self.existing_loan_id:
             loan_ref = DB.collection("Loan").document(self.existing_loan_id)
@@ -569,7 +573,6 @@ class LoanWindow(QMainWindow):
             if loan_data and "loanSchedule" in loan_data:
                 loan_schedule = loan_data["loanSchedule"]
 
-                # Get the Period value of the selected row from receivedTable
                 period_value = self.selected_received_row + 1
 
                 for schedule in loan_schedule:
@@ -581,15 +584,81 @@ class LoanWindow(QMainWindow):
                     if schedule_period == period_value:
                         schedule["status"] = 0  # Update status to 'Scheduled'
 
-                # Update the loan document in Firestore
                 loan_ref.update({"loanSchedule": loan_schedule})
-
-                # Reload the tables to reflect changes
                 self.load_data_into_tables()
 
-                # Reset the selected row and disable the delete button after action
                 self.selected_received_row = None
                 self.deleteButton.setEnabled(False)
+
+    def load_data_into_tables(self):
+        if not self.existing_loan_id:
+            return
+
+        loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+        loan_doc = loan_ref.get()
+        loan_data = loan_doc.to_dict()
+
+        if loan_data and "loanSchedule" in loan_data:
+            repayment_data = []
+            received_data = []
+
+            for schedule in loan_data["loanSchedule"]:
+                schedule.pop("Remaining Balance", None)
+
+                if schedule["status"] == 0:
+                    repayment_data.append(schedule)
+                elif schedule["status"] == 1:
+                    received_data.append(schedule)
+
+            self.clear_table(self.repaymentScheduleTable)
+            self.clear_table(self.receivedTable)
+
+            if repayment_data:
+                self.load_table(self.repaymentScheduleTable, repayment_data, status_included=True)
+
+            if received_data:
+                self.load_table(self.receivedTable, received_data, status_included=True)
+
+    def load_table(self, table, data, status_included=False):
+        if not data:
+            return
+
+        column_order = ["Payment Date", "Status", "Principal", "Interest", "Total"]
+
+        model = QStandardItemModel(len(data), len(column_order))
+        model.setHorizontalHeaderLabels(column_order)
+
+        for row_idx, row_data in enumerate(data):
+            period_value = row_data.get("Period", 0)
+
+            try:
+                period_value = int(period_value)
+            except ValueError:
+                period_value = 0
+
+            row_idx = period_value - 1
+
+            for col_idx, column in enumerate(column_order):
+                value = row_data.get(column, "")
+
+                if column == "Status":
+                    if status_included:
+                        status_value = row_data.get("status", 0)
+                        if status_value == 0:
+                            value = "Scheduled"
+                        elif status_value == 1:
+                            value = "Paid"
+
+                item = QStandardItem(str(value))
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                model.setItem(row_idx, col_idx, item)
+
+        table.setModel(model)
+        table.resizeColumnsToContents()
+
+    def clear_table(self, table):
+        model = QStandardItemModel(0, 0)  # Empty model to clear the table
+        table.setModel(model)
 
 def main():
     app = QApplication(sys.argv)

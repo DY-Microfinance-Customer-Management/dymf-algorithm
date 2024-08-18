@@ -996,24 +996,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="debtDisposalButton">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>50</y>
-        <width>141</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Debt Disposal</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="paidButton">
       <property name="geometry">
        <rect>
@@ -1030,24 +1012,6 @@
       </property>
       <property name="text">
        <string>Paid</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="deductButton">
-      <property name="geometry">
-       <rect>
-        <x>440</x>
-        <y>50</y>
-        <width>91</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Deduct</string>
       </property>
      </widget>
      <widget class="QLabel" name="totalLabel3">
@@ -2962,7 +2926,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="counselingNewButton_3">
+     <widget class="QPushButton" name="collateralNewButton">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -2985,7 +2949,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="counselingSaveButton_3">
+     <widget class="QPushButton" name="collateralSaveButton">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -3025,7 +2989,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="counselingDeleteButton_3">
+     <widget class="QPushButton" name="collateralDeleteButton">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -3081,7 +3045,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="counselingEditButton_3">
+     <widget class="QPushButton" name="collateralEditButton">
       <property name="geometry">
        <rect>
         <x>10</x>
