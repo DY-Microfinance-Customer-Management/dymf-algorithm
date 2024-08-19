@@ -246,7 +246,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1125,31 +1125,6 @@
      <attribute name="title">
       <string>Guarantor Management</string>
      </attribute>
-     <widget class="QTableWidget" name="guarantorTable">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>1411</width>
-        <height>331</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>1251</width>
-        <height>0</height>
-       </size>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>130</number>
-      </attribute>
-     </widget>
      <widget class="QLabel" name="label_120">
       <property name="geometry">
        <rect>
@@ -2148,6 +2123,16 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QTableView" name="guarantorTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>1421</width>
+        <height>331</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -3103,76 +3088,6 @@
      <attribute name="title">
       <string>Counseling Info</string>
      </attribute>
-     <widget class="QTableWidget" name="counselingTable">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>1411</width>
-        <height>331</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>1251</width>
-        <height>0</height>
-       </size>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>150</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string/>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>상담일자</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>수신/발신</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>구분명</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>상담내용</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>조치사항</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>세부내용</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>등록자ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>등록일시</string>
-       </property>
-      </column>
-     </widget>
      <widget class="QLabel" name="label_98">
       <property name="geometry">
        <rect>
@@ -4061,6 +3976,16 @@
       </property>
       <property name="text">
        <string>Save</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="counselingTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>1411</width>
+        <height>331</height>
+       </rect>
       </property>
      </widget>
     </widget>
