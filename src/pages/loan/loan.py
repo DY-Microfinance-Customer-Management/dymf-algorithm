@@ -36,7 +36,7 @@ class LoanWindow(QMainWindow):
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
 
-        self.guarantorNewButton.setEnabled(False)
+        self.guarantorNewButton.setEnabled(True)
         self.guarantorSaveButton.setEnabled(False)
         self.guarantorEditButton.setEnabled(False)
         self.guarantorDeleteButton.setEnabled(False)
@@ -104,7 +104,12 @@ class LoanWindow(QMainWindow):
 
         self.guarantorTable.clicked.connect(self.on_guarantor_table_clicked)
 
-        self.selected_guarantor_row = None  # Track selected row for guarantorTable
+        self.selected_guarantor_row = None
+
+        self.loanDeleteButton.clicked.connect(self.on_loan_delete_clicked)
+        self.loanDeleteButton.setEnabled(False)
+        self.loanNewButton.clicked.connect(self.on_loan_new_button_clicked)
+        self.loanNewButton.setEnabled(False)
 
         self.show()
 
@@ -672,6 +677,7 @@ class LoanWindow(QMainWindow):
         self.loanNumber.setText(new_loan_number)
 
     def clear_all_fields(self):
+        # Customer 정보 초기화
         self.customerName.clear()
         self.customerContact.clear()
         self.customerDateOfBirth.clear()
@@ -681,16 +687,109 @@ class LoanWindow(QMainWindow):
         self.checkBoxFemale.setChecked(False)
         self.loanNumber.clear()
         self.contractDate.setDate(QDate.currentDate())
+        
+        # Loan 관련 정보 초기화
         self.existing_loan_id = None
-        self.set_read_only(True)
         self.customer_uid = None
-        self.paidButton.setEnabled(False)
-        self.deleteButton.setEnabled(False)
+        self.expiry.clear()
+        self.set_read_only(True)
+
+        # Repayment 및 Received 테이블 초기화
+        self.clear_table(self.repaymentScheduleTable)
+        self.clear_table(self.receivedTable)
+        self.clear_table(self.loanScheduleTable)
+        
+        # Guarantor 정보 초기화
+        self.guarantorName.clear()
+        self.guarantorType.setCurrentText("[Select]")
+        self.guarantorRelation.setCurrentText("[Select]")
+        self.guarantor_uid = None
+        self.clear_table(self.guarantorTable)
+
+        # Guarantor 버튼 및 필드 초기화
         self.guarantorSearchButton.setEnabled(False)
         self.guarantorType.setEnabled(False)
         self.guarantorRelation.setEnabled(False)
-        self.guarantorName.clear()
+        self.guarantorSaveButton.setEnabled(False)
+        self.guarantorEditButton.setEnabled(False)
+        self.guarantorDeleteButton.setEnabled(False)
+        self.guarantorNewButton.setEnabled(False)
 
+        # Collateral 정보 초기화
+        self.collateralType.setCurrentText("[Select]")
+        self.collateralName.clear()
+        self.collateralDetails.clear()
+        self.clear_table(self.collateralTable)
+
+        # Collateral 버튼 및 필드 초기화
+        self.collateralType.setEnabled(False)
+        self.collateralName.setEnabled(False)
+        self.collateralDetails.setEnabled(False)
+        self.collateralSaveButton.setEnabled(False)
+        self.collateralEditButton.setEnabled(False)
+        self.collateralDeleteButton.setEnabled(False)
+        self.collateralNewButton.setEnabled(False)
+
+        # Counseling 정보 초기화
+        self.counselingDate.setDate(QDate.currentDate())
+        self.counselingSubject.clear()
+        self.counselingDetails.clear()
+        self.counselingCorrectiveMeasure.clear()
+        self.clear_table(self.counselingTable)
+
+        # Counseling 버튼 및 필드 초기화
+        self.counselingDate.setEnabled(False)
+        self.counselingSubject.setEnabled(False)
+        self.counselingDetails.setEnabled(False)
+        self.counselingCorrectiveMeasure.setEnabled(False)
+        self.counselingSaveButton.setEnabled(False)
+        self.counselingEditButton.setEnabled(False)
+        self.counselingDeleteButton.setEnabled(False)
+        self.counselingNewButton.setEnabled(False)
+
+        # Loan 관련 버튼 및 필드 초기화
+        self.paidButton.setEnabled(False)
+        self.deleteButton.setEnabled(False)
+        self.loanNewButton.setEnabled(False)
+        self.loanDeleteButton.setEnabled(False)
+
+        # Loan 상태 라벨 초기화
+        self.guarantorLoanNumber.clear()
+        self.collateralLoanNumber.clear()
+        self.counselingLoanNumber.clear()
+
+        self.guarantorLoanStatus.clear()
+        self.collateralLoanStatus.clear()
+        self.counselingLoanStatus.clear()
+
+        self.guarantorLoanOfficer.clear()
+        self.collateralLoanOfficer.clear()
+        self.counselingLoanOfficer.clear()
+
+        self.guarantorContractDate.clear()
+        self.collateralContractDate.clear()
+        self.counselingContractDate.clear()
+
+        self.guarantorLoanType.clear()
+        self.collateralLoanType.clear()
+        self.counselingLoanType.clear()
+
+        self.guarantorLoanAmount.clear()
+        self.collateralLoanAmount.clear()
+        self.counselingLoanAmount.clear()
+
+        self.guarantorInterestRate.clear()
+        self.collateralInterestRate.clear()
+        self.counselingInterestRate.clear()
+
+        self.guarantorExpiry.clear()
+        self.collateralExpiry.clear()
+        self.counselingExpiry.clear()
+
+        self.guarantorRepaymentCycle.clear()
+        self.collateralRepaymentCycle.clear()
+        self.counselingRepaymentCycle.clear()
+    
     def closeEvent(self, event):
         if self.customerName.text():
             reply = QMessageBox.question(
@@ -753,31 +852,32 @@ class LoanWindow(QMainWindow):
             "loanRepaymentCycle": self.loanRepaymentCycle.currentText(),
             "loanNumber": self.loanNumber.text(),
             "contractDate": self.contractDate.date().toString("yyyy-MM-dd"),
-            "loanStatus": self.loanStatus.currentText()
+            "loanStatus": self.loanStatus.currentText(),
+            # loan_id 필드를 추가
+            "loan_id": self.existing_loan_id if self.existing_loan_id else None
         }
 
         if hasattr(self, 'schedule_df'):
             loan_schedule = self.schedule_df.to_dict(orient="records")
-
             for schedule_item in loan_schedule:
-                schedule_item['status'] = 0
-
+                schedule_item['status'] = 0  # 초기 상태를 'Scheduled'로 설정
             loan_info["loanSchedule"] = loan_schedule
 
         try:
             if self.existing_loan_id:
+                # 기존 loan 업데이트 시 loan_id 추가
+                loan_info["loan_id"] = self.existing_loan_id
                 DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
             else:
+                # 새 loan 생성 시 loan_id 추가
                 doc_ref = DB.collection("Loan").add(loan_info)
                 self.existing_loan_id = doc_ref[1].id
+                loan_info["loan_id"] = self.existing_loan_id
+                # loan_id를 포함하여 문서 업데이트
+                DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while saving the loan: {e}")
-
-        self.guarantorNewButton.setEnabled(True)
-        self.guarantorSaveButton.setEnabled(False)
-        self.guarantorEditButton.setEnabled(True)
-        self.guarantorDeleteButton.setEnabled(True)
 
     def calculate_loan_schedule(self):
         if not self.customerName.text():
@@ -833,10 +933,68 @@ class LoanWindow(QMainWindow):
             self.display_schedule(self.schedule_df)
             self.update_other_tabs()
 
+            # loanNewButton을 활성화
+            self.loanNewButton.setEnabled(True)
+
         except ValueError as e:
             QMessageBox.critical(self, "Error", f"Invalid input: {e}")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An unexpected error occurred: {e}")
+
+    def on_loan_new_button_clicked(self):
+        reply = QMessageBox.question(
+            self,
+            "New Schedule",
+            "Do you want to create a new schedule?",
+            QMessageBox.Ok | QMessageBox.Cancel
+        )
+
+        if reply == QMessageBox.Ok:
+            self.clear_all_fields()  # 모든 상태를 초기화
+
+            # 필요한 버튼, 필드 상태 비활성화
+            self.loanNewButton.setEnabled(False)
+            self.loanDeleteButton.setEnabled(False)
+            self.guarantorNewButton.setEnabled(False)
+            self.guarantorSaveButton.setEnabled(False)
+            self.guarantorEditButton.setEnabled(False)
+            self.guarantorDeleteButton.setEnabled(False)
+            self.collateralNewButton.setEnabled(False)
+            self.collateralSaveButton.setEnabled(False)
+            self.collateralEditButton.setEnabled(False)
+            self.collateralDeleteButton.setEnabled(False)
+            self.counselingNewButton.setEnabled(False)
+            self.counselingSaveButton.setEnabled(False)
+            self.counselingEditButton.setEnabled(False)
+            self.counselingDeleteButton.setEnabled(False)
+
+            QMessageBox.information(self, "Success", "All fields have been reset.")
+
+    def on_loan_delete_clicked(self):
+        reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to delete?', QMessageBox.Ok | QMessageBox.Cancel)
+
+        if reply == QMessageBox.Ok:
+            # DB에서 해당 loan document 삭제
+            if self.existing_loan_id:
+                loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+                try:
+                    loan_ref.delete()
+                    QMessageBox.information(self, "Success", "Loan document deleted successfully.")
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"An error occurred while deleting the loan: {e}")
+            
+            # 초기 상태로 되돌리기
+            self.clear_all_fields()
+            self.loanDeleteButton.setEnabled(False)
+            self.guarantorNewButton.setEnabled(False)
+            self.guarantorEditButton.setEnabled(False)
+            self.guarantorDeleteButton.setEnabled(False)
+            self.collateralNewButton.setEnabled(False)
+            self.collateralEditButton.setEnabled(False)
+            self.collateralDeleteButton.setEnabled(False)
+            self.counselingNewButton.setEnabled(False)
+            self.counselingEditButton.setEnabled(False)
+            self.counselingDeleteButton.setEnabled(False)
 
     def display_schedule(self, df: pd.DataFrame):
         df_with_status = df.copy()
