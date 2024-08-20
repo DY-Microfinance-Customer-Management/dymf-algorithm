@@ -41,10 +41,21 @@ class LoanWindow(QMainWindow):
         self.guarantorEditButton.setEnabled(False)
         self.guarantorDeleteButton.setEnabled(False)
 
-        self.collateralNewButton.setEnabled(False)
+        # Initialize buttons for collateral
+        self.collateralNewButton.clicked.connect(self.on_collateral_new_clicked)
+        self.collateralSaveButton.clicked.connect(self.on_collateral_save_clicked)
+        self.collateralEditButton.clicked.connect(self.on_collateral_edit_clicked)
+        self.collateralDeleteButton.clicked.connect(self.on_collateral_delete_clicked)
+        self.collateralTable.clicked.connect(self.on_collateral_table_clicked)
+
+        # Disable buttons initially for collateral
+        self.collateralNewButton.setEnabled(True)
         self.collateralSaveButton.setEnabled(False)
         self.collateralEditButton.setEnabled(False)
         self.collateralDeleteButton.setEnabled(False)
+
+        # Disable fields initially for collateral
+        self.clear_collateral_fields()
 
         # Initialize buttons for counseling
         self.counselingNewButton.clicked.connect(self.on_counseling_new_clicked)
@@ -197,7 +208,6 @@ class LoanWindow(QMainWindow):
             self.receivedTable.selectRow(self.selected_received_row)
 
     def on_guarantor_new_clicked(self):
-        # 초기화 및 새로운 보증인 등록을 위한 준비
         self.guarantorName.clear()
         self.guarantorType.setCurrentText("[Select]")
         self.guarantorRelation.setCurrentText("[Select]")
@@ -206,11 +216,10 @@ class LoanWindow(QMainWindow):
         self.guarantorRelation.setEnabled(True)
         self.guarantorSaveButton.setEnabled(True)
 
-        self.guarantor_uid = None  # 새로운 보증인 등록을 위해 초기화
-        self.is_edit_mode = False  # 신규 모드로 설정
+        self.guarantor_uid = None
+        self.is_edit_mode = False
 
     def on_guarantor_edit_clicked(self):
-        # 편집 모드 활성화
         self.guarantorSearchButton.setEnabled(True)
         self.guarantorType.setEnabled(True)
         self.guarantorRelation.setEnabled(True)
@@ -242,11 +251,9 @@ class LoanWindow(QMainWindow):
         }
 
         if not self.is_edit_mode:
-            # 신규 보증인 추가
             if "guarantors" not in loan_data:
                 loan_data["guarantors"] = []
 
-            # 이미 존재하는 보증인인지 확인
             if any(guarantor["uid"] == self.guarantor_uid for guarantor in loan_data["guarantors"]):
                 QMessageBox.warning(self, "Warning", "This guarantor has already been added.")
                 return
@@ -254,21 +261,17 @@ class LoanWindow(QMainWindow):
             loan_data["guarantors"].append(guarantor_info)
             QMessageBox.information(self, "Success", "Guarantor added successfully.")
         else:
-            # 기존 보증인 수정
             if self.selected_guarantor_row is not None and self.selected_guarantor_row < len(loan_data["guarantors"]):
-                loan_data["guarantors"][self.selected_guarantor_row] = guarantor_info  # 수정된 데이터를 업데이트
+                loan_data["guarantors"][self.selected_guarantor_row] = guarantor_info
                 QMessageBox.information(self, "Success", "Guarantor updated successfully.")
             else:
                 QMessageBox.warning(self, "Error", "Selected row is out of bounds.")
                 return
 
-        # Firestore 업데이트
         loan_ref.update({"guarantors": loan_data["guarantors"]})
 
-        # 테이블 다시 로드
         self.load_guarantor_table(loan_data["guarantors"])
 
-        # 초기화 및 비활성화
         self.guarantorName.clear()
         self.guarantorType.setCurrentText("[Select]")
         self.guarantorRelation.setCurrentText("[Select]")
@@ -294,12 +297,10 @@ class LoanWindow(QMainWindow):
                 reply = QMessageBox.question(self, 'Confirm', f"Are you sure you want to delete '{guarantors[self.selected_guarantor_row]['name']}'?", QMessageBox.Yes | QMessageBox.No)
                 
                 if reply == QMessageBox.Yes:
-                    # 선택된 보증인 삭제
                     deleted_guarantor = guarantors.pop(self.selected_guarantor_row)
                     loan_ref.update({"guarantors": guarantors})
                     QMessageBox.information(self, "Success", f"Guarantor '{deleted_guarantor['name']}' deleted successfully.")
 
-                    # 테이블 다시 로드
                     self.load_guarantor_table(guarantors)
                     self.selected_guarantor_row = None
                     self.guarantorDeleteButton.setEnabled(False)
@@ -322,7 +323,6 @@ class LoanWindow(QMainWindow):
         self.guarantorTable.resizeColumnsToContents()
 
     def load_guarantors_to_table(self):
-        # Load guarantors data from the database into the guarantorTable
         if self.existing_loan_id:
             loan_ref = DB.collection("Loan").document(self.existing_loan_id)
             loan_doc = loan_ref.get()
@@ -331,25 +331,20 @@ class LoanWindow(QMainWindow):
             if loan_data and "guarantors" in loan_data:
                 guarantor_data = loan_data["guarantors"]
 
-                # Clear the guarantorTable before loading data
                 self.clear_table(self.guarantorTable)
 
-                # Define the column order for the table
                 column_order = ["name", "type", "relation"]
 
-                # Create a new model for the guarantorTable
                 model = QStandardItemModel(len(guarantor_data), len(column_order))
                 model.setHorizontalHeaderLabels(["Name", "Type", "Relation"])
 
-                # Populate the model with data from the guarantors
                 for row_idx, guarantor in enumerate(guarantor_data):
                     for col_idx, column in enumerate(column_order):
                         value = guarantor.get(column, "")
                         item = QStandardItem(str(value))
-                        item.setFlags(item.flags() & ~Qt.ItemIsEditable)  # Make the item non-editable
+                        item.setFlags(item.flags() & ~Qt.ItemIsEditable)
                         model.setItem(row_idx, col_idx, item)
 
-                # Set the model for the guarantorTable and resize columns
                 self.guarantorTable.setModel(model)
                 self.guarantorTable.resizeColumnsToContents()
 
@@ -357,18 +352,145 @@ class LoanWindow(QMainWindow):
         if index.isValid():
             self.selected_guarantor_row = index.row()
             
-            # 보증인 테이블에서 데이터 선택 시 버튼 활성화
             self.guarantorEditButton.setEnabled(True)
             self.guarantorDeleteButton.setEnabled(True)
             
-            # 선택된 데이터를 각 필드에 표시
             model = self.guarantorTable.model()
             self.guarantorName.setText(model.index(self.selected_guarantor_row, 0).data())
             self.guarantorType.setCurrentText(model.index(self.selected_guarantor_row, 1).data())
             self.guarantorRelation.setCurrentText(model.index(self.selected_guarantor_row, 2).data())
 
+    def on_collateral_new_clicked(self):
+        # Enable fields for new collateral entry
+        self.collateralType.setCurrentText("[Select]")
+        self.collateralName.clear()
+        self.collateralDetails.clear()
+
+        self.collateralType.setEnabled(True)
+        self.collateralName.setEnabled(True)
+        self.collateralDetails.setEnabled(True)
+        self.collateralSaveButton.setEnabled(True)
+
+        self.selected_collateral_row = None  # Reset selected row for collateral
+
+    def on_collateral_save_clicked(self):
+        collateral_info = {
+            "type": self.collateralType.currentText(),
+            "name": self.collateralName.text(),
+            "details": self.collateralDetails.text()
+        }
+
+        # Validate fields
+        if collateral_info["type"] == "[Select]" or not collateral_info["name"] or not collateral_info["details"]:
+            QMessageBox.warning(self, "Warning", "Please fill in all collateral fields.")
+            return
+
+        if not self.existing_loan_id:
+            QMessageBox.critical(self, "Error", "Loan ID is missing.")
+            return
+
+        loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+        loan_doc = loan_ref.get()
+        loan_data = loan_doc.to_dict()
+
+        if loan_data:
+            if "collaterals" not in loan_data:
+                loan_data["collaterals"] = []
+
+            if self.selected_collateral_row is not None:
+                # Edit existing collateral entry
+                loan_data["collaterals"][self.selected_collateral_row] = collateral_info
+            else:
+                # Add new collateral entry
+                loan_data["collaterals"].append(collateral_info)
+
+            loan_ref.update(loan_data)
+            QMessageBox.information(self, "Success", "Collateral information saved successfully.")
+            self.load_collateral_data()
+
+        # Clear and disable fields after saving
+        self.clear_collateral_fields()
+
+    def on_collateral_edit_clicked(self):
+        if self.selected_collateral_row is not None:
+            # Enable fields for editing
+            self.collateralType.setEnabled(True)
+            self.collateralName.setEnabled(True)
+            self.collateralDetails.setEnabled(True)
+            self.collateralSaveButton.setEnabled(True)
+
+    def on_collateral_delete_clicked(self):
+        if self.selected_collateral_row is not None and self.existing_loan_id:
+            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to delete this collateral?', QMessageBox.Yes | QMessageBox.No)
+            if reply == QMessageBox.Yes:
+                loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+                loan_doc = loan_ref.get()
+                loan_data = loan_doc.to_dict()
+
+                if loan_data and "collaterals" in loan_data:
+                    del loan_data["collaterals"][self.selected_collateral_row]
+                    loan_ref.update(loan_data)
+                    QMessageBox.information(self, "Success", "Collateral entry deleted successfully.")
+                    self.load_collateral_data()
+
+                    # Disable buttons and clear fields after deleting
+                    self.collateralEditButton.setEnabled(False)
+                    self.collateralDeleteButton.setEnabled(False)
+                    self.clear_collateral_fields()
+
+    def load_collateral_data(self):
+        if self.existing_loan_id:
+            loan_ref = DB.collection("Loan").document(self.existing_loan_id)
+            loan_doc = loan_ref.get()
+            loan_data = loan_doc.to_dict()
+
+            if loan_data and "collaterals" in loan_data:
+                collateral_data = loan_data["collaterals"]
+
+                self.clear_table(self.collateralTable)
+
+                # Load data into collateralTable
+                self.load_collateral_table(self.collateralTable, collateral_data, columns=["Type", "Name", "Details"])
+
+    def clear_collateral_fields(self):
+        self.collateralType.setCurrentText("[Select]")
+        self.collateralName.clear()
+        self.collateralDetails.clear()
+
+        self.collateralType.setEnabled(False)
+        self.collateralName.setEnabled(False)
+        self.collateralDetails.setEnabled(False)
+        self.collateralSaveButton.setEnabled(False)
+
+    def on_collateral_table_clicked(self, index):
+        if index.isValid():
+            self.selected_collateral_row = index.row()
+
+            # Enable edit and delete buttons when a row is selected
+            self.collateralEditButton.setEnabled(True)
+            self.collateralDeleteButton.setEnabled(True)
+
+            # Display selected data in the fields
+            model = self.collateralTable.model()
+            self.collateralType.setCurrentText(model.index(self.selected_collateral_row, 0).data())
+            self.collateralName.setText(model.index(self.selected_collateral_row, 1).data())
+            self.collateralDetails.setText(model.index(self.selected_collateral_row, 2).data())
+
+    def load_collateral_table(self, table, data, columns):
+        model = QStandardItemModel(len(data), len(columns))
+        model.setHorizontalHeaderLabels(columns)
+
+        for row_idx, row_data in enumerate(data):
+            for col_idx, column in enumerate(columns):
+                value = row_data.get(column.lower(), "")
+                item = QStandardItem(str(value))
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                model.setItem(row_idx, col_idx, item)
+
+        table.setModel(model)
+        table.resizeColumnsToContents()
+
     def on_counseling_new_clicked(self):
-        # Enable fields for new counseling entry
         self.counselingDate.setDate(QDate.currentDate())
         self.counselingSubject.clear()
         self.counselingDetails.clear()
@@ -380,7 +502,7 @@ class LoanWindow(QMainWindow):
         self.counselingCorrectiveMeasure.setEnabled(True)
         self.counselingSaveButton.setEnabled(True)
 
-        self.selected_counseling_row = None  # Reset selected row
+        self.selected_counseling_row = None
 
     def on_counseling_save_clicked(self):
         counseling_info = {
@@ -408,22 +530,18 @@ class LoanWindow(QMainWindow):
                 loan_data["counselings"] = []
 
             if self.selected_counseling_row is not None:
-                # Edit existing counseling entry
                 loan_data["counselings"][self.selected_counseling_row] = counseling_info
             else:
-                # Add new counseling entry
                 loan_data["counselings"].append(counseling_info)
 
             loan_ref.update(loan_data)
             QMessageBox.information(self, "Success", "Counseling information saved successfully.")
             self.load_counseling_data()
 
-        # Clear and disable fields after saving
         self.clear_counseling_fields()
 
     def on_counseling_edit_clicked(self):
         if self.selected_counseling_row is not None:
-            # Enable fields for editing
             self.counselingDate.setEnabled(True)
             self.counselingSubject.setEnabled(True)
             self.counselingDetails.setEnabled(True)
@@ -444,7 +562,6 @@ class LoanWindow(QMainWindow):
                     QMessageBox.information(self, "Success", "Counseling entry deleted successfully.")
                     self.load_counseling_data()
 
-                    # Disable buttons and clear fields after deleting
                     self.counselingEditButton.setEnabled(False)
                     self.counselingDeleteButton.setEnabled(False)
                     self.clear_counseling_fields()
@@ -460,7 +577,6 @@ class LoanWindow(QMainWindow):
 
                 self.clear_table(self.counselingTable)
 
-                # Load data into counselingTable
                 self.load_counseling_table(self.counselingTable, counseling_data, columns=["Date", "Subject", "Details", "Corrective Measure"])
 
     def clear_counseling_fields(self):
@@ -479,11 +595,9 @@ class LoanWindow(QMainWindow):
         if index.isValid():
             self.selected_counseling_row = index.row()
 
-            # Enable edit and delete buttons when a row is selected
             self.counselingEditButton.setEnabled(True)
             self.counselingDeleteButton.setEnabled(True)
 
-            # Display selected data in the fields
             model = self.counselingTable.model()
             self.counselingDate.setDate(QDate.fromString(model.index(self.selected_counseling_row, 0).data(), "yyyy-MM-dd"))
             self.counselingSubject.setText(model.index(self.selected_counseling_row, 1).data())
@@ -567,14 +681,14 @@ class LoanWindow(QMainWindow):
         self.checkBoxFemale.setChecked(False)
         self.loanNumber.clear()
         self.contractDate.setDate(QDate.currentDate())
-        self.existing_loan_id = None  # Reset the existing loan tracking
+        self.existing_loan_id = None
         self.set_read_only(True)
-        self.customer_uid = None  # Clear the stored customer UID
-        self.paidButton.setEnabled(False)  # Disable paidButton when fields are cleared
-        self.deleteButton.setEnabled(False)  # Disable deleteButton when fields are cleared
-        self.guarantorSearchButton.setEnabled(False)  # Disable guarantor search button when fields are cleared
-        self.guarantorType.setEnabled(False)  # Disable guarantorType combobox
-        self.guarantorRelation.setEnabled(False)  # Disable guarantorRelation combobox
+        self.customer_uid = None
+        self.paidButton.setEnabled(False)
+        self.deleteButton.setEnabled(False)
+        self.guarantorSearchButton.setEnabled(False)
+        self.guarantorType.setEnabled(False)
+        self.guarantorRelation.setEnabled(False)
         self.guarantorName.clear()
 
     def closeEvent(self, event):
@@ -605,7 +719,7 @@ class LoanWindow(QMainWindow):
         query = loans_ref.where("loanNumber", "==", loan_number).get()
 
         if len(query) > 0:
-            self.existing_loan_id = query[0].id  # Store the document ID to update later
+            self.existing_loan_id = query[0].id
             reply = QMessageBox.question(
                 self,
                 'Confirm',
@@ -646,7 +760,7 @@ class LoanWindow(QMainWindow):
             loan_schedule = self.schedule_df.to_dict(orient="records")
 
             for schedule_item in loan_schedule:
-                schedule_item['status'] = 0  # 초기 상태를 'Scheduled'로 설정
+                schedule_item['status'] = 0
 
             loan_info["loanSchedule"] = loan_schedule
 
@@ -654,14 +768,12 @@ class LoanWindow(QMainWindow):
             if self.existing_loan_id:
                 DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
             else:
-                # 새 대출 등록시 생성된 loan_id를 설정
                 doc_ref = DB.collection("Loan").add(loan_info)
-                self.existing_loan_id = doc_ref[1].id  # 새로 생성된 문서의 ID를 저장
+                self.existing_loan_id = doc_ref[1].id
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while saving the loan: {e}")
 
-        # Enable the guarantor search button and buttons after saving the loan
         self.guarantorNewButton.setEnabled(True)
         self.guarantorSaveButton.setEnabled(False)
         self.guarantorEditButton.setEnabled(True)
@@ -730,7 +842,7 @@ class LoanWindow(QMainWindow):
         df_with_status = df.copy()
 
         if 'Status' not in df_with_status.columns:
-            df_with_status['Status'] = 0  # Default all statuses to 'Scheduled'
+            df_with_status['Status'] = 0
 
         df_with_status['Status'] = df_with_status['Status'].apply(lambda x: 'Scheduled' if x == 0 else 'Paid')
 

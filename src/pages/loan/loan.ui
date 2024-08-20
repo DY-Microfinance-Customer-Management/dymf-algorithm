@@ -246,7 +246,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1146,7 +1146,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string>Guarantor Name</string>
+       <string>Name</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1173,7 +1173,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string>Guarantor Type</string>
+       <string>Type</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2138,61 +2138,6 @@
      <attribute name="title">
       <string>Collateral Management</string>
      </attribute>
-     <widget class="QTableWidget" name="collateralTable">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>1411</width>
-        <height>331</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>1251</width>
-        <height>0</height>
-       </size>
-      </property>
-      <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderCascadingSectionResizes">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>200</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>담보종류</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>담보명</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>담보정보1</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>담보정보2</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>담보정보3</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>담보정보4</string>
-       </property>
-      </column>
-     </widget>
      <widget class="QLabel" name="collateralLoanNumber">
       <property name="geometry">
        <rect>
@@ -2871,26 +2816,26 @@
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="counselingDetails_2">
+     <widget class="QLineEdit" name="collateralDetails">
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>530</y>
+        <y>550</y>
         <width>1111</width>
-        <height>61</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(170, 255, 255)</string>
+       <string notr="true"/>
       </property>
      </widget>
      <widget class="QLabel" name="label_110">
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>530</y>
+        <y>550</y>
         <width>151</width>
-        <height>61</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="font">
@@ -2924,11 +2869,11 @@
        <string>New</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="counselingSubject_2">
+     <widget class="QLineEdit" name="collateralName">
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>500</y>
+        <y>510</y>
         <width>1111</width>
         <height>31</height>
        </rect>
@@ -2951,7 +2896,7 @@
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>500</y>
+        <y>510</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -2968,7 +2913,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string>Subject</string>
+       <string>Name</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2987,49 +2932,6 @@
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QDateEdit" name="counselingDate_2">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>470</y>
-        <width>110</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="locale">
-       <locale language="English" country="UnitedStates"/>
-      </property>
-      <property name="calendarPopup">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_106">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>590</y>
-        <width>151</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string>Corrective Measure</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QPushButton" name="collateralEditButton">
       <property name="geometry">
        <rect>
@@ -3041,19 +2943,6 @@
       </property>
       <property name="text">
        <string>Edit</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="counselingCorrectiveMeasure_2">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>590</y>
-        <width>1111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 127)</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_107">
@@ -3077,10 +2966,65 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string>Date</string>
+       <string>Type</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="collateralType">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>470</y>
+        <width>110</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>110</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <item>
+       <property name="text">
+        <string>[Select]</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>부동산</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>전,월세</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>자동차</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTableView" name="collateralTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>1411</width>
+        <height>331</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -3092,7 +3036,7 @@
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>590</y>
+        <y>610</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -3119,13 +3063,13 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>530</y>
+        <y>550</y>
         <width>1111</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(170, 255, 255)</string>
+       <string notr="true"/>
       </property>
      </widget>
      <widget class="QLabel" name="label_104">
@@ -3159,7 +3103,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>500</y>
+        <y>510</y>
         <width>1111</width>
         <height>31</height>
        </rect>
@@ -3182,9 +3126,9 @@
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>530</y>
+        <y>550</y>
         <width>151</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -3222,7 +3166,7 @@
       <property name="geometry">
        <rect>
         <x>130</x>
-        <y>500</y>
+        <y>510</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -3249,13 +3193,13 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>590</y>
+        <y>610</y>
         <width>1111</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 127)</string>
+       <string notr="true"/>
       </property>
      </widget>
      <widget class="QLabel" name="label_117">
