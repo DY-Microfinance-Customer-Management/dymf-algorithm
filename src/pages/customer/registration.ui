@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1388</width>
-    <height>869</height>
+    <height>855</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -45,7 +45,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -126,7 +126,7 @@
        <rect>
         <x>20</x>
         <y>450</y>
-        <width>225</width>
+        <width>1200</width>
         <height>30</height>
        </rect>
       </property>
@@ -176,7 +176,7 @@
        <rect>
         <x>20</x>
         <y>530</y>
-        <width>225</width>
+        <width>1200</width>
         <height>30</height>
        </rect>
       </property>
@@ -226,7 +226,7 @@
        <rect>
         <x>20</x>
         <y>610</y>
-        <width>225</width>
+        <width>1200</width>
         <height>30</height>
        </rect>
       </property>
@@ -271,48 +271,6 @@
       </widget>
       <widget class="QLineEdit" name="info5"/>
      </widget>
-     <widget class="QLabel" name="customerName_6">
-      <property name="geometry">
-       <rect>
-        <x>17</x>
-        <y>570</y>
-        <width>37</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Info4</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="info4">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>570</y>
-        <width>182</width>
-        <height>30</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QFrame" name="frame">
       <property name="geometry">
        <rect>
@@ -344,7 +302,7 @@
      <widget class="QSplitter" name="splitter_2">
       <property name="geometry">
        <rect>
-        <x>141</x>
+        <x>160</x>
         <y>40</y>
         <width>966</width>
         <height>30</height>
@@ -607,8 +565,8 @@
       <property name="geometry">
        <rect>
         <x>140</x>
-        <y>120</y>
-        <width>308</width>
+        <y>140</y>
+        <width>987</width>
         <height>30</height>
        </rect>
       </property>
@@ -659,334 +617,11 @@
       </widget>
       <widget class="QLineEdit" name="loanOfficer"/>
      </widget>
-     <widget class="QLabel" name="customerMobile_2">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>90</y>
-        <width>70</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>70</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Contact</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="customerMobile_3">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>90</y>
-        <width>48</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Phone</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="phone1">
-      <property name="geometry">
-       <rect>
-        <x>300</x>
-        <y>80</y>
-        <width>50</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>50</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <item>
-       <property name="text">
-        <string>094</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>096</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLineEdit" name="tel3">
-      <property name="geometry">
-       <rect>
-        <x>728</x>
-        <y>80</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="customerEmail_2">
-      <property name="geometry">
-       <rect>
-        <x>830</x>
-        <y>90</y>
-        <width>48</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>E-mail</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="email">
-      <property name="geometry">
-       <rect>
-        <x>900</x>
-        <y>80</y>
-        <width>188</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="phone2">
-      <property name="geometry">
-       <rect>
-        <x>356</x>
-        <y>80</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="phone3">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>80</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="customerPhone_2">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>90</y>
-        <width>28</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Tel.</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="tel1">
-      <property name="geometry">
-       <rect>
-        <x>586</x>
-        <y>80</y>
-        <width>50</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>50</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>50</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <item>
-       <property name="text">
-        <string>094</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>096</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLineEdit" name="tel2">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>80</y>
-        <width>80</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>200</y>
+        <x>15</x>
+        <y>220</y>
         <width>200</width>
         <height>30</height>
        </rect>
@@ -1020,18 +655,18 @@
      <widget class="QLineEdit" name="officeTownship">
       <property name="geometry">
        <rect>
-        <x>958</x>
-        <y>290</y>
+        <x>963</x>
+        <y>310</y>
         <width>173</width>
-        <height>51</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>1137</x>
-        <y>290</y>
+        <x>1155</x>
+        <y>318</y>
         <width>45</width>
         <height>16</height>
        </rect>
@@ -1061,18 +696,18 @@
      <widget class="QLineEdit" name="officeStreet">
       <property name="geometry">
        <rect>
-        <x>1188</x>
-        <y>290</y>
+        <x>1200</x>
+        <y>310</y>
         <width>173</width>
-        <height>51</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="customerCompanyPostalCode_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>290</y>
+        <x>15</x>
+        <y>300</y>
         <width>120</width>
         <height>51</height>
        </rect>
@@ -1109,8 +744,8 @@
      <widget class="QLabel" name="customerCompanyAdress_2">
       <property name="geometry">
        <rect>
-        <x>136</x>
-        <y>290</y>
+        <x>149</x>
+        <y>320</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1147,18 +782,18 @@
      <widget class="QLineEdit" name="officePostalCode">
       <property name="geometry">
        <rect>
-        <x>242</x>
-        <y>290</y>
+        <x>247</x>
+        <y>310</y>
         <width>173</width>
-        <height>51</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>421</x>
-        <y>290</y>
+        <x>434</x>
+        <y>320</y>
         <width>60</width>
         <height>16</height>
        </rect>
@@ -1188,18 +823,18 @@
      <widget class="QLineEdit" name="officeCountry">
       <property name="geometry">
        <rect>
-        <x>487</x>
-        <y>290</y>
+        <x>492</x>
+        <y>310</y>
         <width>173</width>
-        <height>51</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>666</x>
-        <y>290</y>
+        <x>679</x>
+        <y>320</y>
         <width>30</width>
         <height>16</height>
        </rect>
@@ -1229,18 +864,18 @@
      <widget class="QLineEdit" name="officeCity">
       <property name="geometry">
        <rect>
-        <x>702</x>
-        <y>290</y>
+        <x>707</x>
+        <y>310</y>
         <width>174</width>
-        <height>51</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>882</x>
-        <y>290</y>
+        <x>895</x>
+        <y>320</y>
         <width>70</width>
         <height>16</height>
        </rect>
@@ -1270,8 +905,8 @@
      <widget class="QLabel" name="customerHomeAdress_2">
       <property name="geometry">
        <rect>
-        <x>136</x>
-        <y>232</y>
+        <x>149</x>
+        <y>262</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1308,18 +943,18 @@
      <widget class="QLineEdit" name="homePostalCode">
       <property name="geometry">
        <rect>
-        <x>242</x>
-        <y>232</y>
+        <x>247</x>
+        <y>252</y>
         <width>173</width>
-        <height>52</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>421</x>
-        <y>232</y>
+        <x>434</x>
+        <y>262</y>
         <width>60</width>
         <height>16</height>
        </rect>
@@ -1349,18 +984,18 @@
      <widget class="QLineEdit" name="homeCountry">
       <property name="geometry">
        <rect>
-        <x>487</x>
-        <y>232</y>
+        <x>492</x>
+        <y>252</y>
         <width>173</width>
-        <height>52</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>666</x>
-        <y>232</y>
+        <x>679</x>
+        <y>262</y>
         <width>30</width>
         <height>16</height>
        </rect>
@@ -1390,18 +1025,18 @@
      <widget class="QLineEdit" name="homeCity">
       <property name="geometry">
        <rect>
-        <x>702</x>
-        <y>232</y>
+        <x>707</x>
+        <y>252</y>
         <width>174</width>
-        <height>52</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>882</x>
-        <y>232</y>
+        <x>895</x>
+        <y>262</y>
         <width>70</width>
         <height>16</height>
        </rect>
@@ -1431,18 +1066,18 @@
      <widget class="QLineEdit" name="homeTownship">
       <property name="geometry">
        <rect>
-        <x>958</x>
-        <y>232</y>
+        <x>963</x>
+        <y>252</y>
         <width>173</width>
-        <height>52</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>1137</x>
-        <y>232</y>
+        <x>1155</x>
+        <y>260</y>
         <width>45</width>
         <height>16</height>
        </rect>
@@ -1465,6 +1100,12 @@
         <bold>true</bold>
        </font>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Street</string>
       </property>
@@ -1472,18 +1113,18 @@
      <widget class="QLineEdit" name="homeStreet">
       <property name="geometry">
        <rect>
-        <x>1188</x>
-        <y>232</y>
+        <x>1200</x>
+        <y>252</y>
         <width>173</width>
-        <height>52</height>
+        <height>35</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="customeHomePostalCode_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>240</y>
+        <x>15</x>
+        <y>260</y>
         <width>120</width>
         <height>16</height>
        </rect>
@@ -1517,47 +1158,325 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="customerName_4">
+     <widget class="QSplitter" name="splitter">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>500</y>
-        <width>37</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Info2</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="info2">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
         <y>490</y>
-        <width>171</width>
+        <width>1200</width>
         <height>30</height>
        </rect>
       </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QLabel" name="customerName_4">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Info2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="info2"/>
+     </widget>
+     <widget class="QSplitter" name="splitter_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>570</y>
+        <width>1200</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QLabel" name="customerName_6">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Info4</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="info4"/>
+     </widget>
+     <widget class="QSplitter" name="splitter_4">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>90</y>
+        <width>337</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QLabel" name="customerEmail_2">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>E-mail</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="email">
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_5">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>90</y>
+        <width>305</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QLabel" name="customerPhone_2">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Tel.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="tel1">
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string>094</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>096</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLineEdit" name="tel2">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="tel3">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_7">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>90</y>
+        <width>305</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QLabel" name="customerMobile_3">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Phone</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="phone1">
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string>094</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>096</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLineEdit" name="phone2">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="phone3">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frame">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -1578,7 +1497,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>430</y>
+        <y>527</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1612,13 +1531,13 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QTextEdit" name="counsel_detail">
       <property name="geometry">
        <rect>
-        <x>106</x>
-        <y>430</y>
-        <width>1135</width>
-        <height>117</height>
+        <x>100</x>
+        <y>527</y>
+        <width>1261</width>
+        <height>101</height>
        </rect>
       </property>
      </widget>
@@ -1626,7 +1545,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>370</y>
+        <y>380</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1660,11 +1579,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QDateEdit" name="DateEdit_4">
+     <widget class="QDateEdit" name="counsel_date">
       <property name="geometry">
        <rect>
-        <x>106</x>
-        <y>370</y>
+        <x>100</x>
+        <y>377</y>
         <width>107</width>
         <height>24</height>
        </rect>
@@ -1708,7 +1627,7 @@
       <property name="geometry">
        <rect>
         <x>219</x>
-        <y>370</y>
+        <y>380</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1742,11 +1661,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_3">
+     <widget class="QComboBox" name="counsel_position">
       <property name="geometry">
        <rect>
-        <x>325</x>
-        <y>370</y>
+        <x>310</x>
+        <y>377</y>
         <width>102</width>
         <height>24</height>
        </rect>
@@ -1782,7 +1701,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>400</y>
+        <y>407</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1816,21 +1735,24 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="LineEdit_23">
+     <widget class="QLineEdit" name="counsel_content">
       <property name="geometry">
        <rect>
-        <x>106</x>
-        <y>400</y>
-        <width>182</width>
-        <height>24</height>
+        <x>100</x>
+        <y>407</y>
+        <width>1261</width>
+        <height>101</height>
        </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
      <widget class="QLabel" name="customerBD_7">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>553</y>
+        <y>637</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1864,21 +1786,24 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="LineEdit_24">
+     <widget class="QLineEdit" name="action">
       <property name="geometry">
        <rect>
-        <x>106</x>
-        <y>553</y>
-        <width>182</width>
-        <height>24</height>
+        <x>100</x>
+        <y>637</y>
+        <width>1261</width>
+        <height>51</height>
        </rect>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
      <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>610</y>
+        <x>1035</x>
+        <y>710</y>
         <width>150</width>
         <height>28</height>
        </rect>
@@ -1902,8 +1827,8 @@
      <widget class="QPushButton" name="uploadButton">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>620</y>
+        <x>1210</x>
+        <y>710</y>
         <width>150</width>
         <height>28</height>
        </rect>
@@ -1925,22 +1850,6 @@
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>20</y>
-      <width>64</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"> background-color:rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
    </widget>
    <widget class="QLabel" name="title">
     <property name="geometry">
@@ -1980,8 +1889,8 @@
    <widget class="QLabel" name="customerName_8">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>20</y>
+      <x>220</x>
+      <y>30</y>
       <width>40</width>
       <height>16</height>
      </rect>
@@ -2012,10 +1921,10 @@
    <widget class="QLabel" name="customerBD_3">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>20</y>
+      <x>430</x>
+      <y>30</y>
       <width>120</width>
-      <height>16</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -2050,10 +1959,10 @@
    <widget class="QDateEdit" name="searchDateOfBirth">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>20</y>
+      <x>550</x>
+      <y>26</y>
       <width>200</width>
-      <height>24</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -2106,8 +2015,8 @@
    <widget class="QPushButton" name="newButton">
     <property name="geometry">
      <rect>
-      <x>812</x>
-      <y>10</y>
+      <x>890</x>
+      <y>26</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2119,8 +2028,8 @@
    <widget class="QPushButton" name="editButton">
     <property name="geometry">
      <rect>
-      <x>911</x>
-      <y>10</y>
+      <x>1010</x>
+      <y>26</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2132,14 +2041,37 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>10</y>
+      <x>1130</x>
+      <y>26</y>
       <width>93</width>
       <height>28</height>
      </rect>
     </property>
     <property name="text">
      <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="search_button">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>26</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="searchName">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>26</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
     </property>
    </widget>
   </widget>
