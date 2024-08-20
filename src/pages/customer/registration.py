@@ -1,8 +1,10 @@
 import sys
 import os
+import re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic, QtCore
 from components import DB
+
 
 class RegistrationApp(QMainWindow):
     def __init__(self):
@@ -12,11 +14,38 @@ class RegistrationApp(QMainWindow):
         uic.loadUi(ui_path, self)
         self.show()
         self.setup_connections()
-
+        self.disable_all_fields()
+        self.current_customer_id = None
     def setup_connections(self):
+        self.newButton.clicked.connect(self.clear_fields)
+        self.newButton.clicked.connect(self.reset_current_customer_id)  # 새로운 고객 등록 시 기존 ID 리셋
+        self.newButton.clicked.connect(self.enable_all_fields)
+        self.search_button.clicked.connect(self.search_customer_data)
+        self.name.textChanged.connect(self.not_input_number)
         self.saveButton.clicked.connect(self.prepare_save_customer_data)
         self.editButton.clicked.connect(self.edit_customer_data)
-        self.newButton.clicked.connect(self.clear_fields)
+        self.uploadButton.clicked.connect(self.upload_counsel_data)  # 상담 정보 업로드 버튼 연결
+        # Connect phone fields to the validation method
+        self.phone2.textChanged.connect(self.limit_phone_length)
+        self.phone3.textChanged.connect(self.limit_phone_length)
+        self.tel2.textChanged.connect(self.limit_phone_length)
+        self.tel3.textChanged.connect(self.limit_phone_length)
+
+    def reset_current_customer_id(self):
+        # 새로운 고객을 등록할 때 기존의 customer_id를 리셋
+        self.current_customer_id = None
+
+    def not_input_number(self):
+        name_text = self.name.text()
+        if re.search(r'\d', name_text):
+            QMessageBox.warning(self, "Invalid Input", "Name cannot contain numbers.")
+            self.name.clear()
+
+    def limit_phone_length(self):
+        for field in [self.phone2, self.phone3, self.tel2, self.tel3]:
+            text = field.text()
+            if len(text) > 4:
+                field.setText(text[:4])
 
     def clear_fields(self):
         self.name.clear()
@@ -47,6 +76,127 @@ class RegistrationApp(QMainWindow):
         self.info3.clear()
         self.info4.clear()
         self.info5.clear()
+        self.current_customer_id = None  # 불러온 고객의 ID를 초기화
+
+    def disable_all_fields(self):
+        # Disable all input fields
+        self.editButton.setDisabled(True)
+        self.saveButton.setDisabled(True)
+        self.name.setEnabled(False)
+        self.nrcNo.setEnabled(False)
+        self.dateOfBirth.setEnabled(False)
+        self.gender.setEnabled(False)
+        self.married.setEnabled(False)
+        self.phone1.setEnabled(False)
+        self.phone2.setEnabled(False)
+        self.phone3.setEnabled(False)
+        self.tel1.setEnabled(False)
+        self.tel2.setEnabled(False)
+        self.tel3.setEnabled(False)
+        self.email.setEnabled(False)
+        self.loanOfficer.setEnabled(False)
+        self.homePostalCode.setEnabled(False)
+        self.homeStreet.setEnabled(False)
+        self.homeCountry.setEnabled(False)
+        self.homeCity.setEnabled(False)
+        self.homeTownship.setEnabled(False)
+        self.officePostalCode.setEnabled(False)
+        self.officeCountry.setEnabled(False)
+        self.officeCity.setEnabled(False)
+        self.officeTownship.setEnabled(False)
+        self.officeStreet.setEnabled(False)
+        self.info1.setEnabled(False)
+        self.info2.setEnabled(False)
+        self.info3.setEnabled(False)
+        self.info4.setEnabled(False)
+        self.info5.setEnabled(False)
+
+    def enable_all_fields(self):
+        self.saveButton.setEnabled(True)
+        self.name.setEnabled(True)
+        self.nrcNo.setEnabled(True)
+        self.dateOfBirth.setEnabled(True)
+        self.gender.setEnabled(True)
+        self.married.setEnabled(True)
+        self.phone1.setEnabled(True)
+        self.phone2.setEnabled(True)
+        self.phone3.setEnabled(True)
+        self.tel1.setEnabled(True)
+        self.tel2.setEnabled(True)
+        self.tel3.setEnabled(True)
+        self.email.setEnabled(True)
+        self.loanOfficer.setEnabled(True)
+        self.homePostalCode.setEnabled(True)
+        self.homeStreet.setEnabled(True)
+        self.homeCountry.setEnabled(True)
+        self.homeCity.setEnabled(True)
+        self.homeTownship.setEnabled(True)
+        self.officePostalCode.setEnabled(True)
+        self.officeCountry.setEnabled(True)
+        self.officeCity.setEnabled(True)
+        self.officeTownship.setEnabled(True)
+        self.officeStreet.setEnabled(True)
+        self.info1.setEnabled(True)
+        self.info2.setEnabled(True)
+        self.info3.setEnabled(True)
+        self.info4.setEnabled(True)
+        self.info5.setEnabled(True)
+
+    def search_customer_data(self):
+        search_name = self.searchName.text()
+        search_dob = self.searchDateOfBirth.date().toString(QtCore.Qt.ISODate)
+
+        try:
+            customer_ref = DB.collection('Customer')
+            query = customer_ref.where("name", "==", search_name).where("date_of_birth", "==", search_dob).get()
+
+            if query:
+                customer_data = query[0].to_dict()
+                self.current_customer_id = query[0].id  # 문서 ID 저장
+                self.populate_fields_with_customer_data(customer_data)
+                QMessageBox.information(self, "Customer Found", "Customer data loaded successfully.")
+                self.editButton.setEnabled(True)
+            else:
+                QMessageBox.warning(self, "No Match", "No customer found with the given information.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to retrieve customer data: {e}")
+
+    def populate_fields_with_customer_data(self, customer_data):
+        # Populate fields with customer data
+        self.name.setText(customer_data.get("name", ""))
+        self.nrcNo.setText(customer_data.get("nrc_no", ""))
+        self.dateOfBirth.setDate(QtCore.QDate.fromString(customer_data.get("date_of_birth"), QtCore.Qt.ISODate))
+        self.gender.setCurrentText(customer_data.get("gender", ""))
+        self.married.setCurrentText(customer_data.get("marital_status", ""))
+        self.phone1.setCurrentText(customer_data.get("mobile1", ""))
+        self.phone2.setText(customer_data.get("mobile2", ""))
+        self.phone3.setText(customer_data.get("mobile3", ""))
+        self.tel1.setCurrentText(customer_data.get("phone1", ""))
+        self.tel2.setText(customer_data.get("phone2", ""))
+        self.tel3.setText(customer_data.get("phone3", ""))
+        self.email.setText(customer_data.get("email", ""))
+        self.loanOfficer.setText(customer_data.get("loan_officer", ""))
+
+        home_address = customer_data.get("home_address", {})
+        self.homePostalCode.setText(home_address.get("postal_code", ""))
+        self.homeStreet.setText(home_address.get("street", ""))
+        self.homeCountry.setText(home_address.get("country", ""))
+        self.homeCity.setText(home_address.get("city", ""))
+        self.homeTownship.setText(home_address.get("township", ""))
+
+        office_address = customer_data.get("office_address", {})
+        self.officePostalCode.setText(office_address.get("postal_code", ""))
+        self.officeStreet.setText(office_address.get("street", ""))
+        self.officeCountry.setText(office_address.get("country", ""))
+        self.officeCity.setText(office_address.get("city", ""))
+        self.officeTownship.setText(office_address.get("township", ""))
+
+        additional_info = customer_data.get("additional_info", {})
+        self.info1.setText(additional_info.get("info1", ""))
+        self.info2.setText(additional_info.get("info2", ""))
+        self.info3.setText(additional_info.get("info3", ""))
+        self.info4.setText(additional_info.get("info4", ""))
+        self.info5.setText(additional_info.get("info5", ""))
 
     def prepare_save_customer_data(self):
         customer_data = self.get_customer_data()
@@ -99,7 +249,7 @@ class RegistrationApp(QMainWindow):
                                      f"Would you like to proceed?\n\n{data_summary}",
                                      QMessageBox.Ok | QMessageBox.Cancel,
                                      QMessageBox.Cancel)
-        
+
         if reply == QMessageBox.Ok:
             self.save_customer_data()
 
@@ -145,21 +295,67 @@ class RegistrationApp(QMainWindow):
         customer_data = self.get_customer_data()
 
         try:
-            customer_ref = DB.collection('Customer')
-            new_customer_ref = customer_ref.add(customer_data)
-            QMessageBox.information(self, "Success", "Customer data saved successfully.")
+            if self.current_customer_id:
+                # 기존 문서 업데이트
+                customer_ref = DB.collection('Customer').document(self.current_customer_id)
+                customer_ref.set(customer_data)
+                QMessageBox.information(self, "Success", "Customer data updated successfully.")
+                self.newButton.setEnabled(True)
+                self.search_button.setEnabled(True)
+                self.saveButton.setEnabled(False)
+                self.editButton.setEnabled(False)
+            else:
+                # 새로운 문서 추가
+                customer_ref = DB.collection('Customer')
+                new_customer_ref = customer_ref.add(customer_data)
+                QMessageBox.information(self, "Success", "New customer data saved successfully.")
+
             self.clear_fields()
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to save customer data: {e}")
 
     def edit_customer_data(self):
-        QMessageBox.information(self, "Edit Customer", "Feature not implemented yet.")
-        # TODO: Implement the edit customer data functionality
+        self.newButton.setEnabled(False)
+        self.search_button.setEnabled(False)
+        self.saveButton.setEnabled(True)
+        QMessageBox.information(self, "Edit Customer", "You can now edit customer data.")
+        self.enable_all_fields()
+
+    def upload_counsel_data(self):
+        # 상담 정보 업로드
+        customer_name = self.name.text()
+        customer_dob = self.dateOfBirth.date().toString(QtCore.Qt.ISODate)
+        counsel_info = self.counsel.toPlainText()  # 상담 정보 (텍스트 입력)
+        counsel_date = self.counselDate.date().toString(QtCore.Qt.ISODate)  # 상담 날짜
+        counsel_type = self.counselType.currentText()  # 상담 유형 (콤보박스)
+
+        # 고객의 이름이 비어 있으면 경고 메시지 표시
+        if not customer_name:
+            QMessageBox.warning(self, "Missing Information", "Customer's name is required to upload counsel data.")
+            return
+
+        counsel_data = {
+            "customer_name": customer_name,
+            "customer_dob": customer_dob,
+            "counsel_info": counsel_info,
+            "counsel_date": counsel_date,
+            "counsel_type": counsel_type
+        }
+
+        try:
+            counsel_ref = DB.collection('Counsel_Info')
+            counsel_ref.add(counsel_data)
+            QMessageBox.information(self, "Success", "Counsel data uploaded successfully.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to upload counsel data: {e}")
+
+
 
 def main():
     app = QApplication(sys.argv)
     window = RegistrationApp()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()
