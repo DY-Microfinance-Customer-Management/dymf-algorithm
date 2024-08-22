@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Registration</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -36,7 +36,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>70</y>
       <width>1381</width>
       <height>771</height>
      </rect>
@@ -45,11 +45,11 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>고객정보</string>
+      <string>Customer Info</string>
      </attribute>
      <widget class="QLabel" name="label">
       <property name="geometry">
@@ -526,7 +526,7 @@
        </property>
        <item>
         <property name="text">
-         <string>[선택]</string>
+         <string>[Select]</string>
         </property>
        </item>
        <item>
@@ -1481,9 +1481,9 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>상담정보</string>
+      <string>Counseling Info</string>
      </attribute>
-     <widget class="QTableView" name="tableView">
+     <widget class="QTableView" name="counselingTable">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1497,7 +1497,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>527</y>
+        <y>470</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1525,26 +1525,26 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>세부내용</string>
+       <string>Details</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QTextEdit" name="counsel_detail">
+     <widget class="QTextEdit" name="counselingDetails">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>527</y>
-        <width>1261</width>
-        <height>101</height>
+        <x>170</x>
+        <y>460</y>
+        <width>1191</width>
+        <height>171</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="labelDateOfConsultation">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>-10</x>
         <y>380</y>
         <width>100</width>
         <height>16</height>
@@ -1573,19 +1573,19 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>상담일자</string>
+       <string>Date</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QDateEdit" name="counsel_date">
+     <widget class="QDateEdit" name="counselingDate">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>377</y>
+        <x>170</x>
+        <y>370</y>
         <width>107</width>
-        <height>24</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -1623,85 +1623,11 @@
        </date>
       </property>
      </widget>
-     <widget class="QLabel" name="labelClassificationOfConsultation">
-      <property name="geometry">
-       <rect>
-        <x>219</x>
-        <y>380</y>
-        <width>100</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>구분</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="counsel_position">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>377</y>
-        <width>102</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>0</height>
-       </size>
-      </property>
-      <item>
-       <property name="text">
-        <string>[선택]</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>대출문의</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>대출해지문의</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>기타문의</string>
-       </property>
-      </item>
-     </widget>
      <widget class="QLabel" name="customerBD_5">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>407</y>
+        <y>410</y>
         <width>100</width>
         <height>16</height>
        </rect>
@@ -1729,19 +1655,19 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>상담내용</string>
+       <string>Subject</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="counsel_content">
+     <widget class="QLineEdit" name="counselingSubject">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>170</x>
         <y>407</y>
-        <width>1261</width>
-        <height>101</height>
+        <width>1191</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="alignment">
@@ -1751,9 +1677,9 @@
      <widget class="QLabel" name="customerBD_7">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>637</y>
-        <width>100</width>
+        <x>10</x>
+        <y>650</y>
+        <width>161</width>
         <height>16</height>
        </rect>
       </property>
@@ -1765,7 +1691,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>100</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -1780,18 +1706,18 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>조치사항</string>
+       <string>Corrective Measure</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLineEdit" name="action">
+     <widget class="QLineEdit" name="counselingCorrectiveMeasure">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>637</y>
-        <width>1261</width>
+        <x>170</x>
+        <y>640</y>
+        <width>1191</width>
         <height>51</height>
        </rect>
       </property>
@@ -1799,11 +1725,11 @@
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="deleteButton">
+     <widget class="QPushButton" name="counselingDeleteButton">
       <property name="geometry">
        <rect>
-        <x>1035</x>
-        <y>710</y>
+        <x>1050</x>
+        <y>700</y>
         <width>150</width>
         <height>28</height>
        </rect>
@@ -1821,14 +1747,14 @@
        </size>
       </property>
       <property name="text">
-       <string>상담삭제</string>
+       <string>Delete</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="uploadButton">
+     <widget class="QPushButton" name="counselingSaveButton">
       <property name="geometry">
        <rect>
         <x>1210</x>
-        <y>710</y>
+        <y>700</y>
         <width>150</width>
         <height>28</height>
        </rect>
@@ -1846,51 +1772,16 @@
        </size>
       </property>
       <property name="text">
-       <string>저장</string>
+       <string>Save</string>
       </property>
      </widget>
     </widget>
    </widget>
-   <widget class="QLabel" name="title">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>280</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>280</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>280</width>
-      <height>16777215</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Cutomer Registration</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="customerName_8">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>30</y>
+      <x>390</x>
+      <y>40</y>
       <width>40</width>
       <height>16</height>
      </rect>
@@ -1918,11 +1809,11 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="customerBD_3">
+   <widget class="QLabel" name="customerBD">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>30</y>
+      <x>570</x>
+      <y>40</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -1956,67 +1847,11 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QDateEdit" name="searchDateOfBirth">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>26</y>
-      <width>200</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>200</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>200</width>
-      <height>16777215</height>
-     </size>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::TabFocus</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buttonSymbols">
-     <enum>QAbstractSpinBox::UpDownArrows</enum>
-    </property>
-    <property name="accelerated">
-     <bool>false</bool>
-    </property>
-    <property name="correctionMode">
-     <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
-    </property>
-    <property name="calendarPopup">
-     <bool>true</bool>
-    </property>
-    <property name="date">
-     <date>
-      <year>2000</year>
-      <month>1</month>
-      <day>1</day>
-     </date>
-    </property>
-   </widget>
    <widget class="QPushButton" name="newButton">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>26</y>
+      <x>1010</x>
+      <y>30</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2028,8 +1863,8 @@
    <widget class="QPushButton" name="editButton">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>26</y>
+      <x>1130</x>
+      <y>30</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2041,8 +1876,8 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>26</y>
+      <x>1250</x>
+      <y>30</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2051,11 +1886,11 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="search_button">
+   <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>26</y>
+      <x>890</x>
+      <y>30</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -2064,14 +1899,68 @@
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="searchName">
+   <widget class="QLabel" name="searchDateOfBirth">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>26</y>
-      <width>141</width>
-      <height>30</height>
+      <x>690</x>
+      <y>30</y>
+      <width>110</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(255, 255, 255)
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="searchName">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>30</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(255, 255, 255)
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
