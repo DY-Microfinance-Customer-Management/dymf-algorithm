@@ -15,12 +15,16 @@ class HomeApp(QMainWindow):
         self.action.triggered.connect(self.open_customer_registration)
 
         # 2. 대출관리 / 대출등록
-        self.action3 = self.findChild(QAction, 'action_3')
-        self.action3.triggered.connect(self.open_loan)
+        self.action_3 = self.findChild(QAction, 'action_3')
+        self.action_3.triggered.connect(self.open_loan)
 
         # 2. 대출관리 / 이자계산기
-        self.action3 = self.findChild(QAction, 'action_12')
-        self.action3.triggered.connect(self.open_calculator)
+        self.action_12 = self.findChild(QAction, 'action_12')
+        self.action_12.triggered.connect(self.open_calculator)
+
+        # 2. Settings / Officer Management
+        self.action_37 = self.findChild(QAction, 'action_37')
+        self.action_37.triggered.connect(self.open_officer_management)
 
     def open_customer_registration(self):
         from pages.customer.registration import RegistrationApp
@@ -37,11 +41,13 @@ class HomeApp(QMainWindow):
         self.calculator_window = CalculatorApp()
         self.calculator_window.show()
 
+    def open_officer_management(self):
+        from pages.setting.loan_officer import LoanOfficerApp
+        self.officer_management_window = LoanOfficerApp()
+        self.officer_management_window.show()
+
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Exit Application', 
-                                     "Are you sure you want to exit?", 
-                                     QMessageBox.Cancel | QMessageBox.Ok, 
-                                     QMessageBox.Ok)
+        reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)
         if reply == QMessageBox.Ok:
             event.accept()
         else:

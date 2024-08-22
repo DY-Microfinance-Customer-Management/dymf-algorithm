@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1212</width>
+    <width>1210</width>
     <height>665</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1212</width>
+     <width>1210</width>
      <height>29</height>
     </rect>
    </property>
@@ -28,26 +28,9 @@
      <pointsize>10</pointsize>
     </font>
    </property>
-   <widget class="QMenu" name="menu1">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>156</y>
-      <width>233</width>
-      <height>169</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>1. 고객관리</string>
-    </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
-    <addaction name="separator"/>
-    <addaction name="action_45"/>
-   </widget>
    <widget class="QMenu" name="menu2">
     <property name="title">
-     <string>2. 대출관리</string>
+     <string>2. Loan</string>
     </property>
     <addaction name="action_3"/>
     <addaction name="action_4"/>
@@ -81,20 +64,6 @@
     <addaction name="separator"/>
     <addaction name="action_24"/>
    </widget>
-   <widget class="QMenu" name="menu5">
-    <property name="title">
-     <string>5. 초기화/코드관리</string>
-    </property>
-    <addaction name="action_25"/>
-    <addaction name="action_26"/>
-    <addaction name="separator"/>
-    <addaction name="action_28"/>
-    <addaction name="separator"/>
-    <addaction name="action_30"/>
-    <addaction name="separator"/>
-    <addaction name="action_32"/>
-    <addaction name="action_33"/>
-   </widget>
    <widget class="QMenu" name="menu0">
     <property name="title">
      <string>0. 초기화/코드관리</string>
@@ -109,11 +78,26 @@
     <addaction name="action_40"/>
     <addaction name="action_43"/>
    </widget>
+   <widget class="QMenu" name="menu1">
+    <property name="geometry">
+     <rect>
+      <x>268</x>
+      <y>156</y>
+      <width>214</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>1. Customer</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menu1"/>
    <addaction name="menu2"/>
    <addaction name="menu3"/>
    <addaction name="menu4"/>
-   <addaction name="menu5"/>
    <addaction name="menu0"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -123,7 +107,7 @@
      <normaloff>:/customer/장부.png</normaloff>:/customer/장부.png</iconset>
    </property>
    <property name="text">
-    <string>고 객 등 록</string>
+    <string>Registration</string>
    </property>
    <property name="font">
     <font>
@@ -137,7 +121,7 @@
      <normaloff>:/customer/검색.png</normaloff>:/customer/검색.png</iconset>
    </property>
    <property name="text">
-    <string>고 객 검 색</string>
+    <string>Search</string>
    </property>
    <property name="font">
     <font>
@@ -151,7 +135,7 @@
      <normaloff>:/loan/대출 등록.png</normaloff>:/loan/대출 등록.png</iconset>
    </property>
    <property name="text">
-    <string>대 출 등 록</string>
+    <string>Registration</string>
    </property>
    <property name="font">
     <font>
@@ -165,7 +149,7 @@
      <normaloff>:/loan/대출 검색.png</normaloff>:/loan/대출 검색.png</iconset>
    </property>
    <property name="text">
-    <string>대 출 검 색</string>
+    <string>Search</string>
    </property>
    <property name="font">
     <font>
@@ -235,8 +219,10 @@
      <normaloff>:/loan/이자 계산기.png</normaloff>:/loan/이자 계산기.png</iconset>
    </property>
    <property name="text">
-    <string>이 자 계 산 기
-</string>
+    <string>Calculator</string>
+   </property>
+   <property name="iconText">
+    <string>Calculator</string>
    </property>
    <property name="font">
     <font>
@@ -415,7 +401,7 @@
   </action>
   <action name="action_37">
    <property name="text">
-    <string>각 종 코 드 관 리</string>
+    <string>Manage Officer</string>
    </property>
    <property name="font">
     <font>
