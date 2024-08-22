@@ -4,7 +4,8 @@ import re
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic, QtCore
 from components import DB
-from pages.loan.select_customer import SelectCustomerWindow  # SelectCustomerWindow를 임포트
+from pages.loan.select_customer import SelectCustomerWindow
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 class RegistrationApp(QMainWindow):
     def __init__(self):
@@ -18,6 +19,16 @@ class RegistrationApp(QMainWindow):
         self.current_customer_id = None
         self.edit_mode = False  # edit 모드인지 new 모드인지 구분하는 변수
         self.initialize_buttons()  # 버튼 상태를 초기화
+        self.setup_counseling_table()  # 상담 테이블 설정
+        self.edit_mode = False  # 상담 데이터 수정 모드 플래그
+        self.selected_counseling_row = None  # 선택된 상담 데이터의 인덱스
+
+    def setup_counseling_table(self):
+        # 테이블에 대한 QStandardItemModel을 설정
+        model = QStandardItemModel(0, 4)  # 0개의 행과 4개의 열로 모델 생성
+        model.setHorizontalHeaderLabels(["Date", "Subject", "Details", "Corrective Measure"])
+        self.counselingTable.setModel(model)  # 모델을 QTableView에 설정
+        self.counselingTable.setSelectionBehavior(self.counselingTable.SelectRows)
 
     def initialize_buttons(self):
         # 창이 처음 떴을 때, searchButton과 newButton만 활성화
@@ -34,8 +45,11 @@ class RegistrationApp(QMainWindow):
         self.editButton.clicked.connect(self.edit_customer_data)
 
         # Connect counselingSaveButton and counselingDeleteButton
-        self.counselingSaveButton.clicked.connect(self.upload_counsel_data)  # 상담 정보 저장 버튼 연결
-        self.counselingDeleteButton.clicked.connect(self.delete_counsel_data)  # 상담 정보 삭제 버튼 연결
+        self.counselingNewButton.clicked.connect(self.on_counseling_new_clicked)
+        self.counselingEditButton.clicked.connect(self.on_counseling_edit_clicked)
+        self.counselingSaveButton.clicked.connect(self.save_counsel_data)
+        self.counselingDeleteButton.clicked.connect(self.delete_counsel_data)
+        self.counselingTable.clicked.connect(self.on_counseling_table_clicked)
 
         # Connect phone fields to the validation method
         self.phone2.textChanged.connect(self.limit_phone_length)
@@ -76,7 +90,11 @@ class RegistrationApp(QMainWindow):
         date_of_birth = customer_data.get("date_of_birth", "")
         self.searchDateOfBirth.setText(date_of_birth)
 
+        # 상담 데이터를 테이블에 로드
+        self.load_counseling_data()
+
         self.disable_all_fields()  # 고객 데이터를 불러온 후 필드를 비활성화
+        self.disable_counseling_fields()  # 상담 필드를 비활성화
         self.editButton.setEnabled(True)  # 편집 버튼 활성화
 
     def populate_fields_with_customer_data(self, customer_data):
@@ -115,6 +133,215 @@ class RegistrationApp(QMainWindow):
         self.info3.setText(additional_info.get("info3", ""))
         self.info4.setText(additional_info.get("info4", ""))
         self.info5.setText(additional_info.get("info5", ""))
+
+    def load_counseling_data(self):
+        try:
+            customer_ref = DB.collection('Customer').document(self.current_customer_id)
+            customer_doc = customer_ref.get()
+
+            if customer_doc.exists:
+                customer_data = customer_doc.to_dict()
+                counseling_data = customer_data.get("counseling", [])
+
+                # QStandardItemModel을 사용하여 테이블 모델 설정
+                model = QStandardItemModel(len(counseling_data), 4)
+                model.setHorizontalHeaderLabels(["Date", "Subject", "Details", "Corrective Measure"])
+
+                for row_idx, counsel in enumerate(counseling_data):
+                    model.setItem(row_idx, 0, QStandardItem(counsel.get("counsel_date", "")))
+                    model.setItem(row_idx, 1, QStandardItem(counsel.get("counsel_subject", "")))
+                    model.setItem(row_idx, 2, QStandardItem(counsel.get("counsel_details", "")))
+                    model.setItem(row_idx, 3, QStandardItem(counsel.get("corrective_measure", "")))
+
+                # 모델을 테이블 뷰에 설정
+                self.counselingTable.setModel(model)
+                self.counselingTable.resizeColumnsToContents()
+
+            else:
+                QMessageBox.warning(self, "No Customer Data", "The selected customer does not exist in the database.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to load counseling data: {e}")
+
+    def on_counseling_new_clicked(self):
+        # 새로운 상담 데이터 추가를 위한 필드 초기화 및 활성화
+        self.counselingDate.setDate(QtCore.QDate.currentDate())
+        self.counselingSubject.clear()
+        self.counselingDetails.clear()
+        self.counselingCorrectiveMeasure.clear()
+        
+        # 필드 활성화
+        self.enable_counseling_fields()
+        
+        # 상담 데이터 추가 모드
+        self.edit_mode = False
+        self.selected_counseling_row = None
+
+    def on_counseling_edit_clicked(self):
+        # 선택된 상담 데이터를 편집할 수 있도록 필드에 데이터를 로드하고 활성화
+        selected_indexes = self.counselingTable.selectionModel().selectedRows()
+        
+        if not selected_indexes:
+            QMessageBox.warning(self, "No Selection", "Please select a counseling record to edit.")
+            return
+        
+        self.selected_counseling_row = selected_indexes[0].row()
+
+        # 선택된 행의 데이터를 counseling 필드로 로드
+        model = self.counselingTable.model()
+        counsel_date = model.index(self.selected_counseling_row, 0).data(QtCore.Qt.DisplayRole)
+        counsel_subject = model.index(self.selected_counseling_row, 1).data(QtCore.Qt.DisplayRole)
+        counsel_details = model.index(self.selected_counseling_row, 2).data(QtCore.Qt.DisplayRole)
+        corrective_measure = model.index(self.selected_counseling_row, 3).data(QtCore.Qt.DisplayRole)
+
+        if counsel_date and counsel_subject:
+            # 상담 데이터를 입력란에 표시
+            self.counselingDate.setDate(QtCore.QDate.fromString(counsel_date, "yyyy-MM-dd"))
+            self.counselingSubject.setText(counsel_subject)
+            self.counselingDetails.setPlainText(counsel_details)
+            self.counselingCorrectiveMeasure.setText(corrective_measure)
+
+            # 필드 활성화
+            self.enable_counseling_fields()
+
+            # 수정 모드 활성화
+            self.edit_mode = True
+        else:
+            QMessageBox.warning(self, "Error", "Failed to load counseling data. Please try again.")
+
+    def delete_counsel_data(self):
+        # 상담 정보를 삭제하는 함수
+        try:
+            # 선택된 행의 인덱스 가져오기
+            selected_indexes = self.counselingTable.selectionModel().selectedRows()
+
+            if not selected_indexes:
+                QMessageBox.warning(self, "No Selection", "Please select a counseling record to delete.")
+                return
+
+            # 첫 번째 선택된 인덱스에서 행 번호 가져오기
+            selected_row = selected_indexes[0].row()
+
+            # Firestore에서 고객 문서 가져오기
+            customer_ref = DB.collection('Customer').document(self.current_customer_id)
+            customer_doc = customer_ref.get()
+
+            if customer_doc.exists:
+                customer_data = customer_doc.to_dict()
+                counseling_data = customer_data.get("counseling", [])
+
+                # 선택된 행에 해당하는 상담 데이터 삭제
+                if 0 <= selected_row < len(counseling_data):
+                    del counseling_data[selected_row]
+
+                    # Firestore에 업데이트
+                    customer_ref.update({"counseling": counseling_data})
+
+                    QMessageBox.information(self, "Success", "Counseling data deleted successfully.")
+                    
+                    # 상담 필드 초기화
+                    self.counselingDate.setDate(QtCore.QDate(2000, 1, 1))
+                    self.counselingSubject.clear()
+                    self.counselingDetails.clear()
+                    self.counselingCorrectiveMeasure.clear()
+                    
+                    # 테이블을 다시 로드
+                    self.load_counseling_data()
+                else:
+                    QMessageBox.warning(self, "Error", "Failed to delete counseling data.")
+            else:
+                QMessageBox.warning(self, "No Customer Data", "The selected customer does not exist in the database.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to delete counseling data: {e}")
+
+    def save_counsel_data(self):
+        # 상담 정보 준비
+        counsel_info = {
+            "counsel_subject": self.counselingSubject.text(),
+            "counsel_details": self.counselingDetails.toPlainText(),
+            "counsel_date": self.counselingDate.date().toString(QtCore.Qt.ISODate),
+            "corrective_measure": self.counselingCorrectiveMeasure.text()
+        }
+
+        # 고객이 선택되지 않았으면 경고 메시지
+        if not self.current_customer_id:
+            QMessageBox.warning(self, "No Customer", "Please select a customer before saving counseling data.")
+            return
+
+        try:
+            # Firestore에서 고객 문서 가져오기
+            customer_ref = DB.collection('Customer').document(self.current_customer_id)
+            customer_doc = customer_ref.get()
+
+            # 고객 데이터가 존재하면 counseling 배열 처리
+            if customer_doc.exists:
+                customer_data = customer_doc.to_dict()
+
+                if "counseling" not in customer_data:
+                    customer_data["counseling"] = []
+
+                if self.edit_mode and self.selected_counseling_row is not None:
+                    # 기존 상담 데이터 수정
+                    customer_data["counseling"][self.selected_counseling_row] = counsel_info
+                else:
+                    # 새로운 상담 데이터 추가
+                    customer_data["counseling"].append(counsel_info)
+
+                # Firestore에 업데이트
+                customer_ref.update({"counseling": customer_data["counseling"]})
+
+                QMessageBox.information(self, "Success", "Counseling data saved successfully.")
+                
+                # 필드 초기화 및 테이블 업데이트
+                self.counselingDate.setDate(QtCore.QDate(2000, 1, 1))
+                self.counselingSubject.clear()
+                self.counselingDetails.clear()
+                self.counselingCorrectiveMeasure.clear()
+                self.load_counseling_data()
+                
+                # 필드 비활성화
+                self.disable_counseling_fields()
+
+                # 모드 초기화
+                self.edit_mode = False
+                self.selected_counseling_row = None
+
+            else:
+                QMessageBox.warning(self, "No Customer Data", "The selected customer does not exist in the database.")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to save counseling data: {e}")
+
+    def on_counseling_table_clicked(self, index):
+        # 이 메서드를 추가하여 테이블에서 선택된 데이터를 관리
+        if index.isValid():
+            # 선택된 행의 데이터를 입력란에 표시
+            row = index.row()
+            model = self.counselingTable.model()
+
+            counsel_date = model.index(row, 0).data()
+            counsel_subject = model.index(row, 1).data()
+            counsel_details = model.index(row, 2).data()
+            corrective_measure = model.index(row, 3).data()
+
+            # 선택된 데이터를 counseling 입력란에 채우기
+            self.counselingDate.setDate(QtCore.QDate.fromString(counsel_date, "yyyy-MM-dd"))
+            self.counselingSubject.setText(counsel_subject)
+            self.counselingDetails.setPlainText(counsel_details)
+            self.counselingCorrectiveMeasure.setText(corrective_measure)
+
+            # 필드는 비활성화 상태로 유지
+            self.disable_counseling_fields()
+
+    def disable_counseling_fields(self):
+        self.counselingDate.setEnabled(False)
+        self.counselingSubject.setEnabled(False)
+        self.counselingDetails.setEnabled(False)
+        self.counselingCorrectiveMeasure.setEnabled(False)
+
+    def enable_counseling_fields(self):
+        self.counselingDate.setEnabled(True)
+        self.counselingSubject.setEnabled(True)
+        self.counselingDetails.setEnabled(True)
+        self.counselingCorrectiveMeasure.setEnabled(True)
 
     def not_input_number(self):
         name_text = self.name.text()
@@ -359,77 +586,6 @@ class RegistrationApp(QMainWindow):
         self.enable_all_fields()
         self.edit_mode = True  # Edit 모드로 전환
 
-    def upload_counsel_data(self):
-        # 상담 정보 업로드
-        customer_name = self.name.text()
-        customer_dob = self.dateOfBirth.date().toString(QtCore.Qt.ISODate)
-        counsel_info = self.counsel.toPlainText()  # 상담 정보 (텍스트 입력)
-        counsel_date = self.counselDate.date().toString(QtCore.Qt.ISODate)  # 상담 날짜
-        counsel_type = self.counselType.currentText()  # 상담 유형 (콤보박스)
-
-        # 고객의 이름이 비어 있으면 경고 메시지 표시
-        if not customer_name:
-            QMessageBox.warning(self, "Missing Information", "Customer's name is required to upload counsel data.")
-            return
-
-        counsel_data = {
-            "customer_name": customer_name,
-            "customer_dob": customer_dob,
-            "counsel_info": counsel_info,
-            "counsel_date": counsel_date,
-            "counsel_type": counsel_type
-        }
-
-        try:
-            counsel_ref = DB.collection('Counsel_Info')
-            counsel_ref.add(counsel_data)
-            QMessageBox.information(self, "Success", "Counsel data uploaded successfully.")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to upload counsel data: {e}")
-
-    def delete_counsel_data(self):
-        # 상담 정보를 삭제하는 함수
-        try:
-            # 삭제할 상담 정보를 선택했는지 확인
-            selected_row = self.counselingTable.currentIndex().row()
-            if selected_row < 0:
-                QMessageBox.warning(self, "No Selection", "Please select a counseling record to delete.")
-                return
-
-            # Firestore에서 선택한 상담 정보 가져오기
-            counseling_data = self.get_selected_counseling_data(selected_row)
-
-            if counseling_data:
-                # 삭제 확인 메시지 박스
-                reply = QMessageBox.question(self, 'Confirm Delete', 
-                                            "Are you sure you want to delete this counseling record?",
-                                            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                if reply == QMessageBox.Yes:
-                    # Firestore에서 상담 정보 삭제
-                    DB.collection('Counsel_Info').document(counseling_data['uid']).delete()
-                    QMessageBox.information(self, "Success", "Counseling data deleted successfully.")
-                    # 테이블 갱신 또는 삭제된 행을 테이블에서 제거
-                    self.load_counseling_data()
-                else:
-                    return
-            else:
-                QMessageBox.warning(self, "No Data", "Counseling data not found.")
-
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to delete counseling data: {e}")
-
-    def get_selected_counseling_data(self, row):
-        # 상담 테이블에서 선택한 행의 데이터를 가져오는 함수
-        try:
-            counseling_data = self.counselingTable.model().index(row, 0).data()  # uid가 첫 번째 열에 있다고 가정
-            doc = DB.collection('Counsel_Info').document(counseling_data).get()
-            if doc.exists:
-                return doc.to_dict()
-            else:
-                return None
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to load counseling data: {e}")
-            return None
 
 def main():
     app = QApplication(sys.argv)
