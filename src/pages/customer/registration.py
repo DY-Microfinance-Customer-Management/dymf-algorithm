@@ -1,12 +1,13 @@
 import sys
 import os
 import re
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+import base64
+from io import BytesIO
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QLabel
 from PyQt5 import uic, QtCore
 from components import DB
 from pages.loan.select_customer import SelectCustomerWindow
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
-
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
 class RegistrationApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -43,6 +44,7 @@ class RegistrationApp(QMainWindow):
         self.name.textChanged.connect(self.not_input_number)
         self.saveButton.clicked.connect(self.prepare_save_customer_data)
         self.editButton.clicked.connect(self.edit_customer_data)
+        self.imageButton.clicked.connect(self.select_image)
 
         # Connect counselingSaveButton and counselingDeleteButton
         self.counselingNewButton.clicked.connect(self.on_counseling_new_clicked)
@@ -69,6 +71,7 @@ class RegistrationApp(QMainWindow):
         self.edit_mode = False  # New 모드로 전환
         self.saveButton.setEnabled(True)
         self.editButton.setEnabled(False)
+        self.imageButton.setEnabled(True)
 
     def open_select_customer_window(self):
         # SelectCustomerWindow를 열고 고객 선택을 처리
@@ -390,6 +393,7 @@ class RegistrationApp(QMainWindow):
         self.disable_all_fields()  # 새로운 고객 등록 시 모든 필드 비활성화
         self.editButton.setEnabled(False)  # 편집 버튼 비활성화
         self.saveButton.setEnabled(False)  # 저장 버튼 비활성화
+        self.imageLabel.clear()
 
     def disable_all_fields(self):
         # Disable all input fields
@@ -422,6 +426,7 @@ class RegistrationApp(QMainWindow):
         self.info4.setEnabled(False)
         self.info5.setEnabled(False)
         self.saveButton.setEnabled(False)  # 저장 버튼도 비활성화
+        self.imageButton.setEnabled(False)
 
     def enable_all_fields(self):
         self.saveButton.setEnabled(True)
@@ -453,7 +458,7 @@ class RegistrationApp(QMainWindow):
         self.info3.setEnabled(True)
         self.info4.setEnabled(True)
         self.info5.setEnabled(True)
-
+        self.imageButton.setEnabled(True)
     def prepare_save_customer_data(self):
         customer_data = self.get_customer_data()
 
@@ -586,7 +591,21 @@ class RegistrationApp(QMainWindow):
         self.enable_all_fields()
         self.edit_mode = True  # Edit 모드로 전환
 
+    def select_image(self):
+        # 파일 탐색기 열기
+        file_name, _ = QFileDialog.getOpenFileName(self, "Select Image", "", "Image Files (*.png *.jpg *.jpeg)")
+        if file_name:
+            pixmap = QPixmap(file_name)
+            if not pixmap.isNull():
+                # QLabel에 이미지 설정
+                self.imageLabel.setPixmap(pixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation))
 
+                # 이미지를 Base64로 인코딩하여 저장
+                buffer = BytesIO()
+                pixmap.save(buffer, "JPEG")  # JPEG 또는 PNG로 저장 가능
+                self.image_base64_data = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            else:
+                QMessageBox.warning(self, "Error", "Failed to load image.")
 def main():
     app = QApplication(sys.argv)
     window = RegistrationApp()
