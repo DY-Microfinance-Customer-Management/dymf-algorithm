@@ -5,9 +5,13 @@ import base64
 from io import BytesIO
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QLabel
 from PyQt5 import uic, QtCore
-from components import DB
+from components import DB, storageBucket
 from pages.loan.select_customer import SelectCustomerWindow
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from PyQt5.QtCore import QBuffer, QByteArray, Qt
+from datetime import timedelta
+import requests
+
 class RegistrationApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -136,6 +140,29 @@ class RegistrationApp(QMainWindow):
         self.info3.setText(additional_info.get("info3", ""))
         self.info4.setText(additional_info.get("info4", ""))
         self.info5.setText(additional_info.get("info5", ""))
+
+        # Firestore에서 이미지 URL 가져오기
+        image_url = customer_data.get("image_url", "")
+        if image_url:
+            try:
+                # 이미지 URL을 통해 이미지 다운로드
+                response = requests.get(image_url)
+                if response.status_code == 200:
+                    # 이미지 데이터를 QPixmap으로 로드
+                    image_data = BytesIO(response.content)
+                    pixmap = QPixmap()
+                    pixmap.loadFromData(image_data.read())
+
+                    # QLabel에 이미지 설정
+                    self.imageLabel.setPixmap(
+                        pixmap.scaled(self.imageLabel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+                else:
+                    self.imageLabel.clear()  # 이미지를 불러오지 못했을 때
+            except Exception as e:
+                QMessageBox.warning(self, "Error", f"Failed to load image: {e}")
+                self.imageLabel.clear()
+        else:
+            self.imageLabel.clear()  # 이미지 URL이 없을 때
 
     def load_counseling_data(self):
         try:
@@ -550,30 +577,46 @@ class RegistrationApp(QMainWindow):
                 "info4": self.info4.text(),
                 "info5": self.info5.text()
             }
+
         }
 
     def save_customer_data(self):
         customer_data = self.get_customer_data()
 
         try:
-            # edit_mode가 활성화되어 있고, current_customer_id가 있으면 기존 문서를 업데이트
+            # 고객 UID를 가져옵니다. 새 고객이라면 Firestore에 새로 생성합니다.
             if self.edit_mode and self.current_customer_id:
-                # 기존 문서 업데이트
-                customer_ref = DB.collection('Customer').document(self.current_customer_id)
-                customer_data["uid"] = self.current_customer_id  # 기존 문서의 uid를 유지
-                customer_ref.update(customer_data)  # update로 수정
-                QMessageBox.information(self, "Success", "Customer data updated successfully.")
+                customer_uid = self.current_customer_id
             else:
-                # 새로운 문서 추가
-                customer_ref = DB.collection('Customer')
-                new_customer_ref = customer_ref.add(customer_data)
-                new_customer_id = new_customer_ref[1].id  # 생성된 document의 ID 가져오기
-                customer_data["uid"] = new_customer_id  # uid를 document ID로 설정
-                DB.collection('Customer').document(new_customer_id).update({"uid": new_customer_id})
-                QMessageBox.information(self, "Success", "New customer data saved successfully.")
+                # 새로운 문서 추가 (기존 문서가 없을 때)
+                new_customer_ref = DB.collection('Customer').add(customer_data)
+                customer_uid = new_customer_ref[1].id  # 생성된 document의 ID 가져오기
+                customer_data["uid"] = customer_uid
+                DB.collection('Customer').document(customer_uid).update({"uid": customer_uid})
 
+            # 이미지가 선택된 경우 Firestore Storage에 업로드
+            if hasattr(self, 'selected_image_path') and os.path.exists(self.selected_image_path):
+                # Firebase Storage 경로 설정: customer_uid를 기반으로 파일명을 지정
+                image_blob = storageBucket.blob(f'customer_images/{customer_uid}.jpg')  # 이미지 저장 경로
+
+                # 이미지 파일을 Firestore Storage에 업로드
+                image_blob.upload_from_filename(self.selected_image_path)
+
+                # 이미지 URL 가져오기
+                image_url = image_blob.generate_signed_url(expiration=timedelta(days=365))
+
+                # Firestore의 고객 문서에 이미지 URL 저장
+                customer_data["image_url"] = image_url
+                DB.collection('Customer').document(customer_uid).update({"image_url": image_url})
+
+            # 고객 데이터 업데이트 또는 저장
+            DB.collection('Customer').document(customer_uid).update(customer_data)
+
+            QMessageBox.information(self, "Success", "Customer data saved successfully.")
             self.clear_fields()
-            # 저장 후 searchButton과 newButton 활성화
+
+            # 필드 초기화 및 상태 리셋
+            self.clear_fields()
             self.searchButton.setEnabled(True)
             self.newButton.setEnabled(True)
             self.saveButton.setEnabled(False)
@@ -582,7 +625,6 @@ class RegistrationApp(QMainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to save customer data: {e}")
-
     def edit_customer_data(self):
         self.newButton.setEnabled(False)
         self.searchButton.setEnabled(False)
@@ -595,15 +637,17 @@ class RegistrationApp(QMainWindow):
         # 파일 탐색기 열기
         file_name, _ = QFileDialog.getOpenFileName(self, "Select Image", "", "Image Files (*.png *.jpg *.jpeg)")
         if file_name:
+            # 이미지를 QPixmap으로 로드
             pixmap = QPixmap(file_name)
+
             if not pixmap.isNull():
                 # QLabel에 이미지 설정
-                self.imageLabel.setPixmap(pixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation))
+                self.imageLabel.setPixmap(
+                    pixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+                )
 
-                # 이미지를 Base64로 인코딩하여 저장
-                buffer = BytesIO()
-                pixmap.save(buffer, "JPEG")  # JPEG 또는 PNG로 저장 가능
-                self.image_base64_data = base64.b64encode(buffer.getvalue()).decode("utf-8")
+                # 파일 경로를 저장하여 Firestore Storage에 업로드할 수 있도록 준비
+                self.selected_image_path = file_name  # 이미지 파일 경로를 저장
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
 def main():
