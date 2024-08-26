@@ -1,13 +1,14 @@
-import sys
-import os
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
-from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSignal
+import sys, os
+
 import pandas as pd
+from PyQt5 import uic
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
+from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
+
 from components import DB
 
 class SelectCustomerWindow(QMainWindow):
-    customer_selected = pyqtSignal(dict)  # Signal to send the selected customer data
+    customer_selected = pyqtSignal(dict)
 
     def __init__(self):
         super(SelectCustomerWindow, self).__init__()
@@ -18,20 +19,16 @@ class SelectCustomerWindow(QMainWindow):
         self.searchBox = self.findChild(QLineEdit, "searchBox")
         self.tableView = self.findChild(QTableView, "tableView")
 
-        # Set the selection behavior to select entire rows
         self.tableView.setSelectionBehavior(QTableView.SelectRows)
 
-        # Connect the search box to the filter function
         self.searchBox.textChanged.connect(self.filter_data)
 
-        # Connect table view click and double click
         self.tableView.clicked.connect(self.handle_table_click)
         self.tableView.doubleClicked.connect(self.handle_table_double_click)
 
         self.load_data()
 
     def load_data(self):
-        # Firestore에서 데이터 가져오기
         customers_ref = DB.collection(u'Customer')
         docs = customers_ref.stream()
 
@@ -40,7 +37,7 @@ class SelectCustomerWindow(QMainWindow):
             data.append(doc.to_dict())
 
         self.df = pd.DataFrame(data)
-        self.filtered_df = self.df.copy()  # Keep a copy of the original dataframe
+        self.filtered_df = self.df.copy()
         self.model = PandasModel(self.filtered_df)
         self.tableView.setModel(self.model)
 
@@ -54,7 +51,6 @@ class SelectCustomerWindow(QMainWindow):
         if index.isValid():
             row = index.row()
             selected_data = self.filtered_df.iloc[row].to_dict()
-            # print(f"Selected data: {selected_data}")
 
     def handle_table_double_click(self, index):
         if index.isValid():

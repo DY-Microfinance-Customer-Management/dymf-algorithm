@@ -10,15 +10,15 @@ class HomeApp(QMainWindow):
         ui_path = os.path.join(current_dir, "home.ui")
         uic.loadUi(ui_path, self)
 
-        # 1. 고객관리 / 고객등록
+        # Customer / Registration
         self.action = self.findChild(QAction, 'action')
         self.action.triggered.connect(self.open_customer_registration)
 
-        # 2. 대출관리 / 대출등록
+        # Loan / Registration
         self.action_3 = self.findChild(QAction, 'action_3')
         self.action_3.triggered.connect(self.open_loan)
 
-        # 2. 대출관리 / 이자계산기
+        # Loan / Loan Calculator
         self.action_12 = self.findChild(QAction, 'action_12')
         self.action_12.triggered.connect(self.open_calculator)
 
@@ -34,7 +34,11 @@ class HomeApp(QMainWindow):
         self.action_12 = self.findChild(QAction, 'action_10')
         self.action_12.triggered.connect(self.open_send_search)
 
-        # 2. Settings / Officer Management
+        # Repayment / Search
+        self.action_13 = self.findChild(QAction, 'action_13')
+        self.action_13.triggered.connect(self.open_repayment_search)
+
+        # Settings / Officer Management
         self.action_37 = self.findChild(QAction, 'action_37')
         self.action_37.triggered.connect(self.open_officer_management)
 
@@ -53,20 +57,10 @@ class HomeApp(QMainWindow):
         self.calculator_window = CalculatorApp()
         self.calculator_window.show()
 
-    def open_guarantor_search(self):
-        from pages.loan.guarantor_search import GuarantorSearchWindow
-        self.GuarantorSearchWindow = GuarantorSearchWindow()
-        self.GuarantorSearchWindow.show()
-
-    def open_security_search(self):
-        from pages.loan.collateral_search import SecuritySearchWindow
-        self.SecuritySearchWindow = SecuritySearchWindow()
-        self.SecuritySearchWindow.show()
-
-    def open_send_search(self):
-        from pages.loan.send_search import SendSearchWindow
-        self.SendSearchWindow = SendSearchWindow()
-        self.SendSearchWindow.show()
+    def open_repayment_search(self):
+        from pages.repayment.search import RepaymentSearchApp
+        self.repayment_search_window = RepaymentSearchApp()
+        self.repayment_search_window.show()
 
     def open_officer_management(self):
         from pages.setting.loan_officer import LoanOfficerApp

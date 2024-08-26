@@ -879,7 +879,7 @@
      <widget class="QPushButton" name="toExcelButton">
       <property name="geometry">
        <rect>
-        <x>1310</x>
+        <x>1330</x>
         <y>50</y>
         <width>93</width>
         <height>31</height>
@@ -892,7 +892,7 @@
      <widget class="QLabel" name="totalLabel2">
       <property name="geometry">
        <rect>
-        <x>890</x>
+        <x>850</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -911,7 +911,7 @@
      <widget class="QLabel" name="label_47">
       <property name="geometry">
        <rect>
-        <x>790</x>
+        <x>740</x>
         <y>50</y>
         <width>141</width>
         <height>31</height>
@@ -939,7 +939,7 @@
      <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
-        <x>1210</x>
+        <x>1230</x>
         <y>50</y>
         <width>93</width>
         <height>31</height>
@@ -980,7 +980,7 @@
      <widget class="QLabel" name="totalLabel4">
       <property name="geometry">
        <rect>
-        <x>1110</x>
+        <x>1070</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -1017,7 +1017,7 @@
      <widget class="QLabel" name="totalLabel3">
       <property name="geometry">
        <rect>
-        <x>1000</x>
+        <x>960</x>
         <y>580</y>
         <width>111</width>
         <height>31</height>
@@ -1079,7 +1079,7 @@
      <widget class="QLabel" name="label_124">
       <property name="geometry">
        <rect>
-        <x>780</x>
+        <x>740</x>
         <y>580</y>
         <width>101</width>
         <height>31</height>
@@ -1105,7 +1105,7 @@
        <rect>
         <x>20</x>
         <y>90</y>
-        <width>751</width>
+        <width>711</width>
         <height>481</height>
        </rect>
       </property>
@@ -1113,9 +1113,9 @@
      <widget class="QTableView" name="receivedTable">
       <property name="geometry">
        <rect>
-        <x>790</x>
+        <x>740</x>
         <y>90</y>
-        <width>651</width>
+        <width>681</width>
         <height>481</height>
        </rect>
       </property>

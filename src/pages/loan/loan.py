@@ -1,11 +1,12 @@
-import sys
-import os
+import sys, os
+from datetime import datetime
+
+import pandas as pd
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QApplication
 from PyQt5.QtCore import pyqtSlot, Qt, QDate
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-import pandas as pd
-from datetime import datetime
+
 from pages.loan.select_customer import SelectCustomerWindow
 from components import DB
 from components.loan_calculator import LoanCalculator
@@ -24,15 +25,14 @@ class LoanWindow(QMainWindow):
         self.loanNumber.setReadOnly(True)
         self.loanStatus.setEnabled(False)
 
-        self.customer_uid = None  # To store the selected customer's UID
+        self.customer_uid = None
 
         self.customerSearchButton.clicked.connect(self.check_and_open_select_customer_window)
         self.calculateButton.clicked.connect(self.on_calculate_button_clicked)
 
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.existing_loan_id = None  # To track if we're updating an existing document
+        self.existing_loan_id = None
 
-        # Disable paidButton and deleteButton initially
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
 
@@ -41,58 +41,46 @@ class LoanWindow(QMainWindow):
         self.guarantorEditButton.setEnabled(False)
         self.guarantorDeleteButton.setEnabled(False)
 
-        # Initialize buttons for collateral
         self.collateralNewButton.clicked.connect(self.on_collateral_new_clicked)
         self.collateralSaveButton.clicked.connect(self.on_collateral_save_clicked)
         self.collateralEditButton.clicked.connect(self.on_collateral_edit_clicked)
         self.collateralDeleteButton.clicked.connect(self.on_collateral_delete_clicked)
         self.collateralTable.clicked.connect(self.on_collateral_table_clicked)
 
-        # Disable buttons initially for collateral
         self.collateralNewButton.setEnabled(True)
         self.collateralSaveButton.setEnabled(False)
         self.collateralEditButton.setEnabled(False)
         self.collateralDeleteButton.setEnabled(False)
 
-        # Disable fields initially for collateral
         self.clear_collateral_fields()
 
-        # Initialize buttons for counseling
         self.counselingNewButton.clicked.connect(self.on_counseling_new_clicked)
         self.counselingSaveButton.clicked.connect(self.on_counseling_save_clicked)
         self.counselingEditButton.clicked.connect(self.on_counseling_edit_clicked)
         self.counselingDeleteButton.clicked.connect(self.on_counseling_delete_clicked)
         self.counselingTable.clicked.connect(self.on_counseling_table_clicked)
 
-        # Disable buttons initially
         self.counselingNewButton.setEnabled(True)
         self.counselingSaveButton.setEnabled(False)
         self.counselingEditButton.setEnabled(False)
         self.counselingDeleteButton.setEnabled(False)
         
-        # Disable fields initially
         self.clear_counseling_fields()
         
-        # Disable guarantorSearchButton initially
         self.guarantorSearchButton.setEnabled(False)
 
-        # Disable guarantorType and guarantorRelation initially
         self.guarantorType.setEnabled(False)
         self.guarantorRelation.setEnabled(False)
 
-        # Set selection behavior for tables
         self.repaymentScheduleTable.setSelectionBehavior(QTableView.SelectRows)
         self.receivedTable.setSelectionBehavior(QTableView.SelectRows)
 
-        # Connect the table click events to the respective functions
         self.repaymentScheduleTable.clicked.connect(self.handle_table_click)
         self.receivedTable.clicked.connect(self.handle_received_table_click)
 
-        # Connect the paidButton and deleteButton click events
         self.paidButton.clicked.connect(self.on_paid_button_clicked)
         self.deleteButton.clicked.connect(self.on_delete_button_clicked)
 
-        # Connect the guarantor buttons to respective functions
         self.guarantorNewButton.clicked.connect(self.on_guarantor_new_clicked)
         self.guarantorSaveButton.clicked.connect(self.on_guarantor_save_clicked)
         self.guarantorSearchButton.clicked.connect(self.open_select_guarantor_window)
@@ -159,7 +147,6 @@ class LoanWindow(QMainWindow):
         self.select_customer_window.show()
 
     def open_select_guarantor_window(self):
-        # Open the select customer window for selecting a guarantor
         self.select_guarantor_window = SelectCustomerWindow()
         self.select_guarantor_window.customer_selected.connect(self.handle_guarantor_selected)
         self.select_guarantor_window.show()
@@ -366,7 +353,6 @@ class LoanWindow(QMainWindow):
             self.guarantorRelation.setCurrentText(model.index(self.selected_guarantor_row, 2).data())
 
     def on_collateral_new_clicked(self):
-        # Enable fields for new collateral entry
         self.collateralType.setCurrentText("[Select]")
         self.collateralName.clear()
         self.collateralDetails.clear()
@@ -376,7 +362,7 @@ class LoanWindow(QMainWindow):
         self.collateralDetails.setEnabled(True)
         self.collateralSaveButton.setEnabled(True)
 
-        self.selected_collateral_row = None  # Reset selected row for collateral
+        self.selected_collateral_row = None
 
     def on_collateral_save_clicked(self):
         collateral_info = {
@@ -385,7 +371,6 @@ class LoanWindow(QMainWindow):
             "details": self.collateralDetails.text()
         }
 
-        # Validate fields
         if collateral_info["type"] == "[Select]" or not collateral_info["name"] or not collateral_info["details"]:
             QMessageBox.warning(self, "Warning", "Please fill in all collateral fields.")
             return
@@ -403,22 +388,18 @@ class LoanWindow(QMainWindow):
                 loan_data["collaterals"] = []
 
             if self.selected_collateral_row is not None:
-                # Edit existing collateral entry
                 loan_data["collaterals"][self.selected_collateral_row] = collateral_info
             else:
-                # Add new collateral entry
                 loan_data["collaterals"].append(collateral_info)
 
             loan_ref.update(loan_data)
             QMessageBox.information(self, "Success", "Collateral information saved successfully.")
             self.load_collateral_data()
 
-        # Clear and disable fields after saving
         self.clear_collateral_fields()
 
     def on_collateral_edit_clicked(self):
         if self.selected_collateral_row is not None:
-            # Enable fields for editing
             self.collateralType.setEnabled(True)
             self.collateralName.setEnabled(True)
             self.collateralDetails.setEnabled(True)
@@ -438,7 +419,6 @@ class LoanWindow(QMainWindow):
                     QMessageBox.information(self, "Success", "Collateral entry deleted successfully.")
                     self.load_collateral_data()
 
-                    # Disable buttons and clear fields after deleting
                     self.collateralEditButton.setEnabled(False)
                     self.collateralDeleteButton.setEnabled(False)
                     self.clear_collateral_fields()
@@ -454,7 +434,6 @@ class LoanWindow(QMainWindow):
 
                 self.clear_table(self.collateralTable)
 
-                # Load data into collateralTable
                 self.load_collateral_table(self.collateralTable, collateral_data, columns=["Type", "Name", "Details"])
 
     def clear_collateral_fields(self):
@@ -471,11 +450,9 @@ class LoanWindow(QMainWindow):
         if index.isValid():
             self.selected_collateral_row = index.row()
 
-            # Enable edit and delete buttons when a row is selected
             self.collateralEditButton.setEnabled(True)
             self.collateralDeleteButton.setEnabled(True)
 
-            # Display selected data in the fields
             model = self.collateralTable.model()
             self.collateralType.setCurrentText(model.index(self.selected_collateral_row, 0).data())
             self.collateralName.setText(model.index(self.selected_collateral_row, 1).data())
@@ -517,7 +494,6 @@ class LoanWindow(QMainWindow):
             "corrective_measure": self.counselingCorrectiveMeasure.text()
         }
 
-        # Validate fields
         if not counseling_info["subject"] or not counseling_info["details"] or not counseling_info["corrective_measure"]:
             QMessageBox.warning(self, "Warning", "Please fill in all counseling fields.")
             return
@@ -677,7 +653,6 @@ class LoanWindow(QMainWindow):
         self.loanNumber.setText(new_loan_number)
 
     def clear_all_fields(self):
-        # Customer 정보 초기화
         self.customerName.clear()
         self.customerContact.clear()
         self.customerDateOfBirth.clear()
@@ -688,25 +663,21 @@ class LoanWindow(QMainWindow):
         self.loanNumber.clear()
         self.contractDate.setDate(QDate.currentDate())
         
-        # Loan 관련 정보 초기화
         self.existing_loan_id = None
         self.customer_uid = None
         self.expiry.clear()
         self.set_read_only(True)
 
-        # Repayment 및 Received 테이블 초기화
         self.clear_table(self.repaymentScheduleTable)
         self.clear_table(self.receivedTable)
         self.clear_table(self.loanScheduleTable)
         
-        # Guarantor 정보 초기화
         self.guarantorName.clear()
         self.guarantorType.setCurrentText("[Select]")
         self.guarantorRelation.setCurrentText("[Select]")
         self.guarantor_uid = None
         self.clear_table(self.guarantorTable)
 
-        # Guarantor 버튼 및 필드 초기화
         self.guarantorSearchButton.setEnabled(False)
         self.guarantorType.setEnabled(False)
         self.guarantorRelation.setEnabled(False)
@@ -715,13 +686,11 @@ class LoanWindow(QMainWindow):
         self.guarantorDeleteButton.setEnabled(False)
         self.guarantorNewButton.setEnabled(False)
 
-        # Collateral 정보 초기화
         self.collateralType.setCurrentText("[Select]")
         self.collateralName.clear()
         self.collateralDetails.clear()
         self.clear_table(self.collateralTable)
 
-        # Collateral 버튼 및 필드 초기화
         self.collateralType.setEnabled(False)
         self.collateralName.setEnabled(False)
         self.collateralDetails.setEnabled(False)
@@ -730,14 +699,12 @@ class LoanWindow(QMainWindow):
         self.collateralDeleteButton.setEnabled(False)
         self.collateralNewButton.setEnabled(False)
 
-        # Counseling 정보 초기화
         self.counselingDate.setDate(QDate.currentDate())
         self.counselingSubject.clear()
         self.counselingDetails.clear()
         self.counselingCorrectiveMeasure.clear()
         self.clear_table(self.counselingTable)
 
-        # Counseling 버튼 및 필드 초기화
         self.counselingDate.setEnabled(False)
         self.counselingSubject.setEnabled(False)
         self.counselingDetails.setEnabled(False)
@@ -747,13 +714,11 @@ class LoanWindow(QMainWindow):
         self.counselingDeleteButton.setEnabled(False)
         self.counselingNewButton.setEnabled(False)
 
-        # Loan 관련 버튼 및 필드 초기화
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
         self.loanNewButton.setEnabled(False)
         self.loanDeleteButton.setEnabled(False)
 
-        # Loan 상태 라벨 초기화
         self.guarantorLoanNumber.clear()
         self.collateralLoanNumber.clear()
         self.counselingLoanNumber.clear()
@@ -853,27 +818,23 @@ class LoanWindow(QMainWindow):
             "loanNumber": self.loanNumber.text(),
             "contractDate": self.contractDate.date().toString("yyyy-MM-dd"),
             "loanStatus": self.loanStatus.currentText(),
-            # loan_id 필드를 추가
             "loan_id": self.existing_loan_id if self.existing_loan_id else None
         }
 
         if hasattr(self, 'schedule_df'):
             loan_schedule = self.schedule_df.to_dict(orient="records")
             for schedule_item in loan_schedule:
-                schedule_item['status'] = 0  # 초기 상태를 'Scheduled'로 설정
+                schedule_item['status'] = 0
             loan_info["loanSchedule"] = loan_schedule
 
         try:
             if self.existing_loan_id:
-                # 기존 loan 업데이트 시 loan_id 추가
                 loan_info["loan_id"] = self.existing_loan_id
                 DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
             else:
-                # 새 loan 생성 시 loan_id 추가
                 doc_ref = DB.collection("Loan").add(loan_info)
                 self.existing_loan_id = doc_ref[1].id
                 loan_info["loan_id"] = self.existing_loan_id
-                # loan_id를 포함하여 문서 업데이트
                 DB.collection("Loan").document(self.existing_loan_id).set(loan_info)
 
         except Exception as e:
@@ -933,7 +894,6 @@ class LoanWindow(QMainWindow):
             self.display_schedule(self.schedule_df)
             self.update_other_tabs()
 
-            # loanNewButton을 활성화
             self.loanNewButton.setEnabled(True)
 
         except ValueError as e:
@@ -950,9 +910,8 @@ class LoanWindow(QMainWindow):
         )
 
         if reply == QMessageBox.Ok:
-            self.clear_all_fields()  # 모든 상태를 초기화
+            self.clear_all_fields()
 
-            # 필요한 버튼, 필드 상태 비활성화
             self.loanNewButton.setEnabled(False)
             self.loanDeleteButton.setEnabled(False)
             self.guarantorNewButton.setEnabled(False)
@@ -974,7 +933,6 @@ class LoanWindow(QMainWindow):
         reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to delete?', QMessageBox.Ok | QMessageBox.Cancel)
 
         if reply == QMessageBox.Ok:
-            # DB에서 해당 loan document 삭제
             if self.existing_loan_id:
                 loan_ref = DB.collection("Loan").document(self.existing_loan_id)
                 try:
@@ -983,7 +941,6 @@ class LoanWindow(QMainWindow):
                 except Exception as e:
                     QMessageBox.critical(self, "Error", f"An error occurred while deleting the loan: {e}")
             
-            # 초기 상태로 되돌리기
             self.clear_all_fields()
             self.loanDeleteButton.setEnabled(False)
             self.guarantorNewButton.setEnabled(False)
@@ -1004,11 +961,9 @@ class LoanWindow(QMainWindow):
 
         df_with_status['Status'] = df_with_status['Status'].apply(lambda x: 'Scheduled' if x == 0 else 'Paid')
 
-        # Remove 'Remaining Balance' column if it exists in the repayment table
         if 'Remaining Balance' in df_with_status.columns:
             df_with_status = df_with_status.drop(columns=['Remaining Balance'])
 
-        # Remove 'Total' row if it exists
         if 'Total' in df_with_status['Payment Date'].values:
             df_with_status = df_with_status[df_with_status['Payment Date'] != 'Total']
 
@@ -1138,7 +1093,7 @@ class LoanWindow(QMainWindow):
                         schedule_period = 1
 
                     if schedule_period == period_value:
-                        schedule["status"] = 0  # Update status to 'Scheduled'
+                        schedule["status"] = 0
 
                 loan_ref.update({"loanSchedule": loan_schedule})
                 self.load_data_into_tables()
@@ -1213,10 +1168,11 @@ class LoanWindow(QMainWindow):
         table.resizeColumnsToContents()
 
     def clear_table(self, table):
-        model = QStandardItemModel(0, 0)  # Empty model to clear the table
+        model = QStandardItemModel(0, 0)
         table.setModel(model)
 
-def main(): 
+def main():
+    app = QApplication(sys.argv)
     window = LoanWindow()
     window.show()
     sys.exit(app.exec_())

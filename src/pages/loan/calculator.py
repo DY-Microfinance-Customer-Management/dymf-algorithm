@@ -18,27 +18,22 @@ class CalculatorApp(QMainWindow):
         uic.loadUi(ui_path, self)
         self.show()
 
-        # Connect the Calculate button to the function
         self.calculateButton.clicked.connect(self.calculate)
 
-        # Set validators to ensure only numbers can be entered
         self.principal.setValidator(QDoubleValidator(0.0, 99999999.99, 2, self))
         self.interestRate.setValidator(QDoubleValidator(0.0, 100.0, 2, self))
         self.expirationMonths.setValidator(QIntValidator(0, 1200, self))
 
     def calculate(self):
         try:
-            # Get input values
             principal = float(self.principal.text())
             interest_rate = float(self.interestRate.text()) / 100  # Convert percentage to decimal
             expiration_months = int(self.expirationMonths.text())
             cycle = self.cycle.currentText().lower().replace(' ', '')
             payment_type = self.paymentType.currentText().lower().replace(' ', '')
 
-            # Create a LoanCalculator instance
             loan_calculator = LoanCalculator(datetime.now(), principal, expiration_months, interest_rate)
             
-            # Calculate the result based on the selected payment type
             if payment_type == 'equal':
                 result_df = loan_calculator.equal_payment(cycle)
             elif payment_type == 'equalprincipal':
@@ -46,7 +41,6 @@ class CalculatorApp(QMainWindow):
             elif payment_type == 'bullet':
                 result_df = loan_calculator.bullet_payment(cycle)
 
-            # Display the result DataFrame in the resultTable
             self.display_result(result_df)
 
         except ValueError:
@@ -56,14 +50,12 @@ class CalculatorApp(QMainWindow):
         vertical_header = [str(i) for i in df['Period'].values]
         df = df.drop(columns=['Period'])
         
-        # Define a function to format numbers with commas
         def format_number(value):
             try:
-                return "{:,}".format(int(value))  # Format with commas and 2 decimal places
+                return "{:,}".format(int(value))
             except ValueError:
-                return value  # Return the value as-is if it's not a number
+                return value
         
-        # Apply formatting to all numerical columns
         for column in df.columns:
             df[column] = df[column].apply(format_number)
         

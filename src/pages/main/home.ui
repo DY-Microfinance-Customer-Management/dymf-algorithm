@@ -43,10 +43,9 @@
    </widget>
    <widget class="QMenu" name="menu3">
     <property name="title">
-     <string>3. 수납관리</string>
+     <string>3. Repayment</string>
     </property>
     <addaction name="action_13"/>
-    <addaction name="action_14"/>
    </widget>
    <widget class="QMenu" name="menu4">
     <property name="title">
@@ -80,10 +79,10 @@
    <widget class="QMenu" name="menu1">
     <property name="geometry">
      <rect>
-      <x>268</x>
-      <y>156</y>
-      <width>163</width>
-      <height>113</height>
+      <x>528</x>
+      <y>817</y>
+      <width>214</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="title">
@@ -235,7 +234,7 @@
      <normaloff>:/acceptance/수납 일괄등록.png</normaloff>:/acceptance/수납 일괄등록.png</iconset>
    </property>
    <property name="text">
-    <string>수 납 일 괄 등 록</string>
+    <string>Search</string>
    </property>
    <property name="font">
     <font>
