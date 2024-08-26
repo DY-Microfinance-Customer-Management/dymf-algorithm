@@ -94,8 +94,6 @@ class LoanWindow(QMainWindow):
 
         self.selected_guarantor_row = None
 
-        self.loanDeleteButton.clicked.connect(self.on_loan_delete_clicked)
-        self.loanDeleteButton.setEnabled(False)
         self.loanNewButton.clicked.connect(self.on_loan_new_button_clicked)
         self.loanNewButton.setEnabled(False)
 
@@ -137,9 +135,16 @@ class LoanWindow(QMainWindow):
             )
             if reply == QMessageBox.Ok:
                 self.clear_all_fields()
+                self.reset_ui_state_after_clear()  # 상태 초기화를 위해 추가된 메서드 호출
                 self.open_select_customer_window()
         else:
             self.open_select_customer_window()
+
+    def reset_ui_state_after_clear(self):
+        # clear_all_fields() 후 필요한 UI 상태 재설정
+        self.interestRate.setText("28")  # interestRate를 28로 다시 설정
+        self.set_read_only(True)  # 고객을 다시 선택하기 전까지는 모든 필드를 비활성화
+        self.customer_uid = None  # customer_uid 초기화
 
     def open_select_customer_window(self):
         self.select_customer_window = SelectCustomerWindow()
@@ -157,7 +162,7 @@ class LoanWindow(QMainWindow):
 
         self.customerName.setText(customer_data.get('name', ''))
         self.customerContact.setText(customer_data.get('phone', ''))
-        self.customer_uid = customer_data.get('uid', '')  # Save customer's UID
+        self.customer_uid = customer_data.get('uid', '')  # 고객 UID 저장
         
         birth_timestamp = customer_data.get('birth', 0)
         if isinstance(birth_timestamp, (int, float)):
@@ -173,6 +178,9 @@ class LoanWindow(QMainWindow):
         current_date = QDate.currentDate()
         self.contractDate.setDate(current_date)
         self.contractDate.setReadOnly(False)
+
+        # 고객이 선택된 후 버튼 활성화
+        self.enable_new_buttons()
 
         self.check_existing_customer_loan()
 
@@ -652,16 +660,53 @@ class LoanWindow(QMainWindow):
 
         self.loanNumber.setText(new_loan_number)
 
+    def enable_new_buttons(self):
+        # 고객 선택 후 필요한 버튼 활성화
+        self.guarantorNewButton.setEnabled(True)
+        self.collateralNewButton.setEnabled(True)
+        self.counselingNewButton.setEnabled(True)
+
     def clear_all_fields(self):
+        # 모든 필드를 초기화
         self.customerName.clear()
         self.customerContact.clear()
         self.customerDateOfBirth.clear()
         self.loanAmount.clear()
-        self.interestRate.clear()
+        self.interestRate.setText("28")
         self.checkBoxMale.setChecked(False)
         self.checkBoxFemale.setChecked(False)
         self.loanNumber.clear()
         self.contractDate.setDate(QDate.currentDate())
+
+        self.guarantorLoanNumber.clear()
+        self.guarantorLoanStatus.clear()
+        self.guarantorLoanOfficer.clear()
+        self.guarantorContractDate.clear()
+        self.guarantorLoanType.clear()
+        self.guarantorLoanAmount.clear()
+        self.guarantorExpiry.clear()
+        self.guarantorRepaymentCycle.clear()
+        self.guarantorInterestRate.clear()
+
+        self.collateralLoanNumber.clear()
+        self.collateralLoanStatus.clear()
+        self.collateralLoanOfficer.clear()
+        self.collateralContractDate.clear()
+        self.collateralLoanType.clear()
+        self.collateralLoanAmount.clear()
+        self.collateralExpiry.clear()
+        self.collateralRepaymentCycle.clear()
+        self.collateralInterestRate.clear()
+
+        self.counselingLoanNumber.clear()
+        self.counselingLoanStatus.clear()
+        self.counselingLoanOfficer.clear()
+        self.counselingContractDate.clear()
+        self.counselingLoanType.clear()
+        self.counselingLoanAmount.clear()
+        self.counselingExpiry.clear()
+        self.counselingRepaymentCycle.clear()
+        self.counselingInterestRate.clear()
         
         self.existing_loan_id = None
         self.customer_uid = None
@@ -684,7 +729,6 @@ class LoanWindow(QMainWindow):
         self.guarantorSaveButton.setEnabled(False)
         self.guarantorEditButton.setEnabled(False)
         self.guarantorDeleteButton.setEnabled(False)
-        self.guarantorNewButton.setEnabled(False)
 
         self.collateralType.setCurrentText("[Select]")
         self.collateralName.clear()
@@ -697,7 +741,6 @@ class LoanWindow(QMainWindow):
         self.collateralSaveButton.setEnabled(False)
         self.collateralEditButton.setEnabled(False)
         self.collateralDeleteButton.setEnabled(False)
-        self.collateralNewButton.setEnabled(False)
 
         self.counselingDate.setDate(QDate.currentDate())
         self.counselingSubject.clear()
@@ -712,49 +755,11 @@ class LoanWindow(QMainWindow):
         self.counselingSaveButton.setEnabled(False)
         self.counselingEditButton.setEnabled(False)
         self.counselingDeleteButton.setEnabled(False)
-        self.counselingNewButton.setEnabled(False)
 
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
         self.loanNewButton.setEnabled(False)
-        self.loanDeleteButton.setEnabled(False)
 
-        self.guarantorLoanNumber.clear()
-        self.collateralLoanNumber.clear()
-        self.counselingLoanNumber.clear()
-
-        self.guarantorLoanStatus.clear()
-        self.collateralLoanStatus.clear()
-        self.counselingLoanStatus.clear()
-
-        self.guarantorLoanOfficer.clear()
-        self.collateralLoanOfficer.clear()
-        self.counselingLoanOfficer.clear()
-
-        self.guarantorContractDate.clear()
-        self.collateralContractDate.clear()
-        self.counselingContractDate.clear()
-
-        self.guarantorLoanType.clear()
-        self.collateralLoanType.clear()
-        self.counselingLoanType.clear()
-
-        self.guarantorLoanAmount.clear()
-        self.collateralLoanAmount.clear()
-        self.counselingLoanAmount.clear()
-
-        self.guarantorInterestRate.clear()
-        self.collateralInterestRate.clear()
-        self.counselingInterestRate.clear()
-
-        self.guarantorExpiry.clear()
-        self.collateralExpiry.clear()
-        self.counselingExpiry.clear()
-
-        self.guarantorRepaymentCycle.clear()
-        self.collateralRepaymentCycle.clear()
-        self.counselingRepaymentCycle.clear()
-    
     def closeEvent(self, event):
         if self.customerName.text():
             reply = QMessageBox.question(
@@ -902,56 +907,19 @@ class LoanWindow(QMainWindow):
             QMessageBox.critical(self, "Error", f"An unexpected error occurred: {e}")
 
     def on_loan_new_button_clicked(self):
-        reply = QMessageBox.question(
-            self,
-            "New Schedule",
-            "Do you want to create a new schedule?",
-            QMessageBox.Ok | QMessageBox.Cancel
-        )
-
-        if reply == QMessageBox.Ok:
-            self.clear_all_fields()
-
-            self.loanNewButton.setEnabled(False)
-            self.loanDeleteButton.setEnabled(False)
-            self.guarantorNewButton.setEnabled(False)
-            self.guarantorSaveButton.setEnabled(False)
-            self.guarantorEditButton.setEnabled(False)
-            self.guarantorDeleteButton.setEnabled(False)
-            self.collateralNewButton.setEnabled(False)
-            self.collateralSaveButton.setEnabled(False)
-            self.collateralEditButton.setEnabled(False)
-            self.collateralDeleteButton.setEnabled(False)
-            self.counselingNewButton.setEnabled(False)
-            self.counselingSaveButton.setEnabled(False)
-            self.counselingEditButton.setEnabled(False)
-            self.counselingDeleteButton.setEnabled(False)
-
-            QMessageBox.information(self, "Success", "All fields have been reset.")
-
-    def on_loan_delete_clicked(self):
-        reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to delete?', QMessageBox.Ok | QMessageBox.Cancel)
-
-        if reply == QMessageBox.Ok:
-            if self.existing_loan_id:
-                loan_ref = DB.collection("Loan").document(self.existing_loan_id)
-                try:
-                    loan_ref.delete()
-                    QMessageBox.information(self, "Success", "Loan document deleted successfully.")
-                except Exception as e:
-                    QMessageBox.critical(self, "Error", f"An error occurred while deleting the loan: {e}")
-            
-            self.clear_all_fields()
-            self.loanDeleteButton.setEnabled(False)
-            self.guarantorNewButton.setEnabled(False)
-            self.guarantorEditButton.setEnabled(False)
-            self.guarantorDeleteButton.setEnabled(False)
-            self.collateralNewButton.setEnabled(False)
-            self.collateralEditButton.setEnabled(False)
-            self.collateralDeleteButton.setEnabled(False)
-            self.counselingNewButton.setEnabled(False)
-            self.counselingEditButton.setEnabled(False)
-            self.counselingDeleteButton.setEnabled(False)
+        if self.customerName.text():
+            reply = QMessageBox.question(
+                self,
+                'Confirm',
+                'There is already data being entered. Do you want to clear it?',
+                QMessageBox.Ok | QMessageBox.Cancel
+            )
+            if reply == QMessageBox.Ok:
+                self.clear_all_fields()
+                self.reset_ui_state_after_clear()
+                self.open_select_customer_window()
+        else:
+            self.open_select_customer_window()
 
     def display_schedule(self, df: pd.DataFrame):
         df_with_status = df.copy()

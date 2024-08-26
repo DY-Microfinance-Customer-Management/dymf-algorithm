@@ -246,7 +246,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -3992,23 +3992,10 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="loanDeleteButton">
-    <property name="geometry">
-     <rect>
-      <x>1320</x>
-      <y>20</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="loanNewButton">
     <property name="geometry">
      <rect>
-      <x>1190</x>
+      <x>1330</x>
       <y>20</y>
       <width>121</width>
       <height>31</height>
@@ -4029,7 +4016,6 @@
    <zorder>checkBoxMale</zorder>
    <zorder>checkBoxFemale</zorder>
    <zorder>customerName</zorder>
-   <zorder>loanDeleteButton</zorder>
    <zorder>loanNewButton</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
