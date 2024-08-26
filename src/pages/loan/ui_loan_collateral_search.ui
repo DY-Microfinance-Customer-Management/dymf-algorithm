@@ -33,7 +33,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="CollateralTable">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -60,11 +60,6 @@
     <attribute name="horizontalHeaderHighlightSections">
      <bool>false</bool>
     </attribute>
-    <column>
-     <property name="text">
-      <string/>
-     </property>
-    </column>
     <column>
      <property name="text">
       <string>계약일자</string>
@@ -111,7 +106,7 @@
      </property>
     </column>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="SearchButton">
     <property name="geometry">
      <rect>
       <x>1350</x>
@@ -218,7 +213,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QTextEdit" name="CustomerName">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -227,8 +222,13 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_3">
+   <widget class="QTextEdit" name="CollateralName">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -237,8 +237,13 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
-   <widget class="QDateEdit" name="LastDate_2">
+   <widget class="QDateEdit" name="LastDate">
     <property name="geometry">
      <rect>
       <x>1130</x>
@@ -312,7 +317,7 @@
      <string>~</string>
     </property>
    </widget>
-   <widget class="QDateEdit" name="StartDate_2">
+   <widget class="QDateEdit" name="StartDate">
     <property name="geometry">
      <rect>
       <x>890</x>

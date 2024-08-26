@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>1210</width>
-     <height>29</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="font">
@@ -37,7 +37,6 @@
     <addaction name="separator"/>
     <addaction name="action_7"/>
     <addaction name="action_8"/>
-    <addaction name="action_9"/>
     <addaction name="action_10"/>
     <addaction name="separator"/>
     <addaction name="action_12"/>
@@ -83,8 +82,8 @@
      <rect>
       <x>268</x>
       <y>156</y>
-      <width>214</width>
-      <height>131</height>
+      <width>163</width>
+      <height>113</height>
      </rect>
     </property>
     <property name="title">
@@ -471,7 +470,6 @@
   </action>
  </widget>
  <resources>
-  <include location="../../../../../../../../Downloads/acceptance.qrc"/>
   <include location="../../../../../../../../Downloads/loan.qrc"/>
  </resources>
  <connections/>

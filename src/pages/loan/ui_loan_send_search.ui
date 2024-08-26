@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>담보자료검색</string>
+   <string>고객상담자료검색</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_3">
@@ -33,7 +33,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="SendTable">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -62,12 +62,7 @@
     </attribute>
     <column>
      <property name="text">
-      <string/>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>계약일자</string>
+      <string>발송일자</string>
      </property>
     </column>
     <column>
@@ -77,41 +72,46 @@
     </column>
     <column>
      <property name="text">
-      <string>담보구분</string>
+      <string>계약일자</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보명</string>
+      <string>대출상태</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보1</string>
+      <string>관리번호</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보2</string>
+      <string>비용</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보3</string>
+      <string>내용</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보4</string>
+      <string>발송처</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>등록자</string>
+      <string>발송대상자</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>처리결과</string>
      </property>
     </column>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="SearchButton">
     <property name="geometry">
      <rect>
       <x>1350</x>
@@ -124,10 +124,37 @@
      <string>검색(S)</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>25</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>발송대상자</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>10</x>
       <y>10</y>
       <width>101</width>
       <height>61</height>
@@ -145,7 +172,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>계약일자</string>
+     <string>발송일자</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -167,36 +194,9 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>25</x>
+      <x>650</x>
       <y>25</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>담보명</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>405</x>
-      <y>25</y>
-      <width>151</width>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
@@ -218,31 +218,41 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QTextEdit" name="CustomerName">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>760</x>
       <y>25</y>
-      <width>151</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_3">
+   <widget class="QTextEdit" name="SenderName">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>1100</x>
       <y>25</y>
-      <width>151</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
-   <widget class="QDateEdit" name="LastDate_2">
+   <widget class="QDateEdit" name="LastDate">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>30</y>
+      <x>360</x>
+      <y>25</y>
       <width>200</width>
       <height>30</height>
      </rect>
@@ -294,11 +304,11 @@
      </date>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>35</y>
+      <x>330</x>
+      <y>30</y>
       <width>21</width>
       <height>20</height>
      </rect>
@@ -312,11 +322,11 @@
      <string>~</string>
     </property>
    </widget>
-   <widget class="QDateEdit" name="StartDate_2">
+   <widget class="QDateEdit" name="StartDate">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>30</y>
+      <x>120</x>
+      <y>25</y>
       <width>200</width>
       <height>30</height>
      </rect>

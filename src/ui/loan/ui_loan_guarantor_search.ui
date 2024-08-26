@@ -121,11 +121,6 @@
     </attribute>
     <column>
      <property name="text">
-      <string/>
-     </property>
-    </column>
-    <column>
-     <property name="text">
       <string>계약일자</string>
      </property>
     </column>
@@ -136,32 +131,37 @@
     </column>
     <column>
      <property name="text">
-      <string>담보구분</string>
+      <string>보증구분</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보명</string>
+      <string>보증인명</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보1</string>
+      <string>생년월일</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보2</string>
+      <string>성별</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보3</string>
+      <string>관계</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>담보정보4</string>
+      <string>핸드폰번호</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>별칭</string>
      </property>
     </column>
     <column>
