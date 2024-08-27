@@ -1,11 +1,10 @@
 import sys, os
-
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush
+from PyQt5.QtCore import Qt, QDate
 from PyQt5 import uic, QtCore
-from PyQt5.QtCore import QDate
-
 from components import DB  # Firestore DB를 사용한다고 가정
+from pages.repayment.details import RepaymentDetailsWindow
 
 class RepaymentSearchApp(QMainWindow):
     def __init__(self):
@@ -17,103 +16,201 @@ class RepaymentSearchApp(QMainWindow):
         self.setup_connections()
         self.setup_table()
         self.set_default_dates()
+        self.paidButton.setEnabled(False)
+        self.cancelPaymentButton.setEnabled(False)
+        self.details_window = None
 
     def setup_connections(self):
-        # 버튼 클릭 시 각 메서드 연결
         self.searchButton.clicked.connect(self.on_search_clicked)
         self.paidButton.clicked.connect(self.on_paid_clicked)
         self.cancelPaymentButton.clicked.connect(self.on_cancel_payment_clicked)
+        self.detailsButton.clicked.connect(self.on_details_button_clicked)
         self.toExcelButton.clicked.connect(self.export_to_excel)
+        self.repaymentScheduleTable.clicked.connect(self.on_table_clicked)
 
     def setup_table(self):
-        # 테이블 초기화 (헤더 설정)
-        model = QStandardItemModel(0, 5)
-        model.setHorizontalHeaderLabels(["Date", "Amount", "Paid", "Outstanding", "Status"])
+        model = QStandardItemModel(0, 6)
+        model.setHorizontalHeaderLabels(["Date", "Customer", "Principal", "Interest", "Total", "Status"])
         self.repaymentScheduleTable.setModel(model)
+        self.repaymentScheduleTable.setSelectionBehavior(self.repaymentScheduleTable.SelectRows)
 
     def set_default_dates(self):
-        # startDate와 endDate를 오늘 날짜로 설정
         today = QDate.currentDate()
         self.startDate.setDate(today)
         self.endDate.setDate(today)
 
     def on_search_clicked(self):
-        # 검색 버튼 클릭 시 DB에서 데이터를 검색하는 메서드
         start_date = self.startDate.date().toString("yyyy-MM-dd")
         end_date = self.endDate.date().toString("yyyy-MM-dd")
-        print(1)
-        
-        # Firestore에서 Loan Collection의 모든 문서 가져오기
+        schedules_to_add = []  # 스케줄 데이터를 담을 리스트
+
         try:
-            print(2)
             loans_ref = DB.collection('Loan')
             loans = loans_ref.stream()
 
-            # 테이블의 이전 데이터를 삭제
             self.repaymentScheduleTable.model().removeRows(0, self.repaymentScheduleTable.model().rowCount())
-            print(3)
 
-            # 모든 문서에 대해 loanSchedule 필드 검색
             for loan_doc in loans:
-                print(4)
                 loan_data = loan_doc.to_dict()
                 loan_schedule = loan_data.get("loanSchedule", [])
-                print(5)
 
-                # loanSchedule에서 paymentDate가 start_date와 end_date 사이에 있는 항목만 필터링
                 for schedule in loan_schedule:
-                    print(6)
                     payment_date = schedule.get("Payment Date", "")
                     if start_date <= payment_date <= end_date:
-                        # 필터링된 항목을 테이블에 추가
-                        self.add_schedule_to_table(schedule)
-                        print(7)
+                        schedules_to_add.append((schedule, loan_data))  # 리스트에 스케줄 추가
+
+            # Payment Date 기준으로 스케줄 정렬
+            schedules_to_add.sort(key=lambda x: x[0].get("Payment Date", ""))
+
+            # 정렬된 스케줄 데이터를 테이블에 추가
+            for schedule, loan_data in schedules_to_add:
+                self.add_schedule_to_table(schedule, loan_data)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load repayment schedules: {e}")
 
-    def add_schedule_to_table(self, schedule):
-        # 테이블에 스케줄 데이터를 추가하는 함수
+    def add_schedule_to_table(self, schedule, loan_data):
         model = self.repaymentScheduleTable.model()
         row = model.rowCount()
 
-        # 스케줄 데이터를 가져와 각 컬럼에 삽입
-        model.setItem(row, 0, QStandardItem(schedule.get("Payment Date", "")))
-        model.setItem(row, 1, QStandardItem(str(schedule.get("amount", 0))))
-        model.setItem(row, 2, QStandardItem(str(schedule.get("paid", 0))))
-        model.setItem(row, 3, QStandardItem(str(schedule.get("outstanding", 0))))
-        model.setItem(row, 4, QStandardItem(schedule.get("status", "")))
+        principal = "{:,}".format(schedule.get("Principal", 0))
+        interest = "{:,}".format(schedule.get("Interest", 0))
+        total = "{:,}".format(schedule.get("Total", 0))
+
+        status_code = schedule.get("status", "")
+        if status_code == 0:
+            status_text = "Scheduled"
+        elif status_code == 1:
+            status_text = "Paid"
+        elif status_code == 2:
+            status_text = "Overdue"
+        else:
+            status_text = ""
+
+        items = [
+            QStandardItem(schedule.get("Payment Date", "")),
+            QStandardItem(loan_data.get('customerName', '')),
+            QStandardItem(principal),
+            QStandardItem(interest),
+            QStandardItem(total),
+            QStandardItem(status_text)
+        ]
+
+        if status_text == "Overdue":
+            for item in items:
+                item.setForeground(QBrush(Qt.red))
+
+        for item in items:
+            item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
+
+        model.appendRow(items)
+
+    def on_table_clicked(self, index):
+        if index.isValid():
+            selected_row = index.row()
+            model = self.repaymentScheduleTable.model()
+
+            status = model.index(selected_row, 5).data()
+
+            if status == "Scheduled":
+                self.paidButton.setEnabled(True)
+                self.cancelPaymentButton.setEnabled(False)
+            elif status == "Paid":
+                self.paidButton.setEnabled(False)
+                self.cancelPaymentButton.setEnabled(True)
+            else:
+                self.paidButton.setEnabled(False)
+                self.cancelPaymentButton.setEnabled(False)
 
     def on_paid_clicked(self):
-        # Paid 버튼 클릭 시 동작할 메서드
         selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
         if not selected_indexes:
             QMessageBox.warning(self, "No Selection", "Please select a repayment record to mark as paid.")
             return
-        
-        # 선택된 행의 데이터 가져오기
+
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
-        date = model.index(selected_row, 0).data()
-        
-        QMessageBox.information(self, "Payment Marked as Paid", f"Payment for {date} marked as paid.")
+
+        payment_date = model.index(selected_row, 0).data()
+        customer_name = model.index(selected_row, 1).data()
+
+        try:
+            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+
+            if loans_ref:
+                loan_doc = loans_ref[0]
+                loan_data = loan_doc.to_dict()
+                loan_schedule = loan_data.get("loanSchedule", [])
+
+                for schedule in loan_schedule:
+                    if schedule.get("Payment Date") == payment_date:
+                        schedule['status'] = 1
+
+                DB.collection('Loan').document(loan_doc.id).update({"loanSchedule": loan_schedule})
+
+                QMessageBox.information(self, "Success", f"Payment for {payment_date} marked as paid.")
+                self.on_search_clicked()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
 
     def on_cancel_payment_clicked(self):
-        # Cancel Payment 버튼 클릭 시 동작할 메서드
         selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
         if not selected_indexes:
             QMessageBox.warning(self, "No Selection", "Please select a repayment record to cancel.")
             return
-        
-        # 선택된 행의 데이터 가져오기
+
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
-        date = model.index(selected_row, 0).data()
+
+        payment_date = model.index(selected_row, 0).data()
+        customer_name = model.index(selected_row, 1).data()
+
+        try:
+            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+
+            if loans_ref:
+                loan_doc = loans_ref[0]
+                loan_data = loan_doc.to_dict()
+                loan_schedule = loan_data.get("loanSchedule", [])
+
+                for schedule in loan_schedule:
+                    if schedule.get("Payment Date") == payment_date:
+                        schedule['status'] = 0  # 상태를 0으로 변경
+
+                DB.collection('Loan').document(loan_doc.id).update({"loanSchedule": loan_schedule})
+
+                QMessageBox.information(self, "Success", f"Payment for {payment_date} has been canceled.")
+                self.on_search_clicked()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
+
+    def on_details_button_clicked(self):
+        selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
+        if not selected_indexes:
+            QMessageBox.warning(self, "No Selection", "Please select a repayment record.")
+            return
         
-        QMessageBox.information(self, "Payment Canceled", f"Payment for {date} has been canceled.")
+        selected_row = selected_indexes[0].row()
+        model = self.repaymentScheduleTable.model()
+        
+        customer_name = model.index(selected_row, 1).data()
+
+        try:
+            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+
+            if loans_ref:
+                loan_doc = loans_ref[0]
+                loan_data = loan_doc.to_dict()
+
+                self.details_window = RepaymentDetailsWindow(loan_data)
+                self.details_window.show()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to load loan details: {e}")
 
     def export_to_excel(self):
-        # 엑셀로 내보내기 버튼 클릭 시 동작할 메서드
         QMessageBox.information(self, "Export to Excel", "Repayment data will be exported to Excel.")
 
 def main():
