@@ -157,6 +157,6 @@ class RepaymentDetailsWindow(QMainWindow):
         table_view.resizeColumnsToContents()
 
     def create_read_only_item(self, text):
-        item = QStandardItem(text)
+        item = QStandardItem(str(text))
         item.setFlags(item.flags() & ~Qt.ItemIsEditable)
         return item
