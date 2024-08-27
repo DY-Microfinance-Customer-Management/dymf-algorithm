@@ -68,6 +68,7 @@ class RegistrationApp(QMainWindow):
         self.saveButton.setEnabled(True)
         self.editButton.setEnabled(False)
         self.imageButton.setEnabled(True)
+        self.clear_counseling_table()  # 테이블 정보 초기화
 
     def open_select_customer_window(self):
         self.setEnabled(False)
@@ -75,6 +76,11 @@ class RegistrationApp(QMainWindow):
         self.select_customer_window = SelectCustomerWindow()
         self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
         self.select_customer_window.show()
+
+    def clear_counseling_table(self):
+        model = QStandardItemModel(0, 4)
+        model.setHorizontalHeaderLabels(["Date", "Subject", "Details", "Corrective Measure"])
+        self.counselingTable.setModel(model)
 
     @QtCore.pyqtSlot(dict)
     def handle_customer_selected(self, customer_data):
@@ -175,7 +181,7 @@ class RegistrationApp(QMainWindow):
 
             else:
                 QMessageBox.warning(self, "No Customer Data", "The selected customer does not exist in the database.")
-                
+
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load counseling data: {e}")
 
@@ -255,6 +261,11 @@ class RegistrationApp(QMainWindow):
             QMessageBox.critical(self, "Error", f"Failed to delete counseling data: {e}")
 
     def save_counsel_data(self):
+        # 상담 정보가 모두 입력되었는지 확인
+        if not self.counselingSubject.text() or not self.counselingDetails.toPlainText():
+            QMessageBox.warning(self, "Missing Information", "Subject and Details are required.")
+            return
+
         counsel_info = {
             "counsel_subject": self.counselingSubject.text(),
             "counsel_details": self.counselingDetails.toPlainText(),
@@ -284,13 +295,13 @@ class RegistrationApp(QMainWindow):
                 customer_ref.update({"counseling": customer_data["counseling"]})
 
                 QMessageBox.information(self, "Success", "Counseling data saved successfully.")
-                
+
                 self.counselingDate.setDate(QtCore.QDate(2000, 1, 1))
                 self.counselingSubject.clear()
                 self.counselingDetails.clear()
                 self.counselingCorrectiveMeasure.clear()
                 self.load_counseling_data()
-                
+
                 self.disable_counseling_fields()
 
                 self.edit_mode = False

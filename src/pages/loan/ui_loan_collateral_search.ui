@@ -33,79 +33,6 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTableWidget" name="CollateralTable">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>80</y>
-      <width>1471</width>
-      <height>501</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>1251</width>
-      <height>0</height>
-     </size>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>170</number>
-    </attribute>
-    <attribute name="horizontalHeaderHighlightSections">
-     <bool>false</bool>
-    </attribute>
-    <column>
-     <property name="text">
-      <string>계약일자</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>고객명</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보구분</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보명</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보정보1</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보정보2</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보정보3</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>담보정보4</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>등록자</string>
-     </property>
-    </column>
-   </widget>
    <widget class="QPushButton" name="SearchButton">
     <property name="geometry">
      <rect>
@@ -122,8 +49,8 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>10</y>
+      <x>660</x>
+      <y>20</y>
       <width>101</width>
       <height>61</height>
      </rect>
@@ -159,38 +86,11 @@
      <string>Excel변환</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>25</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>담보명</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>405</x>
-      <y>25</y>
+      <x>100</x>
+      <y>40</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -216,24 +116,9 @@
    <widget class="QTextEdit" name="CustomerName">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>25</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="CollateralName">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>25</y>
-      <width>151</width>
+      <x>260</x>
+      <y>40</y>
+      <width>191</width>
       <height>31</height>
      </rect>
     </property>
@@ -246,8 +131,8 @@
    <widget class="QDateEdit" name="LastDate">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>30</y>
+      <x>1030</x>
+      <y>35</y>
       <width>200</width>
       <height>30</height>
      </rect>
@@ -302,7 +187,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>1100</x>
+      <x>1000</x>
       <y>35</y>
       <width>21</width>
       <height>20</height>
@@ -320,8 +205,8 @@
    <widget class="QDateEdit" name="StartDate">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>30</y>
+      <x>790</x>
+      <y>35</y>
       <width>200</width>
       <height>30</height>
      </rect>
@@ -371,6 +256,16 @@
       <month>1</month>
       <day>1</day>
      </date>
+    </property>
+   </widget>
+   <widget class="QTableView" name="CollateralTable">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>100</y>
+      <width>1471</width>
+      <height>471</height>
+     </rect>
     </property>
    </widget>
   </widget>
