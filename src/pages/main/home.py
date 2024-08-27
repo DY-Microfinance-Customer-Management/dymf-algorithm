@@ -23,16 +23,16 @@ class HomeApp(QMainWindow):
         self.action_12.triggered.connect(self.open_calculator)
 
         # # 2. 대출관리 / 보증인검색
-        # self.action_12 = self.findChild(QAction, 'action_7')
-        # self.action_12.triggered.connect(self.open_guarantor_search)
+        self.action_12 = self.findChild(QAction, 'action_7')
+        self.action_12.triggered.connect(self.open_guarantor_search)
 
         # # 2. 대출관리 / 담보검색
-        # self.action_12 = self.findChild(QAction, 'action_8')
-        # self.action_12.triggered.connect(self.open_security_search)
+        self.action_12 = self.findChild(QAction, 'action_8')
+        self.action_12.triggered.connect(self.open_collateral_search)
 
         # # 2. 대출관리 / 발송검색
-        # self.action_12 = self.findChild(QAction, 'action_10')
-        # self.action_12.triggered.connect(self.open_send_search)
+        self.action_12 = self.findChild(QAction, 'action_10')
+        self.action_12.triggered.connect(self.open_counseling_search)
 
         # Repayment / Search
         self.action_13 = self.findChild(QAction, 'action_13')
@@ -66,6 +66,22 @@ class HomeApp(QMainWindow):
         from pages.setting.loan_officer import LoanOfficerApp
         self.officer_management_window = LoanOfficerApp()
         self.officer_management_window.show()
+
+    def open_collateral_search(self):
+        from pages.loan.collateral_search import CollateralSearchWindow
+        self.CollateralSearchWindow = CollateralSearchWindow()
+        self.CollateralSearchWindow.show()
+
+    def open_guarantor_search(self):
+        from pages.loan.guarantor_search import GuarantorSearchWindow
+        self.GuarantorSearchWindow = GuarantorSearchWindow()
+        self.GuarantorSearchWindow.show()
+
+    def open_counseling_search(self):
+        from pages.loan.counseling_search import CounselingSearchWindow
+        self.CounselingSearchWindow = CounselingSearchWindow()
+        self.CounselingSearchWindow.show()
+
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)

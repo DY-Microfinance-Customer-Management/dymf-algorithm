@@ -33,149 +33,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTableWidget" name="SendTable">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>80</y>
-      <width>1471</width>
-      <height>501</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>1251</width>
-      <height>0</height>
-     </size>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>170</number>
-    </attribute>
-    <attribute name="horizontalHeaderHighlightSections">
-     <bool>false</bool>
-    </attribute>
-    <column>
-     <property name="text">
-      <string>발송일자</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>고객명</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>계약일자</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>대출상태</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>관리번호</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>비용</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>내용</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>발송처</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>발송대상자</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>처리결과</string>
-     </property>
-    </column>
-   </widget>
    <widget class="QPushButton" name="SearchButton">
     <property name="geometry">
      <rect>
       <x>1350</x>
-      <y>10</y>
+      <y>20</y>
       <width>111</width>
       <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string>검색(S)</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_14">
-    <property name="geometry">
-     <rect>
-      <x>990</x>
-      <y>25</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>발송대상자</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>101</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(250, 250, 250)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>발송일자</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_9">
@@ -191,12 +59,12 @@
      <string>Excel변환</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>25</y>
-      <width>101</width>
+      <x>100</x>
+      <y>35</y>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -221,38 +89,55 @@
    <widget class="QTextEdit" name="CustomerName">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>25</y>
-      <width>131</width>
+      <x>260</x>
+      <y>35</y>
+      <width>201</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
     </property>
    </widget>
-   <widget class="QTextEdit" name="SenderName">
+   <widget class="QTableView" name="CounselingTable">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>25</y>
-      <width>131</width>
-      <height>31</height>
+      <x>0</x>
+      <y>100</y>
+      <width>1471</width>
+      <height>471</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>20</y>
+      <width>101</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(250, 250, 250)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>상담일자</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QDateEdit" name="LastDate">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>25</y>
+      <x>1020</x>
+      <y>35</y>
       <width>200</width>
       <height>30</height>
      </rect>
@@ -304,11 +189,11 @@
      </date>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>30</y>
+      <x>990</x>
+      <y>35</y>
       <width>21</width>
       <height>20</height>
      </rect>
@@ -325,8 +210,8 @@
    <widget class="QDateEdit" name="StartDate">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>25</y>
+      <x>780</x>
+      <y>35</y>
       <width>200</width>
       <height>30</height>
      </rect>
