@@ -158,7 +158,7 @@ class LoanWindow(QMainWindow):
 
     @pyqtSlot(dict)
     def handle_customer_selected(self, customer_data):
-        print(f"Customer selected: {customer_data}")
+        # print(f"Customer selected: {customer_data}")
 
         self.customerName.setText(customer_data.get('name', ''))
         self.customerContact.setText(customer_data.get('phone', ''))
@@ -186,7 +186,7 @@ class LoanWindow(QMainWindow):
 
     @pyqtSlot(dict)
     def handle_guarantor_selected(self, guarantor_data):
-        print(f"Guarantor selected: {guarantor_data}")
+        # print(f"Guarantor selected: {guarantor_data}")
         self.guarantorName.setText(guarantor_data.get('name', ''))
         self.guarantor_uid = guarantor_data.get('uid', '')
 

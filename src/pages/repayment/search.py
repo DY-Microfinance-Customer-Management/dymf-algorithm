@@ -71,7 +71,6 @@ class RepaymentSearchApp(QMainWindow):
 
     def add_schedule_to_table(self, schedule, loan_data):
         model = self.repaymentScheduleTable.model()
-        row = model.rowCount()
 
         principal = "{:,}".format(schedule.get("Principal", 0))
         interest = "{:,}".format(schedule.get("Interest", 0))
