@@ -25,7 +25,7 @@ class OverdueLoanManagementWindow(QMainWindow):
             self.load_empty_state()
 
     def open_select_loan(self):
-        from pages.overdue.select_loan import SelectLoanWindow
+        from src.pages.overdue.select_loan import SelectLoanWindow
         self.select_loan_window = SelectLoanWindow()
         self.select_loan_window.loan_selected.connect(self.load_loan_data)
         self.select_loan_window.show()

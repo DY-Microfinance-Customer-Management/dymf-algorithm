@@ -28,5 +28,5 @@ ui->textBrowser_1->setStyleSheet("background-color: rgb(238, 238, 236);");
 
 ### Build
 ```
-pyinstaller --add-data "src/components/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json;." --onefile dymf.py
+pyinstaller --onefile --add-data "src/components/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json;." --add-data "src/pages/customer/registration.ui;src/pages/customer" --add-data "src/pages/loan/calculator.ui;src/pages/loan" --add-data "src/pages/loan/collateral_search.ui;src/pages/loan" --add-data "src/pages/loan/counseling_search.ui;src/pages/loan" --add-data "src/pages/loan/guarantor_search.ui;src/pages/loan" --add-data "src/pages/loan/kor_loan.ui;src/pages/loan" --add-data "src/pages/loan/loan.ui;src/pages/loan" --add-data "src/pages/loan/select_customer.ui;src/pages/loan" --add-data "src/pages/main/login.ui;src/pages/main" --add-data "src/pages/main/home.ui;src/pages/main" --add-data "src/pages/overdue/overdue_loan_management.ui;src/pages/overdue" --add-data "src/pages/overdue/overdue_loan_registration.ui;src/pages/overdue" --add-data "src/pages/overdue/select_loan.ui;src/pages/overdue" --add-data "src/pages/repayment/details.ui;src/pages/repayment" --add-data "src/pages/repayment/repayment_search.ui;src/pages/repayment" --add-data "src/pages/setting/loan_officer.ui;src/pages/setting" dymf.py
 ```

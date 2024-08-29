@@ -29,7 +29,7 @@ class LoginApp(QDialog):
             self.error_text.setText("Invalid ID or Password")
 
     def open_home(self):
-        from pages.main.home import HomeApp
+        from src.pages.main.home import HomeApp
         self.home_window = HomeApp()
         self.home_window.show()
         self.close()

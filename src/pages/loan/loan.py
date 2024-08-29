@@ -10,8 +10,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from src.components import DB
 from src.components.loan_calculator import LoanCalculator
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'pages'))
-from pages.loan.select_customer import SelectCustomerWindow
+from src.pages.loan.select_customer import SelectCustomerWindow
 
 class LoanWindow(QMainWindow):
     def __init__(self):

@@ -51,57 +51,57 @@ class HomeApp(QMainWindow):
         self.action_37.triggered.connect(self.open_officer_management)
 
     def open_customer_registration(self):
-        from pages.customer.registration import RegistrationApp
+        from src.pages.customer.registration import RegistrationApp
         self.customer_registration_window = RegistrationApp()
         self.customer_registration_window.show()
 
     def open_loan(self):
-        from pages.loan.loan import LoanWindow
+        from src.pages.loan.loan import LoanWindow
         self.loan_window = LoanWindow()
         self.loan_window.show()
     
     def open_calculator(self):
-        from pages.loan.calculator import CalculatorApp
+        from src.pages.loan.calculator import CalculatorApp
         self.calculator_window = CalculatorApp()
         self.calculator_window.show()
 
     def open_repayment_search(self):
-        from pages.repayment.search import RepaymentSearchApp
+        from src.pages.repayment.search import RepaymentSearchApp
         self.repayment_search_window = RepaymentSearchApp()
         self.repayment_search_window.show()
 
     def open_officer_management(self):
-        from pages.setting.loan_officer import LoanOfficerApp
+        from src.pages.setting.loan_officer import LoanOfficerApp
         self.officer_management_window = LoanOfficerApp()
         self.officer_management_window.show()
 
     def open_collateral_search(self):
-        from pages.loan.collateral_search import CollateralSearchWindow
+        from src.pages.loan.collateral_search import CollateralSearchWindow
         self.CollateralSearchWindow = CollateralSearchWindow()
         self.CollateralSearchWindow.show()
 
     def open_guarantor_search(self):
-        from pages.loan.guarantor_search import GuarantorSearchWindow
+        from src.pages.loan.guarantor_search import GuarantorSearchWindow
         self.GuarantorSearchWindow = GuarantorSearchWindow()
         self.GuarantorSearchWindow.show()
 
     def open_counseling_search(self):
-        from pages.loan.counseling_search import CounselingSearchWindow
+        from src.pages.loan.counseling_search import CounselingSearchWindow
         self.CounselingSearchWindow = CounselingSearchWindow()
         self.CounselingSearchWindow.show()
 
     def open_counseling_search(self):
-        from pages.loan.counseling_search import CounselingSearchWindow
+        from src.pages.loan.counseling_search import CounselingSearchWindow
         self.CounselingSearchWindow = CounselingSearchWindow()
         self.CounselingSearchWindow.show()
 
     def open_overdue_management(self):
-        from pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
+        from src.pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
         self.OverdueLoanManagementWindow = OverdueLoanManagementWindow()
         self.OverdueLoanManagementWindow.show()
 
     def open_overdue_registration(self):
-        from pages.overdue.overdue_loan_registration import OverdueLoanRegistrationWindow
+        from src.pages.overdue.overdue_loan_registration import OverdueLoanRegistrationWindow
         self.OverdueLoanRegistrationWindow = OverdueLoanRegistrationWindow()
         self.OverdueLoanRegistrationWindow.show()
     

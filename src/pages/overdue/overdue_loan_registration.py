@@ -73,7 +73,7 @@ class OverdueLoanRegistrationWindow(QMainWindow):
             widget.setEnabled(True)
 
     def open_customer_search(self):
-        from pages.loan.select_customer import SelectCustomerWindow
+        from src.pages.loan.select_customer import SelectCustomerWindow
         self.customer_search_window = SelectCustomerWindow()
         self.customer_search_window.customer_selected.connect(self.handle_customer_selected)
         self.customer_search_window.show()
@@ -185,7 +185,7 @@ class OverdueLoanRegistrationWindow(QMainWindow):
         self.disable_inputs()
 
     def open_overdue_loan_management(self, loan_data):
-        from pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
+        from src.pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
         self.management_window = OverdueLoanManagementWindow(loan_data)
         self.management_window.show()
 
