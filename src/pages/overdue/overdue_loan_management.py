@@ -1,12 +1,10 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QTableView, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor
 from PyQt5.QtCore import QDate
 from components import DB
-import firebase_admin
-from firebase_admin import firestore
 
 class OverdueLoanManagementWindow(QMainWindow):
     def __init__(self, loan_data=None):

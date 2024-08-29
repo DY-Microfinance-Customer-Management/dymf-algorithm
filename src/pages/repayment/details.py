@@ -1,11 +1,12 @@
 import os
 import uuid
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QApplication, QAbstractItemView
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QAbstractItemView
 from PyQt5.QtCore import Qt, QDate, pyqtSlot
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor
 from components import DB
 from pages.loan.select_customer import SelectCustomerWindow
+from firebase_admin import firestore
 
 class RepaymentDetailsWindow(QMainWindow):
     def __init__(self, loan_data):
@@ -265,7 +266,7 @@ class RepaymentDetailsWindow(QMainWindow):
                 "relation": self.guarantorRelation.currentText(),
                 "uid": str(uuid.uuid4())
             }
-            self.loan_data["guarantors"].append(guarantor_info)
+            self.loan_data.setdefault("guarantors", []).append(guarantor_info)
             QMessageBox.information(self, "Success", "Guarantor added successfully.")
         else:
             if self.selected_guarantor_row is not None:
@@ -278,7 +279,10 @@ class RepaymentDetailsWindow(QMainWindow):
                 QMessageBox.information(self, "Success", "Guarantor updated successfully.")
 
         loan_id = self.loan_data.get("loan_id")
-        DB.collection("Loan").document(loan_id).update({"guarantors": self.loan_data["guarantors"]})
+        try:
+            DB.collection("Loan").document(loan_id).update({"guarantors": firestore.ArrayUnion(self.loan_data["guarantors"])})
+        except Exception:
+            DB.collection("Loan").document(loan_id).set({"guarantors": self.loan_data["guarantors"]}, merge=True)
 
         self.load_guarantor_table(self.loan_data["guarantors"])
         self.clear_guarantor_inputs()
@@ -354,11 +358,11 @@ class RepaymentDetailsWindow(QMainWindow):
         if self.collateralType.currentText() == "[Select]":
             QMessageBox.warning(self, "Warning", "Please select Collateral Type")
             return
-        
+
         if not self.collateralName.text():
             QMessageBox.warning(self, "Warning", "Collateral Name is required.")
             return
-        
+
         if not self.collateralDetails.text():
             QMessageBox.warning(self, "Warning", "Collateral Details is required.")
             return
@@ -369,7 +373,7 @@ class RepaymentDetailsWindow(QMainWindow):
                 "name": self.collateralName.text(),
                 "type": self.collateralType.currentText()
             }
-            self.loan_data["collaterals"].append(collateral_info)
+            self.loan_data.setdefault("collaterals", []).append(collateral_info)
             QMessageBox.information(self, "Success", "Collateral added successfully.")
         else:
             if self.selected_collateral_row is not None:
@@ -381,7 +385,10 @@ class RepaymentDetailsWindow(QMainWindow):
                 QMessageBox.information(self, "Success", "Collateral updated successfully.")
 
         loan_id = self.loan_data.get("loan_id")
-        DB.collection("Loan").document(loan_id).update({"collaterals": self.loan_data["collaterals"]})
+        try:
+            DB.collection("Loan").document(loan_id).update({"collaterals": firestore.ArrayUnion(self.loan_data["collaterals"])})
+        except Exception:
+            DB.collection("Loan").document(loan_id).set({"collaterals": self.loan_data["collaterals"]}, merge=True)
 
         self.load_collateral_table(self.loan_data["collaterals"])
         self.clear_collateral_inputs()
@@ -446,31 +453,34 @@ class RepaymentDetailsWindow(QMainWindow):
         self.is_counseling_edit_mode = True
 
     def on_counseling_save_clicked(self):
-        if not self.counselingSubject.text() or self.counselingDetails.text() or self.counselingCorrectiveMeasure.text():
+        if not self.counselingSubject.text() or not self.counselingDetails.text() or not self.counselingCorrectiveMeasure.text():
             QMessageBox.warning(self, "Warning", "All fields are required.")
             return
-        
+
         if not self.is_counseling_edit_mode:
             counseling_info = {
                 "corrective_measure": self.counselingCorrectiveMeasure.text(),
-                "dete": self.counselingDate.date().toString("yyyy-MM-dd"),
+                "date": self.counselingDate.date().toString("yyyy-MM-dd"),
                 "details": self.counselingDetails.text(),
-                "subject": self.counselingSubject.currentText()
+                "subject": self.counselingSubject.text()
             }
-            self.loan_data["counselings"].append(counseling_info)
+            self.loan_data.setdefault("counselings", []).append(counseling_info)
             QMessageBox.information(self, "Success", "Counseling added successfully.")
         else:
             if self.selected_counseling_row is not None:
                 self.loan_data["counselings"][self.selected_counseling_row] = {
                     "corrective_measure": self.counselingCorrectiveMeasure.text(),
-                    "dete": self.counselingDate.date().toString("yyyy-MM-dd"),
+                    "date": self.counselingDate.date().toString("yyyy-MM-dd"),
                     "details": self.counselingDetails.text(),
-                    "subject": self.counselingSubject.currentText()
+                    "subject": self.counselingSubject.text()
                 }
                 QMessageBox.information(self, "Success", "Counseling updated successfully.")
 
         loan_id = self.loan_data.get("loan_id")
-        DB.collection("Loan").document(loan_id).update({"counselings": self.loan_data["counselings"]})
+        try:
+            DB.collection("Loan").document(loan_id).update({"counselings": firestore.ArrayUnion(self.loan_data["counselings"])})
+        except Exception:
+            DB.collection("Loan").document(loan_id).set({"counselings": self.loan_data["counselings"]}, merge=True)
 
         self.load_counseling_table(self.loan_data["counselings"])
         self.clear_counseling_inputs()
@@ -504,7 +514,7 @@ class RepaymentDetailsWindow(QMainWindow):
         self.counselingSubject.clear()
         self.counselingDetails.clear()
         self.counselingCorrectiveMeasure.clear()
-    
+
         self.counselingSaveButton.setEnabled(False)
         self.counselingEditButton.setEnabled(False)
         self.counselingDeleteButton.setEnabled(False)
