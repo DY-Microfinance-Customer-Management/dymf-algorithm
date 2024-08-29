@@ -503,7 +503,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QDateEdit" name="contractDate">
+   <widget class="QDateEdit" name="startDate">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -851,7 +851,7 @@
      <string>days</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="customerSearchButton_2">
+   <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
       <x>1070</x>
@@ -861,7 +861,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Register</string>
+     <string>Save</string>
     </property>
    </widget>
   </widget>

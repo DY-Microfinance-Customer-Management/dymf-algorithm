@@ -38,6 +38,14 @@ class HomeApp(QMainWindow):
         self.action_13 = self.findChild(QAction, 'action_13')
         self.action_13.triggered.connect(self.open_repayment_search)
 
+        # Overdue / Registration
+        self.actionOverdueRegistration = self.findChild(QAction, 'actionOverdueRegistration')
+        self.actionOverdueRegistration.triggered.connect(self.open_overdue_registration)
+
+        # Overdue / Management
+        self.actionOverdueManagement = self.findChild(QAction, 'actionOverdueManagement')
+        self.actionOverdueManagement.triggered.connect(self.open_overdue_management)
+
         # Settings / Officer Management
         self.action_37 = self.findChild(QAction, 'action_37')
         self.action_37.triggered.connect(self.open_officer_management)
@@ -82,7 +90,21 @@ class HomeApp(QMainWindow):
         self.CounselingSearchWindow = CounselingSearchWindow()
         self.CounselingSearchWindow.show()
 
+    def open_counseling_search(self):
+        from pages.loan.counseling_search import CounselingSearchWindow
+        self.CounselingSearchWindow = CounselingSearchWindow()
+        self.CounselingSearchWindow.show()
 
+    def open_overdue_management(self):
+        from pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
+        self.OverdueLoanManagementWindow = OverdueLoanManagementWindow()
+        self.OverdueLoanManagementWindow.show()
+
+    def open_overdue_registration(self):
+        from pages.overdue.overdue_loan_registration import OverdueLoanRegistrationWindow
+        self.OverdueLoanRegistrationWindow = OverdueLoanRegistrationWindow()
+        self.OverdueLoanRegistrationWindow.show()
+    
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)
         if reply == QMessageBox.Ok:

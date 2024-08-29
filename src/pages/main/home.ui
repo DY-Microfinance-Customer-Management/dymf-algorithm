@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1210</width>
-    <height>665</height>
+    <width>1582</width>
+    <height>898</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1210</width>
+     <width>1582</width>
      <height>24</height>
     </rect>
    </property>
@@ -72,9 +72,17 @@
     <addaction name="action"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menu4_Overdue">
+    <property name="title">
+     <string>4. Overdue</string>
+    </property>
+    <addaction name="actionOverdueRegistration"/>
+    <addaction name="actionOverdueManagement"/>
+   </widget>
    <addaction name="menu1"/>
    <addaction name="menu2"/>
    <addaction name="menu3"/>
+   <addaction name="menu4_Overdue"/>
    <addaction name="menu0"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -444,6 +452,16 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+  </action>
+  <action name="actionOverdueRegistration">
+   <property name="text">
+    <string>Registration</string>
+   </property>
+  </action>
+  <action name="actionOverdueManagement">
+   <property name="text">
+    <string>Management</string>
    </property>
   </action>
  </widget>
