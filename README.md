@@ -25,3 +25,8 @@ git pull origin master
 ```
 ui->textBrowser_1->setStyleSheet("background-color: rgb(238, 238, 236);");
 ```
+
+### Build
+```
+pyinstaller --add-data "src/components/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json;." --onefile dymf.py
+```
