@@ -43,25 +43,6 @@
        <string>to Excel</string>
       </property>
      </widget>
-     <widget class="QLabel" name="totalLabel2">
-      <property name="geometry">
-       <rect>
-        <x>850</x>
-        <y>580</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_47">
       <property name="geometry">
        <rect>
@@ -131,129 +112,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="totalLabel4">
-      <property name="geometry">
-       <rect>
-        <x>1070</x>
-        <y>580</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="paidButton">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>47</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Paid</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="totalLabel3">
-      <property name="geometry">
-       <rect>
-        <x>960</x>
-        <y>580</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="totalLabel1">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>580</y>
-        <width>151</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_51">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>580</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(229, 229, 229)</string>
-      </property>
-      <property name="text">
-       <string>Total</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_124">
-      <property name="geometry">
-       <rect>
-        <x>740</x>
-        <y>580</y>
-        <width>101</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(229, 229, 229)</string>
-      </property>
-      <property name="text">
-       <string>Total</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QTableView" name="repaymentScheduleTable">
       <property name="geometry">
        <rect>
@@ -272,6 +130,19 @@
         <width>681</width>
         <height>481</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="paidButton">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>50</y>
+        <width>93</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Paid</string>
       </property>
      </widget>
     </widget>

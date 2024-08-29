@@ -22,15 +22,15 @@ class HomeApp(QMainWindow):
         self.action_12 = self.findChild(QAction, 'action_12')
         self.action_12.triggered.connect(self.open_calculator)
 
-        # # 2. 대출관리 / 보증인검색
+        # 2. 대출관리 / 보증인검색
         self.action_12 = self.findChild(QAction, 'action_7')
         self.action_12.triggered.connect(self.open_guarantor_search)
 
-        # # 2. 대출관리 / 담보검색
+        # 2. 대출관리 / 담보검색
         self.action_12 = self.findChild(QAction, 'action_8')
         self.action_12.triggered.connect(self.open_collateral_search)
 
-        # # 2. 대출관리 / 발송검색
+        # 2. 대출관리 / 발송검색
         self.action_12 = self.findChild(QAction, 'action_10')
         self.action_12.triggered.connect(self.open_counseling_search)
 

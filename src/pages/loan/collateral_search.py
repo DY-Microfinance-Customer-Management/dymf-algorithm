@@ -3,7 +3,7 @@ import os
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from components import DB  # Firestore 연결을 위한 모듈
 from datetime import datetime
 import traceback
@@ -13,11 +13,14 @@ class CollateralSearchWindow(QMainWindow):
     def __init__(self):
         super(CollateralSearchWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "ui_loan_collateral_search.ui")  # UI 파일 경로
+        ui_path = os.path.join(current_dir, "collateral_search.ui")  # UI 파일 경로
         uic.loadUi(ui_path, self)
 
         # 창 크기 고정
         self.setFixedSize(self.size())
+        
+        self.StartDate.setDate(QDate.currentDate())
+        self.LastDate.setDate(QDate.currentDate())
 
         self.setup_connections()
         self.setup_collateral_table()

@@ -3,7 +3,7 @@ import os
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from components import DB  # Firestore 연결을 위한 모듈
 from datetime import datetime
 import traceback
@@ -13,11 +13,14 @@ class GuarantorSearchWindow(QMainWindow):
     def __init__(self):
         super(GuarantorSearchWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "ui_loan_guarantor_search.ui")
+        ui_path = os.path.join(current_dir, "guarantor_search.ui")
         uic.loadUi(ui_path, self)
 
         # 창 크기 고정
         self.setFixedSize(self.size())
+
+        self.StartDate.setDate(QDate.currentDate())
+        self.LastDate.setDate(QDate.currentDate())
 
         self.setup_connections()
         self.setup_guarantor_table()
@@ -29,7 +32,7 @@ class GuarantorSearchWindow(QMainWindow):
     def setup_guarantor_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
         self.model = QStandardItemModel(0, 4)  # 4열 테이블로 설정
-        self.model.setHorizontalHeaderLabels(["보증인명", "관계", "보증유형", "고객명"])
+        self.model.setHorizontalHeaderLabels(["Guarantor Name", "Relation", "Type", "Customer Name"])
         self.GuarantorTable.setModel(self.model)
 
     def search_guarantor_data(self):
