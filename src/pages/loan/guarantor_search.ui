@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>1250</x>
-      <y>15</y>
+      <y>10</y>
       <width>111</width>
       <height>51</height>
      </rect>
@@ -118,7 +118,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>Counseling Date</string>
+     <string>Contract Date</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

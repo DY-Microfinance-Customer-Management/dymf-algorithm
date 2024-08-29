@@ -1,11 +1,12 @@
-import sys, os
-
+import sys
+import os
 import pandas as pd
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
 from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
 
 from components import DB
+
 
 class SelectCustomerWindow(QMainWindow):
     customer_selected = pyqtSignal(dict)
@@ -15,7 +16,7 @@ class SelectCustomerWindow(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "select_customer.ui")
         uic.loadUi(ui_path, self)
-        
+
         self.searchBox = self.findChild(QLineEdit, "searchBox")
         self.tableView = self.findChild(QTableView, "tableView")
 
@@ -34,30 +35,40 @@ class SelectCustomerWindow(QMainWindow):
 
         data = []
         for doc in docs:
-            data.append(doc.to_dict())
+            customer_data = doc.to_dict()
+            customer_data['customer_uid'] = doc.id  # UID 추가
+            data.append(customer_data)
 
         self.df = pd.DataFrame(data)
-        self.filtered_df = self.df.copy()
+
+        # 핸드폰 번호를 하나의 문자열로 합침
+        self.df['Phone No.'] = self.df[['phone1', 'phone2', 'phone3']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
+
+        # 표시할 열만 선택
+        self.display_df = self.df[['name', 'date_of_birth', 'Phone No.', 'loan_officer']]
+
+        self.filtered_df = self.display_df.copy()
         self.model = PandasModel(self.filtered_df)
         self.tableView.setModel(self.model)
 
     def filter_data(self):
         search_text = self.searchBox.text().lower()
-        self.filtered_df = self.df[self.df['name'].str.lower().str.contains(search_text)]
+        self.filtered_df = self.display_df[self.display_df['name'].str.lower().str.contains(search_text)]
         self.model._df = self.filtered_df
         self.model.layoutChanged.emit()
 
     def handle_table_click(self, index):
         if index.isValid():
             row = index.row()
-            selected_data = self.filtered_df.iloc[row].to_dict()
+            selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
 
     def handle_table_double_click(self, index):
         if index.isValid():
             row = index.row()
-            selected_data = self.filtered_df.iloc[row].to_dict()
+            selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
             self.customer_selected.emit(selected_data)
             self.close()
+
 
 class PandasModel(QAbstractTableModel):
     def __init__(self, df=pd.DataFrame(), parent=None):
@@ -84,11 +95,13 @@ class PandasModel(QAbstractTableModel):
                 return section
         return None
 
+
 def main():
     app = QApplication(sys.argv)
     window = SelectCustomerWindow()
     window.show()
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()

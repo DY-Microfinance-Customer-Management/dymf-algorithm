@@ -32,7 +32,7 @@ class CounselingSearchWindow(QMainWindow):
     def setup_counseling_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
         self.model = QStandardItemModel(0, 4)  # 4열 테이블로 설정
-        self.model.setHorizontalHeaderLabels(["상담일자", "상담주제", "상담내용", "결과조치"])
+        self.model.setHorizontalHeaderLabels(["Date", "Subject", "Details", "Corrective Measure", "Customer Name"])
         self.CounselingTable.setModel(self.model)
 
     def search_counseling_data(self):
@@ -42,22 +42,12 @@ class CounselingSearchWindow(QMainWindow):
             start_date = self.StartDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
             end_date = self.LastDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
 
-            # 필수 필드 검증
-            missing_fields = []
-            if not customer_name:
-                missing_fields.append("고객명")
-            if not start_date:
-                missing_fields.append("상담 시작일")
-            if not end_date:
-                missing_fields.append("상담 종료일")
-
-            # 비어있는 필드가 있으면 경고 메시지 표시 후 종료
-            if missing_fields:
-                QMessageBox.warning(self, "입력 오류", f"다음 필드를 입력하세요: {', '.join(missing_fields)}")
-                return
-
             # Firestore 데이터베이스 조회 준비
-            query = DB.collection('Loan').where(field_path="customerName", op_string="==", value=customer_name)
+            query = DB.collection('Loan')
+
+            # 고객명으로 필터링 (입력된 경우)
+            if customer_name:
+                query = query.where("customerName", "==", customer_name)
 
             # Firestore에서 데이터 가져오기
             results = query.stream()
@@ -66,7 +56,7 @@ class CounselingSearchWindow(QMainWindow):
             self.populate_table(results, start_date, end_date)
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"데이터 검색에 실패했습니다: {e}")
+            QMessageBox.critical(self, "Data does not exist")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
@@ -91,13 +81,14 @@ class CounselingSearchWindow(QMainWindow):
                         counsel_subject = counseling.get("subject", "")
                         counsel_details = counseling.get("details", "")
                         corrective_measure = counseling.get("corrective_measure", "")
-
+                        customer_name = loan_data.get("customerName", "")
                         # 상담 데이터 테이블에 추가
                         row_data = [
                             QStandardItem(counseling_date),
                             QStandardItem(counsel_subject),
                             QStandardItem(counsel_details),
-                            QStandardItem(corrective_measure)
+                            QStandardItem(corrective_measure),
+                            QStandardItem(customer_name)
                         ]
                         self.model.appendRow(row_data)
                         data_found = True  # 데이터가 있음을 표시
@@ -108,10 +99,10 @@ class CounselingSearchWindow(QMainWindow):
 
             # 만약 데이터를 찾지 못했다면 경고 메시지 표시
             if not data_found:
-                QMessageBox.warning(self, "No Data Found", "일치하는 상담 데이터를 찾을 수 없습니다.")
+                QMessageBox.warning(self, "Data does not exist")
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"테이블에 데이터를 표시하는 중 오류가 발생했습니다: {e}")
+            QMessageBox.critical(self, "Data does not exist}")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 

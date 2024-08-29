@@ -14,11 +14,14 @@ class CollateralSearchWindow(QMainWindow):
         super(CollateralSearchWindow, self).__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "collateral_search.ui")  # UI 파일 경로
+        if not os.path.exists(ui_path):
+            QMessageBox.critical(self, "Error", f"UI file not found: {ui_path}")
+            sys.exit(1)
         uic.loadUi(ui_path, self)
 
         # 창 크기 고정
         self.setFixedSize(self.size())
-        
+
         self.StartDate.setDate(QDate.currentDate())
         self.LastDate.setDate(QDate.currentDate())
 
@@ -31,8 +34,9 @@ class CollateralSearchWindow(QMainWindow):
 
     def setup_collateral_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
-        self.model = QStandardItemModel(0, 4)  # 4열 테이블로 설정
-        self.model.setHorizontalHeaderLabels(["담보명", "담보종류", "담보상세", "고객명"])
+        self.model = QStandardItemModel(0, 4)  # 3열 테이블로 설정
+        self.model.setHorizontalHeaderLabels(
+            ["Type", "Name", "Details", "Customer Name"])
         self.CollateralTable.setModel(self.model)
 
     def search_collateral_data(self):
@@ -41,22 +45,12 @@ class CollateralSearchWindow(QMainWindow):
             start_date = self.StartDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
             end_date = self.LastDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
 
-            # 필수 필드 검증
-            missing_fields = []
-            if not customer_name:
-                missing_fields.append("고객명")
-            if not start_date:
-                missing_fields.append("계약 시작일")
-            if not end_date:
-                missing_fields.append("계약 종료일")
-
-            # 비어있는 필드가 있으면 경고 메시지 표시 후 종료
-            if missing_fields:
-                QMessageBox.warning(self, "입력 오류", f"다음 필드를 입력하세요: {', '.join(missing_fields)}")
-                return
-
             # Firestore 데이터베이스 조회 준비
-            query = DB.collection('Loan').where("customerName", "==", customer_name)
+            query = DB.collection('Loan')
+
+            # 고객명으로 필터링
+            if customer_name:
+                query = query.where("customerName", "==", customer_name)
 
             # Firestore에서 데이터 가져오기
             results = query.stream()
@@ -65,7 +59,7 @@ class CollateralSearchWindow(QMainWindow):
             self.populate_table(results, start_date, end_date)
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"데이터 검색에 실패했습니다: {e}")
+            QMessageBox.critical(self, "Error", f"Data retrieval failed: {e}")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
@@ -97,13 +91,13 @@ class CollateralSearchWindow(QMainWindow):
                         collateral_name = collateral.get("name", "")
                         collateral_type = collateral.get("type", "")
                         collateral_details = collateral.get("details", "")
-
+                        customer_name = loan_data.get("customerName", "")
                         # 담보 데이터 테이블에 추가
                         row_data = [
-                            QStandardItem(collateral_name),
                             QStandardItem(collateral_type),
+                            QStandardItem(collateral_name),
                             QStandardItem(collateral_details),
-                            QStandardItem(loan_data.get("customerName", ""))
+                            QStandardItem(customer_name)
                         ]
                         self.model.appendRow(row_data)
                         data_found = True  # 데이터가 있음을 표시
@@ -114,10 +108,10 @@ class CollateralSearchWindow(QMainWindow):
 
             # 만약 데이터를 찾지 못했다면 경고 메시지 표시
             if not data_found:
-                QMessageBox.warning(self, "No Data Found", "일치하는 담보 데이터를 찾을 수 없습니다.")
+                QMessageBox.warning(self, "No Data Found", "Data does not exist")
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"테이블에 데이터를 표시하는 중 오류가 발생했습니다: {e}")
+            QMessageBox.critical(self, "Error", f"Data processing failed: {e}")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 

@@ -2,7 +2,7 @@ import sys, os, re, requests
 from datetime import timedelta
 from io import BytesIO
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidget, QVBoxLayout, QDialog, QPushButton
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from PyQt5.QtCore import Qt
@@ -116,7 +116,13 @@ class RegistrationApp(QMainWindow):
         self.tel2.setText(customer_data.get("phone2", ""))
         self.tel3.setText(customer_data.get("phone3", ""))
         self.email.setText(customer_data.get("email", ""))
-        self.loanOfficer.setText(customer_data.get("loan_officer", ""))
+        loan_officer = customer_data.get("loan_officer", {})
+        if isinstance(loan_officer, dict):
+            loan_officer_display = f"{loan_officer.get('name', '')} - {loan_officer.get('service_area', '')}"
+        else:
+            loan_officer_display = loan_officer
+
+        self.loanOfficer.setText(loan_officer_display)
 
         home_address = customer_data.get("home_address", {})
         self.homePostalCode.setText(home_address.get("postal_code", ""))
@@ -190,19 +196,19 @@ class RegistrationApp(QMainWindow):
         self.counselingSubject.clear()
         self.counselingDetails.clear()
         self.counselingCorrectiveMeasure.clear()
-        
+
         self.enable_counseling_fields()
-        
+
         self.edit_mode = False
         self.selected_counseling_row = None
 
     def on_counseling_edit_clicked(self):
         selected_indexes = self.counselingTable.selectionModel().selectedRows()
-        
+
         if not selected_indexes:
             QMessageBox.warning(self, "No Selection", "Please select a counseling record to edit.")
             return
-        
+
         self.selected_counseling_row = selected_indexes[0].row()
 
         model = self.counselingTable.model()
@@ -246,12 +252,12 @@ class RegistrationApp(QMainWindow):
                     customer_ref.update({"counseling": counseling_data})
 
                     QMessageBox.information(self, "Success", "Counseling data deleted successfully.")
-                    
+
                     self.counselingDate.setDate(QtCore.QDate(2000, 1, 1))
                     self.counselingSubject.clear()
                     self.counselingDetails.clear()
                     self.counselingCorrectiveMeasure.clear()
-                    
+
                     self.load_counseling_data()
                 else:
                     QMessageBox.warning(self, "Error", "Failed to delete counseling data.")
@@ -544,10 +550,21 @@ class RegistrationApp(QMainWindow):
 
         }
 
+    # 수정된 부분: save_customer_data 메서드 수정
     def save_customer_data(self):
         customer_data = self.get_customer_data()
 
         try:
+            # Officer 선택 창 띄우기
+            dialog = OfficerSelectDialog(self)
+            if dialog.exec_() == QDialog.Accepted:
+                selected_officer = dialog.get_selected_officer()
+                if selected_officer:
+                    customer_data["loan_officer"] = {
+                        "name": selected_officer["name"],
+                        "service_area": selected_officer["service_area"]
+                    }
+
             if self.edit_mode and self.current_customer_id:
                 customer_uid = self.current_customer_id
             else:
@@ -585,7 +602,6 @@ class RegistrationApp(QMainWindow):
         self.newButton.setEnabled(False)
         self.searchButton.setEnabled(False)
         self.saveButton.setEnabled(True)
-        QMessageBox.information(self, "Edit Customer", "You can now edit customer data.")
         self.enable_all_fields()
         self.edit_mode = True
 
@@ -602,7 +618,37 @@ class RegistrationApp(QMainWindow):
                 self.selected_image_path = file_name
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
-                
+# 추가: Officer 선택 창 정의
+class OfficerSelectDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Select Loan Officer")
+        self.setGeometry(300, 300, 300, 400)
+
+        self.layout = QVBoxLayout(self)
+
+        self.listWidget = QListWidget(self)
+        self.layout.addWidget(self.listWidget)
+
+        self.selectButton = QPushButton("Select", self)
+        self.selectButton.clicked.connect(self.accept)
+        self.layout.addWidget(self.selectButton)
+
+        self.officer_data = self.load_officer_data()
+
+        for officer in self.officer_data:
+            self.listWidget.addItem(f"{officer['name']} - {officer['service_area']}")
+
+    def load_officer_data(self):
+        officers_ref = DB.collection('Officer')
+        docs = officers_ref.stream()
+        return [doc.to_dict() for doc in docs]
+
+    def get_selected_officer(self):
+        selected_row = self.listWidget.currentRow()
+        if selected_row != -1:
+            return self.officer_data[selected_row]
+        return None
 def main():
     app = QApplication(sys.argv)
     window = RegistrationApp()
