@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 
-from components.loan_calculator import LoanCalculator
+from src.components.loan_calculator import LoanCalculator
 
 class CalculatorApp(QMainWindow):
     def __init__(self):

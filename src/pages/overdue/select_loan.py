@@ -4,7 +4,8 @@ import pandas as pd
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
 from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
-from components import DB
+
+from src.components import DB
 
 class SelectLoanWindow(QMainWindow):
     loan_selected = pyqtSignal(dict)

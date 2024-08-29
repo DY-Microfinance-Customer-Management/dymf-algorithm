@@ -1,12 +1,13 @@
-import os
+import os, sys
 import uuid
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QAbstractItemView
 from PyQt5.QtCore import Qt, QDate, pyqtSlot
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor
-from components import DB
-from pages.loan.select_customer import SelectCustomerWindow
 from firebase_admin import firestore
+
+from src.components import DB
+from src.pages.loan.select_customer import SelectCustomerWindow
 
 class RepaymentDetailsWindow(QMainWindow):
     def __init__(self, loan_data):

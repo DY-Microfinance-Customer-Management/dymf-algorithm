@@ -2,7 +2,8 @@ import sys
 import os
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5 import uic
-from components import DB
+
+from src.components import DB
 
 class LoginApp(QDialog):
     def __init__(self):

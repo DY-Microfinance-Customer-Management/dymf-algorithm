@@ -7,9 +7,11 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QApplication
 from PyQt5.QtCore import pyqtSlot, Qt, QDate
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
+from src.components import DB
+from src.components.loan_calculator import LoanCalculator
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'pages'))
 from pages.loan.select_customer import SelectCustomerWindow
-from components import DB
-from components.loan_calculator import LoanCalculator
 
 class LoanWindow(QMainWindow):
     def __init__(self):

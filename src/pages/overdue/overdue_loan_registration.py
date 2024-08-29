@@ -4,8 +4,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtCore import QDate
 from PyQt5 import uic
 from PyQt5.QtGui import QIntValidator
-from components import DB  # DB 객체를 components 모듈에서 가져옴
 from datetime import datetime
+
+from src.components import DB  # DB 객체를 components 모듈에서 가져옴
 
 class OverdueLoanRegistrationWindow(QMainWindow):
     def __init__(self):

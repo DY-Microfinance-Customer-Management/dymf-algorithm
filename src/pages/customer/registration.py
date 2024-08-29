@@ -7,8 +7,8 @@ from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
 from PyQt5.QtCore import Qt
 
-from components import DB, storageBucket
-from pages.loan.select_customer import SelectCustomerWindow
+from src.components import DB, storageBucket
+from src.pages.loan.select_customer import SelectCustomerWindow
 
 class RegistrationApp(QMainWindow):
     def __init__(self):

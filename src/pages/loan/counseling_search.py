@@ -4,10 +4,10 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidgetItem
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt, QDate
-from components import DB  # Firestore 연결을 위한 모듈
 from datetime import datetime
 import traceback
 
+from src.components import DB  # Firestore 연결을 위한 모듈
 
 class CounselingSearchWindow(QMainWindow):
     def __init__(self):

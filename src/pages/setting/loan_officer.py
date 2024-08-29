@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableView, 
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
-from components import DB  # Firestore DB 임포트
+
+from src.components import DB  # Firestore DB 임포트
 
 class LoanOfficerApp(QMainWindow):
     def __init__(self):

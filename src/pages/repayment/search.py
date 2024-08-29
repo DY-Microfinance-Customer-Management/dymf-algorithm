@@ -3,8 +3,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush
 from PyQt5.QtCore import Qt, QDate
 from PyQt5 import uic, QtCore
-from components import DB  # Firestore DB를 사용한다고 가정
-from pages.repayment.details import RepaymentDetailsWindow
+
+from src.components import DB  # Firestore DB를 사용한다고 가정
+from src.pages.repayment.details import RepaymentDetailsWindow
 
 class RepaymentSearchApp(QMainWindow):
     def __init__(self):
