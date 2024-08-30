@@ -1,6 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMessageBox
+from PyQt5.QtGui import QIcon
 from PyQt5 import uic
 
 class HomeApp(QMainWindow):
@@ -9,6 +10,9 @@ class HomeApp(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "home.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
 
         # Customer / Registration
         self.action = self.findChild(QAction, 'action')

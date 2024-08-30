@@ -3,7 +3,7 @@ import uuid
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QAbstractItemView
 from PyQt5.QtCore import Qt, QDate, pyqtSlot
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor, QIcon
 from firebase_admin import firestore
 
 from src.components import DB
@@ -15,6 +15,9 @@ class RepaymentDetailsWindow(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "details.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
 
         self.loan_data = loan_data
         self.is_guarantor_edit_mode = False

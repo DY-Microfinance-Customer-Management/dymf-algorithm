@@ -1,9 +1,8 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableView, QTableWidgetItem
-from PyQt5 import uic, QtCore
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableView
+from PyQt5 import uic
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB  # Firestore DB 임포트
 
@@ -13,6 +12,9 @@ class LoanOfficerApp(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "loan_officer.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
 
         self.current_officer_id = None
         self.initialize_ui()

@@ -13,11 +13,12 @@ class LoginApp(QDialog):
         ui_path = os.path.join(current_dir, "login.ui")
         uic.loadUi(ui_path, self)
 
-        icon_path = os.path.join(os.path.abspath(__file__), 'src/icon.ico')
+        icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
         # img_widget = QLabel(text='dymf_logo')
-        # img_widget.setPixmap(QPixmap(r'src/pages/main/dymf_logo.png'))
+        # logo_path = os.path.join(current_dir, 'dymf_logo.png')
+        # img_widget.setPixmap(QPixmap(logo_path))
         # img_widget.setScaledContents(True)
         
         # 로그인 버튼 클릭 시 login 함수 연결

@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QIcon
 from PyQt5.QtCore import Qt, QDate
 from PyQt5 import uic, QtCore
 
@@ -13,6 +13,10 @@ class RepaymentSearchApp(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "repayment_search.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
+
         self.show()
         self.setup_connections()
         self.setup_table()

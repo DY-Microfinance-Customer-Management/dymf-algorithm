@@ -3,7 +3,7 @@ import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtCore import QDate
 from PyQt5 import uic
-from PyQt5.QtGui import QIntValidator
+from PyQt5.QtGui import QIntValidator, QIcon
 from datetime import datetime
 
 from src.components import DB  # DB 객체를 components 모듈에서 가져옴
@@ -14,6 +14,9 @@ class OverdueLoanRegistrationWindow(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "overdue_loan_registration.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
 
         # 특정 입력란과 버튼 비활성화
         self.startDate.setDate(QDate.currentDate())

@@ -4,7 +4,7 @@ from io import BytesIO
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidget, QVBoxLayout, QDialog, QPushButton
 from PyQt5 import uic, QtCore
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QPixmap, QIcon
 from PyQt5.QtCore import Qt
 
 from src.components import DB, storageBucket
@@ -16,6 +16,10 @@ class RegistrationApp(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "registration.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
+
         self.show()
         self.setup_connections()
         self.disable_all_fields()

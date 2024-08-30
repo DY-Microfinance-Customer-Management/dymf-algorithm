@@ -4,6 +4,7 @@ import pandas as pd
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
 from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
+from PyQt5.QtGui import QIcon
 
 from src.components import DB
 
@@ -15,6 +16,9 @@ class SelectLoanWindow(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "select_loan.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
         
         self.searchBox = self.findChild(QLineEdit, "searchBox")
         self.tableView = self.findChild(QTableView, "tableView")

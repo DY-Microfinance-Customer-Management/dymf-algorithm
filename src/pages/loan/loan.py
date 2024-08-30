@@ -5,7 +5,7 @@ import pandas as pd
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QTableView, QApplication
 from PyQt5.QtCore import pyqtSlot, Qt, QDate
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB
 from src.components.loan_calculator import LoanCalculator
@@ -18,6 +18,9 @@ class LoanWindow(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "loan.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
 
         self.interestRate.setText("28")
 

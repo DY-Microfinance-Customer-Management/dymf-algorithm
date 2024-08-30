@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtGui import QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon
 from PyQt5.QtCore import Qt
 
 from src.components.loan_calculator import LoanCalculator
@@ -16,6 +16,9 @@ class CalculatorApp(QMainWindow):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "calculator.ui")
         uic.loadUi(ui_path, self)
+
+        icon_path = os.path.join(current_dir, 'icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
         self.show()
 
         self.calculateButton.clicked.connect(self.calculate)
