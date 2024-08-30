@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QDialog, QLabel
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5 import uic
 
 from src.components import DB
@@ -13,9 +13,12 @@ class LoginApp(QDialog):
         ui_path = os.path.join(current_dir, "login.ui")
         uic.loadUi(ui_path, self)
 
-        img_widget = QLabel(text='dymf_logo')
-        img_widget.setPixmap(QPixmap(r'src/pages/main/dymf_logo.png'))
-        img_widget.setScaledContents(True)
+        icon_path = os.path.join(os.path.abspath(__file__), 'src/icon.ico')
+        self.setWindowIcon(QIcon(icon_path))
+
+        # img_widget = QLabel(text='dymf_logo')
+        # img_widget.setPixmap(QPixmap(r'src/pages/main/dymf_logo.png'))
+        # img_widget.setScaledContents(True)
         
         # 로그인 버튼 클릭 시 login 함수 연결
         self.login_button.clicked.connect(self.login)

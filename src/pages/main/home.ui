@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>37</height>
+     <height>29</height>
     </rect>
    </property>
    <property name="font">
@@ -52,10 +52,10 @@
    <widget class="QMenu" name="menu1">
     <property name="geometry">
      <rect>
-      <x>-2028</x>
-      <y>513</y>
-      <width>146</width>
-      <height>72</height>
+      <x>268</x>
+      <y>156</y>
+      <width>214</width>
+      <height>95</height>
      </rect>
     </property>
     <property name="title">
@@ -473,6 +473,11 @@
    <property name="text">
     <string>Registration</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
@@ -480,6 +485,11 @@
   <action name="actionOverdueManagement">
    <property name="text">
     <string>Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -489,10 +499,20 @@
    <property name="text">
     <string>Search</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
   <action name="actionUserManagement">
    <property name="text">
     <string>User Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
  </widget>
