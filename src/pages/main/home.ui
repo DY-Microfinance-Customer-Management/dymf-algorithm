@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1582</width>
-    <height>898</height>
+    <width>1512</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>메인 화면</string>
+   <string>Home</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1582</width>
+     <width>1512</width>
      <height>24</height>
     </rect>
    </property>
@@ -33,7 +33,7 @@
      <string>2. Loan</string>
     </property>
     <addaction name="action_3"/>
-    <addaction name="action_4"/>
+    <addaction name="actionSearch"/>
     <addaction name="separator"/>
     <addaction name="action_7"/>
     <addaction name="action_8"/>
@@ -41,28 +41,20 @@
     <addaction name="separator"/>
     <addaction name="action_12"/>
    </widget>
-   <widget class="QMenu" name="menu3">
-    <property name="title">
-     <string>3. Repayment</string>
-    </property>
-    <addaction name="action_13"/>
-   </widget>
    <widget class="QMenu" name="menu0">
     <property name="title">
      <string>0. Settings</string>
     </property>
-    <addaction name="separator"/>
     <addaction name="action_37"/>
     <addaction name="separator"/>
     <addaction name="action_39"/>
-    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu1">
     <property name="geometry">
      <rect>
-      <x>-1607</x>
-      <y>89</y>
-      <width>173</width>
+      <x>-2028</x>
+      <y>513</y>
+      <width>146</width>
       <height>72</height>
      </rect>
     </property>
@@ -74,14 +66,13 @@
    </widget>
    <widget class="QMenu" name="menu4_Overdue">
     <property name="title">
-     <string>4. Overdue</string>
+     <string>3. Overdue</string>
     </property>
     <addaction name="actionOverdueRegistration"/>
     <addaction name="actionOverdueManagement"/>
    </widget>
    <addaction name="menu1"/>
    <addaction name="menu2"/>
-   <addaction name="menu3"/>
    <addaction name="menu4_Overdue"/>
    <addaction name="menu0"/>
   </widget>
@@ -92,12 +83,15 @@
      <normaloff>:/customer/장부.png</normaloff>:/customer/장부.png</iconset>
    </property>
    <property name="text">
-    <string>Registration &amp; Search</string>
+    <string>Management</string>
    </property>
    <property name="font">
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="action_2">
@@ -127,6 +121,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_4">
    <property name="icon">
@@ -155,6 +152,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_8">
    <property name="icon">
@@ -168,6 +168,9 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="action_9">
@@ -197,6 +200,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_12">
    <property name="icon">
@@ -213,6 +219,9 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="action_13">
@@ -393,6 +402,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_39">
    <property name="text">
@@ -402,6 +414,9 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
    </property>
   </action>
   <action name="action_40">
@@ -458,15 +473,24 @@
    <property name="text">
     <string>Registration</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="actionOverdueManagement">
    <property name="text">
     <string>Management</string>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
   </action>
  </widget>
- <resources>
-  <include location="../../../../../../../../Downloads/loan.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

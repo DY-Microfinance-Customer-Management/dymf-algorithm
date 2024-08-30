@@ -45,6 +45,8 @@ class RegistrationApp(QMainWindow):
         self.saveButton.clicked.connect(self.prepare_save_customer_data)
         self.editButton.clicked.connect(self.edit_customer_data)
         self.imageButton.clicked.connect(self.select_image)
+        
+        self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)  # 추가된 부분
 
         self.counselingNewButton.clicked.connect(self.on_counseling_new_clicked)
         self.counselingEditButton.clicked.connect(self.on_counseling_edit_clicked)
@@ -59,6 +61,13 @@ class RegistrationApp(QMainWindow):
 
     def reset_current_customer_id(self):
         self.current_customer_id = None
+
+    def open_officer_select_dialog(self):
+        dialog = OfficerSelectDialog(self)
+        if dialog.exec_() == QDialog.Accepted:
+            selected_officer = dialog.get_selected_officer()
+            if selected_officer:
+                self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
 
     def on_new_button_clicked(self):
         self.clear_fields()
@@ -108,7 +117,6 @@ class RegistrationApp(QMainWindow):
         self.nrcNo.setText(customer_data.get("nrc_no", ""))
         self.dateOfBirth.setDate(QtCore.QDate.fromString(customer_data.get("date_of_birth"), QtCore.Qt.ISODate))
         self.gender.setCurrentText(customer_data.get("gender", ""))
-        self.married.setCurrentText(customer_data.get("marital_status", ""))
         self.phone1.setCurrentText(customer_data.get("mobile1", ""))
         self.phone2.setText(customer_data.get("mobile2", ""))
         self.phone3.setText(customer_data.get("mobile3", ""))
@@ -366,7 +374,6 @@ class RegistrationApp(QMainWindow):
         self.nrcNo.clear()
         self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
         self.gender.setCurrentIndex(0)
-        self.married.setCurrentIndex(0)
         self.phone1.setCurrentIndex(0)
         self.phone2.clear()
         self.phone3.clear()
@@ -401,7 +408,6 @@ class RegistrationApp(QMainWindow):
         self.nrcNo.setEnabled(False)
         self.dateOfBirth.setEnabled(False)
         self.gender.setEnabled(False)
-        self.married.setEnabled(False)
         self.phone1.setEnabled(False)
         self.phone2.setEnabled(False)
         self.phone3.setEnabled(False)
@@ -410,6 +416,7 @@ class RegistrationApp(QMainWindow):
         self.tel3.setEnabled(False)
         self.email.setEnabled(False)
         self.loanOfficer.setEnabled(False)
+        self.selectLoanOfficerButton.setEnabled(False)
         self.homePostalCode.setEnabled(False)
         self.homeStreet.setEnabled(False)
         self.homeCountry.setEnabled(False)
@@ -434,7 +441,6 @@ class RegistrationApp(QMainWindow):
         self.nrcNo.setEnabled(True)
         self.dateOfBirth.setEnabled(True)
         self.gender.setEnabled(True)
-        self.married.setEnabled(True)
         self.phone1.setEnabled(True)
         self.phone2.setEnabled(True)
         self.phone3.setEnabled(True)
@@ -442,7 +448,7 @@ class RegistrationApp(QMainWindow):
         self.tel2.setEnabled(True)
         self.tel3.setEnabled(True)
         self.email.setEnabled(True)
-        self.loanOfficer.setEnabled(True)
+        self.selectLoanOfficerButton.setEnabled(True)
         self.homePostalCode.setEnabled(True)
         self.homeStreet.setEnabled(True)
         self.homeCountry.setEnabled(True)
@@ -459,10 +465,30 @@ class RegistrationApp(QMainWindow):
         self.info4.setEnabled(True)
         self.info5.setEnabled(True)
         self.imageButton.setEnabled(True)
+
     def prepare_save_customer_data(self):
         customer_data = self.get_customer_data()
 
-        missing_fields = [field for field, value in customer_data.items() if not value]
+        required_fields = [
+            "name", "nrc_no", "date_of_birth", "gender", "mobile1", "mobile2", "mobile3", 
+            "phone1", "phone2", "phone3", "email", "home_address.postal_code", 
+            "home_address.street", "home_address.country", "home_address.city", 
+            "home_address.township"
+        ]
+
+        missing_fields = []
+        for field in required_fields:
+            # 딕셔너리 경로에 따라 값 가져오기
+            field_parts = field.split('.')
+            value = customer_data
+            for part in field_parts:
+                value = value.get(part)
+                if value is None:
+                    break
+
+            if not value:
+                missing_fields.append(field)
+
         if missing_fields:
             QMessageBox.warning(self, "Missing Fields",
                                 "The following fields are required and cannot be empty: "
@@ -474,7 +500,6 @@ class RegistrationApp(QMainWindow):
             f"NRC No.: {customer_data['nrc_no']}\n"
             f"Date of Birth: {customer_data['date_of_birth']}\n"
             f"Gender: {customer_data['gender']}\n"
-            f"Marital Status: {customer_data['marital_status']}\n"
             f"Mobile1: {customer_data['mobile1']}\n"
             f"Mobile2: {customer_data['mobile2']}\n"
             f"Mobile3: {customer_data['mobile3']}\n"
@@ -504,9 +529,10 @@ class RegistrationApp(QMainWindow):
         )
 
         reply = QMessageBox.question(self, 'Confirm Data',
-                                     f"Would you like to proceed?\n\n{data_summary}",
-                                     QMessageBox.Ok | QMessageBox.Cancel,
-                                     QMessageBox.Cancel)
+                                    f"Would you like to proceed?",
+                                    #  f"Would you like to proceed?\n\n{data_summary}",
+                                    QMessageBox.Ok | QMessageBox.Cancel,
+                                    QMessageBox.Cancel)
 
         if reply == QMessageBox.Ok:
             self.save_customer_data()
@@ -517,7 +543,6 @@ class RegistrationApp(QMainWindow):
             "nrc_no": self.nrcNo.text(),
             "date_of_birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
             "gender": self.gender.currentText(),
-            "marital_status": self.married.currentText(),
             "mobile1": self.phone1.currentText(),
             "mobile2": self.phone2.text(),
             "mobile3": self.phone3.text(),
@@ -547,24 +572,12 @@ class RegistrationApp(QMainWindow):
                 "info4": self.info4.text(),
                 "info5": self.info5.text()
             }
-
         }
 
-    # 수정된 부분: save_customer_data 메서드 수정
     def save_customer_data(self):
         customer_data = self.get_customer_data()
 
         try:
-            # Officer 선택 창 띄우기
-            dialog = OfficerSelectDialog(self)
-            if dialog.exec_() == QDialog.Accepted:
-                selected_officer = dialog.get_selected_officer()
-                if selected_officer:
-                    customer_data["loan_officer"] = {
-                        "name": selected_officer["name"],
-                        "service_area": selected_officer["service_area"]
-                    }
-
             if self.edit_mode and self.current_customer_id:
                 customer_uid = self.current_customer_id
             else:
@@ -588,7 +601,6 @@ class RegistrationApp(QMainWindow):
             QMessageBox.information(self, "Success", "Customer data saved successfully.")
             self.clear_fields()
 
-            self.clear_fields()
             self.searchButton.setEnabled(True)
             self.newButton.setEnabled(True)
             self.saveButton.setEnabled(False)
@@ -618,6 +630,7 @@ class RegistrationApp(QMainWindow):
                 self.selected_image_path = file_name
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
+
 # 추가: Officer 선택 창 정의
 class OfficerSelectDialog(QDialog):
     def __init__(self, parent=None):
@@ -649,6 +662,7 @@ class OfficerSelectDialog(QDialog):
         if selected_row != -1:
             return self.officer_data[selected_row]
         return None
+    
 def main():
     app = QApplication(sys.argv)
     window = RegistrationApp()

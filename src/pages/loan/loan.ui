@@ -1940,12 +1940,7 @@
       </item>
       <item>
        <property name="text">
-        <string>한정보증인</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>연대보증인</string>
+        <string>Joint Guarantor</string>
        </property>
       </item>
      </widget>
@@ -2117,7 +2112,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string>! Please register the guarantor from the Customer Registeration menu first !</string>
+       <string>Please register the guarantor from the Customer Registeration menu first !</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

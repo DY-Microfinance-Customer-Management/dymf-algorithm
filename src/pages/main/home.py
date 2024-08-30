@@ -35,8 +35,8 @@ class HomeApp(QMainWindow):
         self.action_12.triggered.connect(self.open_counseling_search)
 
         # Repayment / Search
-        self.action_13 = self.findChild(QAction, 'action_13')
-        self.action_13.triggered.connect(self.open_repayment_search)
+        self.actionSearch = self.findChild(QAction, 'actionSearch')
+        self.actionSearch.triggered.connect(self.open_repayment_search)
 
         # Overdue / Registration
         self.actionOverdueRegistration = self.findChild(QAction, 'actionOverdueRegistration')

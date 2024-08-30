@@ -30,51 +30,10 @@
      <attribute name="title">
       <string>Repayment Management</string>
      </attribute>
-     <widget class="QPushButton" name="toExcelButton">
-      <property name="geometry">
-       <rect>
-        <x>1330</x>
-        <y>50</y>
-        <width>93</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>to Excel</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_47">
-      <property name="geometry">
-       <rect>
-        <x>740</x>
-        <y>50</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Agency FB</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(236, 236, 236)</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
-      </property>
-      <property name="text">
-       <string>Received</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QPushButton" name="deleteButton">
       <property name="geometry">
        <rect>
-        <x>1230</x>
+        <x>1330</x>
         <y>50</y>
         <width>93</width>
         <height>31</height>
@@ -143,6 +102,34 @@
       </property>
       <property name="text">
        <string>Paid</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>50</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Agency FB</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(247, 247, 247)</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string>Received</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>

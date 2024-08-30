@@ -23,7 +23,6 @@ class RepaymentDetailsWindow(QMainWindow):
 
         self.paidButton.setEnabled(False)
         self.deleteButton.setEnabled(False)
-        self.toExcelButton.setEnabled(False)
 
         self.guarantorSaveButton.setEnabled(False)
         self.guarantorEditButton.setEnabled(False)
