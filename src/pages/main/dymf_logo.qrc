@@ -1,5 +1,0 @@
-<RCC>
-  <qresource prefix="newPrefix">
-    <file>dymf_logo.png</file>
-  </qresource>
-</RCC>

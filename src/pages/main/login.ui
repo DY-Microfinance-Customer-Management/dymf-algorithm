@@ -56,10 +56,10 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(src/pages/main/dymf_logo.png);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
-    <string/>
+    <string>dymf_logo</string>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -157,8 +157,5 @@
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="src/pages/main/dymf_logo.qrc"/>
- </resources>
  <connections/>
 </ui>

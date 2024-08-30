@@ -16,10 +16,20 @@ class LoginApp(QDialog):
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
-        # img_widget = QLabel(text='dymf_logo')
-        # logo_path = os.path.join(current_dir, 'dymf_logo.png')
-        # img_widget.setPixmap(QPixmap(logo_path))
-        # img_widget.setScaledContents(True)
+        # 이미지 경로 확인
+        logo_path = os.path.join(current_dir, 'dymf_logo.png')
+        print(f"Logo path: {logo_path}")
+
+        if os.path.exists(logo_path):
+            # QLabel이 UI에 이미 있으면 이름으로 참조하고 이미지를 설정하세요.
+            img_widget = self.findChild(QLabel, 'label')  # QLabel 이름이 'label'인 경우
+            if img_widget is not None:
+                img_widget.setPixmap(QPixmap(logo_path))
+                img_widget.setScaledContents(True)
+            else:
+                print("Label widget not found.")
+        else:
+            print(f"Logo image not found at {logo_path}")
         
         # 로그인 버튼 클릭 시 login 함수 연결
         self.login_button.clicked.connect(self.login)
