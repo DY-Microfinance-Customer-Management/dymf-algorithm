@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="font">
@@ -47,7 +47,7 @@
     </property>
     <addaction name="action_37"/>
     <addaction name="separator"/>
-    <addaction name="action_39"/>
+    <addaction name="actionUserManagement"/>
    </widget>
    <widget class="QMenu" name="menu1">
     <property name="geometry">
@@ -488,6 +488,11 @@
   <action name="actionSearch">
    <property name="text">
     <string>Search</string>
+   </property>
+  </action>
+  <action name="actionUserManagement">
+   <property name="text">
+    <string>User Management</string>
    </property>
   </action>
  </widget>

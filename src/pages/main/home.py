@@ -50,6 +50,10 @@ class HomeApp(QMainWindow):
         self.action_37 = self.findChild(QAction, 'action_37')
         self.action_37.triggered.connect(self.open_officer_management)
 
+        # Settings / USer Management
+        self.actionUserManagement = self.findChild(QAction, 'actionUserManagement')
+        self.actionUserManagement.triggered.connect(self.open_user_management)
+
     def open_customer_registration(self):
         from src.pages.customer.registration import RegistrationApp
         self.customer_registration_window = RegistrationApp()
@@ -74,6 +78,11 @@ class HomeApp(QMainWindow):
         from src.pages.setting.loan_officer import LoanOfficerApp
         self.officer_management_window = LoanOfficerApp()
         self.officer_management_window.show()
+
+    def open_user_management(self):
+        from src.pages.setting.user_management import UserManagementApp
+        self.user_management_window = UserManagementApp()
+        self.user_management_window.show()
 
     def open_collateral_search(self):
         from src.pages.loan.collateral_search import CollateralSearchWindow

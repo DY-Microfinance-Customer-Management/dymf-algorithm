@@ -108,6 +108,22 @@ class OverdueLoanManagementWindow(QMainWindow):
             QMessageBox.warning(self, "Error", "Please fill in all received fields.")
             return
 
+        # 현재 loanSchedule의 마지막 항목을 가져옴
+        last_schedule = self.current_loan_data['loanSchedule'][-1]
+
+        # 입력된 값이 남아있는 금액을 초과하지 않도록 제한
+        if int(received_principal) > int(last_schedule['principal']):
+            QMessageBox.warning(self, "Error", "Received principal cannot be greater than remaining principal.")
+            return
+
+        if int(received_interest) > int(last_schedule['interest']):
+            QMessageBox.warning(self, "Error", "Received interest cannot be greater than remaining interest.")
+            return
+
+        if int(received_overdue_interest) > int(last_schedule['overdue_interest']):
+            QMessageBox.warning(self, "Error", "Received overdue interest cannot be greater than remaining overdue interest.")
+            return
+
         # loanSchedule과 동일한 구조로 receivedSchedule 생성
         received_schedule = {
             'principal': received_principal,
@@ -157,7 +173,9 @@ class OverdueLoanManagementWindow(QMainWindow):
         # 다음 loanSchedule의 principal, interest, overdue interest 계산
         next_principal = str(int(last_schedule['principal']) - int(received_schedule['principal']))
         next_interest = str(int(last_schedule['interest']) - int(received_schedule['interest']))
-        next_overdue_interest = str(int(last_schedule['overdue_interest']) - int(received_schedule['overdue_interest']))
+        next_overdue_interest = str(round((int(last_schedule['overdue_interest']) \
+                                 - int(received_schedule['overdue_interest']) \
+                                 + int(next_interest)) * 0.28))
 
         # 새 loanSchedule 생성
         next_loan_schedule = {
