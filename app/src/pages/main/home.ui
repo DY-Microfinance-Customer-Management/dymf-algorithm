@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1512</width>
+    <height>855</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Home</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1512</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <widget class="QMenu" name="menu2">
+    <property name="title">
+     <string>2. Loan</string>
+    </property>
+    <addaction name="action_3"/>
+    <addaction name="actionSearch"/>
+    <addaction name="separator"/>
+    <addaction name="action_7"/>
+    <addaction name="action_8"/>
+    <addaction name="action_10"/>
+    <addaction name="separator"/>
+    <addaction name="action_12"/>
+   </widget>
+   <widget class="QMenu" name="menu0">
+    <property name="title">
+     <string>0. Settings</string>
+    </property>
+    <addaction name="action_37"/>
+    <addaction name="separator"/>
+    <addaction name="actionUserManagement"/>
+   </widget>
+   <widget class="QMenu" name="menu1">
+    <property name="geometry">
+     <rect>
+      <x>268</x>
+      <y>156</y>
+      <width>214</width>
+      <height>95</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>1. Customer</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu4_Overdue">
+    <property name="title">
+     <string>3. Overdue</string>
+    </property>
+    <addaction name="actionOverdueRegistration"/>
+    <addaction name="actionOverdueManagement"/>
+   </widget>
+   <addaction name="menu1"/>
+   <addaction name="menu2"/>
+   <addaction name="menu4_Overdue"/>
+   <addaction name="menu0"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/customer/장부.png</normaloff>:/customer/장부.png</iconset>
+   </property>
+   <property name="text">
+    <string>Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/customer/검색.png</normaloff>:/customer/검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/대출 등록.png</normaloff>:/loan/대출 등록.png</iconset>
+   </property>
+   <property name="text">
+    <string>Registration</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/대출 검색.png</normaloff>:/loan/대출 검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/보증인 검색.png</normaloff>:/loan/보증인 검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guarantor Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_8">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/담보 검색.png</normaloff>:/loan/담보 검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>Collateral Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_9">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/상담 검색.png</normaloff>:/loan/상담 검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>상 담 검 색</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/발송 검색.png</normaloff>:/loan/발송 검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>Counseling Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_12">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/loan/이자 계산기.png</normaloff>:/loan/이자 계산기.png</iconset>
+   </property>
+   <property name="text">
+    <string>Calculator</string>
+   </property>
+   <property name="iconText">
+    <string>Calculator</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/acceptance/수납 일괄등록.png</normaloff>:/acceptance/수납 일괄등록.png</iconset>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_14">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/acceptance/수납 자료검색.png</normaloff>:/acceptance/수납 자료검색.png</iconset>
+   </property>
+   <property name="text">
+    <string>수 납 자 료 검 색</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_15">
+   <property name="text">
+    <string>기 간 별 대 출 현 황</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_17">
+   <property name="text">
+    <string>기 간 별 상 환 예 정 현 황</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_18">
+   <property name="text">
+    <string>미 수 자 료 현 황</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_21">
+   <property name="text">
+    <string>연 체 자 료 현 황</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_22">
+   <property name="text">
+    <string>연 체 자 료 리 스 트</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_24">
+   <property name="text">
+    <string>대 출 / 수 납 통 계 리 스 트</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_25">
+   <property name="text">
+    <string>회 사 정 보 관 리</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_26">
+   <property name="text">
+    <string>영 업 일 관 리
+</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_28">
+   <property name="text">
+    <string>각 종 코 드 관 리</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_30">
+   <property name="text">
+    <string>사 용 자 관 리</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_32">
+   <property name="text">
+    <string>자 료 진 단</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_33">
+   <property name="text">
+    <string>자 료 백 업</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_34">
+   <property name="text">
+    <string>회 사 정 보 관 리</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_35">
+   <property name="text">
+    <string>영 업 일 관 리</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_37">
+   <property name="text">
+    <string>Manage Officer</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_39">
+   <property name="text">
+    <string>User Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_40">
+   <property name="text">
+    <string>자 료 진 단</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_43">
+   <property name="text">
+    <string>자 료 백 업</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="action_45">
+   <property name="text">
+    <string>작 업 종 료</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionback">
+   <property name="text">
+    <string>back</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionforward">
+   <property name="text">
+    <string>forward</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionOverdueRegistration">
+   <property name="text">
+    <string>Registration</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionOverdueManagement">
+   <property name="text">
+    <string>Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionUserManagement">
+   <property name="text">
+    <string>User Management</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
