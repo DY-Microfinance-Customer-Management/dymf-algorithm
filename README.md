@@ -2,6 +2,12 @@
 - Loan Program developed by PyQt5
 - [PyQt5 Doc](https://wikidocs.net/21849)
 
+### Execute
+```
+cd app
+python dymf.py
+```
+
 ### Installation
 ```
 pip install firebase-admin
