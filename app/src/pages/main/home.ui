@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>29</height>
+     <height>43</height>
     </rect>
    </property>
    <property name="font">
@@ -28,62 +28,59 @@
      <pointsize>10</pointsize>
     </font>
    </property>
-   <widget class="QMenu" name="menu2">
+   <widget class="QMenu" name="Registration">
     <property name="title">
-     <string>2. Loan</string>
+     <string>1. Registration</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="actionSearch"/>
+    <addaction name="actionRegistrationCustomer"/>
+    <addaction name="actionRegistrationGuarantor"/>
+    <addaction name="actionRegistrationLoan"/>
     <addaction name="separator"/>
-    <addaction name="action_7"/>
-    <addaction name="action_8"/>
-    <addaction name="action_10"/>
-    <addaction name="separator"/>
-    <addaction name="action_12"/>
+    <addaction name="actionCalculator"/>
    </widget>
-   <widget class="QMenu" name="menu0">
+   <widget class="QMenu" name="Search">
     <property name="title">
-     <string>0. Settings</string>
+     <string>2. Search</string>
     </property>
-    <addaction name="action_37"/>
+    <addaction name="actionSearchCustomer"/>
+    <addaction name="actionSearchLoan"/>
     <addaction name="separator"/>
-    <addaction name="actionUserManagement"/>
-   </widget>
-   <widget class="QMenu" name="menu1">
-    <property name="geometry">
-     <rect>
-      <x>268</x>
-      <y>156</y>
-      <width>214</width>
-      <height>95</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>1. Customer</string>
-    </property>
-    <addaction name="action"/>
+    <addaction name="actionSearchGuarantor"/>
+    <addaction name="actionSearchCollateral"/>
+    <addaction name="actionSearchCounseling"/>
     <addaction name="separator"/>
+    <addaction name="actionCalculator"/>
    </widget>
-   <widget class="QMenu" name="menu4_Overdue">
+   <widget class="QMenu" name="Repayment">
     <property name="title">
-     <string>3. Overdue</string>
+     <string>3. Repayment</string>
+    </property>
+    <addaction name="actionRepaymentManagement"/>
+   </widget>
+   <widget class="QMenu" name="Overdue">
+    <property name="title">
+     <string>4. Overdue</string>
     </property>
     <addaction name="actionOverdueRegistration"/>
     <addaction name="actionOverdueManagement"/>
+    <addaction name="actionOverdueSearch"/>
    </widget>
-   <addaction name="menu1"/>
-   <addaction name="menu2"/>
-   <addaction name="menu4_Overdue"/>
-   <addaction name="menu0"/>
+   <widget class="QMenu" name="Settings">
+    <property name="title">
+     <string>0. Settings</string>
+    </property>
+    <addaction name="actionSettingsOfficer"/>
+    <addaction name="actionSettingsUser"/>
+   </widget>
+   <addaction name="Registration"/>
+   <addaction name="Search"/>
+   <addaction name="Repayment"/>
+   <addaction name="Overdue"/>
+   <addaction name="Settings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="action">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/customer/장부.png</normaloff>:/customer/장부.png</iconset>
-   </property>
    <property name="text">
-    <string>Management</string>
+    <string>Customer</string>
    </property>
    <property name="font">
     <font>
@@ -513,6 +510,106 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+  </action>
+  <action name="actionGuarantor">
+   <property name="text">
+    <string>Guarantor</string>
+   </property>
+  </action>
+  <action name="actionLoan">
+   <property name="text">
+    <string>Loan</string>
+   </property>
+  </action>
+  <action name="actionRegistrationCustomer">
+   <property name="text">
+    <string>Customer</string>
+   </property>
+  </action>
+  <action name="actionRegistrationGuarantor">
+   <property name="text">
+    <string>Guarantor</string>
+   </property>
+  </action>
+  <action name="actionRegistrationLoan">
+   <property name="text">
+    <string>Loan</string>
+   </property>
+  </action>
+  <action name="actionSearchCustomer">
+   <property name="text">
+    <string>Customer</string>
+   </property>
+  </action>
+  <action name="actionSearchLoan">
+   <property name="text">
+    <string>Loan</string>
+   </property>
+  </action>
+  <action name="actionSearchGuarantor">
+   <property name="text">
+    <string>Guarantor</string>
+   </property>
+  </action>
+  <action name="actionSearchCollateral">
+   <property name="text">
+    <string>Collateral</string>
+   </property>
+  </action>
+  <action name="actionSearchCounseling">
+   <property name="text">
+    <string>Counseling</string>
+   </property>
+  </action>
+  <action name="actionCalculator">
+   <property name="text">
+    <string>Calculator</string>
+   </property>
+  </action>
+  <action name="actionRepaymentManagement">
+   <property name="text">
+    <string>Management</string>
+   </property>
+  </action>
+  <action name="actionOverdueRegistration_2">
+   <property name="text">
+    <string>Registration</string>
+   </property>
+  </action>
+  <action name="actionOverdueManagement_2">
+   <property name="text">
+    <string>Management</string>
+   </property>
+  </action>
+  <action name="actionOverdueSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionSettingsOfficer">
+   <property name="text">
+    <string>Officer Management</string>
+   </property>
+  </action>
+  <action name="actionSettingsUser">
+   <property name="text">
+    <string>User Management</string>
+   </property>
+  </action>
+  <action name="actionOverdueRegistration_3">
+   <property name="text">
+    <string>Registration</string>
+   </property>
+  </action>
+  <action name="actionOverdueManagement_3">
+   <property name="text">
+    <string>Management</string>
+   </property>
+  </action>
+  <action name="actionCalculator_2">
+   <property name="text">
+    <string>Calculator</string>
    </property>
   </action>
  </widget>

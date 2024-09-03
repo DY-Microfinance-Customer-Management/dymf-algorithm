@@ -5,13 +5,13 @@ import pandas as pd
 
 class LoanCalculator:
     
-    def __init__(self, start_date: datetime, principal: int, num_payments: int, annual_interest_rate: float = 0.28):
+    def __init__(self, start_date: datetime, principal: int, num_payments: int, cycle_days: int, annual_interest_rate: float = 0.28):
         self.start_date = start_date
         self.principal = principal
         self.num_payments = num_payments
         self.annual_interest_rate = annual_interest_rate
-        self.payment_interval_days = 30
-        self.total_days = self.payment_interval_days * num_payments
+        self.cycle_days = cycle_days
+        self.total_days = self.cycle_days * num_payments
         self.expire_date = start_date + relativedelta(days=self.total_days)
 
     def equal_payment(self) -> pd.DataFrame:
@@ -33,7 +33,7 @@ class LoanCalculator:
                 
             principal -= principal_payment
 
-            current_date += relativedelta(days=self.payment_interval_days)
+            current_date += relativedelta(days=self.cycle_days)
 
             schedule.append({
                 'Period': period,
@@ -64,7 +64,7 @@ class LoanCalculator:
             
             principal -= principal_payment
             
-            current_date += relativedelta(days=self.payment_interval_days)
+            current_date += relativedelta(days=self.cycle_days)
 
             schedule.append({
                 'Period': period,
@@ -87,7 +87,7 @@ class LoanCalculator:
         for period in range(1, self.num_payments + 1):
             interest_payment = round(principal * period_interest_rate)
             
-            current_date += relativedelta(days=self.payment_interval_days)
+            current_date += relativedelta(days=self.cycle_days)
 
             if period == self.num_payments:
                 total_payment = principal + interest_payment

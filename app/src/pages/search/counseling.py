@@ -9,11 +9,11 @@ import traceback
 
 from src.components import DB  # Firestore 연결을 위한 모듈
 
-class CounselingSearchWindow(QMainWindow):
+class SearchCounselingWindow(QMainWindow):
     def __init__(self):
-        super(CounselingSearchWindow, self).__init__()
+        super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "counseling_search.ui")  # UI 파일 경로 (고객상담자료검색)
+        ui_path = os.path.join(current_dir, "counseling.ui")  # UI 파일 경로 (고객상담자료검색)
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -112,7 +112,7 @@ class CounselingSearchWindow(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    window = CounselingSearchWindow()
+    window = SearchCounselingWindow()
     window.show()
     sys.exit(app.exec_())
 

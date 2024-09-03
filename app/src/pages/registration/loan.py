@@ -9,8 +9,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB
 from src.components.loan_calculator import LoanCalculator
-
-from src.pages.loan.select_customer import SelectCustomerWindow
+from src.components.select_customer import SelectCustomerWindow
 
 class LoanWindow(QMainWindow):
     def __init__(self):

@@ -7,11 +7,11 @@ from PyQt5.QtCore import QDate
 
 from src.components import DB
 
-class OverdueLoanManagementWindow(QMainWindow):
+class OverdueManagementWindow(QMainWindow):
     def __init__(self, loan_data=None):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "overdue_loan_management.ui")
+        ui_path = os.path.join(current_dir, "management.ui")
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -207,6 +207,6 @@ class OverdueLoanManagementWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = OverdueLoanManagementWindow()
+    window = OverdueManagementWindow()
     window.show()
     sys.exit(app.exec_())

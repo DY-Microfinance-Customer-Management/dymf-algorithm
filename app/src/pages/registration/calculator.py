@@ -25,24 +25,25 @@ class CalculatorApp(QMainWindow):
 
         self.principal.setValidator(QDoubleValidator(0.0, 99999999.99, 2, self))
         self.interestRate.setValidator(QDoubleValidator(0.0, 100.0, 2, self))
-        self.expirationMonths.setValidator(QIntValidator(0, 1200, self))
+        self.numberOfRepayment.setValidator(QIntValidator(0, 1200, self))
+        self.repaymentCycle.setValidator(QIntValidator(1, 365, self))  # Repayment cycle in days
 
     def calculate(self):
         try:
             principal = float(self.principal.text())
             interest_rate = float(self.interestRate.text()) / 100  # Convert percentage to decimal
-            expiration_months = int(self.expirationMonths.text())
-            cycle = self.cycle.currentText().lower().replace(' ', '')
+            num_payments = int(self.numberOfRepayment.text())
+            cycle_days = int(self.repaymentCycle.text())
             payment_type = self.paymentType.currentText().lower().replace(' ', '')
 
-            loan_calculator = LoanCalculator(datetime.now(), principal, expiration_months, interest_rate)
+            loan_calculator = LoanCalculator(datetime.now(), principal, num_payments, cycle_days, interest_rate)
             
             if payment_type == 'equal':
-                result_df = loan_calculator.equal_payment(cycle)
+                result_df = loan_calculator.equal_payment()
             elif payment_type == 'equalprincipal':
-                result_df = loan_calculator.equal_principal_payment(cycle)
+                result_df = loan_calculator.equal_principal_payment()
             elif payment_type == 'bullet':
-                result_df = loan_calculator.bullet_payment(cycle)
+                result_df = loan_calculator.bullet_payment()
 
             self.display_result(result_df)
 

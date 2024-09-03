@@ -9,14 +9,11 @@ import traceback
 
 from src.components import DB  # Firestore 연결을 위한 모듈
 
-class CollateralSearchWindow(QMainWindow):
+class SearchGuarantorApp(QMainWindow):
     def __init__(self):
-        super(CollateralSearchWindow, self).__init__()
+        super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "collateral_search.ui")  # UI 파일 경로
-        if not os.path.exists(ui_path):
-            QMessageBox.critical(self, "Error", f"UI file not found: {ui_path}")
-            sys.exit(1)
+        ui_path = os.path.join(current_dir, "guarantor.ui")
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -25,33 +22,33 @@ class CollateralSearchWindow(QMainWindow):
         # 창 크기 고정
         self.setFixedSize(self.size())
 
+        # 기본적으로 현재 날짜로 설정
         self.StartDate.setDate(QDate.currentDate())
         self.LastDate.setDate(QDate.currentDate())
 
         self.setup_connections()
-        self.setup_collateral_table()
+        self.setup_guarantor_table()
 
     def setup_connections(self):
         # 검색 버튼 클릭 연결
-        self.SearchButton.clicked.connect(self.search_collateral_data)
+        self.SearchButton.clicked.connect(self.search_guarantor_data)
 
-    def setup_collateral_table(self):
+    def setup_guarantor_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
-        self.model = QStandardItemModel(0, 4)  # 3열 테이블로 설정
-        self.model.setHorizontalHeaderLabels(
-            ["Type", "Name", "Details", "Customer Name"])
-        self.CollateralTable.setModel(self.model)
+        self.model = QStandardItemModel(0, 4)  # 4열 테이블로 설정
+        self.model.setHorizontalHeaderLabels(["Guarantor Name", "Guarantor Type", "Guarantor Relation", "Customer Name"])
+        self.GuarantorTable.setModel(self.model)
 
-    def search_collateral_data(self):
+    def search_guarantor_data(self):
         try:
-            customer_name = self.CustomerName.toPlainText().strip()
+            customer_name = self.CustomerName.toPlainText().strip()  # 변경된 부분
             start_date = self.StartDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
             end_date = self.LastDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
 
             # Firestore 데이터베이스 조회 준비
             query = DB.collection('Loan')
 
-            # 고객명으로 필터링
+            # 고객명으로 필터링 (입력된 경우)
             if customer_name:
                 query = query.where("customerName", "==", customer_name)
 
@@ -62,7 +59,7 @@ class CollateralSearchWindow(QMainWindow):
             self.populate_table(results, start_date, end_date)
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Data retrieval failed: {e}")
+            QMessageBox.critical(self, "Data does not exist")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
@@ -88,40 +85,40 @@ class CollateralSearchWindow(QMainWindow):
 
                 # 계약일자를 기준으로 필터링
                 if start_date <= contract_date <= end_date:
-                    collaterals = loan_data.get("collaterals", [])
+                    guarantors = loan_data.get("guarantors", [])
 
-                    for collateral in collaterals:
-                        collateral_name = collateral.get("name", "")
-                        collateral_type = collateral.get("type", "")
-                        collateral_details = collateral.get("details", "")
+                    for guarantor in guarantors:
+                        guarantor_name = guarantor.get("name", "")
+                        guarantor_type = guarantor.get("type", "")
+                        relation = guarantor.get("relation", "")
                         customer_name = loan_data.get("customerName", "")
-                        # 담보 데이터 테이블에 추가
+                        # 보증인 데이터 테이블에 추가
                         row_data = [
-                            QStandardItem(collateral_type),
-                            QStandardItem(collateral_name),
-                            QStandardItem(collateral_details),
+                            QStandardItem(guarantor_name),
+                            QStandardItem(relation),
+                            QStandardItem(guarantor_type),
                             QStandardItem(customer_name)
                         ]
                         self.model.appendRow(row_data)
                         data_found = True  # 데이터가 있음을 표시
 
             # 테이블이 다시 그려지도록 강제 업데이트
-            self.CollateralTable.setModel(self.model)
-            self.CollateralTable.resizeColumnsToContents()
+            self.GuarantorTable.setModel(self.model)
+            self.GuarantorTable.resizeColumnsToContents()
 
             # 만약 데이터를 찾지 못했다면 경고 메시지 표시
             if not data_found:
-                QMessageBox.warning(self, "No Data Found", "Data does not exist")
+                QMessageBox.warning(self, "Data does not exist")
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Data processing failed: {e}")
+            QMessageBox.critical(self, "Data does not exist")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
 
 def main():
     app = QApplication(sys.argv)
-    window = CollateralSearchWindow()
+    window = SearchGuarantorApp()
     window.show()
     sys.exit(app.exec_())
 

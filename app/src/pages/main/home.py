@@ -14,109 +14,59 @@ class HomeApp(QMainWindow):
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
-        # Customer / Registration
-        self.action = self.findChild(QAction, 'action')
-        self.action.triggered.connect(self.open_customer_registration)
+        ## -- Registration -- ##
+        # Registration / Customer
+        self.actionRegistrationCustomer = self.findChild(QAction, 'actionRegistrationCustomer')
+        self.actionRegistrationCustomer.triggered.connect(self.open_registration_customer)
+        
+        # # Registration / Guarantor
+        # self.actionRegistrationGuarantor = self.findChild(QAction, 'actionRegistrationGuarantor')
+        # self.actionRegistrationGuarantor.triggered.connect(self.open_registration_guarantor)
+        
+        # # Registration / Loan
+        # self.actionRegistrationLoan = self.findChild(QAction, 'actionRegistrationLoan')
+        # self.actionRegistrationLoan.triggered.connect(self.open_registration_loan)
 
-        # Loan / Registration
-        self.action_3 = self.findChild(QAction, 'action_3')
-        self.action_3.triggered.connect(self.open_loan)
+        # Registration / Calculator
+        self.actionCalculator = self.findChild(QAction, 'actionCalculator')
+        self.actionCalculator.triggered.connect(self.open_calculator)
 
-        # Loan / Loan Calculator
-        self.action_12 = self.findChild(QAction, 'action_12')
-        self.action_12.triggered.connect(self.open_calculator)
+        ## -- Search -- ##
+        # Search / Customer
+        self.actionSearchCustomer = self.findChild(QAction, 'actionSearchCustomer')
+        self.actionSearchCustomer.triggered.connect(self.open_search_customer)
 
-        # 2. 대출관리 / 보증인검색
-        self.action_12 = self.findChild(QAction, 'action_7')
-        self.action_12.triggered.connect(self.open_guarantor_search)
+    ## -- Registration -- ##
+    # Registration / Customer
+    def open_registration_customer(self):
+        from src.pages.registration.customer import RegistrationCustomerApp
+        self.registration_customer_window = RegistrationCustomerApp()
+        self.registration_customer_window.show()
 
-        # 2. 대출관리 / 담보검색
-        self.action_12 = self.findChild(QAction, 'action_8')
-        self.action_12.triggered.connect(self.open_collateral_search)
+    # # Registration / Guarantor
+    # def open_registration_guarantor(self):
+    #     from src.pages.registration.guarantor import RegistrationGuarantorApp
+    #     self.registration_guarantor_window = RegistrationGuarantorApp()
+    #     self.registration_guarantor_window.show()
 
-        # 2. 대출관리 / 발송검색
-        self.action_12 = self.findChild(QAction, 'action_10')
-        self.action_12.triggered.connect(self.open_counseling_search)
+    # # Registration / Loan
+    # def open_registration_loan(self):
+    #     from src.pages.registration.loan import RegistrationLoanApp
+    #     self.registration_loan_window = RegistrationLoanApp()
+    #     self.registration_loan_window.show()
 
-        # Repayment / Search
-        self.actionSearch = self.findChild(QAction, 'actionSearch')
-        self.actionSearch.triggered.connect(self.open_repayment_search)
-
-        # Overdue / Registration
-        self.actionOverdueRegistration = self.findChild(QAction, 'actionOverdueRegistration')
-        self.actionOverdueRegistration.triggered.connect(self.open_overdue_registration)
-
-        # Overdue / Management
-        self.actionOverdueManagement = self.findChild(QAction, 'actionOverdueManagement')
-        self.actionOverdueManagement.triggered.connect(self.open_overdue_management)
-
-        # Settings / Officer Management
-        self.action_37 = self.findChild(QAction, 'action_37')
-        self.action_37.triggered.connect(self.open_officer_management)
-
-        # Settings / USer Management
-        self.actionUserManagement = self.findChild(QAction, 'actionUserManagement')
-        self.actionUserManagement.triggered.connect(self.open_user_management)
-
-    def open_customer_registration(self):
-        from src.pages.customer.registration import RegistrationApp
-        self.customer_registration_window = RegistrationApp()
-        self.customer_registration_window.show()
-
-    def open_loan(self):
-        from src.pages.loan.loan import LoanWindow
-        self.loan_window = LoanWindow()
-        self.loan_window.show()
-    
+    # Registration / Calculator
     def open_calculator(self):
-        from src.pages.loan.calculator import CalculatorApp
+        from src.pages.registration.calculator import CalculatorApp
         self.calculator_window = CalculatorApp()
         self.calculator_window.show()
 
-    def open_repayment_search(self):
-        from src.pages.repayment.search import RepaymentSearchApp
-        self.repayment_search_window = RepaymentSearchApp()
-        self.repayment_search_window.show()
-
-    def open_officer_management(self):
-        from src.pages.setting.loan_officer import LoanOfficerApp
-        self.officer_management_window = LoanOfficerApp()
-        self.officer_management_window.show()
-
-    def open_user_management(self):
-        from src.pages.setting.user_management import UserManagementApp
-        self.user_management_window = UserManagementApp()
-        self.user_management_window.show()
-
-    def open_collateral_search(self):
-        from src.pages.loan.collateral_search import CollateralSearchWindow
-        self.CollateralSearchWindow = CollateralSearchWindow()
-        self.CollateralSearchWindow.show()
-
-    def open_guarantor_search(self):
-        from src.pages.loan.guarantor_search import GuarantorSearchWindow
-        self.GuarantorSearchWindow = GuarantorSearchWindow()
-        self.GuarantorSearchWindow.show()
-
-    def open_counseling_search(self):
-        from src.pages.loan.counseling_search import CounselingSearchWindow
-        self.CounselingSearchWindow = CounselingSearchWindow()
-        self.CounselingSearchWindow.show()
-
-    def open_counseling_search(self):
-        from src.pages.loan.counseling_search import CounselingSearchWindow
-        self.CounselingSearchWindow = CounselingSearchWindow()
-        self.CounselingSearchWindow.show()
-
-    def open_overdue_management(self):
-        from src.pages.overdue.overdue_loan_management import OverdueLoanManagementWindow
-        self.OverdueLoanManagementWindow = OverdueLoanManagementWindow()
-        self.OverdueLoanManagementWindow.show()
-
-    def open_overdue_registration(self):
-        from src.pages.overdue.overdue_loan_registration import OverdueLoanRegistrationWindow
-        self.OverdueLoanRegistrationWindow = OverdueLoanRegistrationWindow()
-        self.OverdueLoanRegistrationWindow.show()
+    ## -- Search -- ##
+    # Search / Customer
+    def open_search_customer(self):
+        from src.pages.search.customer import SearchCustomerApp
+        self.search_customer_window = SearchCustomerApp()
+        self.search_customer_window.show()
     
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)

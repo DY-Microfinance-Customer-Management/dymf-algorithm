@@ -6,11 +6,11 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB  # Firestore DB 임포트
 
-class UserManagementApp(QMainWindow):
+class SettingsUserApp(QMainWindow):
     def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "user_management.ui")
+        ui_path = os.path.join(current_dir, "user.ui")
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -176,7 +176,7 @@ class UserManagementApp(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    window = UserManagementApp()
+    window = SettingsUserApp()
     sys.exit(app.exec_())
 
 

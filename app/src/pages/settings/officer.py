@@ -6,11 +6,11 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB  # Firestore DB 임포트
 
-class LoanOfficerApp(QMainWindow):
+class SettingsOfficerApp(QMainWindow):
     def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "loan_officer.ui")
+        ui_path = os.path.join(current_dir, "officer.ui")
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -164,7 +164,7 @@ class LoanOfficerApp(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    window = LoanOfficerApp()
+    window = SettingsOfficerApp()
     sys.exit(app.exec_())
 
 
