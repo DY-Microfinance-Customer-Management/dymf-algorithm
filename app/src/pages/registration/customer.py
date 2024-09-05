@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog,
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
-
 from src.components import DB, storageBucket
 
 class RegistrationCustomerApp(QMainWindow):
@@ -29,6 +28,7 @@ class RegistrationCustomerApp(QMainWindow):
     def initialize_buttons(self):
         self.newButton.setEnabled(True)
         self.saveButton.setEnabled(False)
+        self.cpNumber.setEnabled(False)  # Disable CP Number by default
 
     def setup_connections(self):
         self.newButton.clicked.connect(self.on_new_button_clicked)
@@ -37,10 +37,19 @@ class RegistrationCustomerApp(QMainWindow):
         self.imageButton.clicked.connect(self.select_image)
         self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
-        self.phone2.textChanged.connect(self.limit_phone_length)
-        self.phone3.textChanged.connect(self.limit_phone_length)
-        self.tel2.textChanged.connect(self.limit_phone_length)
-        self.tel3.textChanged.connect(self.limit_phone_length)
+        self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
+        self.tel2ByThree.textChanged.connect(self.limit_phone_length)
+        self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
+        self.tel1ByThree.textChanged.connect(self.limit_phone_length)
+        self.loanType.currentIndexChanged.connect(self.toggle_cp_number)  # Toggle CP Number based on loan type
+
+    def toggle_cp_number(self):
+        # Enable CP Number field only if "Group Loan" is selected
+        if self.loanType.currentText() == "Group Loan":
+            self.cpNumber.setEnabled(True)
+        else:
+            self.cpNumber.setEnabled(False)
+            self.cpNumber.clear()  # Clear the field if it's disabled
 
     def reset_current_customer_id(self):
         self.current_customer_id = None
@@ -67,7 +76,7 @@ class RegistrationCustomerApp(QMainWindow):
             self.name.clear()
 
     def limit_phone_length(self):
-        for field in [self.phone2, self.phone3, self.tel2, self.tel3]:
+        for field in [self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
             text = field.text()
             if len(text) > 4:
                 field.setText(text[:4])
@@ -77,12 +86,12 @@ class RegistrationCustomerApp(QMainWindow):
         self.nrcNo.clear()
         self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
         self.gender.setCurrentIndex(0)
-        self.phone1.setCurrentIndex(0)
-        self.phone2.clear()
-        self.phone3.clear()
-        self.tel1.setCurrentIndex(0)
-        self.tel2.clear()
-        self.tel3.clear()
+        self.tel2ByOne.setCurrentIndex(0)
+        self.tel2ByTwo.clear()
+        self.tel2ByThree.clear()
+        self.tel1ByOne.setCurrentIndex(0)
+        self.tel1ByTwo.clear()
+        self.tel1ByThree.clear()
         self.email.clear()
         self.loanOfficer.clear()
         self.homePostalCode.clear()
@@ -104,18 +113,18 @@ class RegistrationCustomerApp(QMainWindow):
         self.disable_all_fields()
         self.saveButton.setEnabled(False)
         self.imageLabel.clear()
-
+        self.cpNumber.clear()
     def disable_all_fields(self):
         self.name.setEnabled(False)
         self.nrcNo.setEnabled(False)
         self.dateOfBirth.setEnabled(False)
         self.gender.setEnabled(False)
-        self.phone1.setEnabled(False)
-        self.phone2.setEnabled(False)
-        self.phone3.setEnabled(False)
-        self.tel1.setEnabled(False)
-        self.tel2.setEnabled(False)
-        self.tel3.setEnabled(False)
+        self.tel2ByOne.setEnabled(False)
+        self.tel2ByTwo.setEnabled(False)
+        self.tel2ByThree.setEnabled(False)
+        self.tel1ByOne.setEnabled(False)
+        self.tel1ByTwo.setEnabled(False)
+        self.tel1ByThree.setEnabled(False)
         self.email.setEnabled(False)
         self.loanOfficer.setEnabled(False)
         self.selectLoanOfficerButton.setEnabled(False)
@@ -136,6 +145,8 @@ class RegistrationCustomerApp(QMainWindow):
         self.info5.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.imageButton.setEnabled(False)
+        self.loanType.setEnabled(False)
+        self.cpNumber.setEnabled(False)
 
     def enable_all_fields(self):
         self.saveButton.setEnabled(True)
@@ -143,12 +154,12 @@ class RegistrationCustomerApp(QMainWindow):
         self.nrcNo.setEnabled(True)
         self.dateOfBirth.setEnabled(True)
         self.gender.setEnabled(True)
-        self.phone1.setEnabled(True)
-        self.phone2.setEnabled(True)
-        self.phone3.setEnabled(True)
-        self.tel1.setEnabled(True)
-        self.tel2.setEnabled(True)
-        self.tel3.setEnabled(True)
+        self.tel2ByOne.setEnabled(True)
+        self.tel2ByTwo.setEnabled(True)
+        self.tel2ByThree.setEnabled(True)
+        self.tel1ByOne.setEnabled(True)
+        self.tel1ByTwo.setEnabled(True)
+        self.tel1ByThree.setEnabled(True)
         self.email.setEnabled(True)
         self.selectLoanOfficerButton.setEnabled(True)
         self.homePostalCode.setEnabled(True)
@@ -167,33 +178,42 @@ class RegistrationCustomerApp(QMainWindow):
         self.info4.setEnabled(True)
         self.info5.setEnabled(True)
         self.imageButton.setEnabled(True)
+        self.cpNumber.setEnabled(True)
+        self.loanType.setEnabled(True)
 
     def prepare_save_customer_data(self):
         customer_data = self.get_customer_data()
 
+        # 필수 필드 목록
         required_fields = [
-            "name", "nrc_no", "date_of_birth", "gender", "mobile1", "mobile2", "mobile3",
-            "phone1", "phone2", "phone3", "email", "home_address.postal_code",
-            "home_address.street", "home_address.country", "home_address.city",
-            "home_address.township"
+            "name", "nrc_no", "date_of_birth", "gender"
         ]
 
+        # Loan Type이 "Group Loan"일 때 cp_number를 필수 항목에 추가
+        if self.loanType.currentText() == "Group Loan":
+            required_fields.append("cp_number")
+
+        # 필수 필드 중 하나라도 비어있는지 확인
         missing_fields = []
-        for field in required_fields:
-            field_parts = field.split('.')
-            value = customer_data
-            for part in field_parts:
-                value = value.get(part)
-                if value is None:
-                    break
 
-            if not value:
-                missing_fields.append(field)
+        # tel1 관련 필드 검사
+        if not all([self.tel1ByOne.currentText(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
+            missing_fields.append("Tel1")
 
+        # 필수 필드 검사 (QComboBox와 QLineEdit을 구분)
+        if not self.name.text():
+            missing_fields.append("이름")
+        if not self.nrcNo.text():
+            missing_fields.append("NRC No.")
+        if not self.dateOfBirth.date().isValid():
+            missing_fields.append("생년월일")
+        if not self.gender.currentText():
+            missing_fields.append("성별")
+
+        # 만약 필수 필드가 비어있다면 경고 메시지 출력
         if missing_fields:
             QMessageBox.warning(self, "Missing Fields",
-                                "The following fields are required and cannot be empty: "
-                                f"{', '.join(missing_fields)}")
+                                f"{', '.join(missing_fields)}이(가) 비어있습니다.")
             return
 
         reply = QMessageBox.question(self, 'Confirm Data',
@@ -205,19 +225,20 @@ class RegistrationCustomerApp(QMainWindow):
             self.save_customer_data()
 
     def get_customer_data(self):
-        return {
+        customer_data = {
             "name": self.name.text(),
             "nrc_no": self.nrcNo.text(),
             "date_of_birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
             "gender": self.gender.currentText(),
-            "mobile1": self.phone1.currentText(),
-            "mobile2": self.phone2.text(),
-            "mobile3": self.phone3.text(),
-            "phone1": self.tel1.currentText(),
-            "phone2": self.tel2.text(),
-            "phone3": self.tel3.text(),
+            "tel1ByOne": self.tel1ByOne.currentText(),
+            "tel1ByTwo": self.tel1ByTwo.text(),
+            "tel1ByThree": self.tel1ByThree.text(),
+            "tel2ByOne": self.tel2ByOne.currentText(),
+            "tel2ByTwo": self.tel2ByTwo.text(),
+            "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),
             "loan_officer": self.loanOfficer.text(),
+            "loan_type": self.loanType.currentText(),  # Add loan type
             "home_address": {
                 "postal_code": self.homePostalCode.text(),
                 "street": self.homeStreet.text(),
@@ -240,6 +261,12 @@ class RegistrationCustomerApp(QMainWindow):
                 "info5": self.info5.text()
             }
         }
+
+        # Only add cpNumber if loanType is "Group Loan"
+        if self.loanType.currentText() == "Group Loan":
+            customer_data["cp_number"] = self.cpNumber.text()
+
+        return customer_data
 
     def save_customer_data(self):
         customer_data = self.get_customer_data()

@@ -233,7 +233,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="phone3">
+   <widget class="QLineEdit" name="tel1ByThree">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -598,7 +598,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tel2">
+   <widget class="QLineEdit" name="tel2ByTwo">
     <property name="geometry">
      <rect>
       <x>670</x>
@@ -682,7 +682,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>Tel</string>
+     <string>Tel2</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -860,7 +860,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="tel3">
+   <widget class="QLineEdit" name="tel2ByThree">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -964,7 +964,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="phone1">
+   <widget class="QComboBox" name="tel1ByOne">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -1303,7 +1303,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>Phone</string>
+     <string>Tel1</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1358,7 +1358,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="phone2">
+   <widget class="QLineEdit" name="tel1ByTwo">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -1611,7 +1611,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="tel1">
+   <widget class="QComboBox" name="tel2ByOne">
     <property name="geometry">
      <rect>
       <x>620</x>
@@ -1642,6 +1642,129 @@
       <string>096</string>
      </property>
     </item>
+   </widget>
+   <widget class="QComboBox" name="loanType">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>220</y>
+      <width>161</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>300</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <item>
+     <property name="text">
+      <string>Group Loan</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Special (Individual) Loan</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_47">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>220</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Loan Type</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cpNumber">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>220</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_48">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>220</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241)</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>CP No.</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
  </widget>

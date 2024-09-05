@@ -8,10 +8,10 @@ from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
 
 from src.components import DB, storageBucket
-from app.src.components.select_customer import SelectCustomerWindow
+from src.components.select_customer import SelectCustomerWindow
 
 class SearchCustomerApp(QMainWindow):
-    def __init__(self):
+    def __init__(self):z
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "customer.ui")
@@ -31,6 +31,7 @@ class SearchCustomerApp(QMainWindow):
         self.searchButton.setEnabled(True)
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
+        self.cpNumber.setEnabled(False)  # Disable CP Number by default
 
     def setup_connections(self):
         self.searchButton.clicked.connect(self.open_select_customer_window)
@@ -40,10 +41,19 @@ class SearchCustomerApp(QMainWindow):
         self.imageButton.clicked.connect(self.select_image)
         self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
-        self.phone2.textChanged.connect(self.limit_phone_length)
-        self.phone3.textChanged.connect(self.limit_phone_length)
-        self.tel2.textChanged.connect(self.limit_phone_length)
-        self.tel3.textChanged.connect(self.limit_phone_length)
+        self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
+        self.tel2ByThree.textChanged.connect(self.limit_phone_length)
+        self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
+        self.tel1ByThree.textChanged.connect(self.limit_phone_length)
+        self.loanType.currentIndexChanged.connect(self.toggle_cp_number)  # Toggle CP Number based on loan type
+
+    def toggle_cp_number(self):
+        # Enable CP Number field only if "Group Loan" is selected
+        if self.loanType.currentText() == "Group Loan":
+            self.cpNumber.setEnabled(True)
+        else:
+            self.cpNumber.setEnabled(False)
+            self.cpNumber.clear()  # Clear the field if it's disabled
 
     def reset_current_customer_id(self):
         self.current_customer_id = None
@@ -85,13 +95,18 @@ class SearchCustomerApp(QMainWindow):
         self.nrcNo.setText(customer_data.get("nrc_no", ""))
         self.dateOfBirth.setDate(QtCore.QDate.fromString(customer_data.get("date_of_birth"), QtCore.Qt.ISODate))
         self.gender.setCurrentText(customer_data.get("gender", ""))
-        self.phone1.setCurrentText(customer_data.get("mobile1", ""))
-        self.phone2.setText(customer_data.get("mobile2", ""))
-        self.phone3.setText(customer_data.get("mobile3", ""))
-        self.tel1.setCurrentText(customer_data.get("phone1", ""))
-        self.tel2.setText(customer_data.get("phone2", ""))
-        self.tel3.setText(customer_data.get("phone3", ""))
+        self.tel2ByOne.setCurrentText(customer_data.get("tel2ByOne", ""))
+        self.tel2ByTwo.setText(customer_data.get("tel2ByTwo", ""))
+        self.tel2ByThree.setText(customer_data.get("tel2ByThree", ""))
+        self.tel1ByOne.setCurrentText(customer_data.get("tel1ByOne", ""))
+        self.tel1ByTwo.setText(customer_data.get("tel1ByTwo", ""))
+        self.tel1ByThree.setText(customer_data.get("tel1ByThree", ""))
         self.email.setText(customer_data.get("email", ""))
+
+        # Set loan type and CP Number
+        self.loanType.setCurrentText(customer_data.get("loan_type", ""))
+        self.cpNumber.setText(customer_data.get("cp_number", ""))
+
         loan_officer = customer_data.get("loan_officer", {})
         if isinstance(loan_officer, dict):
             loan_officer_display = f"{loan_officer.get('name', '')} - {loan_officer.get('service_area', '')}"
@@ -140,6 +155,9 @@ class SearchCustomerApp(QMainWindow):
         else:
             self.imageLabel.clear()
 
+        # Toggle CP Number field based on loan type
+        self.toggle_cp_number()
+
     def not_input_number(self):
         name_text = self.name.text()
         if re.search(r'\d', name_text):
@@ -147,7 +165,7 @@ class SearchCustomerApp(QMainWindow):
             self.name.clear()
 
     def limit_phone_length(self):
-        for field in [self.phone2, self.phone3, self.tel2, self.tel3]:
+        for field in [self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
             text = field.text()
             if len(text) > 4:
                 field.setText(text[:4])
@@ -159,12 +177,12 @@ class SearchCustomerApp(QMainWindow):
         self.nrcNo.clear()
         self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
         self.gender.setCurrentIndex(0)
-        self.phone1.setCurrentIndex(0)
-        self.phone2.clear()
-        self.phone3.clear()
-        self.tel1.setCurrentIndex(0)
-        self.tel2.clear()
-        self.tel3.clear()
+        self.tel2ByOne.setCurrentIndex(0)
+        self.tel2ByTwo.clear()
+        self.tel2ByThree.clear()
+        self.tel1ByOne.setCurrentIndex(0)
+        self.tel1ByTwo.clear()
+        self.tel1ByThree.clear()
         self.email.clear()
         self.loanOfficer.clear()
         self.homePostalCode.clear()
@@ -187,18 +205,20 @@ class SearchCustomerApp(QMainWindow):
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.imageLabel.clear()
+        self.cpNumber.clear()
+        self.loanType.setCurrentIndex(0)  # Reset loan type to default
 
     def disable_all_fields(self):
         self.name.setEnabled(False)
         self.nrcNo.setEnabled(False)
         self.dateOfBirth.setEnabled(False)
         self.gender.setEnabled(False)
-        self.phone1.setEnabled(False)
-        self.phone2.setEnabled(False)
-        self.phone3.setEnabled(False)
-        self.tel1.setEnabled(False)
-        self.tel2.setEnabled(False)
-        self.tel3.setEnabled(False)
+        self.tel2ByOne.setEnabled(False)
+        self.tel2ByTwo.setEnabled(False)
+        self.tel2ByThree.setEnabled(False)
+        self.tel1ByOne.setEnabled(False)
+        self.tel1ByTwo.setEnabled(False)
+        self.tel1ByThree.setEnabled(False)
         self.email.setEnabled(False)
         self.loanOfficer.setEnabled(False)
         self.selectLoanOfficerButton.setEnabled(False)
@@ -219,6 +239,8 @@ class SearchCustomerApp(QMainWindow):
         self.info5.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.imageButton.setEnabled(False)
+        self.loanType.setEnabled(False)
+        self.cpNumber.setEnabled(False)
 
     def enable_all_fields(self):
         self.saveButton.setEnabled(True)
@@ -226,12 +248,12 @@ class SearchCustomerApp(QMainWindow):
         self.nrcNo.setEnabled(True)
         self.dateOfBirth.setEnabled(True)
         self.gender.setEnabled(True)
-        self.phone1.setEnabled(True)
-        self.phone2.setEnabled(True)
-        self.phone3.setEnabled(True)
-        self.tel1.setEnabled(True)
-        self.tel2.setEnabled(True)
-        self.tel3.setEnabled(True)
+        self.tel2ByOne.setEnabled(True)
+        self.tel2ByTwo.setEnabled(True)
+        self.tel2ByThree.setEnabled(True)
+        self.tel1ByOne.setEnabled(True)
+        self.tel1ByTwo.setEnabled(True)
+        self.tel1ByThree.setEnabled(True)
         self.email.setEnabled(True)
         self.selectLoanOfficerButton.setEnabled(True)
         self.homePostalCode.setEnabled(True)
@@ -250,34 +272,36 @@ class SearchCustomerApp(QMainWindow):
         self.info4.setEnabled(True)
         self.info5.setEnabled(True)
         self.imageButton.setEnabled(True)
+        self.loanType.setEnabled(True)
+        self.cpNumber.setEnabled(self.loanType.currentText() == "Group Loan")  # Enable CP Number if necessary
 
     def prepare_save_customer_data(self):
         customer_data = self.get_customer_data()
 
+        # Required fields
         required_fields = [
-            "name", "nrc_no", "date_of_birth", "gender", "mobile1", "mobile2", "mobile3",
-            "phone1", "phone2", "phone3", "email", "home_address.postal_code",
-            "home_address.street", "home_address.country", "home_address.city",
-            "home_address.township"
+            "name", "nrc_no", "date_of_birth", "gender"
         ]
 
-        missing_fields = []
-        for field in required_fields:
-            # 딕셔너리 경로에 따라 값 가져오기
-            field_parts = field.split('.')
-            value = customer_data
-            for part in field_parts:
-                value = value.get(part)
-                if value is None:
-                    break
+        # Check if loan type is "Group Loan" and add cp_number to required fields
+        if self.loanType.currentText() == "Group Loan":
+            required_fields.append("cp_number")
 
-            if not value:
+        # Check if any required fields are missing
+        missing_fields = []
+
+        # Check tel1 related fields
+        if not all([self.tel1ByOne.currentText(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
+            missing_fields.append("Tel1")
+
+        # Check required fields
+        for field in required_fields:
+            if not customer_data.get(field):
                 missing_fields.append(field)
 
         if missing_fields:
             QMessageBox.warning(self, "Missing Fields",
-                                "The following fields are required and cannot be empty: "
-                                f"{', '.join(missing_fields)}")
+                                f"The following fields are required and cannot be empty: {', '.join(missing_fields)}")
             return
 
         reply = QMessageBox.question(self, 'Confirm Data',
@@ -289,19 +313,20 @@ class SearchCustomerApp(QMainWindow):
             self.save_customer_data()
 
     def get_customer_data(self):
-        return {
+        customer_data = {
             "name": self.name.text(),
             "nrc_no": self.nrcNo.text(),
             "date_of_birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
             "gender": self.gender.currentText(),
-            "mobile1": self.phone1.currentText(),
-            "mobile2": self.phone2.text(),
-            "mobile3": self.phone3.text(),
-            "phone1": self.tel1.currentText(),
-            "phone2": self.tel2.text(),
-            "phone3": self.tel3.text(),
+            "tel1ByOne": self.tel1ByOne.currentText(),
+            "tel1ByTwo": self.tel1ByTwo.text(),
+            "tel1ByThree": self.tel1ByThree.text(),
+            "tel2ByOne": self.tel2ByOne.currentText(),
+            "tel2ByTwo": self.tel2ByTwo.text(),
+            "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),
             "loan_officer": self.loanOfficer.text(),
+            "loan_type": self.loanType.currentText(),  # Add loan type
             "home_address": {
                 "postal_code": self.homePostalCode.text(),
                 "street": self.homeStreet.text(),
@@ -324,6 +349,12 @@ class SearchCustomerApp(QMainWindow):
                 "info5": self.info5.text()
             }
         }
+
+        # Only add cpNumber if loanType is "Group Loan"
+        if self.loanType.currentText() == "Group Loan":
+            customer_data["cp_number"] = self.cpNumber.text()
+
+        return customer_data
 
     def save_customer_data(self):
         customer_data = self.get_customer_data()
@@ -380,8 +411,7 @@ class SearchCustomerApp(QMainWindow):
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
 
-
-# 추가: Officer 선택 창 정의
+# Officer selection dialog definition
 class OfficerSelectDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -413,12 +443,10 @@ class OfficerSelectDialog(QDialog):
             return self.officer_data[selected_row]
         return None
 
-
 def main():
     app = QApplication(sys.argv)
     window = SearchCustomerApp()
     sys.exit(app.exec_())
-
 
 if __name__ == '__main__':
     main()
