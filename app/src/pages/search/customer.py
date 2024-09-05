@@ -11,7 +11,7 @@ from src.components import DB, storageBucket
 from src.components.select_customer import SelectCustomerWindow
 
 class SearchCustomerApp(QMainWindow):
-    def __init__(self):z
+    def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         ui_path = os.path.join(current_dir, "customer.ui")
