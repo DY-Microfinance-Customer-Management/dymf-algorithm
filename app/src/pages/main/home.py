@@ -20,8 +20,8 @@ class HomeApp(QMainWindow):
         self.actionRegistrationCustomer.triggered.connect(self.open_registration_customer)
         
         # # Registration / Guarantor
-        # self.actionRegistrationGuarantor = self.findChild(QAction, 'actionRegistrationGuarantor')
-        # self.actionRegistrationGuarantor.triggered.connect(self.open_registration_guarantor)
+        self.actionRegistrationGuarantor = self.findChild(QAction, 'actionRegistrationGuarantor')
+        self.actionRegistrationGuarantor.triggered.connect(self.open_registration_guarantor)
         
         # # Registration / Loan
         # self.actionRegistrationLoan = self.findChild(QAction, 'actionRegistrationLoan')
@@ -44,10 +44,10 @@ class HomeApp(QMainWindow):
         self.registration_customer_window.show()
 
     # # Registration / Guarantor
-    # def open_registration_guarantor(self):
-    #     from src.pages.registration.guarantor import RegistrationGuarantorApp
-    #     self.registration_guarantor_window = RegistrationGuarantorApp()
-    #     self.registration_guarantor_window.show()
+    def open_registration_guarantor(self):
+        from src.pages.registration.guarantor import RegistrationGuarantorApp
+        self.registration_guarantor_window = RegistrationGuarantorApp()
+        self.registration_guarantor_window.show()
 
     # # Registration / Loan
     # def open_registration_loan(self):
