@@ -2,7 +2,8 @@ import sys
 import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableView
 from PyQt5 import uic
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon, QRegExpValidator, QIntValidator
+from PyQt5.QtCore import QRegExp
 
 from src.components import DB  # Firestore DB 임포트
 
@@ -28,6 +29,9 @@ class SettingsOfficerApp(QMainWindow):
         self.officerName.setEnabled(False)
         self.officerServiceArea.setEnabled(False)
 
+        # 입력 필터 설정
+        self.setup_validators()
+
         self.setup_table()
 
         # 버튼 클릭 연결
@@ -39,6 +43,16 @@ class SettingsOfficerApp(QMainWindow):
 
         # 초기 데이터 로드
         self.load_officers()
+
+    def setup_validators(self):
+        # 이름 필드에 문자만 입력 가능하도록 설정 (정규 표현식 사용)
+        name_regex = QRegExp("[A-Za-z\\s]+")  # 알파벳 문자와 공백만 허용
+        name_validator = QRegExpValidator(name_regex)
+        self.officerName.setValidator(name_validator)
+
+        # 서비스 지역 필드에 숫자만 입력 가능하도록 설정
+        service_area_validator = QIntValidator()
+        self.officerServiceArea.setValidator(service_area_validator)
 
     def setup_table(self):
         # 테이블 모델 설정

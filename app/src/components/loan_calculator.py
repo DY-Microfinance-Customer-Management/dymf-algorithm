@@ -15,7 +15,7 @@ class LoanCalculator:
         self.expire_date = start_date + relativedelta(days=self.total_days)
 
     def equal_payment(self) -> pd.DataFrame:
-        period_interest_rate = self.annual_interest_rate / 12
+        period_interest_rate = self.annual_interest_rate / 365 * self.cycle_days
         amount_per_period = self.principal * period_interest_rate * (1 + period_interest_rate) ** self.num_payments / ((1 + period_interest_rate) ** self.num_payments - 1)
         amount_per_period = round(amount_per_period)
         

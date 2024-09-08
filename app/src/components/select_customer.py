@@ -1,8 +1,7 @@
 import sys
 import os
 import pandas as pd
-from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit, QPushButton, QVBoxLayout, QWidget
 from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
 from PyQt5.QtGui import QIcon
 
@@ -13,23 +12,37 @@ class SelectCustomerWindow(QMainWindow):
 
     def __init__(self):
         super(SelectCustomerWindow, self).__init__()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "select_customer.ui")
-        uic.loadUi(ui_path, self)
 
-        icon_path = os.path.join(current_dir, 'icon.ico')
+        # Set window properties
+        self.setWindowTitle("Select Customer")
+        self.setGeometry(300, 300, 600, 700)
+        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
-        self.searchBox = self.findChild(QLineEdit, "searchBox")
-        self.tableView = self.findChild(QTableView, "tableView")
+        # Set up the layout
+        self.central_widget = QWidget()
+        self.setCentralWidget(self.central_widget)
+        self.layout = QVBoxLayout(self.central_widget)
 
+        # Search box
+        self.searchBox = QLineEdit(self)
+        self.searchBox.setPlaceholderText("Search by customer name")
+        self.layout.addWidget(self.searchBox)
+
+        # Table view for displaying customers
+        self.tableView = QTableView(self)
         self.tableView.setSelectionBehavior(QTableView.SelectRows)
+        self.layout.addWidget(self.tableView)
 
+        # Select button
+        self.selectButton = QPushButton("Select", self)
+        self.selectButton.clicked.connect(self.handle_select_button)
+        self.layout.addWidget(self.selectButton)
+
+        # Signal for search
         self.searchBox.textChanged.connect(self.filter_data)
-
-        self.tableView.clicked.connect(self.handle_table_click)
-        self.tableView.doubleClicked.connect(self.handle_table_double_click)
-
+        
+        # Load data
         self.load_data()
 
     def load_data(self):
@@ -39,17 +52,19 @@ class SelectCustomerWindow(QMainWindow):
         data = []
         for doc in docs:
             customer_data = doc.to_dict()
-            customer_data['customer_uid'] = doc.id  # UID 추가
+            customer_data['uid'] = doc.id
             data.append(customer_data)
+            print(data)
 
         self.df = pd.DataFrame(data)
 
-        # 핸드폰 번호를 하나의 문자열로 합침
-        self.df['Phone No.'] = self.df[['phone1', 'phone2', 'phone3']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
+        # Combine phone number fields into a single string
+        self.df['Phone No.'] = self.df[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
 
-        # 표시할 열만 선택
+        # Select display columns
         self.display_df = self.df[['name', 'date_of_birth', 'Phone No.', 'loan_officer']]
 
+        # Copy the display dataframe for filtering purposes
         self.filtered_df = self.display_df.copy()
         self.model = PandasModel(self.filtered_df)
         self.tableView.setModel(self.model)
@@ -60,16 +75,14 @@ class SelectCustomerWindow(QMainWindow):
         self.model._df = self.filtered_df
         self.model.layoutChanged.emit()
 
-    def handle_table_click(self, index):
-        if index.isValid():
+    def handle_select_button(self):
+        selected_indexes = self.tableView.selectionModel().selectedRows()
+        if selected_indexes:
+            # Get the first selected row
+            index = selected_indexes[0]
             row = index.row()
             selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
-
-    def handle_table_double_click(self, index):
-        if index.isValid():
-            row = index.row()
-            selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
-            self.customer_selected.emit(selected_data)
+            self.customer_selected.emit(selected_data)  # Emit the selected customer data
             self.close()
 
 

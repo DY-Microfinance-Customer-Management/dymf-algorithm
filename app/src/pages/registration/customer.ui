@@ -81,12 +81,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Man</string>
+      <string>Male</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Woman</string>
+      <string>Female</string>
      </property>
     </item>
    </widget>
