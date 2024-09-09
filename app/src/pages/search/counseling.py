@@ -13,7 +13,7 @@ class SearchCounselingWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "counseling.ui")  # UI 파일 경로 (고객상담자료검색)
+        ui_path = os.path.join(current_dir, "loan.ui")  # UI 파일 경로 (고객상담자료검색)
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')

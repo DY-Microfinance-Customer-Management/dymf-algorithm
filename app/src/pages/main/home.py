@@ -36,6 +36,10 @@ class HomeApp(QMainWindow):
         self.actionSearchCustomer = self.findChild(QAction, 'actionSearchCustomer')
         self.actionSearchCustomer.triggered.connect(self.open_search_customer)
 
+        # Search / Customer
+        self.actionSearchLoan = self.findChild(QAction, 'actionSearchLoan')
+        self.actionSearchLoan.triggered.connect(self.open_search_loan)
+
         ## --------------------------------- Repayment --------------------------------- ##
         # # Repayment / Single
         # self.actionRepaymentSingle = self.findChild(QAction, 'actionRepaymentSingle')
@@ -90,6 +94,11 @@ class HomeApp(QMainWindow):
         from src.pages.search.customer import SearchCustomerApp
         self.search_customer_window = SearchCustomerApp()
         self.search_customer_window.show()
+
+    def open_search_loan(self):
+        from src.pages.search.loan import SearchLoanApp
+        self.search_loan_window = SearchLoanApp()
+        self.search_loan_window.show()
 
     ## --------------------------------- Repayment --------------------------------- ##
     # # Repayment / Single
