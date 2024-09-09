@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pandas as pd
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QDialog, QTableWidgetItem
-from PyQt5.QtCore import pyqtSlot, Qt, QDate
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QDialog
+from PyQt5.QtCore import pyqtSlot, Qt, QDate, QModelIndex, QItemSelectionModel
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 from src.components import DB
@@ -37,6 +37,7 @@ class RegistrationLoanApp(QMainWindow):
         self.loanNewButton.setEnabled(False)
         self.loanStatus.setEnabled(False)
         self.loanNumber.setEnabled(False)
+        self.loanType.setEnabled(False)
         self.set_input_enabled(False, False, False, False)
         self.interestRate.setText("28")
         self.contractDate.setDate(QDate.currentDate())
@@ -54,9 +55,6 @@ class RegistrationLoanApp(QMainWindow):
         self.calculateButton.clicked.connect(self.on_calculate_button_clicked)
 
         # 3. Guarantor Management
-        # self.addGuarantorButton.clicked.connect(self.on_add_guarantor_button_clicked)
-        # self.deleteGuarantorButton.clicked.connect(self.on_delete_guarantor_button_clicked)
-        # self.guarantorTable.clicked.connect(self.on_guarantor_table_clicked)
         self.selected_guarantors = []
         self.addGuarantorButton.clicked.connect(self.on_add_guarantor_button_clicked)
         self.deleteGuarantorButton.clicked.connect(self.on_delete_guarantor_button_clicked)
@@ -121,6 +119,13 @@ class RegistrationLoanApp(QMainWindow):
         
         self.contractDate.setDate(QDate.currentDate())
         self.contractDate.setReadOnly(False)
+
+        loan_type = customer_data.get('loan_type', '')
+        if loan_type == 'Special Loan':
+            self.loanType.setCurrentText('Special Loan')
+        elif loan_type == 'Group Loan':
+            self.loanType.setCurrentText('Group Loan')
+        self.loanType.setEnabled(False)
 
         self.check_existing_customer_loan()
 
@@ -405,67 +410,105 @@ class RegistrationLoanApp(QMainWindow):
         self.counselingRepaymentMethod.setText(self.repaymentMethod.currentText())
 
     ### ---------------------------------- 3. Guarantor Management ---------------------------------- ###
-    # Guarantor 추가: on_add_guarantor_button_clicked
-    # - guarantor 추가 창 띄워서 선택
-    # - 다중 선택 가능하면 좋을 듯
-    # - Loan DB에는 guarantor uid만 저장하면 됨:
-    '''
-    {
-        guarantors:[
-            uid,
-            uid,
-            uid,
-            ...
-        ]
-    }
-    '''
-
-    # Guarantor 삭제: on_delete_guarantor_button_clicked
-
-    # GuarantorTable에서 데이터 선택: on_guarantor_table_clicked
-    # - 데이터 선택 후 on_delete_guarantor_button_clicked로 데이터 삭제
-
-
     def on_add_guarantor_button_clicked(self):
-        # Guarantor 선택 다이얼로그를 실행
-        dialog = SelectGuarantorWindow()  # parent 인자를 넘기지 않음
-        dialog.guarantors_selected.connect(self.handle_guarantors_selected)  # signal 연결
+        # Guarantor 컬렉션에서 데이터가 있는지 확인
+        guarantors_ref = DB.collection('Guarantor').get()
+
+        if not guarantors_ref:
+            # Guarantor 데이터가 없는 경우 경고 메시지 띄우기
+            QMessageBox.warning(self, "No Guarantors", "Please register a guarantor first.")
+            return
+
+        # Guarantor 데이터가 있는 경우 선택 창 열기
+        dialog = SelectGuarantorWindow()
+        dialog.guarantors_selected.connect(self.handle_guarantors_selected)
         dialog.exec_()
 
     def handle_guarantors_selected(self, selected_guarantors):
         if selected_guarantors:
-            # 기존 Guarantor 리스트에 추가
-            self.selected_guarantors.extend(selected_guarantors)
-            self.load_guarantor_data()
+            # 선택한 Guarantor UID를 Loan 문서에 추가
+            for guarantor_uid in selected_guarantors:
+                if guarantor_uid not in self.selected_guarantors:
+                    self.selected_guarantors.append(guarantor_uid)
 
-    def on_delete_guarantor_button_clicked(self):
-        # 선택된 Guarantor 삭제
-        indexes = self.guarantorTable.selectionModel().selectedRows()
-        if indexes:
-            for index in sorted(indexes, reverse=True):
-                del self.selected_guarantors[index.row()]
+            # Firestore의 Loan 컬렉션에 Guarantor 목록 업데이트
+            if self.existing_loan_id:
+                loan_ref = DB.collection('Loan').document(self.existing_loan_id)
+                loan_ref.update({'guarantors': self.selected_guarantors})
+
+            # 테이블을 다시 로드
             self.load_guarantor_data()
 
     def on_guarantor_table_clicked(self, index):
-        # 테이블 클릭시 행동 정의 (필요시)
-        pass
+        if index.isValid():
+            selected_row = index.row()
+
+            if self.guarantorTable.selectionModel().isRowSelected(selected_row, QModelIndex()):
+                
+                self.guarantorTable.selectionModel().select(
+                    self.guarantorTable.model().index(selected_row, 0), 
+                    QItemSelectionModel.Deselect | QItemSelectionModel.Rows
+                )
+
+                self.deleteGuarantorButton.setEnabled(False)
+                self.addGuarantorButton.setEnabled(True)
+            else:
+                self.guarantorTable.selectionModel().select(
+                    self.guarantorTable.model().index(selected_row, 0), 
+                    QItemSelectionModel.Select | QItemSelectionModel.Rows
+                )
+                
+                self.deleteGuarantorButton.setEnabled(True)
+                
+    def on_delete_guarantor_button_clicked(self):
+        indexes = self.guarantorTable.selectionModel().selectedRows()
+        if indexes:
+            
+            for index in sorted(indexes, reverse=True):
+                row = index.row()
+
+                sorted_guarantors = sorted(self.selected_guarantors)
+
+                if 0 <= row < len(sorted_guarantors):
+                    guarantor_uid = sorted_guarantors[row]
+
+                    try:
+                        loan_ref = DB.collection('Loan').document(self.existing_loan_id)
+                        self.selected_guarantors.remove(guarantor_uid)
+                        loan_ref.update({'guarantors': self.selected_guarantors})
+                    except Exception as e:
+                        QMessageBox.critical(self, "Error", f"Failed to delete guarantor: {str(e)}")
+
+            self.load_guarantor_data()
 
     def load_guarantor_data(self):
-        # 선택된 Guarantor 데이터를 Firestore에서 불러와서 테이블에 표시
         if self.selected_guarantors:
-            guarantors_ref = DB.collection('Guarantor').where('uid', 'in', self.selected_guarantors).get()
+            sorted_guarantors = sorted(self.selected_guarantors)
+
+            guarantors_ref = DB.collection('Guarantor').where('uid', 'in', sorted_guarantors).get()
             data = [doc.to_dict() for doc in guarantors_ref]
 
-            # 테이블에 데이터 설정
-            self.guarantorTable.setRowCount(len(data))
-            self.guarantorTable.setColumnCount(4)
-            self.guarantorTable.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Phone No.', 'Address'])
+            model = QStandardItemModel(len(data), 3)
+            model.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Phone No.'])
 
             for row, guarantor in enumerate(data):
-                self.guarantorTable.setItem(row, 0, QTableWidgetItem(guarantor.get('name', '')))
-                self.guarantorTable.setItem(row, 1, QTableWidgetItem(guarantor.get('nrc_no', '')))
-                self.guarantorTable.setItem(row, 2, QTableWidgetItem(guarantor.get('Phone No.', '')))
-                self.guarantorTable.setItem(row, 3, QTableWidgetItem(guarantor.get('address', '')))
+                item_name = QStandardItem(guarantor.get('name', ''))
+                item_name.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+
+                item_nrc_no = QStandardItem(guarantor.get('nrc_no', ''))
+                item_nrc_no.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+
+                item_phone_no = QStandardItem('-'.join([guarantor.get('tel1ByOne', ''), guarantor.get('tel1ByTwo', ''), guarantor.get('tel1ByThree', '')]))
+                item_phone_no.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+
+                model.setItem(row, 0, item_name)
+                model.setItem(row, 1, item_nrc_no)
+                model.setItem(row, 2, item_phone_no)
+
+            self.guarantorTable.setModel(model)
+
+            self.deleteGuarantorButton.setEnabled(False)
+            self.addGuarantorButton.setEnabled(True)
 
     ### ---------------------------------- 4. Collateral Management ---------------------------------- ###
     def on_collateral_new_clicked(self):
@@ -785,7 +828,6 @@ class RegistrationLoanApp(QMainWindow):
     def set_input_enabled(self, loan: bool, guarantor: bool, collateral: bool, counseling: bool):
         # Calculate Loan tab input
         self.contractDate.setEnabled(loan)
-        self.loanType.setEnabled(loan)
         self.loanOfficer.setEnabled(loan)
         self.searchLoanOfficerButton.setEnabled(loan)
         self.loanAmount.setEnabled(loan)

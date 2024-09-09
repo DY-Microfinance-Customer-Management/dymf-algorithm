@@ -36,6 +36,14 @@ class HomeApp(QMainWindow):
         self.actionSearchCustomer = self.findChild(QAction, 'actionSearchCustomer')
         self.actionSearchCustomer.triggered.connect(self.open_search_customer)
 
+        ## --------------------------------- Repayment --------------------------------- ##
+        # # Repayment / Single
+        # self.actionRepaymentSingle = self.findChild(QAction, 'actionRepaymentSingle')
+        # self.actionRepaymentSingle.triggered.connect(self.open_repayment_single)
+
+        # Repayment / Batch
+        self.actionRepaymentBatch = self.findChild(QAction, 'actionRepaymentBatch')
+        self.actionRepaymentBatch.triggered.connect(self.open_repayment_batch)
 
         ## --------------------------------- Settings --------------------------------- ##
         # Settings / Officer
@@ -82,6 +90,19 @@ class HomeApp(QMainWindow):
         from src.pages.search.customer import SearchCustomerApp
         self.search_customer_window = SearchCustomerApp()
         self.search_customer_window.show()
+
+    ## --------------------------------- Repayment --------------------------------- ##
+    # # Repayment / Single
+    # def open_repayment_single(self):
+    #     from src.pages.repayment.single import RepaymentSingleApp
+    #     self.repayment_single_window = RepaymentSingleApp()
+    #     self.repayment_single_window.show()
+
+    # Repayment / Batch
+    def open_repayment_batch(self):
+        from src.pages.repayment.batch import RepaymentBatchApp
+        self.repayment_batch_window = RepaymentBatchApp()
+        self.repayment_batch_window.show()
 
     ## --------------------------------- Settings --------------------------------- ##
     # Settings / Officer

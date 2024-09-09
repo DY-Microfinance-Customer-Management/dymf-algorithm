@@ -55,7 +55,8 @@
     <property name="title">
      <string>3. Repayment</string>
     </property>
-    <addaction name="actionRepaymentManagement"/>
+    <addaction name="actionRepaymentSingle"/>
+    <addaction name="actionRepaymentBatch"/>
    </widget>
    <widget class="QMenu" name="Overdue">
     <property name="title">
@@ -567,9 +568,9 @@
     <string>Calculator</string>
    </property>
   </action>
-  <action name="actionRepaymentManagement">
+  <action name="actionRepaymentBatch">
    <property name="text">
-    <string>Management</string>
+    <string>Batch</string>
    </property>
   </action>
   <action name="actionOverdueRegistration_2">
@@ -610,6 +611,11 @@
   <action name="actionCalculator_2">
    <property name="text">
     <string>Calculator</string>
+   </property>
+  </action>
+  <action name="actionRepaymentSingle">
+   <property name="text">
+    <string>Single</string>
    </property>
   </action>
  </widget>

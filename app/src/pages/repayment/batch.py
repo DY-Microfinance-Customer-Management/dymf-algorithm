@@ -7,11 +7,11 @@ from PyQt5 import uic, QtCore
 from src.components import DB  # Firestore DB를 사용한다고 가정
 from src.pages.repayment.details import RepaymentDetailsWindow
 
-class RepaymentSearchApp(QMainWindow):
+class RepaymentBatchApp(QMainWindow):
     def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        ui_path = os.path.join(current_dir, "repayment_search.ui")
+        ui_path = os.path.join(current_dir, "batch.ui")
         uic.loadUi(ui_path, self)
 
         icon_path = os.path.join(current_dir, 'icon.ico')
@@ -219,7 +219,7 @@ class RepaymentSearchApp(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    window = RepaymentSearchApp()
+    window = RepaymentBatchApp()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

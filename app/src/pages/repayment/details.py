@@ -7,7 +7,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor, QIcon
 from firebase_admin import firestore
 
 from src.components import DB
-from app.src.components.select_customer import SelectCustomerWindow
+from src.components.select_customer import SelectCustomerWindow
 
 class RepaymentDetailsWindow(QMainWindow):
     def __init__(self, loan_data):

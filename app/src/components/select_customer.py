@@ -1,13 +1,13 @@
 import sys
 import os
 import pandas as pd
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableView, QLineEdit, QPushButton, QVBoxLayout, QWidget
-from PyQt5.QtCore import Qt, QAbstractTableModel, pyqtSignal
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QDialog, QTableView, QLineEdit, QPushButton, QVBoxLayout, QApplication
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
 from src.components import DB
 
-class SelectCustomerWindow(QMainWindow):
+class SelectCustomerWindow(QDialog):
     customer_selected = pyqtSignal(dict)
 
     def __init__(self):
@@ -20,9 +20,7 @@ class SelectCustomerWindow(QMainWindow):
         self.setWindowIcon(QIcon(icon_path))
 
         # Set up the layout
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
-        self.layout = QVBoxLayout(self.central_widget)
+        self.layout = QVBoxLayout(self)
 
         # Search box
         self.searchBox = QLineEdit(self)
@@ -37,13 +35,18 @@ class SelectCustomerWindow(QMainWindow):
         # Select button
         self.selectButton = QPushButton("Select", self)
         self.selectButton.clicked.connect(self.handle_select_button)
+        self.selectButton.setFocusPolicy(Qt.StrongFocus)  # Ensure button can take focus
+        self.selectButton.setDefault(True)  # Set as default button
         self.layout.addWidget(self.selectButton)
 
         # Signal for search
         self.searchBox.textChanged.connect(self.filter_data)
-        
+
         # Load data
         self.load_data()
+
+        # Set focus to Select button when window is shown
+        self.selectButton.setFocus()
 
     def load_data(self):
         customers_ref = DB.collection(u'Customer')
@@ -54,7 +57,6 @@ class SelectCustomerWindow(QMainWindow):
             customer_data = doc.to_dict()
             customer_data['uid'] = doc.id
             data.append(customer_data)
-            print(data)
 
         self.df = pd.DataFrame(data)
 
@@ -66,14 +68,26 @@ class SelectCustomerWindow(QMainWindow):
 
         # Copy the display dataframe for filtering purposes
         self.filtered_df = self.display_df.copy()
-        self.model = PandasModel(self.filtered_df)
+        self.model = self.create_model(self.filtered_df)
         self.tableView.setModel(self.model)
 
     def filter_data(self):
         search_text = self.searchBox.text().lower()
         self.filtered_df = self.display_df[self.display_df['name'].str.lower().str.contains(search_text)]
-        self.model._df = self.filtered_df
-        self.model.layoutChanged.emit()
+        self.model = self.create_model(self.filtered_df)
+        self.tableView.setModel(self.model)
+
+    def create_model(self, df):
+        model = QStandardItemModel(df.shape[0], df.shape[1])
+        model.setHorizontalHeaderLabels(df.columns)
+
+        for row in range(df.shape[0]):
+            for col in range(df.shape[1]):
+                item = QStandardItem(str(df.iat[row, col]))
+                item.setEditable(False)  # read-only 설정
+                model.setItem(row, col, item)
+
+        return model
 
     def handle_select_button(self):
         selected_indexes = self.tableView.selectionModel().selectedRows()
@@ -83,33 +97,7 @@ class SelectCustomerWindow(QMainWindow):
             row = index.row()
             selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
             self.customer_selected.emit(selected_data)  # Emit the selected customer data
-            self.close()
-
-
-class PandasModel(QAbstractTableModel):
-    def __init__(self, df=pd.DataFrame(), parent=None):
-        QAbstractTableModel.__init__(self, parent)
-        self._df = df
-
-    def rowCount(self, parent=None):
-        return self._df.shape[0]
-
-    def columnCount(self, parent=None):
-        return self._df.shape[1]
-
-    def data(self, index, role=Qt.DisplayRole):
-        if index.isValid():
-            if role == Qt.DisplayRole:
-                return str(self._df.iloc[index.row(), index.column()])
-        return None
-
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole:
-            if orientation == Qt.Horizontal:
-                return self._df.columns[section]
-            if orientation == Qt.Vertical:
-                return section
-        return None
+            self.accept()
 
 
 def main():

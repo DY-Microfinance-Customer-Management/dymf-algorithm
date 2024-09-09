@@ -80,7 +80,7 @@ class SelectGuarantorWindow(QDialog):
         for row in range(df.shape[0]):
             for col in range(df.shape[1]):
                 item = QStandardItem(str(df.iat[row, col]))
-                item.setEditable(False)  # Set item to be non-editable (read-only)
+                item.setEditable(False)  # read-only 설정
                 model.setItem(row, col, item)
 
         return model
