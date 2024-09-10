@@ -37,7 +37,6 @@ class RegistrationLoanApp(QMainWindow):
         self.loanNewButton.setEnabled(False)
         self.loanStatus.setEnabled(False)
         self.loanNumber.setEnabled(False)
-        self.loanType.setEnabled(False)
         self.set_input_enabled(False, False, False, False)
         self.interestRate.setText("28")
         self.contractDate.setDate(QDate.currentDate())
@@ -120,19 +119,10 @@ class RegistrationLoanApp(QMainWindow):
         self.contractDate.setDate(QDate.currentDate())
         self.contractDate.setReadOnly(False)
 
-        self.selected_officer = customer_data.get('loan_officer', '')
-        if self.selected_officer:
-            officer_ref = DB.collection('Officer').document(self.selected_officer)
-            officer_data = officer_ref.get().to_dict()  # Fetch officer data from Firestore
-            officer_name = officer_data.get('name', '') if officer_data else 'Unknown Officer'
-            self.loanOfficer.setText(officer_name)
-
         loan_type = customer_data.get('loan_type', '')
-        if loan_type == 'Special Loan':
-            self.loanType.setCurrentText('Special Loan')
-        elif loan_type == 'Group Loan':
-            self.loanType.setCurrentText('Group Loan')
-        self.loanType.setEnabled(False)
+        cp_number = customer_data.get('cp_number', '')
+        self.loanType.setText(loan_type)
+        self.cpNumber.setText(cp_number)
 
         self.check_existing_customer_loan()
 
@@ -295,17 +285,14 @@ class RegistrationLoanApp(QMainWindow):
             except ValueError:
                 return value
 
-        # 각 컬럼의 합계 계산
         total_principal = df['Principal'].sum()
         total_interest = df['Interest'].sum()
         total_remaining_balance = df['Total'].sum()
 
-        # QLabel에 합계 출력
         self.totalPrincipal.setText(f"{format_number(total_principal)}")
         self.totalInterest.setText(f"{format_number(total_interest)}")
         self.totalRemainingBalance.setText(f"{format_number(total_remaining_balance)}")
 
-        # DataFrame의 각 열에 대해 숫자를 포맷팅
         for column in df_loan_table.columns:
             df_loan_table[column] = df_loan_table[column].apply(format_number)
 
@@ -333,7 +320,8 @@ class RegistrationLoanApp(QMainWindow):
             "loan_number": self.loanNumber.text(),
             "contract_date": self.contractDate.date().toString("yyyy-MM-dd"),
             "loan_status": self.loanStatus.currentText(),
-            "loan_type": self.loanType.currentText(),
+            "loan_type": self.loanType.text(),
+            "cp_number": self.cpNumber.text(),
             "loan_officer": self.selected_officer['oid'],
             "principal": self.loanAmount.text(),
             "repayment_cycle": self.repaymentCycle.text(),
@@ -388,13 +376,17 @@ class RegistrationLoanApp(QMainWindow):
         self.collateralLoanStatus.setText(self.loanStatus.currentText())
         self.counselingLoanStatus.setText(self.loanStatus.currentText())
 
-        self.guarantorLoanType.setText(self.loanType.currentText())
-        self.collateralLoanType.setText(self.loanType.currentText())
-        self.counselingLoanType.setText(self.loanType.currentText())
+        self.guarantorLoanType.setText(self.loanType.text())
+        self.collateralLoanType.setText(self.loanType.text())
+        self.counselingLoanType.setText(self.loanType.text())
 
         self.guarantorLoanOfficer.setText(self.loanOfficer.text())
         self.collateralLoanOfficer.setText(self.loanOfficer.text())
         self.counselingLoanOfficer.setText(self.loanOfficer.text())
+
+        self.guarantorCpNumber.setText(self.cpNumber.text())
+        self.collateralCpNumber.setText(self.cpNumber.text())
+        self.counselingCpNumber.setText(self.cpNumber.text())
 
         self.guarantorLoanAmount.setText(self.loanAmount.text())
         self.collateralLoanAmount.setText(self.loanAmount.text())
@@ -466,7 +458,7 @@ class RegistrationLoanApp(QMainWindow):
                 )
                 
                 self.deleteGuarantorButton.setEnabled(True)
-                
+
     def on_delete_guarantor_button_clicked(self):
         indexes = self.guarantorTable.selectionModel().selectedRows()
         if indexes:
@@ -780,7 +772,7 @@ class RegistrationLoanApp(QMainWindow):
 
         self.loanNumber.clear()
         self.contractDate.setDate(QDate.currentDate())
-        self.loanType.setCurrentText("Special Loan")
+        self.loanType.clear()
         self.loanOfficer.clear()
         self.loanAmount.clear()
         self.repaymentCycle.clear()

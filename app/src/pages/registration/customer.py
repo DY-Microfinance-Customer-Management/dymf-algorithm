@@ -8,7 +8,6 @@ from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
 
 from src.components import DB, storageBucket
-from src.components.select_loan_officer import SelectLoanOfficerWindow
 
 class RegistrationCustomerApp(QMainWindow):
     def __init__(self):
@@ -30,38 +29,31 @@ class RegistrationCustomerApp(QMainWindow):
     def initialize_buttons(self):
         self.newButton.setEnabled(True)
         self.saveButton.setEnabled(False)
-        self.cpNumber.setEnabled(False)  # Disable CP Number by default
+        self.cpNumber.setEnabled(False)
 
     def setup_connections(self):
         self.newButton.clicked.connect(self.on_new_button_clicked)
         self.name.textChanged.connect(self.not_input_number)
         self.saveButton.clicked.connect(self.prepare_save_customer_data)
         self.imageButton.clicked.connect(self.select_image)
-        self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
         self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel2ByThree.textChanged.connect(self.limit_phone_length)
         self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel1ByThree.textChanged.connect(self.limit_phone_length)
-        self.loanType.currentIndexChanged.connect(self.toggle_cp_number)  # Toggle CP Number based on loan type
+
+        self.loanType.currentTextChanged.connect(self.toggle_cp_number)
 
     def toggle_cp_number(self):
-        # Enable CP Number field only if "Group Loan" is selected
+        # "Group Loan"이 선택되면 cpNumber를 활성화
         if self.loanType.currentText() == "Group Loan":
             self.cpNumber.setEnabled(True)
         else:
             self.cpNumber.setEnabled(False)
-            self.cpNumber.clear()  # Clear the field if it's disabled
+            self.cpNumber.clear()  # 비활성화할 때 필드를 초기화
 
     def reset_current_customer_id(self):
         self.current_customer_id = None
-
-    def open_officer_select_dialog(self):
-        dialog = SelectLoanOfficerWindow(self)
-        if dialog.exec_() == QDialog.Accepted:
-            self.selected_officer = dialog.get_selected_officer()
-            if self.selected_officer:
-                self.loanOfficer.setText(self.selected_officer['name'])
 
     def on_new_button_clicked(self):
         self.clear_fields()
@@ -95,7 +87,6 @@ class RegistrationCustomerApp(QMainWindow):
         self.tel1ByTwo.clear()
         self.tel1ByThree.clear()
         self.email.clear()
-        self.loanOfficer.clear()
         self.homePostalCode.clear()
         self.homeStreet.clear()
         self.homeCountry.clear()
@@ -129,8 +120,6 @@ class RegistrationCustomerApp(QMainWindow):
         self.tel1ByTwo.setEnabled(False)
         self.tel1ByThree.setEnabled(False)
         self.email.setEnabled(False)
-        self.loanOfficer.setEnabled(False)
-        self.selectLoanOfficerButton.setEnabled(False)
         self.homePostalCode.setEnabled(False)
         self.homeStreet.setEnabled(False)
         self.homeCountry.setEnabled(False)
@@ -164,7 +153,6 @@ class RegistrationCustomerApp(QMainWindow):
         self.tel1ByTwo.setEnabled(True)
         self.tel1ByThree.setEnabled(True)
         self.email.setEnabled(True)
-        self.selectLoanOfficerButton.setEnabled(True)
         self.homePostalCode.setEnabled(True)
         self.homeStreet.setEnabled(True)
         self.homeCountry.setEnabled(True)
@@ -181,7 +169,7 @@ class RegistrationCustomerApp(QMainWindow):
         self.info4.setEnabled(True)
         self.info5.setEnabled(True)
         self.imageButton.setEnabled(True)
-        self.cpNumber.setEnabled(True)
+        # self.cpNumber.setEnabled(True)
         self.loanType.setEnabled(True)
 
     def prepare_save_customer_data(self):
@@ -240,8 +228,8 @@ class RegistrationCustomerApp(QMainWindow):
             "tel2ByTwo": self.tel2ByTwo.text(),
             "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),
-            "loan_officer": self.selected_officer['oid'],
-            "loan_type": self.loanType.currentText(),  # Add loan type
+            "loan_type": self.loanType.currentText(),
+            "cp_number": self.cpNumber.text(),
             "home_address": {
                 "postal_code": self.homePostalCode.text(),
                 "street": self.homeStreet.text(),

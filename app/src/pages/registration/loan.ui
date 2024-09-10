@@ -291,41 +291,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QComboBox" name="loanType">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>50</y>
-        <width>110</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>110</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>110</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <item>
-       <property name="text">
-        <string>Spcial Loan</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Group Loan</string>
-       </property>
-      </item>
-     </widget>
      <widget class="QLabel" name="label_33">
       <property name="geometry">
        <rect>
@@ -598,8 +563,8 @@
      <widget class="QLabel" name="label_26">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>50</y>
+        <x>10</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -676,8 +641,8 @@
      <widget class="QLabel" name="label_27">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>250</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -805,7 +770,7 @@
       <property name="geometry">
        <rect>
         <x>480</x>
-        <y>90</y>
+        <y>50</y>
         <width>71</width>
         <height>31</height>
        </rect>
@@ -896,8 +861,8 @@
      <widget class="QLabel" name="loanOfficer">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>90</y>
+        <x>370</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -1248,6 +1213,38 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QLabel" name="loanType">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>90</y>
+        <width>110</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>110</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(255, 255, 255)
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -1474,8 +1471,8 @@
      <widget class="QLabel" name="label_32">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>250</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -1526,8 +1523,8 @@
      <widget class="QLabel" name="label_36">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>50</y>
+        <x>10</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -1759,8 +1756,8 @@
      <widget class="QLabel" name="guarantorLoanOfficer">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>90</y>
+        <x>370</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -1823,8 +1820,8 @@
      <widget class="QLabel" name="guarantorLoanType">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>50</y>
+        <x>130</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -2466,8 +2463,8 @@
      <widget class="QLabel" name="label_55">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>50</y>
+        <x>10</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -2674,8 +2671,8 @@
      <widget class="QLabel" name="label_54">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>250</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -2816,8 +2813,8 @@
      <widget class="QLabel" name="collateralLoanOfficer">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>90</y>
+        <x>370</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -2880,8 +2877,8 @@
      <widget class="QLabel" name="collateralLoanType">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>50</y>
+        <x>130</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -3383,8 +3380,8 @@
      <widget class="QLabel" name="label_65">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>50</y>
+        <x>10</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -3760,8 +3757,8 @@
      <widget class="QLabel" name="label_64">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>250</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -3863,8 +3860,8 @@
      <widget class="QLabel" name="counselingLoanOfficer">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>90</y>
+        <x>370</x>
+        <y>50</y>
         <width>110</width>
         <height>31</height>
        </rect>
@@ -3927,8 +3924,8 @@
      <widget class="QLabel" name="counselingLoanType">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>50</y>
+        <x>130</x>
+        <y>90</y>
         <width>110</width>
         <height>31</height>
        </rect>

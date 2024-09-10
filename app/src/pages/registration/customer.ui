@@ -168,19 +168,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="loanOfficer">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>220</y>
-      <width>141</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="imageButton">
     <property name="geometry">
      <rect>
@@ -634,19 +621,6 @@
       <width>131</width>
       <height>31</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="selectLoanOfficerButton">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>220</y>
-      <width>111</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Select Officer</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_27">
@@ -1182,45 +1156,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_29">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>220</y>
-      <width>110</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>110</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>110</width>
-      <height>16777215</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>Loan Officer</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_37">
     <property name="geometry">
      <rect>
@@ -1646,7 +1581,7 @@
    <widget class="QComboBox" name="loanType">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>270</x>
       <y>220</y>
       <width>161</width>
       <height>30</height>
@@ -1678,7 +1613,7 @@
    <widget class="QLabel" name="label_47">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>160</x>
       <y>220</y>
       <width>110</width>
       <height>31</height>
@@ -1717,7 +1652,7 @@
    <widget class="QLineEdit" name="cpNumber">
     <property name="geometry">
      <rect>
-      <x>960</x>
+      <x>560</x>
       <y>220</y>
       <width>171</width>
       <height>31</height>
@@ -1730,7 +1665,7 @@
    <widget class="QLabel" name="label_48">
     <property name="geometry">
      <rect>
-      <x>850</x>
+      <x>450</x>
       <y>220</y>
       <width>110</width>
       <height>31</height>
