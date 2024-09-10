@@ -1666,12 +1666,12 @@
     </property>
     <item>
      <property name="text">
-      <string>Group Loan</string>
+      <string>Special Loan</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Special (Individual) Loan</string>
+      <string>Group Loan</string>
      </property>
     </item>
    </widget>

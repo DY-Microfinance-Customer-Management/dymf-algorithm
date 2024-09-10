@@ -1,8 +1,9 @@
-import sys
-import os
+import sys, os
+
 from PyQt5.QtWidgets import QApplication, QDialog, QLabel
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5 import uic
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 from src.components import DB
 
@@ -18,7 +19,7 @@ class LoginApp(QDialog):
 
         # 이미지 경로 확인
         logo_path = os.path.join(current_dir, 'dymf_logo.png')
-        print(f"Logo path: {logo_path}")
+        # print(f"Logo path: {logo_path}")
 
         if os.path.exists(logo_path):
             # QLabel이 UI에 이미 있으면 이름으로 참조하고 이미지를 설정하세요.
@@ -40,7 +41,9 @@ class LoginApp(QDialog):
         password = self.pw_text.text()
 
         users_ref = DB.collection('User')
-        query = users_ref.where('id', '==', user_id).where('pw', '==', password).get()
+
+        # Separate where queries
+        query = users_ref.where(filter=FieldFilter('id', '==', user_id)).where(filter=FieldFilter('pw', '==', password)).get()
 
         if query:
             self.open_home()

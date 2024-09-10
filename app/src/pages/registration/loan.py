@@ -14,7 +14,7 @@ from src.components.select_loan_officer import SelectLoanOfficerWindow
 from src.components.select_guarantors import SelectGuarantorWindow
 
 class RegistrationLoanApp(QMainWindow):
-
+    ### ---------------------------------- Initialize ---------------------------------- ###
     def __init__(self):
         # ui file
         super().__init__()
@@ -120,6 +120,13 @@ class RegistrationLoanApp(QMainWindow):
         self.contractDate.setDate(QDate.currentDate())
         self.contractDate.setReadOnly(False)
 
+        self.selected_officer = customer_data.get('loan_officer', '')
+        if self.selected_officer:
+            officer_ref = DB.collection('Officer').document(self.selected_officer)
+            officer_data = officer_ref.get().to_dict()  # Fetch officer data from Firestore
+            officer_name = officer_data.get('name', '') if officer_data else 'Unknown Officer'
+            self.loanOfficer.setText(officer_name)
+
         loan_type = customer_data.get('loan_type', '')
         if loan_type == 'Special Loan':
             self.loanType.setCurrentText('Special Loan')
@@ -173,9 +180,9 @@ class RegistrationLoanApp(QMainWindow):
     def on_select_loan_officer_button_clicked(self):
         dialog = SelectLoanOfficerWindow(self)
         if dialog.exec_() == QDialog.Accepted:
-            selected_officer = dialog.get_selected_officer()
-            if selected_officer:
-                self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
+            self.selected_officer = dialog.get_selected_officer()
+            if self.selected_officer:
+                self.loanOfficer.setText(self.selected_officer['name'])
 
     ### ---------------------------------- 2. Calculate Loan Schedule ---------------------------------- ###
     def on_calculate_button_clicked(self):
@@ -327,7 +334,7 @@ class RegistrationLoanApp(QMainWindow):
             "contract_date": self.contractDate.date().toString("yyyy-MM-dd"),
             "loan_status": self.loanStatus.currentText(),
             "loan_type": self.loanType.currentText(),
-            "loan_officer": self.loanOfficer.text(),
+            "loan_officer": self.selected_officer['oid'],
             "principal": self.loanAmount.text(),
             "repayment_cycle": self.repaymentCycle.text(),
             "interest_rate": self.interestRate.text(),

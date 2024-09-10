@@ -106,19 +106,28 @@ class SettingsOfficerApp(QMainWindow):
             QMessageBox.warning(self, "Validation Error", "Name and Service Area cannot be empty.")
             return
 
-        officer_data = {
-            "name": name,
-            "service_area": service_area
-        }
-
         try:
             if self.current_officer_id:
                 # 기존 오피서 정보 수정
+                officer_data = {
+                    "name": name,
+                    "service_area": service_area,
+                    "oid": self.current_officer_id  # 기존 ID를 'oid'로 저장
+                }
                 DB.collection('Officer').document(self.current_officer_id).update(officer_data)
                 QMessageBox.information(self, "Success", "Officer information updated successfully.")
             else:
                 # 새로운 오피서 정보 추가
-                DB.collection('Officer').add(officer_data)
+                officer_data = {
+                    "name": name,
+                    "service_area": service_area
+                }
+                # Add officer and get the generated document reference
+                doc_ref = DB.collection('Officer').add(officer_data)
+                doc_id = doc_ref[1].id  # Get the generated document ID
+
+                # Update the document to include the 'oid' field
+                DB.collection('Officer').document(doc_id).update({"oid": doc_id})
                 QMessageBox.information(self, "Success", "New officer added successfully.")
 
             # UI 초기화 및 데이터 다시 로드

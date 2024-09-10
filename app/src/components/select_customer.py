@@ -64,7 +64,11 @@ class SelectCustomerWindow(QDialog):
         self.df['Phone No.'] = self.df[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
 
         # Select display columns
-        self.display_df = self.df[['name', 'date_of_birth', 'Phone No.', 'loan_officer']]
+        # Replace 'loan_officer' with 'nrc_no' and set the correct order and capitalization
+        self.display_df = self.df[['name', 'nrc_no', 'date_of_birth', 'Phone No.']]
+
+        # Rename the columns to match the required capitalization
+        self.display_df.columns = ['Name', 'NRC No.', 'Date of Birth', 'Phone No.']
 
         # Copy the display dataframe for filtering purposes
         self.filtered_df = self.display_df.copy()
@@ -79,12 +83,14 @@ class SelectCustomerWindow(QDialog):
 
     def create_model(self, df):
         model = QStandardItemModel(df.shape[0], df.shape[1])
-        model.setHorizontalHeaderLabels(df.columns)
+        
+        # Set the correct headers explicitly with capitalization
+        model.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Date of Birth', 'Phone No.'])
 
         for row in range(df.shape[0]):
             for col in range(df.shape[1]):
                 item = QStandardItem(str(df.iat[row, col]))
-                item.setEditable(False)  # read-only 설정
+                item.setEditable(False)  # Set to read-only
                 model.setItem(row, col, item)
 
         return model

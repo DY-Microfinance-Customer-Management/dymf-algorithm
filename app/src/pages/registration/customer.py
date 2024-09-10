@@ -2,11 +2,13 @@ import sys, os, re, requests
 from datetime import timedelta
 from io import BytesIO
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QVBoxLayout, QDialog, QPushButton, QListWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QDialog
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
+
 from src.components import DB, storageBucket
+from src.components.select_loan_officer import SelectLoanOfficerWindow
 
 class RegistrationCustomerApp(QMainWindow):
     def __init__(self):
@@ -55,11 +57,11 @@ class RegistrationCustomerApp(QMainWindow):
         self.current_customer_id = None
 
     def open_officer_select_dialog(self):
-        dialog = OfficerSelectDialog(self)
+        dialog = SelectLoanOfficerWindow(self)
         if dialog.exec_() == QDialog.Accepted:
-            selected_officer = dialog.get_selected_officer()
-            if selected_officer:
-                self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
+            self.selected_officer = dialog.get_selected_officer()
+            if self.selected_officer:
+                self.loanOfficer.setText(self.selected_officer['name'])
 
     def on_new_button_clicked(self):
         self.clear_fields()
@@ -114,6 +116,7 @@ class RegistrationCustomerApp(QMainWindow):
         self.saveButton.setEnabled(False)
         self.imageLabel.clear()
         self.cpNumber.clear()
+
     def disable_all_fields(self):
         self.name.setEnabled(False)
         self.nrcNo.setEnabled(False)
@@ -219,7 +222,7 @@ class RegistrationCustomerApp(QMainWindow):
         reply = QMessageBox.question(self, 'Confirm Data',
                                      "Would you like to proceed?",
                                      QMessageBox.Ok | QMessageBox.Cancel,
-                                     QMessageBox.Cancel)
+                                     QMessageBox.Ok)
 
         if reply == QMessageBox.Ok:
             self.save_customer_data()
@@ -237,7 +240,7 @@ class RegistrationCustomerApp(QMainWindow):
             "tel2ByTwo": self.tel2ByTwo.text(),
             "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),
-            "loan_officer": self.loanOfficer.text(),
+            "loan_officer": self.selected_officer['oid'],
             "loan_type": self.loanType.currentText(),  # Add loan type
             "home_address": {
                 "postal_code": self.homePostalCode.text(),
@@ -315,37 +318,6 @@ class RegistrationCustomerApp(QMainWindow):
                 self.selected_image_path = file_name
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
-
-class OfficerSelectDialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("Select Loan Officer")
-        self.setGeometry(300, 300, 300, 400)
-
-        self.layout = QVBoxLayout(self)
-
-        self.listWidget = QListWidget(self)
-        self.layout.addWidget(self.listWidget)
-
-        self.selectButton = QPushButton("Select", self)
-        self.selectButton.clicked.connect(self.accept)
-        self.layout.addWidget(self.selectButton)
-
-        self.officer_data = self.load_officer_data()
-
-        for officer in self.officer_data:
-            self.listWidget.addItem(f"{officer['name']} - {officer['service_area']}")
-
-    def load_officer_data(self):
-        officers_ref = DB.collection('Officer')
-        docs = officers_ref.stream()
-        return [doc.to_dict() for doc in docs]
-
-    def get_selected_officer(self):
-        selected_row = self.listWidget.currentRow()
-        if selected_row != -1:
-            return self.officer_data[selected_row]
-        return None
 
 def main():
     app = QApplication(sys.argv)
