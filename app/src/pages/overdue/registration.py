@@ -8,7 +8,7 @@ from datetime import datetime
 
 from src.components import DB  # DB 객체를 components 모듈에서 가져옴
 
-class OverdueRegistrationWindow(QMainWindow):
+class OverdueRegistrationApp(QMainWindow):
     def __init__(self):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -194,6 +194,6 @@ class OverdueRegistrationWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = OverdueRegistrationWindow()
+    window = OverdueRegistrationApp()
     window.show()
     sys.exit(app.exec_())

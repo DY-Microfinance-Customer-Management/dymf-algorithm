@@ -49,6 +49,16 @@ class HomeApp(QMainWindow):
         self.actionRepaymentBatch = self.findChild(QAction, 'actionRepaymentBatch')
         self.actionRepaymentBatch.triggered.connect(self.open_repayment_batch)
 
+        ## --------------------------------- Overdue --------------------------------- ##
+        # Overdue / Management
+        self.actionOverdueRegistration = self.findChild(QAction, 'actionOverdueRegistration')
+        self.actionOverdueRegistration.triggered.connect(self.open_overdue_registration)
+        
+        # Overdue / Management
+        self.actionOverdueManagement = self.findChild(QAction, 'actionOverdueManagement')
+        self.actionOverdueManagement.triggered.connect(self.open_overdue_management)
+
+
         ## --------------------------------- Settings --------------------------------- ##
         # Settings / Officer
         self.actionSettingsOfficer = self.findChild(QAction, 'actionSettingsOfficer')
@@ -112,6 +122,19 @@ class HomeApp(QMainWindow):
         from src.pages.repayment.batch import RepaymentBatchApp
         self.repayment_batch_window = RepaymentBatchApp()
         self.repayment_batch_window.show()
+
+    ## --------------------------------- Overdue --------------------------------- ##
+    # Overdue / Registration
+    def open_overdue_registration(self):
+        from src.pages.overdue.registration import OverdueRegistrationApp
+        self.settings_overdue_registration = OverdueRegistrationApp()
+        self.settings_overdue_registration.show()
+
+    # Overdue / Management
+    def open_overdue_management(self):
+        from src.pages.overdue.management import OverdueManagementApp
+        self.settings_overdue_management = OverdueManagementApp()
+        self.settings_overdue_management.show()
 
     ## --------------------------------- Settings --------------------------------- ##
     # Settings / Officer

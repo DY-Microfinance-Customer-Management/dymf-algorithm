@@ -7,7 +7,7 @@ from PyQt5.QtCore import QDate
 
 from src.components import DB
 
-class OverdueManagementWindow(QMainWindow):
+class OverdueManagementApp(QMainWindow):
     def __init__(self, loan_data=None):
         super().__init__()
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -207,6 +207,6 @@ class OverdueManagementWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = OverdueManagementWindow()
+    window = OverdueManagementApp()
     window.show()
     sys.exit(app.exec_())
