@@ -37,7 +37,7 @@ class OverdueManagementApp(QMainWindow):
         self.current_loan_data = loan_data  # 현재 선택된 loan_data를 저장
         self.loanNumber.setText(loan_data['loan_number'])
         self.customerName.setText(loan_data['customer_name'])
-        self.load_loan_schedule(loan_data['loanSchedule'], loan_data.get('receivedSchedule', []))
+        self.load_loan_schedule(loan_data['loan_schedule'], loan_data.get('received_schedule', []))
 
     def load_loan_schedule(self, loan_schedule, received_schedule):
         # Model 초기화
@@ -49,10 +49,10 @@ class OverdueManagementApp(QMainWindow):
         ])
 
         for i in range(len(loan_schedule)):
-            # loanSchedule 항목 추가
+            # loan_schedule 항목 추가
             self.add_schedule_to_model(model, i * 2, loan_schedule[i])
 
-            # receivedSchedule이 존재하면 그 다음에 추가
+            # received_schedule이 존재하면 그 다음에 추가
             if i < len(received_schedule):
                 self.add_schedule_to_model(model, i * 2 + 1, received_schedule[i], received=True)
 
@@ -89,6 +89,15 @@ class OverdueManagementApp(QMainWindow):
             received_interest_item.setForeground(red_color)
             received_overdue_interest_item.setForeground(red_color)
 
+        # 각 아이템을 수정 불가능하게 설정
+        repayment_date_item.setEditable(False)
+        principal_item.setEditable(False)
+        interest_item.setEditable(False)
+        overdue_interest_item.setEditable(False)
+        received_principal_item.setEditable(False)
+        received_interest_item.setEditable(False)
+        received_overdue_interest_item.setEditable(False)
+
         model.setItem(row, 0, repayment_date_item)
         model.setItem(row, 1, principal_item)
         model.setItem(row, 2, interest_item)
@@ -111,8 +120,8 @@ class OverdueManagementApp(QMainWindow):
             QMessageBox.warning(self, "Error", "Please fill in all received fields.")
             return
 
-        # 현재 loanSchedule의 마지막 항목을 가져옴
-        last_schedule = self.current_loan_data['loanSchedule'][-1]
+        # 현재 loan_schedule의 마지막 항목을 가져옴
+        last_schedule = self.current_loan_data['loan_schedule'][-1]
 
         # 입력된 값이 남아있는 금액을 초과하지 않도록 제한
         if int(received_principal) > int(last_schedule['principal']):
@@ -127,7 +136,7 @@ class OverdueManagementApp(QMainWindow):
             QMessageBox.warning(self, "Error", "Received overdue interest cannot be greater than remaining overdue interest.")
             return
 
-        # loanSchedule과 동일한 구조로 receivedSchedule 생성
+        # loan_schedule과 동일한 구조로 received_schedule 생성
         received_schedule = {
             'principal': received_principal,
             'interest': received_interest,
@@ -140,23 +149,23 @@ class OverdueManagementApp(QMainWindow):
             if not loan_id:  # loan_id가 없을 경우 처리
                 raise Exception("No loan_id in the current loan data")
 
-            # 기존 receivedSchedule에 추가
-            existing_received_schedule = self.current_loan_data.get('receivedSchedule', [])
+            # 기존 received_schedule에 추가
+            existing_received_schedule = self.current_loan_data.get('received_schedule', [])
             updated_received_schedule = existing_received_schedule + [received_schedule]
 
-            # 기존 loanSchedule에 다음 회차 추가
+            # 기존 loan_schedule에 다음 회차 추가
             next_loan_schedule = self.add_next_loan_schedule(received_schedule)
-            updated_loan_schedule = self.current_loan_data['loanSchedule'] + [next_loan_schedule]
+            updated_loan_schedule = self.current_loan_data['loan_schedule'] + [next_loan_schedule]
 
             # Firestore에 업데이트
             DB.collection('Overdue').document(loan_id).update({
-                'receivedSchedule': updated_received_schedule,
-                'loanSchedule': updated_loan_schedule
+                'received_schedule': updated_received_schedule,
+                'loan_schedule': updated_loan_schedule
             })
 
             # 업데이트된 데이터를 포함하여 loanTable 갱신
-            self.current_loan_data['receivedSchedule'] = updated_received_schedule
-            self.current_loan_data['loanSchedule'] = updated_loan_schedule
+            self.current_loan_data['received_schedule'] = updated_received_schedule
+            self.current_loan_data['loan_schedule'] = updated_loan_schedule
             self.load_loan_schedule(updated_loan_schedule, updated_received_schedule)
 
             QMessageBox.information(self, "Success", "Received schedule updated successfully.")
@@ -165,22 +174,22 @@ class OverdueManagementApp(QMainWindow):
             QMessageBox.critical(self, "Error", f"Failed to update received schedule: {e}")
 
     def add_next_loan_schedule(self, received_schedule):
-        # 현재 loanSchedule의 마지막 항목을 가져옴
-        last_schedule = self.current_loan_data['loanSchedule'][-1]
+        # 현재 loan_schedule의 마지막 항목을 가져옴
+        last_schedule = self.current_loan_data['loan_schedule'][-1]
 
         # 새롭게 추가될 다음 회차의 Repayment Date 계산
         last_repayment_date = QDate.fromString(last_schedule['repayment_date'], "yyyy-MM-dd")
         repayment_cycle = int(self.current_loan_data['repayment_cycle'])
         next_repayment_date = last_repayment_date.addDays(repayment_cycle).toString("yyyy-MM-dd")
 
-        # 다음 loanSchedule의 principal, interest, overdue interest 계산
+        # 다음 loan_schedule의 principal, interest, overdue interest 계산
         next_principal = str(int(last_schedule['principal']) - int(received_schedule['principal']))
         next_interest = str(int(last_schedule['interest']) - int(received_schedule['interest']))
         next_overdue_interest = str(round((int(last_schedule['overdue_interest']) \
                                  - int(received_schedule['overdue_interest']) \
                                  + int(next_interest)) * 0.28))
 
-        # 새 loanSchedule 생성
+        # 새 loan_schedule 생성
         next_loan_schedule = {
             'repayment_date': next_repayment_date,
             'principal': next_principal,

@@ -57,6 +57,11 @@ class SelectLoanWindow(QDialog):
         data = []
         for doc in docs:
             loan_data = doc.to_dict()
+
+            # Skip loans where the loan status is 'Overdue'
+            if loan_data.get('loan_status') == 'Overdue':
+                continue  # Skip this loan
+
             loan_data['loan_id'] = doc.id  # Store the document ID
             customer_data = self.get_customer_data(loan_data.get('uid'))  # Fetch customer details
             loan_data.update(customer_data)  # Add customer data to loan_data
