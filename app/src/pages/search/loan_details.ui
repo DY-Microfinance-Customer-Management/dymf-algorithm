@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1461</width>
+    <width>1464</width>
     <height>690</height>
    </rect>
   </property>
@@ -109,21 +109,21 @@
      <widget class="QLabel" name="label_33">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>740</x>
         <y>10</y>
-        <width>110</width>
+        <width>160</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>160</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -148,7 +148,7 @@
      <widget class="QLabel" name="loanOfficer">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -180,7 +180,7 @@
      <widget class="QLabel" name="loanStatus">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -212,21 +212,21 @@
      <widget class="QLabel" name="label_40">
       <property name="geometry">
        <rect>
-        <x>1030</x>
+        <x>1099</x>
         <y>10</y>
-        <width>130</width>
+        <width>171</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>130</width>
+        <width>160</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -251,7 +251,7 @@
      <widget class="QLabel" name="loanAmount">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>920</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -283,21 +283,21 @@
      <widget class="QLabel" name="label_42">
       <property name="geometry">
        <rect>
-        <x>1030</x>
+        <x>1099</x>
         <y>50</y>
-        <width>130</width>
+        <width>171</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>130</width>
+        <width>160</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -313,7 +313,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="text">
-       <string> Number of Repyament</string>
+       <string> Number of Repayment</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -322,7 +322,7 @@
      <widget class="QLabel" name="numberOfRepayment">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1280</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -354,21 +354,21 @@
      <widget class="QLabel" name="label_35">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>740</x>
         <y>50</y>
-        <width>110</width>
+        <width>160</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>160</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -393,7 +393,7 @@
      <widget class="QLabel" name="label_70">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>260</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -432,7 +432,7 @@
      <widget class="QLabel" name="label_37">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -471,7 +471,7 @@
      <widget class="QLabel" name="repaymentCycle">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1280</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -503,7 +503,7 @@
      <widget class="QLabel" name="label_24">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -542,7 +542,7 @@
      <widget class="QLabel" name="label_44">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -581,7 +581,7 @@
      <widget class="QLabel" name="label_71">
       <property name="geometry">
        <rect>
-        <x>970</x>
+        <x>1050</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -594,7 +594,7 @@
      <widget class="QLabel" name="repaymentMethod">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>920</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -626,7 +626,7 @@
      <widget class="QLabel" name="label_139">
       <property name="geometry">
        <rect>
-        <x>1290</x>
+        <x>1400</x>
         <y>20</y>
         <width>31</width>
         <height>20</height>
@@ -639,7 +639,7 @@
      <widget class="QLabel" name="interestRate">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>920</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -671,7 +671,7 @@
      <widget class="QLabel" name="contractDate">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>380</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -703,7 +703,7 @@
      <widget class="QLabel" name="label_72">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>260</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -742,7 +742,7 @@
      <widget class="QLabel" name="loanNumber">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>140</x>
         <y>10</y>
         <width>110</width>
         <height>31</height>
@@ -774,7 +774,7 @@
      <widget class="QLabel" name="loanType">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>380</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -806,21 +806,21 @@
      <widget class="QLabel" name="label_73">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>740</x>
         <y>90</y>
-        <width>110</width>
+        <width>160</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>160</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -845,7 +845,7 @@
      <widget class="QLabel" name="label_74">
       <property name="geometry">
        <rect>
-        <x>960</x>
+        <x>1040</x>
         <y>60</y>
         <width>16</width>
         <height>16</height>
@@ -858,7 +858,7 @@
      <widget class="QLabel" name="label_75">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>260</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -897,7 +897,7 @@
      <widget class="QLabel" name="cpNumber">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>380</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>

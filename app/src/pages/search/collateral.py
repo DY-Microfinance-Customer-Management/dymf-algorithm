@@ -1,13 +1,12 @@
 import sys
 import os
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QAbstractItemView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
-from PyQt5.QtCore import QDate
-from datetime import datetime
 import traceback
 
 from src.components import DB  # Firestore 연결을 위한 모듈
+
 
 class SearchCollateralWindow(QMainWindow):
     def __init__(self):
@@ -25,48 +24,46 @@ class SearchCollateralWindow(QMainWindow):
         # 창 크기 고정
         self.setFixedSize(self.size())
 
-        self.StartDate.setDate(QDate.currentDate())
-        self.LastDate.setDate(QDate.currentDate())
-
+        # 연결 설정
         self.setup_connections()
         self.setup_collateral_table()
 
     def setup_connections(self):
         # 검색 버튼 클릭 연결
-        self.SearchButton.clicked.connect(self.search_collateral_data)
+        self.searchButton.clicked.connect(self.search_collateral_data)
 
     def setup_collateral_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
-        self.model = QStandardItemModel(0, 4)  # 3열 테이블로 설정
+        self.model = QStandardItemModel(0, 3)  # 4열 테이블로 설정
         self.model.setHorizontalHeaderLabels(
-            ["Type", "Name", "Details", "Customer Name"])
-        self.CollateralTable.setModel(self.model)
-
+            ["Type", "Name", "Details"]
+        )
+        self.collateralTable.setModel(self.model)
+        self.collateralTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     def search_collateral_data(self):
         try:
-            customer_name = self.CustomerName.toPlainText().strip()
-            start_date = self.StartDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
-            end_date = self.LastDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
+            # loanNumber 입력받기
+            loan_number = self.loanNumber.text().strip()
 
-            # Firestore 데이터베이스 조회 준비
-            query = DB.collection('Loan')
+            if not loan_number:
+                QMessageBox.warning(self, "Input Error", "Please enter a Loan Number.")
+                return
 
-            # 고객명으로 필터링
-            if customer_name:
-                query = query.where("customerName", "==", customer_name)
+            # Firestore 데이터베이스에서 loan_number로 검색
+            query = DB.collection('Loan').where("loan_number", "==", loan_number)
 
             # Firestore에서 데이터 가져오기
-            results = query.stream()
+            loan_docs = query.stream()
 
             # 테이블에 데이터를 채우기
-            self.populate_table(results, start_date, end_date)
+            self.populate_table(loan_docs)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Data retrieval failed: {e}")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
-    def populate_table(self, results, start_date, end_date):
+    def populate_table(self, loan_docs):
         # 기존 테이블 데이터 삭제
         self.model.removeRows(0, self.model.rowCount())
 
@@ -75,43 +72,34 @@ class SearchCollateralWindow(QMainWindow):
 
         # 검색 결과 테이블에 표시
         try:
-            for doc in results:
-                loan_data = doc.to_dict()
-                contract_date_str = loan_data.get("contractDate", "")
+            for loan_doc in loan_docs:
+                loan_data = loan_doc.to_dict()
+                collaterals = loan_data.get("collaterals", [])
 
-                # Firestore에서 받은 contractDate가 비어있는지 확인
-                if not contract_date_str:
+                if not collaterals:
                     continue
 
-                # contractDate를 datetime 객체로 변환
-                contract_date = datetime.strptime(contract_date_str, "%Y-%m-%d").date()
+                # 담보 정보 테이블에 추가
+                for collateral in collaterals:
+                    collateral_name = collateral.get("name", "")
+                    collateral_type = collateral.get("type", "")
+                    collateral_details = collateral.get("details", "")
 
-                # 계약일자를 기준으로 필터링
-                if start_date <= contract_date <= end_date:
-                    collaterals = loan_data.get("collaterals", [])
-
-                    for collateral in collaterals:
-                        collateral_name = collateral.get("name", "")
-                        collateral_type = collateral.get("type", "")
-                        collateral_details = collateral.get("details", "")
-                        customer_name = loan_data.get("customerName", "")
-                        # 담보 데이터 테이블에 추가
-                        row_data = [
-                            QStandardItem(collateral_type),
-                            QStandardItem(collateral_name),
-                            QStandardItem(collateral_details),
-                            QStandardItem(customer_name)
-                        ]
-                        self.model.appendRow(row_data)
-                        data_found = True  # 데이터가 있음을 표시
+                    row_data = [
+                        QStandardItem(collateral_type),
+                        QStandardItem(collateral_name),
+                        QStandardItem(collateral_details)
+                    ]
+                    self.model.appendRow(row_data)
+                    data_found = True  # 데이터가 있음을 표시
 
             # 테이블이 다시 그려지도록 강제 업데이트
-            self.CollateralTable.setModel(self.model)
-            self.CollateralTable.resizeColumnsToContents()
+            self.collateralTable.setModel(self.model)
+            self.collateralTable.resizeColumnsToContents()
 
             # 만약 데이터를 찾지 못했다면 경고 메시지 표시
             if not data_found:
-                QMessageBox.warning(self, "No Data Found", "Data does not exist")
+                QMessageBox.warning(self, "No Data Found", "No collateral data found for the given Loan Number.")
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Data processing failed: {e}")

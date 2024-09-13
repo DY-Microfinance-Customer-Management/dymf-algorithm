@@ -1,13 +1,12 @@
 import sys
 import os
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QAbstractItemView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
-from PyQt5.QtCore import Qt, QDate
-from datetime import datetime
 import traceback
 
 from src.components import DB  # Firestore 연결을 위한 모듈
+
 
 class SearchGuarantorApp(QMainWindow):
     def __init__(self):
@@ -22,48 +21,38 @@ class SearchGuarantorApp(QMainWindow):
         # 창 크기 고정
         self.setFixedSize(self.size())
 
-        # 기본적으로 현재 날짜로 설정
-        self.StartDate.setDate(QDate.currentDate())
-        self.LastDate.setDate(QDate.currentDate())
-
         self.setup_connections()
         self.setup_guarantor_table()
 
     def setup_connections(self):
         # 검색 버튼 클릭 연결
-        self.SearchButton.clicked.connect(self.search_guarantor_data)
+        self.searchButton.clicked.connect(self.search_guarantor_data)
 
     def setup_guarantor_table(self):
         # 테이블의 초기 설정 (TableView에 사용할 모델 설정)
         self.model = QStandardItemModel(0, 4)  # 4열 테이블로 설정
-        self.model.setHorizontalHeaderLabels(["Guarantor Name", "Guarantor Type", "Guarantor Relation", "Customer Name"])
-        self.GuarantorTable.setModel(self.model)
-
+        self.model.setHorizontalHeaderLabels(["Guarantor Name", "NRC No.", "Date of Birth", "Telephone"])
+        self.guarantorTable.setModel(self.model)
+        self.guarantorTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     def search_guarantor_data(self):
         try:
-            customer_name = self.CustomerName.toPlainText().strip()  # 변경된 부분
-            start_date = self.StartDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
-            end_date = self.LastDate.date().toPyDate()  # QDateEdit에서 날짜 가져오기
+            loan_number = self.loanNumber.text().strip()  # Loan Number 입력받기
 
             # Firestore 데이터베이스 조회 준비
-            query = DB.collection('Loan')
-
-            # 고객명으로 필터링 (입력된 경우)
-            if customer_name:
-                query = query.where("customerName", "==", customer_name)
+            query = DB.collection('Loan').where("loan_number", "==", loan_number)
 
             # Firestore에서 데이터 가져오기
-            results = query.stream()
+            loan_docs = query.stream()
 
             # 테이블에 데이터를 채우기
-            self.populate_table(results, start_date, end_date)
+            self.populate_table(loan_docs)
 
         except Exception as e:
-            QMessageBox.critical(self, "Data does not exist")
+            QMessageBox.critical(self, "Error", "An error occurred while fetching data.")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 
-    def populate_table(self, results, start_date, end_date):
+    def populate_table(self, loan_docs):
         # 기존 테이블 데이터 삭제
         self.model.removeRows(0, self.model.rowCount())
 
@@ -72,46 +61,47 @@ class SearchGuarantorApp(QMainWindow):
 
         # 검색 결과 테이블에 표시
         try:
-            for doc in results:
-                loan_data = doc.to_dict()
-                contract_date_str = loan_data.get("contractDate", "")
+            for loan_doc in loan_docs:
+                loan_data = loan_doc.to_dict()
+                guarantor_ids = loan_data.get("guarantors", [])
 
-                # Firestore에서 받은 contractDate가 비어있는지 확인
-                if not contract_date_str:
+                # 보증인 정보가 없으면 다음 대출 데이터로 넘어감
+                if not guarantor_ids:
                     continue
 
-                # contractDate를 datetime 객체로 변환
-                contract_date = datetime.strptime(contract_date_str, "%Y-%m-%d").date()
+                # Guarantor DB에서 보증인 정보를 검색하여 테이블에 표시
+                for guarantor_id in guarantor_ids:
+                    guarantor_ref = DB.collection('Guarantor').document(guarantor_id).get()
 
-                # 계약일자를 기준으로 필터링
-                if start_date <= contract_date <= end_date:
-                    guarantors = loan_data.get("guarantors", [])
+                    if guarantor_ref.exists:
+                        guarantor_data = guarantor_ref.to_dict()
+                        guarantor_info = {
+                            'name': guarantor_data.get('name', ''),
+                            'nrc_no': guarantor_data.get('nrc_no', ''),
+                            'date_of_birth': guarantor_data.get('date_of_birth', ''),
+                            'telephone': f"{guarantor_data.get('tel1ByOne', '')}-{guarantor_data.get('tel1ByTwo', '')}-{guarantor_data.get('tel1ByThree', '')}"
+                        }
 
-                    for guarantor in guarantors:
-                        guarantor_name = guarantor.get("name", "")
-                        guarantor_type = guarantor.get("type", "")
-                        relation = guarantor.get("relation", "")
-                        customer_name = loan_data.get("customerName", "")
-                        # 보증인 데이터 테이블에 추가
+                        # 테이블에 데이터를 추가
                         row_data = [
-                            QStandardItem(guarantor_name),
-                            QStandardItem(relation),
-                            QStandardItem(guarantor_type),
-                            QStandardItem(customer_name)
+                            QStandardItem(guarantor_info['name']),
+                            QStandardItem(guarantor_info['nrc_no']),
+                            QStandardItem(guarantor_info['date_of_birth']),
+                            QStandardItem(guarantor_info['telephone']),
                         ]
                         self.model.appendRow(row_data)
                         data_found = True  # 데이터가 있음을 표시
 
             # 테이블이 다시 그려지도록 강제 업데이트
-            self.GuarantorTable.setModel(self.model)
-            self.GuarantorTable.resizeColumnsToContents()
+            self.guarantorTable.setModel(self.model)
+            self.guarantorTable.resizeColumnsToContents()
 
             # 만약 데이터를 찾지 못했다면 경고 메시지 표시
             if not data_found:
-                QMessageBox.warning(self, "Data does not exist")
+                QMessageBox.warning(self, "No Data", "No matching guarantor data found.")
 
         except Exception as e:
-            QMessageBox.critical(self, "Data does not exist")
+            QMessageBox.critical(self, "Error", "An error occurred while fetching guarantor data.")
             print(f"Error: {e}")
             print(traceback.format_exc())  # 상세 오류 정보 콘솔 출력
 

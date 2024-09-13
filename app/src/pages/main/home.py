@@ -40,6 +40,17 @@ class HomeApp(QMainWindow):
         self.actionSearchLoan = self.findChild(QAction, 'actionSearchLoan')
         self.actionSearchLoan.triggered.connect(self.open_search_loan)
 
+        # Search / Guarantor
+        self.actionSearchGuarantor = self.findChild(QAction, 'actionSearchGuarantor')
+        self.actionSearchGuarantor.triggered.connect(self.open_search_guarantor)
+
+        # Search / Collateral
+        self.actionSearchCollateral = self.findChild(QAction, 'actionSearchCollateral')
+        self.actionSearchCollateral.triggered.connect(self.open_search_collateral)
+
+        # Search / Counseling
+        self.actionSearchCounseling = self.findChild(QAction, 'actionSearchCounseling')
+        self.actionSearchCounseling.triggered.connect(self.open_search_counseling)
         ## --------------------------------- Repayment --------------------------------- ##
         # # Repayment / Single
         # self.actionRepaymentSingle = self.findChild(QAction, 'actionRepaymentSingle')
@@ -108,6 +119,20 @@ class HomeApp(QMainWindow):
         self.search_customer_window = SearchCustomerApp()
         self.search_customer_window.show()
 
+    def open_search_guarantor(self):
+        from src.pages.search.guarantor import SearchGuarantorApp
+        self.search_guarantor_window = SearchGuarantorApp()
+        self.search_guarantor_window.show()
+
+    def open_search_collateral(self):
+        from src.pages.search.collateral import SearchCollateralWindow
+        self.search_collateral_window = SearchCollateralWindow()
+        self.search_collateral_window.show()
+
+    def open_search_counseling(self):
+        from src.pages.search.counseling import SearchCounselingWindow
+        self.search_counseling_window = SearchCounselingWindow()
+        self.search_counseling_window.show()
     def open_search_loan(self):
         from src.pages.search.loan import SearchLoanApp
         self.search_loan_window = SearchLoanApp()
