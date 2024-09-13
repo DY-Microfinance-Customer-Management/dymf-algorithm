@@ -333,6 +333,7 @@ class RegistrationLoanApp(QMainWindow):
             "counselings": [],
         }
 
+        # Handle loan schedule data if present
         if hasattr(self, 'schedule_df'):
             loan_schedule = self.schedule_df.to_dict(orient="records")
             for schedule_item in loan_schedule:
@@ -341,12 +342,13 @@ class RegistrationLoanApp(QMainWindow):
 
         try:
             if self.existing_loan_id:
+                # If the loan already exists, update the document
                 loan_ref = DB.collection("Loan").document(self.existing_loan_id)
                 loan_doc = loan_ref.get()
                 existing_data = loan_doc.to_dict()
 
                 if existing_data:
-                    # Retain existing collateral and counseling data
+                    # Retain existing collateral, counseling, and guarantor data
                     if "collaterals" in existing_data:
                         loan_info["collaterals"] = existing_data["collaterals"]
                     if "counselings" in existing_data:
@@ -354,10 +356,20 @@ class RegistrationLoanApp(QMainWindow):
                     if "guarantors" in existing_data:
                         loan_info["guarantors"] = existing_data["guarantors"]
 
+                # Update the document with the new information
+                loan_info["loan_id"] = self.existing_loan_id  # Save the loan_id field
                 loan_ref.update(loan_info)
+
             else:
+                # If this is a new loan, create a new document
                 doc_ref = DB.collection("Loan").add(loan_info)
-                self.existing_loan_id = doc_ref[1].id
+                self.existing_loan_id = doc_ref[1].id  # Store the generated document ID
+
+                # Update the loan document with the loan_id field
+                loan_info["loan_id"] = self.existing_loan_id
+                DB.collection("Loan").document(self.existing_loan_id).update({"loan_id": self.existing_loan_id})
+
+            QMessageBox.information(self, "Success", "Loan information saved successfully.")
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while saving the loan: {e}")

@@ -35,7 +35,7 @@ class RepaymentBatchApp(QMainWindow):
 
     def setup_table(self):
         model = QStandardItemModel(0, 6)
-        model.setHorizontalHeaderLabels(["Date", "Customer", "Principal", "Interest", "Total", "Status"])
+        model.setHorizontalHeaderLabels(["uid", "Date", "Customer", "Principal", "Interest", "Total", "Status"])
         self.repaymentScheduleTable.setModel(model)
         self.repaymentScheduleTable.setSelectionBehavior(self.repaymentScheduleTable.SelectRows)
 
@@ -43,7 +43,7 @@ class RepaymentBatchApp(QMainWindow):
         today = QDate.currentDate()
         self.startDate.setDate(today)
         self.endDate.setDate(today)
-
+        
     def on_search_clicked(self):
         start_date = self.startDate.date().toString("yyyy-MM-dd")
         end_date = self.endDate.date().toString("yyyy-MM-dd")
@@ -57,24 +57,29 @@ class RepaymentBatchApp(QMainWindow):
 
             for loan_doc in loans:
                 loan_data = loan_doc.to_dict()
-                loan_schedule = loan_data.get("loanSchedule", [])
+                loan_schedule = loan_data.get("loan_schedule", [])
+                customer_uid = loan_data.get('uid')  # Get customer UID from the loan
+
+                # Get the customer name from the Customer collection using the UID
+                customer_doc = DB.collection('Customer').document(customer_uid).get()
+                customer_name = customer_doc.to_dict().get('name', '') if customer_doc.exists else 'Unknown'
 
                 for schedule in loan_schedule:
                     payment_date = schedule.get("Payment Date", "")
                     if start_date <= payment_date <= end_date:
-                        schedules_to_add.append((schedule, loan_data))  # 리스트에 스케줄 추가
+                        schedules_to_add.append((schedule, customer_uid, customer_name))  # Add schedule with customer name and uid
 
             # Payment Date 기준으로 스케줄 정렬
             schedules_to_add.sort(key=lambda x: x[0].get("Payment Date", ""))
 
             # 정렬된 스케줄 데이터를 테이블에 추가
-            for schedule, loan_data in schedules_to_add:
-                self.add_schedule_to_table(schedule, loan_data)
+            for schedule, customer_uid, customer_name in schedules_to_add:
+                self.add_schedule_to_table(schedule, customer_uid, customer_name)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load repayment schedules: {e}")
 
-    def add_schedule_to_table(self, schedule, loan_data):
+    def add_schedule_to_table(self, schedule, customer_uid, customer_name):
         model = self.repaymentScheduleTable.model()
 
         principal = "{:,}".format(schedule.get("Principal", 0))
@@ -91,13 +96,15 @@ class RepaymentBatchApp(QMainWindow):
         else:
             status_text = ""
 
+        # Add items to the row (including hidden uid)
         items = [
+            QStandardItem(customer_uid),  # Hidden column to store UID
             QStandardItem(schedule.get("Payment Date", "")),
-            QStandardItem(loan_data.get('customerName', '')),
+            QStandardItem(customer_name),  # Visible column with customer name
             QStandardItem(principal),
             QStandardItem(interest),
             QStandardItem(total),
-            QStandardItem(status_text)
+            QStandardItem(status_text),
         ]
 
         if status_text == "Overdue":
@@ -109,12 +116,15 @@ class RepaymentBatchApp(QMainWindow):
 
         model.appendRow(items)
 
+        # Hide the UID column (which is the first column)
+        self.repaymentScheduleTable.setColumnHidden(0, True)
+
     def on_table_clicked(self, index):
         if index.isValid():
             selected_row = index.row()
             model = self.repaymentScheduleTable.model()
 
-            status = model.index(selected_row, 5).data()
+            status = model.index(selected_row, 6).data()
 
             if status == "Scheduled":
                 self.paidButton.setEnabled(True)
@@ -135,22 +145,22 @@ class RepaymentBatchApp(QMainWindow):
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
 
-        payment_date = model.index(selected_row, 0).data()
-        customer_name = model.index(selected_row, 1).data()
+        customer_uid = model.index(selected_row, 0).data()
+        payment_date = model.index(selected_row, 1).data()
 
         try:
-            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+            loans_ref = DB.collection('Loan').where('uid', '==', customer_uid).get()
 
             if loans_ref:
                 loan_doc = loans_ref[0]
                 loan_data = loan_doc.to_dict()
-                loan_schedule = loan_data.get("loanSchedule", [])
+                loan_schedule = loan_data.get("loan_schedule", [])
 
                 for schedule in loan_schedule:
                     if schedule.get("Payment Date") == payment_date:
                         schedule['status'] = 1
 
-                DB.collection('Loan').document(loan_doc.id).update({"loanSchedule": loan_schedule})
+                DB.collection('Loan').document(loan_doc.id).update({"loan_schedule": loan_schedule})
 
                 QMessageBox.information(self, "Success", f"Payment for {payment_date} marked as paid.")
                 self.on_search_clicked()
@@ -167,22 +177,22 @@ class RepaymentBatchApp(QMainWindow):
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
 
-        payment_date = model.index(selected_row, 0).data()
-        customer_name = model.index(selected_row, 1).data()
+        customer_uid = model.index(selected_row, 0).data()
+        payment_date = model.index(selected_row, 1).data()
 
         try:
-            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+            loans_ref = DB.collection('Loan').where('uid', '==', customer_uid).get()
 
             if loans_ref:
                 loan_doc = loans_ref[0]
                 loan_data = loan_doc.to_dict()
-                loan_schedule = loan_data.get("loanSchedule", [])
+                loan_schedule = loan_data.get("loan_schedule", [])
 
                 for schedule in loan_schedule:
                     if schedule.get("Payment Date") == payment_date:
                         schedule['status'] = 0  # 상태를 0으로 변경
 
-                DB.collection('Loan').document(loan_doc.id).update({"loanSchedule": loan_schedule})
+                DB.collection('Loan').document(loan_doc.id).update({"loan_schedule": loan_schedule})
 
                 QMessageBox.information(self, "Success", f"Payment for {payment_date} has been canceled.")
                 self.on_search_clicked()
@@ -195,21 +205,30 @@ class RepaymentBatchApp(QMainWindow):
         if not selected_indexes:
             QMessageBox.warning(self, "No Selection", "Please select a repayment record.")
             return
-        
+
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
-        
-        customer_name = model.index(selected_row, 1).data()
+
+        # Get the customer UID from the hidden column (first column)
+        customer_uid = model.index(selected_row, 0).data()
 
         try:
-            loans_ref = DB.collection('Loan').where('customerName', '==', customer_name).get()
+            # Fetch the loan details using the UID
+            loans_ref = DB.collection('Loan').where('uid', '==', customer_uid).get()
 
             if loans_ref:
                 loan_doc = loans_ref[0]
                 loan_data = loan_doc.to_dict()
 
-                self.details_window = RepaymentDetailsWindow(loan_data)
+                # Fetch customer details using the UID from the Customer collection
+                customer_doc = DB.collection('Customer').document(customer_uid).get()
+                customer_data = customer_doc.to_dict() if customer_doc.exists else {}
+
+                self.details_window = RepaymentDetailsWindow(loan_data, customer_data)
                 self.details_window.show()
+
+            else:
+                QMessageBox.warning(self, "No Data", "No loan details found for the selected customer.")
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load loan details: {e}")

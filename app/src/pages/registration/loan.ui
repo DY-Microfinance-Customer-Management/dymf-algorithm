@@ -403,6 +403,11 @@
         <string>Overdue</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>Concluded</string>
+       </property>
+      </item>
      </widget>
      <widget class="QLabel" name="label_24">
       <property name="geometry">
