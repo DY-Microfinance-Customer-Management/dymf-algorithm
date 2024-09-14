@@ -13,7 +13,7 @@ def initialize_firebase():
         current_dir = os.path.dirname(os.path.abspath(__file__))
     
     # JSON 파일 경로를 설정합니다.
-    json_path = os.path.join(current_dir, 'configs/test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
+    json_path = os.path.join(current_dir, 'test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
     # json_path = os.path.join(current_dir, 'configs/dymfsys-firebase-adminsdk-3fkh3-957df8a288.json')
     
     if not os.path.exists(json_path):
