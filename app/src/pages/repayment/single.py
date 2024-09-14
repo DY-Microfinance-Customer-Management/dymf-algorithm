@@ -342,6 +342,10 @@ class RepaymentSingleApp(QMainWindow):
             self.load_table(self.repaymentScheduleTable, repayment_data, columns, is_scheduled=True)
             self.load_table(self.receivedTable, received_data, columns, is_scheduled=False)
 
+        self.load_collateral_data(loan_data)
+        self.load_counseling_data(loan_data)
+        self.load_guarantor_data(loan_data)
+
     def load_table(self, table_view, data, columns, is_scheduled=True):
         """Load repayment schedule and received data into the respective tables."""
         model = QStandardItemModel(len(data), len(columns))
