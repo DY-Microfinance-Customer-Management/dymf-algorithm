@@ -22,6 +22,7 @@ class RepaymentBatchApp(QMainWindow):
         self.setup_table()
         self.set_default_dates()
         self.paidButton.setEnabled(False)
+        self.overdueButton.setEnabled(False)
         self.cancelPaymentButton.setEnabled(False)
         self.details_window = None
 
@@ -30,12 +31,14 @@ class RepaymentBatchApp(QMainWindow):
         self.paidButton.clicked.connect(self.on_paid_clicked)
         self.cancelPaymentButton.clicked.connect(self.on_cancel_payment_clicked)
         self.detailsButton.clicked.connect(self.on_details_button_clicked)
-        self.toExcelButton.clicked.connect(self.export_to_excel)
+        # self.toExcelButton.clicked.connect(self.export_to_excel)
         self.repaymentScheduleTable.clicked.connect(self.on_table_clicked)
+        self.overdueButton.clicked.connect(self.on_overdue_clicked)
 
     def setup_table(self):
-        model = QStandardItemModel(0, 6)
-        model.setHorizontalHeaderLabels(["uid", "Date", "Customer", "Principal", "Interest", "Total", "Status"])
+        # "Loan Number" 열을 추가하여 총 7개의 열로 변경
+        model = QStandardItemModel(0, 7)
+        model.setHorizontalHeaderLabels(["uid", "Date", "Loan Number", "Customer", "Principal", "Interest", "Total", "Status"])
         self.repaymentScheduleTable.setModel(model)
         self.repaymentScheduleTable.setSelectionBehavior(self.repaymentScheduleTable.SelectRows)
 
@@ -59,6 +62,7 @@ class RepaymentBatchApp(QMainWindow):
                 loan_data = loan_doc.to_dict()
                 loan_schedule = loan_data.get("loan_schedule", [])
                 customer_uid = loan_data.get('uid')  # Get customer UID from the loan
+                loan_number = loan_data.get('loan_number', 'Unknown')  # Get loan number
 
                 # Get the customer name from the Customer collection using the UID
                 customer_doc = DB.collection('Customer').document(customer_uid).get()
@@ -67,19 +71,20 @@ class RepaymentBatchApp(QMainWindow):
                 for schedule in loan_schedule:
                     payment_date = schedule.get("Payment Date", "")
                     if start_date <= payment_date <= end_date:
-                        schedules_to_add.append((schedule, customer_uid, customer_name))  # Add schedule with customer name and uid
+                        schedules_to_add.append((schedule, customer_uid, customer_name, loan_number))  # Add schedule with loan number
 
             # Payment Date 기준으로 스케줄 정렬
             schedules_to_add.sort(key=lambda x: x[0].get("Payment Date", ""))
 
             # 정렬된 스케줄 데이터를 테이블에 추가
-            for schedule, customer_uid, customer_name in schedules_to_add:
-                self.add_schedule_to_table(schedule, customer_uid, customer_name)
+            for schedule, customer_uid, customer_name, loan_number in schedules_to_add:
+                self.add_schedule_to_table(schedule, customer_uid, customer_name, loan_number)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load repayment schedules: {e}")
 
-    def add_schedule_to_table(self, schedule, customer_uid, customer_name):
+    # loan_number 매개변수를 추가하여 Loan Number를 테이블에 추가
+    def add_schedule_to_table(self, schedule, customer_uid, customer_name, loan_number):
         model = self.repaymentScheduleTable.model()
 
         principal = "{:,}".format(schedule.get("Principal", 0))
@@ -100,6 +105,7 @@ class RepaymentBatchApp(QMainWindow):
         items = [
             QStandardItem(customer_uid),  # Hidden column to store UID
             QStandardItem(schedule.get("Payment Date", "")),
+            QStandardItem(loan_number),  # Loan Number 추가
             QStandardItem(customer_name),  # Visible column with customer name
             QStandardItem(principal),
             QStandardItem(interest),
@@ -124,17 +130,24 @@ class RepaymentBatchApp(QMainWindow):
             selected_row = index.row()
             model = self.repaymentScheduleTable.model()
 
-            status = model.index(selected_row, 6).data()
+            status = model.index(selected_row, 7).data()  # Status는 7번째 열
 
             if status == "Scheduled":
                 self.paidButton.setEnabled(True)
                 self.cancelPaymentButton.setEnabled(False)
+                self.overdueButton.setEnabled(True)  # overdueButton 활성화
             elif status == "Paid":
                 self.paidButton.setEnabled(False)
                 self.cancelPaymentButton.setEnabled(True)
+                self.overdueButton.setEnabled(False)  # overdueButton 비활성화
+            elif status == "Overdue":
+                self.paidButton.setEnabled(True)  # overdue 상태에서도 paidButton 활성화
+                self.cancelPaymentButton.setEnabled(False)
+                self.overdueButton.setEnabled(False)  # overdueButton 비활성화
             else:
                 self.paidButton.setEnabled(False)
                 self.cancelPaymentButton.setEnabled(False)
+                self.overdueButton.setEnabled(False)
 
     def on_paid_clicked(self):
         selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
@@ -145,11 +158,11 @@ class RepaymentBatchApp(QMainWindow):
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
 
-        customer_uid = model.index(selected_row, 0).data()
+        loan_number = model.index(selected_row, 2).data()  # Loan Number는 2번째 열
         payment_date = model.index(selected_row, 1).data()
 
         try:
-            loans_ref = DB.collection('Loan').where('uid', '==', customer_uid).get()
+            loans_ref = DB.collection('Loan').where('loan_number', '==', loan_number).get()
 
             if loans_ref:
                 loan_doc = loans_ref[0]
@@ -158,7 +171,7 @@ class RepaymentBatchApp(QMainWindow):
 
                 for schedule in loan_schedule:
                     if schedule.get("Payment Date") == payment_date:
-                        schedule['status'] = 1
+                        schedule['status'] = 1  # 상태를 Paid로 변경
 
                 DB.collection('Loan').document(loan_doc.id).update({"loan_schedule": loan_schedule})
 
@@ -167,6 +180,39 @@ class RepaymentBatchApp(QMainWindow):
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
+
+    def on_overdue_clicked(self):
+        selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
+        if not selected_indexes:
+            QMessageBox.warning(self, "No Selection", "Please select a repayment record to mark as overdue.")
+            return
+
+        selected_row = selected_indexes[0].row()
+        model = self.repaymentScheduleTable.model()
+
+        loan_number = model.index(selected_row, 2).data()  # Loan Number는 2번째 열
+        payment_date = model.index(selected_row, 1).data()
+
+        try:
+            loans_ref = DB.collection('Loan').where('loan_number', '==', loan_number).get()
+
+            if loans_ref:
+                loan_doc = loans_ref[0]
+                loan_data = loan_doc.to_dict()
+                loan_schedule = loan_data.get("loan_schedule", [])
+
+                for schedule in loan_schedule:
+                    if schedule.get("Payment Date") == payment_date:
+                        schedule['status'] = 2  # 상태를 Overdue로 변경
+
+                DB.collection('Loan').document(loan_doc.id).update({"loan_schedule": loan_schedule})
+
+                QMessageBox.information(self, "Success", f"Payment for {payment_date} marked as overdue.")
+                self.on_search_clicked()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
+
 
     def on_cancel_payment_clicked(self):
         selected_indexes = self.repaymentScheduleTable.selectionModel().selectedRows()
@@ -177,11 +223,11 @@ class RepaymentBatchApp(QMainWindow):
         selected_row = selected_indexes[0].row()
         model = self.repaymentScheduleTable.model()
 
-        customer_uid = model.index(selected_row, 0).data()
+        loan_number = model.index(selected_row, 2).data()  # Loan Number는 2번째 열
         payment_date = model.index(selected_row, 1).data()
 
         try:
-            loans_ref = DB.collection('Loan').where('uid', '==', customer_uid).get()
+            loans_ref = DB.collection('Loan').where('loan_number', '==', loan_number).get()
 
             if loans_ref:
                 loan_doc = loans_ref[0]

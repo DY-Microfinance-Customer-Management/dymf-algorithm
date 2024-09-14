@@ -1094,6 +1094,19 @@
        <string>MMK</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="overdueButton">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>140</y>
+        <width>93</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Overdue</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">

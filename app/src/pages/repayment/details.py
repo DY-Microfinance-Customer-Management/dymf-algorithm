@@ -5,7 +5,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor, QIcon
 
 from src.components import DB
-from src.components.select_customer import SelectCustomerWindow
 
 class RepaymentDetailsWindow(QMainWindow):
     def __init__(self, loan_data, customer_data):
@@ -41,6 +40,7 @@ class RepaymentDetailsWindow(QMainWindow):
     def setup_connections(self):
         self.paidButton.clicked.connect(self.on_paid_button_clicked)
         self.deleteButton.clicked.connect(self.on_delete_button_clicked)
+        self.overdueButton.clicked.connect(self.on_overdue_button_clicked)
 
     def setup_table_selection(self):
         self.repaymentScheduleTable.setSelectionBehavior(QTableView.SelectRows)
@@ -68,7 +68,7 @@ class RepaymentDetailsWindow(QMainWindow):
             "Status": model.item(selected_row, 4).text(),
         }
 
-        self.paidButton.setEnabled(self.selected_schedule_data["Status"] == "Scheduled")
+        self.paidButton.setEnabled(self.selected_schedule_data["Status"] == "Scheduled" or self.selected_schedule_data["Status"] == "Overdue")
 
     def handle_received_table_click(self, index):
         self.repaymentScheduleTable.clearSelection()
@@ -128,6 +128,33 @@ class RepaymentDetailsWindow(QMainWindow):
             QMessageBox.information(self, "Success", "Payment for {payment_date} marked as Scheduled.")
             self.load_loan_schedule(self.loan_data)
             self.deleteButton.setEnabled(False)
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
+
+    def on_overdue_button_clicked(self):
+        """Mark the selected repayment schedule as overdue without moving it to another table."""
+        selected_schedule = self.selected_schedule_data
+        if not selected_schedule:
+            QMessageBox.warning(self, "Error", "No repayment schedule selected.")
+            return
+
+        payment_date = selected_schedule.get("Payment Date")
+
+        try:
+            loan_schedule = self.loan_data.get("loan_schedule", [])
+            for schedule in loan_schedule:
+                if schedule.get("Payment Date") == payment_date:
+                    schedule["status"] = 2  # Mark as 'Overdue'
+
+            loan_id = self.loan_data.get("loan_id")
+            DB.collection("Loan").document(loan_id).update({"loan_schedule": loan_schedule})
+
+            QMessageBox.information(self, "Success", f"Payment for {payment_date} marked as overdue.")
+
+            # Update the status in the table directly
+            self.load_loan_schedule(self.loan_data)
+            self.overdueButton.setEnabled(False)
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update payment status: {e}")
@@ -202,8 +229,8 @@ class RepaymentDetailsWindow(QMainWindow):
             columns = ["Payment Date", "Principal", "Interest", "Total", "Status"]
 
             # Separate scheduled and received payments
-            repayment_data = [item for item in schedule_data if item.get('status') == 0]  # Scheduled payments
-            received_data = [item for item in schedule_data if item.get('status') in [1, 2]]  # Paid or Overdue
+            repayment_data = [item for item in schedule_data if item.get('status') in [0, 2]]  # Scheduled payments
+            received_data = [item for item in schedule_data if item.get('status') == 1]  # Paid or Overdue
 
             # Load the tables and pass the appropriate flag for totals
             self.load_table(self.repaymentScheduleTable, repayment_data, columns, is_scheduled=True)
