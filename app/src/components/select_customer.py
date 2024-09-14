@@ -77,7 +77,7 @@ class SelectCustomerWindow(QDialog):
 
     def filter_data(self):
         search_text = self.searchBox.text().lower()
-        self.filtered_df = self.display_df[self.display_df['name'].str.lower().str.contains(search_text)]
+        self.filtered_df = self.display_df[self.display_df['Name'].str.lower().str.contains(search_text)]
         self.model = self.create_model(self.filtered_df)
         self.tableView.setModel(self.model)
 

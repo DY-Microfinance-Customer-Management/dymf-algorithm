@@ -195,6 +195,7 @@ class RepaymentDetailsWindow(QMainWindow):
             self.counselingTable.setModel(model)
             self.counselingTable.resizeColumnsToContents()
 
+
     def load_loan_schedule(self, loan_data):
         if 'loan_schedule' in loan_data:
             schedule_data = loan_data['loan_schedule']
