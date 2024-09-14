@@ -11,7 +11,7 @@ from src.components import DB
 class SelectLoanWindow(QDialog):
     loan_selected = pyqtSignal(dict)  # Signal to emit selected loan data
 
-    def __init__(self):
+    def __init__(self, collection_type='Loan'):
         super(SelectLoanWindow, self).__init__()
 
         # Set window properties
@@ -44,6 +44,9 @@ class SelectLoanWindow(QDialog):
         # Signal for search
         self.searchBox.textChanged.connect(self.filter_data)
 
+        # Determine which collection to load from ('Loan' or 'Overdue')
+        self.collection_type = collection_type
+
         # Load data
         self.load_data()
 
@@ -51,15 +54,15 @@ class SelectLoanWindow(QDialog):
         self.selectButton.setFocus()
 
     def load_data(self):
-        loans_ref = DB.collection(u'Loan')
+        loans_ref = DB.collection(self.collection_type)  # Dynamically select collection
         docs = loans_ref.stream()
 
         data = []
         for doc in docs:
             loan_data = doc.to_dict()
 
-            # Skip loans where the loan status is 'Overdue'
-            if loan_data.get('loan_status') == 'Overdue':
+            # Skip loans where the loan status is 'Overdue', if collection is 'Loan'
+            if self.collection_type == 'Loan' and loan_data.get('loan_status') == 'Overdue':
                 continue  # Skip this loan
 
             loan_data['loan_id'] = doc.id  # Store the document ID
@@ -69,11 +72,17 @@ class SelectLoanWindow(QDialog):
 
         self.df = pd.DataFrame(data)
 
-        # Select display columns: Loan Number, Loan Type, Contract Date, Customer Name, and NRC No.
-        self.display_df = self.df[['loan_number', 'loan_type', 'contract_date', 'customer_name', 'nrc_no']]
+        if self.collection_type == 'Overdue':
+            # Select display columns: Loan Number, Loan Type, Start Date, Customer Name, and NRC No.
+            self.display_df = self.df[['loan_number', 'loan_type', 'start_date', 'customer_name', 'nrc_no']]
+            # Rename the columns to match the required capitalization
+            self.display_df.columns = ['Loan Number', 'Loan Type', 'Start Date', 'Customer Name', 'NRC No.']
+        else:
+            # Select display columns: Loan Number, Loan Type, Contract Date, Customer Name, and NRC No.
+            self.display_df = self.df[['loan_number', 'loan_type', 'contract_date', 'customer_name', 'nrc_no']]
+            # Rename the columns to match the required capitalization
+            self.display_df.columns = ['Loan Number', 'Loan Type', 'Contract Date', 'Customer Name', 'NRC No.']
 
-        # Rename the columns to match the required capitalization
-        self.display_df.columns = ['Loan Number', 'Loan Type', 'Contract Date', 'Customer Name', 'NRC No.']
 
         # Copy the display dataframe for filtering purposes
         self.filtered_df = self.display_df.copy()
@@ -134,8 +143,11 @@ class SelectLoanWindow(QDialog):
 
 def main():
     app = QApplication(sys.argv)
-    window = SelectLoanWindow()
+
+    # You can pass either 'Loan' or 'Overdue' as the collection type
+    window = SelectLoanWindow(collection_type='Overdue')
     window.show()
+
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

@@ -3,9 +3,10 @@ import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QColor, QIcon
-from PyQt5.QtCore import QDate
+from PyQt5.QtCore import Qt, QDate
 
 from src.components import DB
+from src.components.select_loan import SelectLoanWindow
 
 class OverdueManagementApp(QMainWindow):
     def __init__(self, loan_data=None):
@@ -28,16 +29,59 @@ class OverdueManagementApp(QMainWindow):
             self.load_empty_state()
 
     def open_select_loan(self):
-        from src.pages.overdue.select_loan import SelectLoanWindow
-        self.select_loan_window = SelectLoanWindow()
+        # from src.pages.overdue.select_loan import SelectLoanWindow
+        self.select_loan_window = SelectLoanWindow(collection_type='Overdue')
         self.select_loan_window.loan_selected.connect(self.load_loan_data)
         self.select_loan_window.show()
 
-    def load_loan_data(self, loan_data):
-        self.current_loan_data = loan_data  # 현재 선택된 loan_data를 저장
+    def load_loan_data(self, selected_data):
+        loan_data = DB.collection('Overdue').document(selected_data['loan_id']).get().to_dict()
+        self.current_loan_data = loan_data
+        customer_data = DB.collection('Customer').document(loan_data['uid']).get().to_dict()
         self.loanNumber.setText(loan_data['loan_number'])
-        self.customerName.setText(loan_data['customer_name'])
+        self.customerName.setText(customer_data['name'])
         self.load_loan_schedule(loan_data['loan_schedule'], loan_data.get('received_schedule', []))
+
+        if 'guarantors' in loan_data:
+            guarantor_uids = loan_data['guarantors']  # List of UID values
+            model = QStandardItemModel(len(guarantor_uids), 3)
+            model.setHorizontalHeaderLabels(["Name", "Date of Birth", "Contact"])
+
+            # Loop through each guarantor UID and fetch the details from the Guarantor collection
+            for row_idx, guarantor_uid in enumerate(guarantor_uids):
+                try:
+                    guarantor_doc = DB.collection('Guarantor').document(guarantor_uid).get()
+                    if guarantor_doc.exists:
+                        guarantor_data = guarantor_doc.to_dict()
+
+                        model.setItem(row_idx, 0, QStandardItem(guarantor_data.get("name", "Unknown")))
+                        model.setItem(row_idx, 1, QStandardItem(guarantor_data.get("date_of_birth", "Unknown")))
+                        model.setItem(row_idx, 2, QStandardItem('-'.join([guarantor_data.get('tel1ByOne', ''), guarantor_data.get('tel1ByTwo', ''), guarantor_data.get('tel1ByThree', '')])))
+                    else:
+                        model.setItem(row_idx, 0, QStandardItem("Unknown"))
+                        model.setItem(row_idx, 1, QStandardItem("Unknown"))
+                        model.setItem(row_idx, 2, QStandardItem("Unknown"))
+
+                except Exception as e:
+                    model.setItem(row_idx, 0, QStandardItem(f"Error loading guarantor: {e}"))
+                    model.setItem(row_idx, 1, QStandardItem("Error"))
+                    model.setItem(row_idx, 2, QStandardItem("Error"))
+
+            self.guarantorTable.setModel(model)
+            self.guarantorTable.resizeColumnsToContents()
+
+            if 'collaterals' in loan_data:
+                columns = ["Type", "Name", "Details"]
+                model = QStandardItemModel(len(loan_data['collaterals']), len(columns))
+                model.setHorizontalHeaderLabels(columns)
+
+                for row_idx, collateral in enumerate(loan_data['collaterals']):
+                    model.setItem(row_idx, 0, self.create_read_only_item(collateral.get("type", "")))
+                    model.setItem(row_idx, 1, self.create_read_only_item(collateral.get("name", "")))
+                    model.setItem(row_idx, 2, self.create_read_only_item(collateral.get("details", "")))
+
+                self.collateralTable.setModel(model)
+                self.collateralTable.resizeColumnsToContents()
 
     def load_loan_schedule(self, loan_schedule, received_schedule):
         # Model 초기화
@@ -213,6 +257,11 @@ class OverdueManagementApp(QMainWindow):
             'Received Principal', 'Received Interest', 'Received Overdue Interest'
         ])
         self.clear_received_fields()
+
+    def create_read_only_item(self, text):
+        item = QStandardItem(str(text))
+        item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+        return item
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

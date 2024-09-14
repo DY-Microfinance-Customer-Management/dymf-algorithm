@@ -69,9 +69,9 @@ class HomeApp(QMainWindow):
         self.actionOverdueManagement = self.findChild(QAction, 'actionOverdueManagement')
         self.actionOverdueManagement.triggered.connect(self.open_overdue_management)
 
-        # # Overdue / Search
-        # self.actionOverdueSearch = self.findChild(QAction, 'actionOverdueSearch')
-        # self.actionOverdueSearch.triggered.connect(self.open_overdue_search)
+        # Overdue / Search
+        self.actionOverdueSearch = self.findChild(QAction, 'actionOverdueSearch')
+        self.actionOverdueSearch.triggered.connect(self.open_overdue_search)
 
         ## --------------------------------- Settings --------------------------------- ##
         # Settings / Officer
@@ -164,11 +164,11 @@ class HomeApp(QMainWindow):
         self.settings_overdue_management = OverdueManagementApp()
         self.settings_overdue_management.show()
 
-    # # Overdue / Search
-    # def open_overdue_search(self):
-    #     from src.pages.overdue.search import OverdueSearchApp
-    #     self.settings_overdue_search = OverdueSearchApp()
-    #     self.settings_overdue_search.show()
+    # Overdue / Search
+    def open_overdue_search(self):
+        from src.pages.overdue.search import OverdueSearchApp
+        self.settings_overdue_search = OverdueSearchApp()
+        self.settings_overdue_search.show()
 
     ## --------------------------------- Settings --------------------------------- ##
     # Settings / Officer

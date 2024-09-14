@@ -287,6 +287,11 @@ class OverduePostRegistrationApp(QMainWindow):
                     'repayment_date': self.startDate.date().addDays(int(self.repaymentCycle.text())).toString("yyyy-MM-dd")
                 }
             ],
+            'guarantors': self.loan_data['guarantors'],
+            'collaterals': self.loan_data['collaterals'],
+            'counselings': self.loan_data['counselings'],
+            'loan_type': self.loan_data['loan_type'],
+            'cp_number': self.loan_data['cp_number'],
         }
 
         management_data = save_data.copy()
