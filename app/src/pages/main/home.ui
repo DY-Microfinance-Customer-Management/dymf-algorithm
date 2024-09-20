@@ -72,6 +72,7 @@
     </property>
     <addaction name="actionSettingsOfficer"/>
     <addaction name="actionSettingsUser"/>
+    <addaction name="actionSettingsAssets"/>
    </widget>
    <addaction name="Registration"/>
    <addaction name="Search"/>
@@ -616,6 +617,11 @@
   <action name="actionRepaymentSingle">
    <property name="text">
     <string>Single</string>
+   </property>
+  </action>
+  <action name="actionSettingsAssets">
+   <property name="text">
+    <string>Fixed Asset Management</string>
    </property>
   </action>
  </widget>

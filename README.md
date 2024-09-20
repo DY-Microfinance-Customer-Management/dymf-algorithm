@@ -31,3 +31,4 @@ pyinstaller --noconfirm --onefile --icon=src/icon.ico --noconsole --add-data="sr
 
 - 코드를 제외한 모든 파일은 현재 디렉토리를 기준으로 os.path.join(current_dir, '파일명') 참조되어야 함
 - 참조된 모든 파일들은 빌드할 때 --add-data 옵션으로 추가해야 함
+- app 폴더 내부에서 실행

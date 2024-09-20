@@ -82,6 +82,10 @@ class HomeApp(QMainWindow):
         self.actionSettingsUser = self.findChild(QAction, 'actionSettingsUser')
         self.actionSettingsUser.triggered.connect(self.open_settings_user)
 
+        # Settings / Assets
+        self.actionSettingsAssets = self.findChild(QAction, 'actionSettingsAssets')
+        self.actionSettingsAssets.triggered.connect(self.open_settings_assets)
+
 
 
 
@@ -181,7 +185,12 @@ class HomeApp(QMainWindow):
     def open_settings_user(self):
         from src.pages.settings.user import SettingsUserApp
         self.settings_user_window = SettingsUserApp()
-        self.settings_user_window.show()
+
+    # Settings / Assets
+    def open_settings_assets(self):
+        from src.pages.settings.fixed_asset import SettingsFixedAssetApp
+        self.settings_assets_window = SettingsFixedAssetApp()
+        self.settings_assets_window.show()
     
     ## --------------------------------- Close Event --------------------------------- ##
     # def closeEvent(self, event):
