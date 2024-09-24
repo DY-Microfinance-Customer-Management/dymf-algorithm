@@ -74,10 +74,17 @@
     <addaction name="actionSettingsUser"/>
     <addaction name="actionSettingsAssets"/>
    </widget>
+   <widget class="QMenu" name="menu5_Report">
+    <property name="title">
+     <string>5. Report</string>
+    </property>
+    <addaction name="actionPeriodicLoanBalanceReport"/>
+   </widget>
    <addaction name="Registration"/>
    <addaction name="Search"/>
    <addaction name="Repayment"/>
    <addaction name="Overdue"/>
+   <addaction name="menu5_Report"/>
    <addaction name="Settings"/>
   </widget>
   <action name="action">
@@ -622,6 +629,11 @@
   <action name="actionSettingsAssets">
    <property name="text">
     <string>Fixed Asset Management</string>
+   </property>
+  </action>
+  <action name="actionPeriodicLoanBalanceReport">
+   <property name="text">
+    <string>Periodic Loan Balance Report</string>
    </property>
   </action>
  </widget>

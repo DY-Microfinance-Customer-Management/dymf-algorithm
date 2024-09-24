@@ -86,7 +86,10 @@ class HomeApp(QMainWindow):
         self.actionSettingsAssets = self.findChild(QAction, 'actionSettingsAssets')
         self.actionSettingsAssets.triggered.connect(self.open_settings_assets)
 
-
+        ## --------------------------------- Report --------------------------------- ##
+        # Report / Periodic Loan Balance Report
+        self.actionPeriodicLoanBalanceReport = self.findChild(QAction, 'actionPeriodicLoanBalanceReport')
+        self.actionPeriodicLoanBalanceReport.triggered.connect(self.open_report_periodic_balance)
 
 
 
@@ -137,6 +140,7 @@ class HomeApp(QMainWindow):
         from src.pages.search.counseling import SearchCounselingWindow
         self.search_counseling_window = SearchCounselingWindow()
         self.search_counseling_window.show()
+
     def open_search_loan(self):
         from src.pages.search.loan import SearchLoanApp
         self.search_loan_window = SearchLoanApp()
@@ -191,6 +195,13 @@ class HomeApp(QMainWindow):
         from src.pages.settings.fixed_asset import SettingsFixedAssetApp
         self.settings_assets_window = SettingsFixedAssetApp()
         self.settings_assets_window.show()
+
+    ## --------------------------------- Report --------------------------------- ##
+    # Report / Periodic Loan Balance Report
+    def open_report_periodic_balance(self):
+        from src.pages.report.periodic_balance import ReportPeriodicBalanceApp
+        self.report_periodic_balance_window = ReportPeriodicBalanceApp()
+        self.report_periodic_balance_window.show()
     
     ## --------------------------------- Close Event --------------------------------- ##
     # def closeEvent(self, event):
