@@ -173,11 +173,11 @@ class SettingsFixedAssetApp(QMainWindow):
         row = index.row()
         model = self.fixedAssetTable.model()
         asset_id = model.index(row, 1).data()
-        item = model.index(row, 2).data()
-        purchase_date = model.index(row, 3).data()
-        value = model.index(row, 4).data()
-        depreciation_period = model.index(row, 5).data()
-        depreciation_ratio = model.index(row, 6).data()
+        item = model.index(row, 1).data()
+        purchase_date = model.index(row, 2).data()
+        value = model.index(row, 3).data()
+        depreciation_period = model.index(row, 4).data()
+        depreciation_ratio = model.index(row, 5).data()
         status = model.index(row, 0).data()
 
         self.current_status = status

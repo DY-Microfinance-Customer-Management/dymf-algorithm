@@ -66,8 +66,8 @@ class SearchCustomerApp(QMainWindow):
                 self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
 
     def open_select_customer_window(self):
-        self.setEnabled(False)
-
+        #self.setEnabled(False)
+        #이거 하면 search 중간에 끊으면 먹통됨 ㅋ
         self.select_customer_window = SelectCustomerWindow()
         self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
         self.select_customer_window.show()
