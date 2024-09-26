@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1466</width>
-    <height>772</height>
+    <width>1470</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Loan Management</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fbfbfb;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -41,7 +44,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -90,6 +95,32 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
     <property name="text">
      <string>Search</string>
     </property>
@@ -121,7 +152,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -136,7 +169,7 @@
    <widget class="QLabel" name="customerDateOfBirth">
     <property name="geometry">
      <rect>
-      <x>770</x>
+      <x>780</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -155,7 +188,17 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)
+     <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
     </property>
     <property name="frameShape">
@@ -168,7 +211,7 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>900</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -192,7 +235,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -207,7 +252,7 @@
    <widget class="QLabel" name="customerContact">
     <property name="geometry">
      <rect>
-      <x>1000</x>
+      <x>1020</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -226,7 +271,17 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)
+     <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
     </property>
     <property name="frameShape">
@@ -244,6 +299,9 @@
       <width>1441</width>
       <height>671</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #fbfbfb;</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -279,7 +337,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -318,7 +378,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -357,7 +419,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -392,6 +456,22 @@
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QComboBox:disabled {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+</string>
       </property>
       <item>
        <property name="text">
@@ -436,7 +516,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -452,10 +534,36 @@
       <property name="geometry">
        <rect>
         <x>1300</x>
-        <y>100</y>
+        <y>90</y>
         <width>121</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Calculate</string>
@@ -488,7 +596,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -527,7 +637,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -542,7 +654,7 @@
      <widget class="QLabel" name="label_42">
       <property name="geometry">
        <rect>
-        <x>970</x>
+        <x>960</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -592,7 +704,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -631,7 +745,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -670,7 +786,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -691,6 +809,14 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+</string>
+      </property>
      </widget>
      <widget class="QLineEdit" name="numberOfRepayment">
       <property name="geometry">
@@ -700,6 +826,22 @@
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="loanAmount">
@@ -711,6 +853,22 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
      </widget>
      <widget class="QLineEdit" name="interestRate">
       <property name="geometry">
@@ -721,6 +879,22 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
      </widget>
      <widget class="QDateEdit" name="contractDate">
       <property name="geometry">
@@ -730,6 +904,22 @@
         <width>110</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QDateEdit {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QDateEdit:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
       <property name="locale">
        <locale language="English" country="UnitedStates"/>
@@ -747,6 +937,11 @@
         <height>461</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
+      </property>
      </widget>
      <widget class="QLineEdit" name="repaymentCycle">
       <property name="geometry">
@@ -756,6 +951,22 @@
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_135">
@@ -774,11 +985,37 @@
      <widget class="QPushButton" name="searchLoanOfficerButton">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>490</x>
         <y>50</y>
         <width>71</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Search</string>
@@ -811,7 +1048,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -846,6 +1085,22 @@
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QComboBox:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
       <item>
        <property name="text">
@@ -885,7 +1140,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -922,7 +1187,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -961,7 +1228,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1000,7 +1269,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1017,7 +1288,7 @@
        <rect>
         <x>630</x>
         <y>600</y>
-        <width>110</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -1029,7 +1300,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
@@ -1039,7 +1310,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1073,7 +1346,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1105,7 +1388,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1118,7 +1411,7 @@
      <widget class="QLabel" name="totalRemainingBalance">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>770</x>
         <y>600</y>
         <width>110</width>
         <height>31</height>
@@ -1137,7 +1430,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1169,7 +1472,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1206,7 +1519,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1240,7 +1555,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1259,10 +1584,15 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>140</y>
         <width>1411</width>
-        <height>501</height>
+        <height>491</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_29">
@@ -1292,7 +1622,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1331,7 +1663,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1370,7 +1704,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1409,7 +1745,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1461,7 +1799,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1500,7 +1840,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1552,7 +1894,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1591,7 +1935,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1630,7 +1976,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1682,7 +2030,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1716,7 +2066,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1748,7 +2108,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1780,7 +2150,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1812,7 +2192,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1844,7 +2234,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1876,7 +2276,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1908,7 +2318,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1940,7 +2360,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -1972,7 +2402,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2004,7 +2444,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2017,11 +2467,37 @@
      <widget class="QPushButton" name="addGuarantorButton">
       <property name="geometry">
        <rect>
-        <x>1180</x>
+        <x>1170</x>
         <y>100</y>
         <width>121</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Add</string>
@@ -2035,6 +2511,32 @@
         <width>121</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Delete</string>
@@ -2067,7 +2569,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2101,7 +2605,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2126,7 +2640,20 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_110">
@@ -2144,7 +2671,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2165,6 +2694,31 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}</string>
+      </property>
       <property name="text">
        <string>New</string>
       </property>
@@ -2178,6 +2732,22 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="collateralSaveButton">
       <property name="geometry">
@@ -2187,6 +2757,32 @@
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Save</string>
@@ -2207,7 +2803,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2228,6 +2826,32 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+      </property>
       <property name="text">
        <string>Delete</string>
       </property>
@@ -2240,6 +2864,32 @@
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Edit</string>
@@ -2260,7 +2910,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2296,6 +2948,22 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QComboBox:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
       <item>
        <property name="text">
         <string>[Select]</string>
@@ -2320,6 +2988,11 @@
         <width>1411</width>
         <height>331</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_56">
@@ -2349,7 +3022,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2388,7 +3063,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2440,7 +3117,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2492,7 +3171,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2531,7 +3212,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2546,7 +3229,7 @@
      <widget class="QLabel" name="label_52">
       <property name="geometry">
        <rect>
-        <x>970</x>
+        <x>960</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -2583,7 +3266,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2622,7 +3307,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2661,7 +3348,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2700,7 +3389,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2739,7 +3430,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -2773,7 +3466,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2805,7 +3508,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2837,7 +3550,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2869,7 +3592,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2901,7 +3634,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2933,7 +3676,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2965,7 +3718,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -2997,7 +3760,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3029,7 +3802,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3061,7 +3844,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3098,7 +3891,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3132,7 +3927,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3162,7 +3967,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3184,7 +3991,20 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_104">
@@ -3202,7 +4022,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3223,6 +4045,22 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="counselingEditButton">
       <property name="geometry">
@@ -3232,6 +4070,32 @@
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
       </property>
       <property name="text">
        <string>Edit</string>
@@ -3252,7 +4116,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3273,6 +4139,32 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+      </property>
       <property name="text">
        <string>Delete</string>
       </property>
@@ -3292,7 +4184,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3314,7 +4208,20 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QDateEdit" name="counselingDate">
@@ -3325,6 +4232,22 @@
         <width>110</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QDateEdit {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QDateEdit:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
       <property name="locale">
        <locale language="English" country="UnitedStates"/>
@@ -3342,6 +4265,32 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+      </property>
       <property name="text">
        <string>New</string>
       </property>
@@ -3355,6 +4304,32 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+      </property>
       <property name="text">
        <string>Save</string>
       </property>
@@ -3367,6 +4342,11 @@
         <width>1411</width>
         <height>331</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_138">
@@ -3409,7 +4389,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3424,7 +4406,7 @@
      <widget class="QLabel" name="label_62">
       <property name="geometry">
        <rect>
-        <x>970</x>
+        <x>960</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -3461,7 +4443,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3500,7 +4484,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3552,7 +4538,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3591,7 +4579,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3630,7 +4620,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3669,7 +4661,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3708,7 +4702,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3747,7 +4743,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3786,7 +4784,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -3820,7 +4820,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3852,7 +4862,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3884,7 +4904,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3916,7 +4946,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3948,7 +4988,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -3980,7 +5030,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4012,7 +5072,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4044,7 +5114,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4076,7 +5156,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4108,7 +5198,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4145,7 +5245,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -4179,7 +5281,17 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(255, 255, 255)
+       <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
       </property>
       <property name="frameShape">
@@ -4220,7 +5332,7 @@
    <widget class="QLabel" name="customerName">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>330</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -4239,7 +5351,17 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)
+     <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
     </property>
     <property name="frameShape">
@@ -4257,6 +5379,32 @@
       <width>121</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
     </property>
     <property name="text">
      <string>New</string>

@@ -13,6 +13,42 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+	background-color: #fbfbfb;
+}
+
+QTableView {
+	background-color: #f1f1f1;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="loanSearchButton">
     <property name="geometry">
@@ -30,7 +66,7 @@
    <widget class="QLabel" name="customerName">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>640</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -49,7 +85,17 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)
+     <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
     </property>
     <property name="frameShape">
@@ -62,7 +108,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>520</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -86,7 +132,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -153,7 +201,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -168,7 +218,7 @@
    <widget class="QLabel" name="loanNumber">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>400</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -187,7 +237,17 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)
+     <string notr="true">QLabel {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLabel:disabled {
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
 </string>
     </property>
     <property name="frameShape">
@@ -201,7 +261,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>70</y>
       <width>1181</width>
       <height>551</height>
      </rect>
@@ -216,21 +276,53 @@
      <widget class="QLineEdit" name="receivedPrincipal">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>190</x>
         <y>480</y>
         <width>111</width>
         <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+      </property>
      </widget>
      <widget class="QLineEdit" name="receivedOverdueInterest">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>870</x>
         <y>480</y>
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QPushButton" name="calculateButton">
@@ -249,15 +341,15 @@
      <widget class="QLabel" name="label_26">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>360</x>
         <y>480</y>
-        <width>110</width>
+        <width>150</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>150</width>
         <height>0</height>
        </size>
       </property>
@@ -273,7 +365,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -288,11 +382,27 @@
      <widget class="QLineEdit" name="receivedInterest">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>520</x>
         <y>480</y>
         <width>111</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_24">
@@ -300,13 +410,13 @@
        <rect>
         <x>10</x>
         <y>480</y>
-        <width>110</width>
+        <width>170</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>150</width>
         <height>0</height>
        </size>
       </property>
@@ -322,7 +432,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -337,7 +449,7 @@
      <widget class="QLabel" name="label_45">
       <property name="geometry">
        <rect>
-        <x>870</x>
+        <x>990</x>
         <y>490</y>
         <width>41</width>
         <height>16</height>
@@ -350,7 +462,7 @@
      <widget class="QLabel" name="label_42">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>310</x>
         <y>490</y>
         <width>41</width>
         <height>16</height>
@@ -363,15 +475,15 @@
      <widget class="QLabel" name="label_28">
       <property name="geometry">
        <rect>
-        <x>590</x>
+        <x>690</x>
         <y>480</y>
-        <width>153</width>
+        <width>170</width>
         <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>153</width>
+        <width>170</width>
         <height>0</height>
        </size>
       </property>
@@ -387,7 +499,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -402,7 +516,7 @@
      <widget class="QLabel" name="label_43">
       <property name="geometry">
        <rect>
-        <x>540</x>
+        <x>640</x>
         <y>490</y>
         <width>41</width>
         <height>16</height>
@@ -454,7 +568,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -493,7 +609,9 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(241, 241, 241)</string>
+       <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>

@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1512</width>
-    <height>855</height>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Home</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fbfbfb;</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -20,13 +23,134 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>43</height>
+     <height>29</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>119</green>
+         <blue>194</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>119</green>
+         <blue>194</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Base">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Window">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>251</red>
+         <green>251</green>
+         <blue>251</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="HighlightedText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>119</green>
+         <blue>194</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="font">
     <font>
      <pointsize>10</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #fbfbfb;</string>
    </property>
    <widget class="QMenu" name="Registration">
     <property name="title">
@@ -48,8 +172,6 @@
     <addaction name="actionSearchGuarantor"/>
     <addaction name="actionSearchCollateral"/>
     <addaction name="actionSearchCounseling"/>
-    <addaction name="separator"/>
-    <addaction name="actionCalculator"/>
    </widget>
    <widget class="QMenu" name="Repayment">
     <property name="title">
@@ -534,6 +656,9 @@
   <action name="actionRegistrationCustomer">
    <property name="text">
     <string>Customer</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionRegistrationGuarantor">

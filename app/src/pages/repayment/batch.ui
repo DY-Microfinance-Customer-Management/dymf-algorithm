@@ -7,17 +7,60 @@
     <x>0</x>
     <y>0</y>
     <width>1190</width>
-    <height>644</height>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Loan Search</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+	background-color: #fbfbfb;
+}
+
+QDateEdit {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QDateEdit:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="cancelPaymentButton">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>390</x>
       <y>70</y>
       <width>141</width>
       <height>31</height>
@@ -35,6 +78,11 @@
       <width>1171</width>
       <height>501</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_16">
@@ -132,7 +180,7 @@
    <widget class="QPushButton" name="detailsButton">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>1080</x>
       <y>70</y>
       <width>93</width>
       <height>31</height>
@@ -145,7 +193,7 @@
    <widget class="QPushButton" name="paidButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>190</x>
       <y>70</y>
       <width>93</width>
       <height>31</height>

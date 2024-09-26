@@ -13,15 +13,52 @@
   <property name="windowTitle">
    <string>Loan Search</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+	background-color: #fbfbfb;
+}
+
+QTableView {
+	background-color: #f1f1f1;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>10</y>
+      <x>330</x>
+      <y>20</y>
       <width>111</width>
-      <height>51</height>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
     </property>
     <property name="text">
      <string>Search</string>
@@ -37,38 +74,10 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_16">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>20</y>
-      <width>171</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Agency FB</family>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color:rgb(247, 247, 247)</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string>Customer Name</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="customerName">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>130</x>
       <y>20</y>
       <width>191</width>
       <height>31</height>
@@ -78,6 +87,63 @@
      <font>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Customer Name</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

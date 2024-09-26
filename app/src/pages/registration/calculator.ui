@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
-    <height>691</height>
+    <width>802</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -24,6 +24,9 @@
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fbfbfb;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_7">
@@ -53,7 +56,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -68,7 +73,7 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>270</x>
       <y>10</y>
       <width>110</width>
       <height>31</height>
@@ -92,7 +97,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -107,21 +114,21 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>340</x>
       <y>50</y>
-      <width>130</width>
+      <width>150</width>
       <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>130</width>
+      <width>0</width>
       <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>130</width>
+      <width>150</width>
       <height>16777215</height>
      </size>
     </property>
@@ -131,7 +138,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -148,19 +157,19 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>130</width>
+      <width>180</width>
       <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>130</width>
+      <width>0</width>
       <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>130</width>
+      <width>180</width>
       <height>16777215</height>
      </size>
     </property>
@@ -170,7 +179,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -185,7 +196,7 @@
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>450</x>
       <y>10</y>
       <width>110</width>
       <height>31</height>
@@ -209,7 +220,9 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(241, 241, 241)</string>
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -226,30 +239,35 @@
      <rect>
       <x>10</x>
       <y>90</y>
-      <width>761</width>
+      <width>781</width>
       <height>591</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #f1f1f1;
+border: 1px solid transparent;
+border-radius: 10px;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="calculateButton">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>700</x>
       <y>10</y>
-      <width>100</width>
-      <height>80</height>
+      <width>91</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>100</width>
-      <height>80</height>
+      <width>0</width>
+      <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>100</width>
-      <height>80</height>
+      <width>16777215</width>
+      <height>16777215</height>
      </size>
     </property>
     <property name="font">
@@ -258,6 +276,32 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
     <property name="text">
      <string>Calculate</string>
     </property>
@@ -265,7 +309,7 @@
    <widget class="QLineEdit" name="interestRate">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>390</x>
       <y>10</y>
       <width>35</width>
       <height>30</height>
@@ -277,6 +321,22 @@
       <height>16777215</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
     <property name="text">
      <string>28</string>
     </property>
@@ -284,7 +344,7 @@
    <widget class="QLineEdit" name="principal">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>130</x>
       <y>10</y>
       <width>130</width>
       <height>30</height>
@@ -302,11 +362,27 @@
       <height>30</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>430</x>
       <y>10</y>
       <width>40</width>
       <height>31</height>
@@ -330,6 +406,9 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
+    </property>
     <property name="text">
      <string>%</string>
     </property>
@@ -337,7 +416,7 @@
    <widget class="QComboBox" name="paymentType">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>570</x>
       <y>10</y>
       <width>120</width>
       <height>30</height>
@@ -354,6 +433,22 @@
       <width>120</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QComboBox:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
     </property>
     <item>
      <property name="text">
@@ -374,7 +469,7 @@
    <widget class="QLineEdit" name="numberOfRepayment">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>200</x>
       <y>50</y>
       <width>130</width>
       <height>30</height>
@@ -391,12 +486,28 @@
       <width>130</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="repaymentCycle">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>500</x>
       <y>50</y>
       <width>130</width>
       <height>30</height>
@@ -414,11 +525,27 @@
       <height>30</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
    </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>630</x>
       <y>50</y>
       <width>40</width>
       <height>31</height>
@@ -441,6 +568,9 @@
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
     </property>
     <property name="text">
      <string>days</string>

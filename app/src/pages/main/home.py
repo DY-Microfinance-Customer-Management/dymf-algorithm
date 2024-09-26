@@ -36,7 +36,7 @@ class HomeApp(QMainWindow):
         self.actionSearchCustomer = self.findChild(QAction, 'actionSearchCustomer')
         self.actionSearchCustomer.triggered.connect(self.open_search_customer)
 
-        # Search / Customer
+        # Search / Loan
         self.actionSearchLoan = self.findChild(QAction, 'actionSearchLoan')
         self.actionSearchLoan.triggered.connect(self.open_search_loan)
 
@@ -51,6 +51,7 @@ class HomeApp(QMainWindow):
         # Search / Counseling
         self.actionSearchCounseling = self.findChild(QAction, 'actionSearchCounseling')
         self.actionSearchCounseling.triggered.connect(self.open_search_counseling)
+
         ## --------------------------------- Repayment --------------------------------- ##
         # Repayment / Single
         self.actionRepaymentSingle = self.findChild(QAction, 'actionRepaymentSingle')
@@ -90,10 +91,7 @@ class HomeApp(QMainWindow):
         # Report / Periodic Loan Balance Report
         self.actionPeriodicLoanBalanceReport = self.findChild(QAction, 'actionPeriodicLoanBalanceReport')
         self.actionPeriodicLoanBalanceReport.triggered.connect(self.open_report_periodic_balance)
-
-
-
-
+        
     ## --------------------------------- Registration --------------------------------- ##
     # Registration / Customer
     def open_registration_customer(self):
