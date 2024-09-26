@@ -206,7 +206,7 @@ class RegistrationGuarantorApp(QMainWindow):
         # 만약 필수 필드가 비어있다면 경고 메시지 출력
         if missing_fields:
             QMessageBox.warning(self, "Missing Fields",
-                                f"{', '.join(missing_fields)}이(가) 비어있습니다.")
+                                f"{', '.join(missing_fields)}is not fill.")
             return
 
         reply = QMessageBox.question(self, 'Confirm Data',

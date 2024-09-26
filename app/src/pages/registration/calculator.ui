@@ -52,6 +52,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -93,6 +94,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -134,6 +136,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -175,6 +178,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -216,6 +220,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -242,6 +247,11 @@ border-radius: 10px;</string>
       <width>781</width>
       <height>591</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #f1f1f1;
@@ -272,6 +282,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -321,6 +332,11 @@ QPushButton:disabled {
       <height>16777215</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
     border: none;
@@ -362,6 +378,11 @@ QLineEdit:disabled {
       <height>30</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
     border: none;
@@ -402,6 +423,7 @@ QLineEdit:disabled {
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -433,6 +455,11 @@ QLineEdit:disabled {
       <width>120</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QComboBox {
@@ -487,6 +514,11 @@ QComboBox:disabled {
       <height>30</height>
      </size>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
     border: none;
@@ -524,6 +556,11 @@ QLineEdit:disabled {
       <width>130</width>
       <height>30</height>
      </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
@@ -565,6 +602,7 @@ QLineEdit:disabled {
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -578,6 +616,15 @@ QLineEdit:disabled {
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>principal</tabstop>
+  <tabstop>interestRate</tabstop>
+  <tabstop>paymentType</tabstop>
+  <tabstop>numberOfRepayment</tabstop>
+  <tabstop>repaymentCycle</tabstop>
+  <tabstop>resultTable</tabstop>
+  <tabstop>calculateButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

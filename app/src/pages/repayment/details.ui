@@ -26,6 +26,11 @@
       <height>631</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: #fbfbfb;</string>
     </property>
@@ -44,6 +49,11 @@
         <width>93</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -86,8 +96,8 @@ QPushButton:disabled {
       </property>
       <property name="font">
        <font>
-        <family>Agency FB</family>
-        <pointsize>14</pointsize>
+        <family>Arial Black</family>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -112,6 +122,11 @@ QPushButton:disabled {
         <height>371</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: #f1f1f1;
 border: 1px solid transparent;
@@ -127,6 +142,11 @@ border-radius: 10px;</string>
         <height>371</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: #f1f1f1;
 border: 1px solid transparent;
@@ -141,6 +161,11 @@ border-radius: 10px;</string>
         <width>93</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -183,7 +208,7 @@ QPushButton:disabled {
       </property>
       <property name="font">
        <font>
-        <family>Agency FB</family>
+        <family>Arial Black</family>
         <pointsize>14</pointsize>
        </font>
       </property>
@@ -223,7 +248,8 @@ QPushButton:disabled {
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <family>Arial Black</family>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -261,6 +287,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -303,6 +334,11 @@ QLabel:disabled {
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -348,6 +384,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -386,6 +423,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -429,6 +471,11 @@ QLabel:disabled {
         <height>16777215</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
     border: 1px solid black;
@@ -470,6 +517,11 @@ QLabel:disabled {
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -515,6 +567,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -553,6 +606,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -598,6 +656,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -636,6 +695,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -681,6 +745,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -722,6 +787,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -760,6 +826,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -803,6 +874,11 @@ QLabel:disabled {
         <height>16777215</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
     border: 1px solid black;
@@ -845,6 +921,11 @@ QLabel:disabled {
         <height>16777215</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
     border: 1px solid black;
@@ -886,6 +967,11 @@ QLabel:disabled {
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -931,6 +1017,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -969,6 +1056,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -1014,7 +1106,8 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <family>Arial Black</family>
+        <pointsize>7</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1055,6 +1148,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -1096,7 +1190,8 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <family>Arial Black</family>
+        <pointsize>7</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1122,6 +1217,11 @@ border-radius: 10px;</string>
         <width>16</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="text">
        <string>%</string>
@@ -1150,6 +1250,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -1188,6 +1289,11 @@ border-radius: 10px;</string>
         <width>110</width>
         <height>16777215</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QLabel {
@@ -1233,6 +1339,7 @@ QLabel:disabled {
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -1274,6 +1381,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
+        <family>Arial Black</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -1301,6 +1409,11 @@ border-radius: 10px;</string>
         <height>20</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="text">
        <string>days</string>
       </property>
@@ -1314,6 +1427,11 @@ border-radius: 10px;</string>
         <height>16</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="text">
        <string>MMK</string>
       </property>
@@ -1326,6 +1444,11 @@ border-radius: 10px;</string>
         <width>93</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -1388,7 +1511,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
-        <family>Agency FB</family>
+        <family>Arial Black</family>
         <pointsize>14</pointsize>
        </font>
       </property>
@@ -1436,7 +1559,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
-        <family>Agency FB</family>
+        <family>Arial Black</family>
         <pointsize>14</pointsize>
        </font>
       </property>
@@ -1467,6 +1590,11 @@ border-radius: 10px;</string>
         <height>541</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Black</family>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: #f1f1f1;
 border: 1px solid transparent;
@@ -1484,7 +1612,7 @@ border-radius: 10px;</string>
       </property>
       <property name="font">
        <font>
-        <family>Agency FB</family>
+        <family>Arial Black</family>
         <pointsize>14</pointsize>
        </font>
       </property>
@@ -1526,6 +1654,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -1564,6 +1693,11 @@ border-radius: 10px;</string>
       <width>110</width>
       <height>16777215</height>
      </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel {
@@ -1609,7 +1743,8 @@ QLabel:disabled {
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1647,6 +1782,11 @@ border-radius: 10px;</string>
       <width>110</width>
       <height>16777215</height>
      </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel {

@@ -10,6 +10,11 @@
     <height>851</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Arial Black</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Home</string>
   </property>
@@ -23,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>29</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="palette">
@@ -146,6 +151,7 @@
    </property>
    <property name="font">
     <font>
+     <family>Arial Black</family>
      <pointsize>10</pointsize>
     </font>
    </property>
@@ -153,6 +159,11 @@
     <string notr="true">background-color: #fbfbfb;</string>
    </property>
    <widget class="QMenu" name="Registration">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>1. Registration</string>
     </property>
@@ -163,6 +174,11 @@
     <addaction name="actionCalculator"/>
    </widget>
    <widget class="QMenu" name="Search">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>2. Search</string>
     </property>
@@ -174,6 +190,11 @@
     <addaction name="actionSearchCounseling"/>
    </widget>
    <widget class="QMenu" name="Repayment">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>3. Repayment</string>
     </property>
@@ -181,6 +202,11 @@
     <addaction name="actionRepaymentBatch"/>
    </widget>
    <widget class="QMenu" name="Overdue">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>4. Overdue</string>
     </property>
@@ -189,6 +215,11 @@
     <addaction name="actionOverdueSearch"/>
    </widget>
    <widget class="QMenu" name="Settings">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>0. Settings</string>
     </property>
@@ -197,6 +228,11 @@
     <addaction name="actionSettingsAssets"/>
    </widget>
    <widget class="QMenu" name="menu5_Report">
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="title">
      <string>5. Report</string>
     </property>
@@ -603,7 +639,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Arial Black</family>
+     <pointsize>9</pointsize>
     </font>
    </property>
    <property name="iconVisibleInMenu">
@@ -616,7 +653,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Arial Black</family>
+     <pointsize>9</pointsize>
     </font>
    </property>
    <property name="iconVisibleInMenu">
@@ -656,6 +694,11 @@
   <action name="actionRegistrationCustomer">
    <property name="text">
     <string>Customer</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+    </font>
    </property>
    <property name="visible">
     <bool>true</bool>

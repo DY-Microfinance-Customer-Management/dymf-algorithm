@@ -26,6 +26,11 @@
       <height>471</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: #f1f1f1;
 border: 1px solid transparent;
@@ -40,6 +45,11 @@ border-radius: 10px;</string>
       <width>111</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -79,6 +89,11 @@ QPushButton:disabled {
       <width>191</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
@@ -120,6 +135,7 @@ QLineEdit:disabled {
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -141,6 +157,11 @@ border-radius: 10px;</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>loanNumber</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>guarantorTable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

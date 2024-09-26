@@ -59,6 +59,11 @@ QPushButton:disabled {
       <height>801</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
    </widget>
    <widget class="QPushButton" name="newButton">
     <property name="geometry">
@@ -68,6 +73,11 @@ QPushButton:disabled {
       <width>93</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="text">
      <string>New</string>
@@ -82,6 +92,11 @@ QPushButton:disabled {
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="text">
      <string>Save</string>
     </property>
@@ -94,6 +109,11 @@ QPushButton:disabled {
       <width>93</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="text">
      <string>Edit</string>
@@ -108,6 +128,11 @@ QPushButton:disabled {
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="text">
      <string>Delete</string>
     </property>
@@ -120,6 +145,11 @@ QPushButton:disabled {
       <width>321</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
@@ -147,6 +177,11 @@ QLineEdit:disabled {
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
     border: none;
@@ -172,6 +207,11 @@ QLineEdit:disabled {
       <width>321</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
@@ -213,6 +253,7 @@ QLineEdit:disabled {
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -254,6 +295,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -295,6 +337,7 @@ border-radius: 10px;</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial Black</family>
       <pointsize>10</pointsize>
      </font>
     </property>
@@ -315,6 +358,16 @@ border-radius: 10px;</string>
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>userName</tabstop>
+  <tabstop>userID</tabstop>
+  <tabstop>userPassword</tabstop>
+  <tabstop>newButton</tabstop>
+  <tabstop>editButton</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>userTable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

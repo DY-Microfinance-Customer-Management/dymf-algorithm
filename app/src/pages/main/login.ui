@@ -25,6 +25,13 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QLineEdit {
     border: none;
@@ -51,6 +58,13 @@ QLineEdit:disabled {
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">QLineEdit {
     border: none;
@@ -76,6 +90,13 @@ QLineEdit:disabled {
      <width>93</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
@@ -116,6 +137,13 @@ QPushButton:disabled {
      <height>91</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
@@ -149,7 +177,10 @@ QPushButton:disabled {
    </property>
    <property name="font">
     <font>
+     <family>Arial Black</family>
      <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -190,7 +221,10 @@ border-radius: 10px;</string>
    </property>
    <property name="font">
     <font>
+     <family>Arial Black</family>
      <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
@@ -216,6 +250,13 @@ border-radius: 10px;</string>
      <width>281</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial Black</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string/>
