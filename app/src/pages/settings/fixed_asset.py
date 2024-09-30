@@ -14,6 +14,9 @@ class SettingsFixedAssetApp(QMainWindow):
         ui_path = os.path.join(current_dir, "fixed_asset.ui")
         uic.loadUi(ui_path, self)
 
+        # 창 크기 고정
+        self.setFixedSize(self.size())
+
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 

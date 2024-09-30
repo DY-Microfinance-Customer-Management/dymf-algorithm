@@ -22,6 +22,9 @@ class RegistrationLoanApp(QMainWindow):
         ui_path = os.path.join(current_dir, "loan.ui")
         uic.loadUi(ui_path, self)
 
+        # 창 크기 고정
+        self.setFixedSize(self.size())
+
         # icon
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
@@ -92,9 +95,28 @@ class RegistrationLoanApp(QMainWindow):
             self.open_select_customer_window()
 
     def open_select_customer_window(self):
-        self.select_customer_window = SelectCustomerWindow()
-        self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
-        self.select_customer_window.show()
+        customer_data = self.load_customer_data()  # 고객 데이터를 먼저 로드합니다.
+
+        if customer_data is not None:  # 데이터가 있는 경우에만 창을 띄웁니다.
+            self.select_customer_window = SelectCustomerWindow(customer_data)  # 데이터를 전달합니다.
+            self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
+            self.select_customer_window.show()
+
+    def load_customer_data(self):
+        customers_ref = DB.collection(u'Customer')
+        docs = customers_ref.stream()
+
+        data = []
+        for doc in docs:
+            customer_data = doc.to_dict()
+            customer_data['uid'] = doc.id
+            data.append(customer_data)
+
+        if not data:
+            QMessageBox.warning(self, "No Customers Found", "Please register customer from the registration menu.")
+            return None
+
+        return pd.DataFrame(data)
 
     @pyqtSlot(dict)
     def handle_customer_selected(self, customer_data):
@@ -427,7 +449,7 @@ class RegistrationLoanApp(QMainWindow):
 
         if not guarantors_ref:
             # Guarantor 데이터가 없는 경우 경고 메시지 띄우기
-            QMessageBox.warning(self, "No Guarantors", "Please register a guarantor first.")
+            QMessageBox.warning(self, "No Guarantors Found", "Please register guarantor from the registration menu.")
             return
 
         # Guarantor 데이터가 있는 경우 선택 창 열기

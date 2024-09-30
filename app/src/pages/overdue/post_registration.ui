@@ -14,7 +14,32 @@
    <string>Overdue Loan Management</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #fbfbfb;</string>
+   <string notr="true">background-color: #fbfbfb;
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -34,14 +59,14 @@
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -75,7 +100,7 @@ border-radius: 10px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(247, 247, 247)</string>
+     <string notr="true">background-color: #2e9730;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -139,7 +164,7 @@ QLabel:disabled {
      <rect>
       <x>10</x>
       <y>200</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -151,14 +176,14 @@ QLabel:disabled {
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -179,7 +204,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_44">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>250</x>
       <y>130</y>
       <width>16</width>
       <height>16</height>
@@ -199,7 +224,7 @@ border-radius: 10px;</string>
      <rect>
       <x>10</x>
       <y>120</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -211,14 +236,14 @@ border-radius: 10px;</string>
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -241,7 +266,7 @@ border-radius: 10px;</string>
      <rect>
       <x>10</x>
       <y>80</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -253,14 +278,14 @@ border-radius: 10px;</string>
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -281,9 +306,9 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_27">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>270</x>
       <y>120</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -295,14 +320,14 @@ border-radius: 10px;</string>
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -323,7 +348,7 @@ border-radius: 10px;</string>
    <widget class="QLineEdit" name="principal">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>200</y>
       <width>111</width>
       <height>31</height>
@@ -354,7 +379,7 @@ QLineEdit:disabled {
    <widget class="QDateEdit" name="startDate">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>160</y>
       <width>110</width>
       <height>31</height>
@@ -391,9 +416,9 @@ QDateEdit:disabled {
    <widget class="QLabel" name="label_37">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>270</x>
       <y>160</y>
-      <width>111</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -412,7 +437,7 @@ QDateEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>8</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -433,7 +458,7 @@ border-radius: 10px;</string>
    <widget class="QLineEdit" name="interestRate">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>120</y>
       <width>91</width>
       <height>31</height>
@@ -467,9 +492,9 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_25">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>270</x>
       <y>80</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -481,14 +506,14 @@ QLineEdit:disabled {
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -509,7 +534,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_42">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>270</x>
       <y>210</y>
       <width>41</width>
       <height>16</height>
@@ -529,7 +554,7 @@ border-radius: 10px;</string>
      <rect>
       <x>10</x>
       <y>160</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -541,14 +566,14 @@ border-radius: 10px;</string>
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -569,7 +594,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="loanStatus">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>410</x>
       <y>80</y>
       <width>110</width>
       <height>31</height>
@@ -616,7 +641,7 @@ QLabel:disabled {
    <widget class="QLineEdit" name="repaymentCycle">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>410</x>
       <y>160</y>
       <width>111</width>
       <height>31</height>
@@ -647,7 +672,7 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_43">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>580</x>
       <y>210</y>
       <width>41</width>
       <height>16</height>
@@ -665,9 +690,9 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_26">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>320</x>
       <y>200</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -679,14 +704,14 @@ QLineEdit:disabled {
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -707,7 +732,7 @@ border-radius: 10px;</string>
    <widget class="QLineEdit" name="interest">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>460</x>
       <y>200</y>
       <width>111</width>
       <height>31</height>
@@ -738,9 +763,9 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_28">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>630</x>
       <y>200</y>
-      <width>110</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -752,14 +777,14 @@ QLineEdit:disabled {
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>8</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -780,7 +805,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_45">
     <property name="geometry">
      <rect>
-      <x>830</x>
+      <x>890</x>
       <y>210</y>
       <width>41</width>
       <height>16</height>
@@ -798,7 +823,7 @@ border-radius: 10px;</string>
    <widget class="QLineEdit" name="overdueInterest">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>770</x>
       <y>200</y>
       <width>111</width>
       <height>31</height>
@@ -829,7 +854,7 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_46">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>530</x>
       <y>170</y>
       <width>41</width>
       <height>16</height>
@@ -848,14 +873,15 @@ QLineEdit:disabled {
     <property name="geometry">
      <rect>
       <x>1070</x>
-      <y>200</y>
+      <y>180</y>
       <width>81</width>
-      <height>31</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -891,7 +917,7 @@ QPushButton:disabled {
    <widget class="QLabel" name="loanOfficer">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>410</x>
       <y>120</y>
       <width>110</width>
       <height>31</height>
@@ -938,7 +964,7 @@ QLabel:disabled {
    <widget class="QLabel" name="loanNumber">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>80</y>
       <width>110</width>
       <height>31</height>

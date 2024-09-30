@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>709</width>
-    <height>830</height>
+    <width>705</width>
+    <height>821</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,44 +64,11 @@ QPushButton:disabled {
       <family>Arial Black</family>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
    <widget class="QPushButton" name="newButton">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>690</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial Black</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>New</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="saveButton">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>750</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial Black</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Save</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="editButton">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -113,13 +80,14 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Edit</string>
+     <string>New</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="deleteButton">
+   <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -131,10 +99,30 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Delete</string>
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editButton">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>750</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Edit</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="officerName">
@@ -204,7 +192,7 @@ QLineEdit:disabled {
      <rect>
       <x>370</x>
       <y>100</y>
-      <width>171</width>
+      <width>231</width>
       <height>31</height>
      </rect>
     </property>
@@ -223,7 +211,7 @@ QLineEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -265,7 +253,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -291,7 +279,6 @@ border-radius: 10px;</string>
   <tabstop>newButton</tabstop>
   <tabstop>editButton</tabstop>
   <tabstop>saveButton</tabstop>
-  <tabstop>deleteButton</tabstop>
   <tabstop>officerTable</tabstop>
  </tabstops>
  <resources/>

@@ -6,15 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1464</width>
-    <height>690</height>
+    <width>1471</width>
+    <height>692</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Details</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #fbfbfb;</string>
+   <string notr="true">background-color: #fbfbfb;
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -22,7 +47,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1441</width>
+      <width>1451</width>
       <height>671</height>
      </rect>
     </property>
@@ -45,19 +70,19 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>140</y>
-        <width>171</width>
-        <height>31</height>
+        <y>130</y>
+        <width>201</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(247, 247, 247)</string>
+       <string notr="true">background-color: #2e9730;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -94,7 +119,7 @@ border-radius: 10px;</string>
        <rect>
         <x>740</x>
         <y>182</y>
-        <width>681</width>
+        <width>691</width>
         <height>451</height>
        </rect>
       </property>
@@ -113,19 +138,19 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>740</x>
-        <y>140</y>
-        <width>171</width>
-        <height>31</height>
+        <y>130</y>
+        <width>201</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(247, 247, 247)</string>
+       <string notr="true">background-color: #2e9730;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -161,7 +186,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -297,7 +322,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -386,7 +411,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -475,7 +500,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -517,7 +542,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -559,7 +584,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -648,7 +673,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -690,7 +715,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -711,7 +736,7 @@ border-radius: 10px;</string>
      <widget class="QLabel" name="label_71">
       <property name="geometry">
        <rect>
-        <x>1050</x>
+        <x>1040</x>
         <y>20</y>
         <width>41</width>
         <height>16</height>
@@ -778,7 +803,7 @@ QLabel:disabled {
        <rect>
         <x>1400</x>
         <y>20</y>
-        <width>31</width>
+        <width>41</width>
         <height>20</height>
        </rect>
       </property>
@@ -909,7 +934,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1045,7 +1070,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1105,7 +1130,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="styleSheet">
@@ -1179,9 +1204,9 @@ QLabel:disabled {
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>60</y>
         <width>1411</width>
-        <height>581</height>
+        <height>571</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1195,18 +1220,18 @@ border-radius: 10px;</string>
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>171</width>
-        <height>31</height>
+        <width>201</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(247, 247, 247)</string>
+       <string notr="true">background-color: #2e9730;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1227,9 +1252,9 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>60</y>
         <width>1411</width>
-        <height>581</height>
+        <height>571</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1243,18 +1268,18 @@ border-radius: 10px;</string>
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>171</width>
-        <height>31</height>
+        <width>201</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(247, 247, 247)</string>
+       <string notr="true">background-color: #2e9730;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
@@ -1275,9 +1300,9 @@ border-radius: 10px;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>60</y>
         <width>1411</width>
-        <height>581</height>
+        <height>571</height>
        </rect>
       </property>
       <property name="font">
@@ -1296,18 +1321,18 @@ border-radius: 10px;</string>
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>171</width>
-        <height>31</height>
+        <width>201</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:rgb(247, 247, 247)</string>
+       <string notr="true">background-color: #2e9730;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>

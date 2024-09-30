@@ -22,16 +22,41 @@ QTableView {
 	background-color: #f1f1f1;
 	border: 1px solid transparent;
 	border-radius: 10px;
-}</string>
+}
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>20</y>
+      <x>350</x>
+      <y>10</y>
       <width>111</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -91,7 +116,7 @@ QPushButton:disabled {
    <widget class="QLineEdit" name="customerName">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>150</x>
       <y>20</y>
       <width>191</width>
       <height>31</height>
@@ -126,9 +151,9 @@ QLineEdit:disabled {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>110</width>
-      <height>31</height>
+      <y>10</y>
+      <width>131</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -139,14 +164,14 @@ QLineEdit:disabled {
     </property>
     <property name="maximumSize">
      <size>
-      <width>110</width>
+      <width>16777215</width>
       <height>16777215</height>
      </size>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>8</pointsize>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

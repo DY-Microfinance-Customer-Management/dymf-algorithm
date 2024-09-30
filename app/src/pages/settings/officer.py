@@ -14,6 +14,9 @@ class SettingsOfficerApp(QMainWindow):
         ui_path = os.path.join(current_dir, "officer.ui")
         uic.loadUi(ui_path, self)
 
+        # 창 크기 고정
+        self.setFixedSize(self.size())
+
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
@@ -25,7 +28,7 @@ class SettingsOfficerApp(QMainWindow):
         # 버튼 초기 설정 및 테이블 설정
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
-        self.deleteButton.setEnabled(False)
+        # self.deleteButton.setEnabled(False)
         self.officerName.setEnabled(False)
         self.officerServiceArea.setEnabled(False)
 
@@ -38,7 +41,7 @@ class SettingsOfficerApp(QMainWindow):
         self.newButton.clicked.connect(self.on_new_clicked)
         self.editButton.clicked.connect(self.on_edit_clicked)
         self.saveButton.clicked.connect(self.on_save_clicked)
-        self.deleteButton.clicked.connect(self.on_delete_clicked)
+        # self.deleteButton.clicked.connect(self.on_delete_clicked)
         self.officerTable.clicked.connect(self.on_table_row_clicked)
 
         # 초기 데이터 로드
@@ -86,7 +89,7 @@ class SettingsOfficerApp(QMainWindow):
         self.officerServiceArea.setEnabled(True)
         self.saveButton.setEnabled(True)
         self.editButton.setEnabled(False)
-        self.deleteButton.setEnabled(False)
+        # self.deleteButton.setEnabled(False)
         self.current_officer_id = None  # 신규 등록 시 기존 ID 없음
 
     def on_edit_clicked(self):
@@ -95,7 +98,7 @@ class SettingsOfficerApp(QMainWindow):
         self.officerServiceArea.setEnabled(True)
         self.saveButton.setEnabled(True)
         self.editButton.setEnabled(False)
-        self.deleteButton.setEnabled(False)
+        # self.deleteButton.setEnabled(False)
 
     def on_save_clicked(self):
         # 오피서 정보 저장
@@ -168,7 +171,7 @@ class SettingsOfficerApp(QMainWindow):
             self.current_officer_id = officers[0].id
 
         self.editButton.setEnabled(True)
-        self.deleteButton.setEnabled(True)
+        # self.deleteButton.setEnabled(True)
         self.saveButton.setEnabled(False)
 
         # 필드를 비활성화하여 선택된 행이 수정되지 않도록 함
@@ -183,7 +186,7 @@ class SettingsOfficerApp(QMainWindow):
         self.officerServiceArea.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.editButton.setEnabled(False)
-        self.deleteButton.setEnabled(False)
+        # self.deleteButton.setEnabled(False)
 
 def main():
     app = QApplication(sys.argv)

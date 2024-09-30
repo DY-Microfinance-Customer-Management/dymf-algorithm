@@ -14,7 +14,32 @@
    <string>Guarantor Search</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #fbfbfb;</string>
+   <string notr="true">background-color: #fbfbfb;
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableView" name="guarantorTable">
@@ -41,14 +66,15 @@ border-radius: 10px;</string>
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>20</y>
+      <y>10</y>
       <width>111</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -116,9 +142,9 @@ QLineEdit:disabled {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>10</y>
       <width>151</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -136,7 +162,7 @@ QLineEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">

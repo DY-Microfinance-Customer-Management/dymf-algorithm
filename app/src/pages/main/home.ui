@@ -28,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="palette">
@@ -156,7 +156,9 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #fbfbfb;</string>
+    <string notr="true">background-color: #fbfbfb;
+border: none;
+border-bottom: 1px solid grey;</string>
    </property>
    <widget class="QMenu" name="Registration">
     <property name="font">

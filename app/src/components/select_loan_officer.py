@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QVBoxLayout, QDialog, QPushButton, QTableView, QAbstractItemView
+from PyQt5.QtWidgets import QVBoxLayout, QDialog, QPushButton, QTableView, QAbstractItemView, QMessageBox
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from src.components import DB
@@ -20,9 +20,64 @@ class SelectLoanOfficerWindow(QDialog):
         self.selectButton.clicked.connect(self.accept)
         self.layout.addWidget(self.selectButton)
 
+        # Apply styles
+        self.apply_stylesheet()
+
         # Load the data and populate the table
         self.officer_data = self.load_officer_data()
         self.populate_table()
+
+    def apply_stylesheet(self):
+        stylesheet = """
+        QWidget {
+            background-color: #fbfbfb;
+        }
+
+        QTableView {
+            background-color: #f1f1f1;
+            border: 1px solid transparent;
+            border-radius: 10px;
+        }
+
+        QPushButton {
+            background-color: #0077c2;
+            color: white;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+        QPushButton:hover {
+            border: 1px solid white;
+        }
+
+        QPushButton:pressed {
+            background-color: #005f9e;
+            padding-top: 6px;
+            padding-bottom: 4px;
+        }
+
+        QPushButton:disabled {
+            background-color: lightgray;
+            color: gray;
+            border: 1px solid gray;
+        }
+
+        QLineEdit {
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            color: black;
+        }
+
+        QLineEdit:disabled {
+            border: none;
+            border-bottom: 1px solid lightgray;
+            background-color: lightgray;
+            color: lightgray;
+        }
+        """
+        self.setStyleSheet(stylesheet)
 
     def load_officer_data(self):
         officers_ref = DB.collection('Officer')

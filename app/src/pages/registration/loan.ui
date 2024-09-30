@@ -14,13 +14,38 @@
    <string>Loan Management</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #fbfbfb;</string>
+   <string notr="true">background-color: #fbfbfb;
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>230</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -41,7 +66,7 @@
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -66,7 +91,7 @@ border-radius: 10px;</string>
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>171</width>
+      <width>191</width>
       <height>51</height>
      </rect>
     </property>
@@ -79,7 +104,7 @@ border-radius: 10px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(247, 247, 247)</string>
+     <string notr="true">background-color: #2e9730;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -94,15 +119,16 @@ border-radius: 10px;</string>
    <widget class="QPushButton" name="customerSearchButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>470</x>
       <y>20</y>
-      <width>71</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -140,7 +166,7 @@ QPushButton:disabled {
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>680</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -161,7 +187,7 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -184,7 +210,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="customerDateOfBirth">
     <property name="geometry">
      <rect>
-      <x>780</x>
+      <x>800</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -233,7 +259,7 @@ QLabel:disabled {
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>900</x>
+      <x>920</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -254,7 +280,7 @@ QLabel:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -277,7 +303,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="customerContact">
     <property name="geometry">
      <rect>
-      <x>1020</x>
+      <x>1040</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -329,7 +355,7 @@ QLabel:disabled {
       <x>10</x>
       <y>70</y>
       <width>1441</width>
-      <height>671</height>
+      <height>681</height>
      </rect>
     </property>
     <property name="font">
@@ -354,7 +380,7 @@ QLabel:disabled {
        <rect>
         <x>1030</x>
         <y>50</y>
-        <width>130</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -366,14 +392,14 @@ QLabel:disabled {
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -417,7 +443,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -461,7 +487,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -568,7 +594,7 @@ QComboBox:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -591,15 +617,16 @@ border-radius: 10px;</string>
      <widget class="QPushButton" name="calculateButton">
       <property name="geometry">
        <rect>
-        <x>1300</x>
+        <x>1290</x>
         <y>90</y>
-        <width>121</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -658,7 +685,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -702,7 +729,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -786,7 +813,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -830,7 +857,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -874,7 +901,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -922,7 +949,7 @@ border-radius: 10px;</string>
      <widget class="QLineEdit" name="numberOfRepayment">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1190</x>
         <y>50</y>
         <width>111</width>
         <height>31</height>
@@ -1137,13 +1164,14 @@ QLineEdit:disabled {
        <rect>
         <x>490</x>
         <y>50</y>
-        <width>71</width>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1183,7 +1211,7 @@ QPushButton:disabled {
        <rect>
         <x>720</x>
         <y>90</y>
-        <width>110</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -1195,14 +1223,14 @@ QPushButton:disabled {
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1225,7 +1253,7 @@ border-radius: 10px;</string>
      <widget class="QComboBox" name="repaymentMethod">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>860</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -1358,7 +1386,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1402,7 +1430,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1446,7 +1474,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1490,7 +1518,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1730,7 +1758,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1843,7 +1871,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1887,7 +1915,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1931,7 +1959,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1956,7 +1984,7 @@ border-radius: 10px;</string>
        <rect>
         <x>720</x>
         <y>90</y>
-        <width>110</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -1968,14 +1996,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2039,7 +2067,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2083,7 +2111,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2147,7 +2175,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2191,7 +2219,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2216,7 +2244,7 @@ border-radius: 10px;</string>
        <rect>
         <x>1030</x>
         <y>50</y>
-        <width>130</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -2228,14 +2256,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2299,7 +2327,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2665,7 +2693,7 @@ QLabel:disabled {
      <widget class="QLabel" name="guarantorRepaymentMethod">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>860</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -2763,7 +2791,7 @@ QLabel:disabled {
      <widget class="QLabel" name="guarantorNumberOfRepayment">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1190</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -2821,6 +2849,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2867,6 +2896,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -2925,7 +2955,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3044,7 +3074,7 @@ QLineEdit:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3076,6 +3106,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3154,6 +3185,7 @@ QLineEdit:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3200,7 +3232,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3232,6 +3264,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3278,6 +3311,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3324,7 +3358,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3453,7 +3487,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3497,7 +3531,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3542,7 +3576,7 @@ border-radius: 10px;</string>
        <rect>
         <x>1030</x>
         <y>50</y>
-        <width>130</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -3554,14 +3588,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3625,7 +3659,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3669,7 +3703,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3733,7 +3767,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3777,7 +3811,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3802,7 +3836,7 @@ border-radius: 10px;</string>
        <rect>
         <x>720</x>
         <y>90</y>
-        <width>110</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -3814,14 +3848,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3865,7 +3899,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -3909,7 +3943,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4275,7 +4309,7 @@ QLabel:disabled {
      <widget class="QLabel" name="collateralRepaymentMethod">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>860</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -4373,7 +4407,7 @@ QLabel:disabled {
      <widget class="QLabel" name="collateralNumberOfRepayment">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1190</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -4443,7 +4477,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4529,7 +4563,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4594,7 +4628,7 @@ QLineEdit:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4659,6 +4693,7 @@ QLineEdit:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4705,7 +4740,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4737,6 +4772,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4783,7 +4819,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4887,6 +4923,7 @@ QDateEdit:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -4933,6 +4970,7 @@ QPushButton:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5033,7 +5071,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5097,7 +5135,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5141,7 +5179,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5186,7 +5224,7 @@ border-radius: 10px;</string>
        <rect>
         <x>1030</x>
         <y>50</y>
-        <width>130</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -5198,14 +5236,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>130</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5249,7 +5287,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5293,7 +5331,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5337,7 +5375,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5381,7 +5419,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5406,7 +5444,7 @@ border-radius: 10px;</string>
        <rect>
         <x>720</x>
         <y>90</y>
-        <width>110</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -5418,14 +5456,14 @@ border-radius: 10px;</string>
       </property>
       <property name="maximumSize">
        <size>
-        <width>110</width>
+        <width>16777215</width>
         <height>16777215</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>7</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5469,7 +5507,7 @@ border-radius: 10px;</string>
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -5835,7 +5873,7 @@ QLabel:disabled {
      <widget class="QLabel" name="counselingRepaymentMethod">
       <property name="geometry">
        <rect>
-        <x>840</x>
+        <x>860</x>
         <y>90</y>
         <width>110</width>
         <height>31</height>
@@ -5933,7 +5971,7 @@ QLabel:disabled {
      <widget class="QLabel" name="counselingNumberOfRepayment">
       <property name="geometry">
        <rect>
-        <x>1170</x>
+        <x>1190</x>
         <y>50</y>
         <width>110</width>
         <height>31</height>
@@ -6003,7 +6041,7 @@ QLabel:disabled {
       <property name="font">
        <font>
         <family>Arial Black</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -6077,7 +6115,7 @@ QLabel:disabled {
    <widget class="QCheckBox" name="checkBoxMale">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>570</x>
       <y>20</y>
       <width>41</width>
       <height>31</height>
@@ -6097,7 +6135,7 @@ QLabel:disabled {
    <widget class="QCheckBox" name="checkBoxFemale">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>610</x>
       <y>20</y>
       <width>41</width>
       <height>31</height>
@@ -6117,7 +6155,7 @@ QLabel:disabled {
    <widget class="QLabel" name="customerName">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>350</x>
       <y>20</y>
       <width>110</width>
       <height>31</height>
@@ -6169,12 +6207,13 @@ QLabel:disabled {
       <x>1330</x>
       <y>20</y>
       <width>121</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

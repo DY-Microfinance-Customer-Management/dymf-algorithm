@@ -77,6 +77,7 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -95,6 +96,7 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -113,6 +115,7 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -131,6 +134,7 @@ QPushButton:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -276,6 +280,7 @@ QDateEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -325,6 +330,7 @@ QLineEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -343,6 +349,7 @@ QLineEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
@@ -373,7 +380,7 @@ QLineEdit:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -415,7 +422,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -457,7 +464,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -499,7 +506,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -541,7 +548,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>10</pointsize>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="styleSheet">

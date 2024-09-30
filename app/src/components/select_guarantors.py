@@ -1,7 +1,7 @@
 import sys
 import os
 import pandas as pd
-from PyQt5.QtWidgets import QDialog, QTableView, QLineEdit, QPushButton, QVBoxLayout, QApplication
+from PyQt5.QtWidgets import QDialog, QTableView, QLineEdit, QPushButton, QVBoxLayout, QApplication, QMessageBox
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
@@ -41,8 +41,63 @@ class SelectGuarantorWindow(QDialog):
         # Signal for search
         self.searchBox.textChanged.connect(self.filter_data)
 
+        # Apply styles
+        self.apply_stylesheet()
+
         # Load data
         self.load_data()
+
+    def apply_stylesheet(self):
+        stylesheet = """
+        QWidget {
+            background-color: #fbfbfb;
+        }
+
+        QTableView {
+            background-color: #f1f1f1;
+            border: 1px solid transparent;
+            border-radius: 10px;
+        }
+
+        QPushButton {
+            background-color: #0077c2;
+            color: white;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
+
+        QPushButton:hover {
+            border: 1px solid white;
+        }
+
+        QPushButton:pressed {
+            background-color: #005f9e;
+            padding-top: 6px;
+            padding-bottom: 4px;
+        }
+
+        QPushButton:disabled {
+            background-color: lightgray;
+            color: gray;
+            border: 1px solid gray;
+        }
+
+        QLineEdit {
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            color: black;
+        }
+
+        QLineEdit:disabled {
+            border: none;
+            border-bottom: 1px solid lightgray;
+            background-color: lightgray;
+            color: lightgray;
+        }
+        """
+        self.setStyleSheet(stylesheet)
 
     def load_data(self):
         guarantors_ref = DB.collection(u'Guarantor')
@@ -53,6 +108,11 @@ class SelectGuarantorWindow(QDialog):
             guarantor_data = doc.to_dict()
             guarantor_data['uid'] = doc.id
             data.append(guarantor_data)
+
+        if not data:
+            # Show warning message if no guarantors are found
+            QMessageBox.warning(self, "No Guarantors Found", "Please register guarantors from the registration menu.")
+            return
 
         self.df = pd.DataFrame(data)
 

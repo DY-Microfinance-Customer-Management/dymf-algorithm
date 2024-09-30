@@ -1,11 +1,9 @@
-import sys, os, re, requests
+import sys, os, re
 from datetime import timedelta
-from io import BytesIO
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QVBoxLayout, QDialog, QPushButton, QListWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QDialog
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QPixmap, QIcon, QIntValidator
-from PyQt5.QtCore import Qt
 from src.components import DB, storageBucket
 
 class RegistrationGuarantorApp(QMainWindow):
@@ -15,6 +13,9 @@ class RegistrationGuarantorApp(QMainWindow):
         ui_path = os.path.join(current_dir, "guarantor.ui")
         uic.loadUi(ui_path, self)
 
+        # 창 크기 고정
+        self.setFixedSize(self.size())
+        
         icon_path = os.path.join(current_dir, 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
 
@@ -33,6 +34,7 @@ class RegistrationGuarantorApp(QMainWindow):
         self.tel2ByThree.setValidator(validator)
         self.tel1ByTwo.setValidator(validator)
         self.tel1ByThree.setValidator(validator)
+
     def initialize_buttons(self):
         self.newButton.setEnabled(True)
         self.saveButton.setEnabled(False)
@@ -54,7 +56,8 @@ class RegistrationGuarantorApp(QMainWindow):
         self.current_guarantor_id = None
 
     def open_officer_select_dialog(self):
-        dialog = OfficerSelectDialog(self)
+        from src.components.select_loan_officer import SelectLoanOfficerWindow
+        dialog = SelectLoanOfficerWindow(self)
         if dialog.exec_() == QDialog.Accepted:
             selected_officer = dialog.get_selected_officer()
             if selected_officer:
@@ -79,7 +82,6 @@ class RegistrationGuarantorApp(QMainWindow):
             text = field.text()
             if len(text) > 4:
                 field.setText(text[:4])
-
 
     def clear_fields(self):
         self.name.clear()
@@ -146,6 +148,7 @@ class RegistrationGuarantorApp(QMainWindow):
         self.saveButton.setEnabled(False)
         self.imageButton.setEnabled(False)
         self.cpNumber.setEnabled(False)
+
     def enable_all_fields(self):
         self.saveButton.setEnabled(True)
         self.name.setEnabled(True)
@@ -179,12 +182,12 @@ class RegistrationGuarantorApp(QMainWindow):
         self.cpNumber.setEnabled(True)
 
     def prepare_save_guarantor_data(self):
-        guarantor_data = self.get_guarantor_data()
+        # guarantor_data = self.get_guarantor_data()
 
-        # 필수 필드 목록
-        required_fields = [
-            "name", "nrc_no", "date_of_birth", "gender"
-        ]
+        # # 필수 필드 목록
+        # required_fields = [
+        #     "name", "nrc_no", "date_of_birth", "gender"
+        # ]
 
         # 필수 필드 중 하나라도 비어있는지 확인
         missing_fields = []
@@ -303,37 +306,6 @@ class RegistrationGuarantorApp(QMainWindow):
                 self.selected_image_path = file_name
             else:
                 QMessageBox.warning(self, "Error", "Failed to load image.")
-
-class OfficerSelectDialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("Select Loan Officer")
-        self.setGeometry(300, 300, 300, 400)
-
-        self.layout = QVBoxLayout(self)
-
-        self.listWidget = QListWidget(self)
-        self.layout.addWidget(self.listWidget)
-
-        self.selectButton = QPushButton("Select", self)
-        self.selectButton.clicked.connect(self.accept)
-        self.layout.addWidget(self.selectButton)
-
-        self.officer_data = self.load_officer_data()
-
-        for officer in self.officer_data:
-            self.listWidget.addItem(f"{officer['name']} - {officer['service_area']}")
-
-    def load_officer_data(self):
-        officers_ref = DB.collection('Officer')
-        docs = officers_ref.stream()
-        return [doc.to_dict() for doc in docs]
-
-    def get_selected_officer(self):
-        selected_row = self.listWidget.currentRow()
-        if selected_row != -1:
-            return self.officer_data[selected_row]
-        return None
 
 def main():
     app = QApplication(sys.argv)
