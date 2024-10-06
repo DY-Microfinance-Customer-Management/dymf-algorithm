@@ -75,6 +75,10 @@ class HomeApp(QMainWindow):
         self.actionOverdueSearch = self.findChild(QAction, 'actionOverdueSearch')
         self.actionOverdueSearch.triggered.connect(self.open_overdue_search)
 
+        # Report / Periodic Balance
+        self.actionPeriodicLoanBalanceReport = self.findChild(QAction, 'actionPeriodicLoanBalanceReport')
+        self.actionPeriodicLoanBalanceReport.triggered.connect(self.open_report_periodic_balance)
+
         # Settings / Officer
         self.actionSettingsOfficer = self.findChild(QAction, 'actionSettingsOfficer')
         self.actionSettingsOfficer.triggered.connect(self.open_settings_officer)
@@ -82,6 +86,10 @@ class HomeApp(QMainWindow):
         # Settings / User
         self.actionSettingsUser = self.findChild(QAction, 'actionSettingsUser')
         self.actionSettingsUser.triggered.connect(self.open_settings_user)
+
+        # Settings / Fixed Asset
+        self.actionSettingsAssets = self.findChild(QAction, 'actionSettingsAssets')
+        self.actionSettingsAssets.triggered.connect(self.open_settings_assets)
 
     def show_child_window(self, window):
         # Set the parent to the main window to ensure it stays above the main window but below other apps
@@ -174,6 +182,12 @@ class HomeApp(QMainWindow):
         self.overdue_search_window = OverdueSearchApp()
         self.show_child_window(self.overdue_search_window)
 
+    # Report / Periodic Balance
+    def open_report_periodic_balance(self):
+        from src.pages.report.periodic_balance import ReportPeriodicBalanceApp
+        self.report_periodic_balance_window = ReportPeriodicBalanceApp()
+        self.show_child_window(self.report_periodic_balance_window)
+
     # Settings / Officer
     def open_settings_officer(self):
         from src.pages.settings.officer import SettingsOfficerApp
@@ -186,6 +200,12 @@ class HomeApp(QMainWindow):
         self.settings_user_window = SettingsUserApp()
         self.show_child_window(self.settings_user_window)
 
+    # Settings / Fixed Asset
+    def open_settings_assets(self):
+        from src.pages.settings.fixed_asset import SettingsFixedAssetApp
+        self.settings_assets_window = SettingsFixedAssetApp()
+        self.show_child_window(self.settings_assets_window)
+
     # Handle minimizing all child windows when the main window is minimized
     def changeEvent(self, event):
         if event.type() == QEvent.WindowStateChange:
@@ -196,12 +216,12 @@ class HomeApp(QMainWindow):
                         child.showMinimized()
         super().changeEvent(event)
 
-    def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)
-        if reply == QMessageBox.Ok:
-            event.accept()
-        else:
-            event.ignore()
+    # def closeEvent(self, event):
+    #     reply = QMessageBox.question(self, 'Exit Application', "Are you sure you want to exit?", QMessageBox.Cancel | QMessageBox.Ok, QMessageBox.Ok)
+    #     if reply == QMessageBox.Ok:
+    #         event.accept()
+    #     else:
+    #         event.ignore()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -4,11 +4,10 @@ from PyQt5 import uic
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 import os
 import traceback
-from src.components import DB  # Firestore 연결을 위한 모듈
 
-# LoanDetailsApp을 import합니다.
+from src.components import DB
 from src.pages.search.loan_details import LoanDetailsApp
-
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 class SearchLoanApp(QMainWindow):
     def __init__(self):
@@ -51,19 +50,23 @@ class SearchLoanApp(QMainWindow):
         try:
             # 사용자 입력 데이터 가져오기
             customer_name = self.CustomerName.text().strip()
+            
+            lower_keyword = customer_name.lower()
+            upper_keyword = customer_name.title()
 
             if customer_name:
-                # Firestore에서 모든 고객 정보를 가져오기
-                all_customers = DB.collection('Customer').get()
-
-                # 대소문자 구분 없이 필터링
                 filtered_customers = []
-                lower_customer_name = customer_name.lower()
-                for customer in all_customers:
-                    customer_data = customer.to_dict()
-                    name = customer_data.get("name", "")
-                    if lower_customer_name in name.lower():  # 대소문자 구분 없이 비교
-                        filtered_customers.append(customer.id)
+                
+                lower_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', lower_keyword)).where(filter=FieldFilter('name', '<=', lower_keyword + '\uf8ff')).stream()
+                upper_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', upper_keyword)).where(filter=FieldFilter('name', '<=', upper_keyword + '\uf8ff')).stream()
+
+                for lower_doc in lower_keyword_customers:
+                    filtered_customers.append(lower_doc.id)
+                    print(lower_doc.to_dict())
+
+                for  upper_doc in upper_keyword_customers:
+                    filtered_customers.append(upper_doc.id)
+                    print(upper_doc.to_dict())
 
                 if not filtered_customers:
                     QMessageBox.warning(self, "No Data", "No customer found with the entered name.")
