@@ -240,11 +240,20 @@ border-bottom: 1px solid grey;</string>
     </property>
     <addaction name="actionPeriodicLoanBalanceReport"/>
    </widget>
+   <widget class="QMenu" name="menu6_Personnel">
+    <property name="title">
+     <string>6. Personnel</string>
+    </property>
+    <addaction name="actionPersonnelStaffRegister"/>
+    <addaction name="actionPersonnelPayroll"/>
+    <addaction name="actionPersonnelDownloadReport"/>
+   </widget>
    <addaction name="Registration"/>
    <addaction name="Search"/>
    <addaction name="Repayment"/>
    <addaction name="Overdue"/>
    <addaction name="menu5_Report"/>
+   <addaction name="menu6_Personnel"/>
    <addaction name="Settings"/>
   </widget>
   <action name="action">
@@ -804,6 +813,21 @@ border-bottom: 1px solid grey;</string>
   <action name="actionPeriodicLoanBalanceReport">
    <property name="text">
     <string>Periodic Loan Balance Report</string>
+   </property>
+  </action>
+  <action name="actionPersonnelStaffRegister">
+   <property name="text">
+    <string>Staff Register</string>
+   </property>
+  </action>
+  <action name="actionPersonnelPayroll">
+   <property name="text">
+    <string>Payroll</string>
+   </property>
+  </action>
+  <action name="actionPersonnelDownloadReport">
+   <property name="text">
+    <string>Download Report</string>
    </property>
   </action>
  </widget>

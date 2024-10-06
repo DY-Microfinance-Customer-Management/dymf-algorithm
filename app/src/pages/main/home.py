@@ -79,6 +79,28 @@ class HomeApp(QMainWindow):
         self.actionPeriodicLoanBalanceReport = self.findChild(QAction, 'actionPeriodicLoanBalanceReport')
         self.actionPeriodicLoanBalanceReport.triggered.connect(self.open_report_periodic_balance)
 
+
+
+
+
+
+
+        # Personnel / Staff Register
+        self.actionPersonnelStaffRegister = self.findChild(QAction, 'actionPersonnelStaffRegister')
+        self.actionPersonnelStaffRegister.triggered.connect(self.open_personnel_staff_register)
+
+        # # Personnel / Payroll
+        # self.actionPersonnelStaffRegister = self.findChild(QAction, 'actionPersonnelStaffRegister')
+        # self.actionPersonnelStaffRegister.triggered.connect(self.open_personnel_payroll)
+
+        # # Personnel / Download Report
+        # self.actionPersonnelStaffRegister = self.findChild(QAction, 'actionPersonnelStaffRegister')
+        # self.actionPersonnelStaffRegister.triggered.connect(self.open_personnel_download_report)
+
+
+
+
+
         # Settings / Officer
         self.actionSettingsOfficer = self.findChild(QAction, 'actionSettingsOfficer')
         self.actionSettingsOfficer.triggered.connect(self.open_settings_officer)
@@ -187,6 +209,30 @@ class HomeApp(QMainWindow):
         from src.pages.report.periodic_balance import ReportPeriodicBalanceApp
         self.report_periodic_balance_window = ReportPeriodicBalanceApp()
         self.show_child_window(self.report_periodic_balance_window)
+
+
+
+
+
+
+
+    # Personnel / Staff Register
+    def open_personnel_staff_register(self):
+        from src.pages.personnel.registration import PersonnelRegisterApp
+        self.personnel_registration_window = PersonnelRegisterApp()
+        self.show_child_window(self.personnel_registration_window)
+
+
+
+
+
+
+
+
+
+
+
+
 
     # Settings / Officer
     def open_settings_officer(self):

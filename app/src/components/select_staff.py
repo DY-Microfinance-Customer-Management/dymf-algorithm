@@ -7,14 +7,14 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
 from src.components import DB
 
-class SelectCustomerWindow(QDialog):
-    customer_selected = pyqtSignal(dict)
+class SelectStaffWindow(QDialog):
+    staff_selected = pyqtSignal(dict)
 
     def __init__(self, parent=None):
-        super(SelectCustomerWindow, self).__init__(parent)
+        super(SelectStaffWindow, self).__init__(parent)
 
         # Set window properties
-        self.setWindowTitle("Select Customer")
+        self.setWindowTitle("Select Staff")
         self.setGeometry(300, 300, 600, 700)
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
@@ -24,15 +24,10 @@ class SelectCustomerWindow(QDialog):
 
         # Search box
         self.searchBox = QLineEdit(self)
-        self.searchBox.setPlaceholderText("Search by customer name")
+        self.searchBox.setPlaceholderText("Search by staff name")
         self.layout.addWidget(self.searchBox)
 
-        # Search button
-        self.searchButton = QPushButton("Search", self)
-        self.searchButton.clicked.connect(self.filter_data)
-        self.layout.addWidget(self.searchButton)
-
-        # Table view for displaying customers
+        # Table view for displaying staff
         self.tableView = QTableView(self)
         self.tableView.setSelectionBehavior(QTableView.SelectRows)
         self.layout.addWidget(self.tableView)
@@ -40,9 +35,12 @@ class SelectCustomerWindow(QDialog):
         # Select button
         self.selectButton = QPushButton("Select", self)
         self.selectButton.clicked.connect(self.handle_select_button)
-        self.selectButton.setFocusPolicy(Qt.StrongFocus)  # Ensure button can take focus
-        self.selectButton.setDefault(True)  # Set as default button
+        self.selectButton.setFocusPolicy(Qt.StrongFocus)
+        self.selectButton.setDefault(True)
         self.layout.addWidget(self.selectButton)
+
+        # Signal for search
+        self.searchBox.textChanged.connect(self.filter_data)
 
         # Apply styles
         self.apply_stylesheet()
@@ -110,14 +108,14 @@ class SelectCustomerWindow(QDialog):
         if search_text:
             # Load data from Firestore with search text filtering
             try:
-                customer_ref = DB.collection('Customer').where('name_lower', '>=', search_text).where('name_lower', '<=', search_text + '\uf8ff')
-                docs = customer_ref.stream()
+                staff_ref = DB.collection('Staff').where('name_lower', '>=', search_text).where('name_lower', '<=', search_text + '\uf8ff')
+                docs = staff_ref.stream()
 
                 data = []
                 for doc in docs:
-                    customer_data = doc.to_dict()
-                    customer_data['uid'] = doc.id
-                    data.append(customer_data)
+                    staff_data = doc.to_dict()
+                    staff_data['uid'] = doc.id
+                    data.append(staff_data)
 
                 # Create DataFrame from the retrieved data
                 if data:
@@ -132,7 +130,7 @@ class SelectCustomerWindow(QDialog):
                 self.tableView.setModel(self.model)
 
             except Exception as e:
-                QMessageBox.critical(self, "Error", f"An error occurred while searching for customers: {e}")
+                QMessageBox.critical(self, "Error", f"An error occurred while searching for staff: {e}")
 
     def create_model(self, df):
         model = QStandardItemModel(df.shape[0], df.shape[1])
@@ -155,14 +153,14 @@ class SelectCustomerWindow(QDialog):
             index = selected_indexes[0]
             row = index.row()
             selected_data = self.display_df.iloc[row].to_dict()
-            self.customer_selected.emit(selected_data)  # Emit the selected customer data
+            self.staff_selected.emit(selected_data)  # Emit the selected staff data
             self.accept()
 
 def main():
     app = QApplication(sys.argv)
 
     # Create and show the selection window
-    window = SelectCustomerWindow()
+    window = SelectStaffWindow()
     window.show()
 
     sys.exit(app.exec_())

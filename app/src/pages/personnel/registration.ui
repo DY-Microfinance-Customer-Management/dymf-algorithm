@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1204</width>
+    <height>342</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Staff Registration</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imageLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>130</y>
+      <width>141</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(255, 255, 255)</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="name">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>130</y>
+      <width>125</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateOfBirth">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>130</y>
+      <width>200</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::TabFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QDateEdit {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QDateEdit:disabled {
+	border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::UpDownArrows</enum>
+    </property>
+    <property name="accelerated">
+     <bool>false</bool>
+    </property>
+    <property name="correctionMode">
+     <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+    <property name="date">
+     <date>
+      <year>2000</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tel1ByTwo">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>180</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>80</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newButton">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>New</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_24">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>130</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Date of Birth</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_25">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>130</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Gender</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_23">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>130</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>NRC No.</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>130</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tel2ByThree">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>180</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>80</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #2e9730;
+color: white;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Staff Info</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tel1ByThree">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>180</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>80</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="email">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>180</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_27">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>180</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Tel2</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="imageButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>300</y>
+      <width>121</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Select Image</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_28">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>180</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Tel1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_26">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>180</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>E-mail</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tel2ByTwo">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>180</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>80</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>80</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nrcNo">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>130</y>
+      <width>125</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="gender">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>130</y>
+      <width>60</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QComboBox:disabled {
+	border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Male</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Female</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="tel1ByOne">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>180</y>
+      <width>51</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="tel2ByOne">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>180</y>
+      <width>51</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editButton">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="address">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>230</y>
+      <width>911</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_32">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>230</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Address</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="markAsResignButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Mark as Resign</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_33">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>280</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Salary</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="salary">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>280</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_34">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>280</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>SSB</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ssb">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>280</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_35">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>280</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Income Tax</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="incomeTax">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>280</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bonus">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>280</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background-color: lightgray;
+    color: lightgray;
+}
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_36">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>280</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Bonus</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
