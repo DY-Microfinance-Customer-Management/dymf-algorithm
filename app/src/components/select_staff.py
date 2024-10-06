@@ -7,14 +7,14 @@ from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
 from src.components import DB
 
-class SelectStaffWindow(QDialog):
-    staff_selected = pyqtSignal(dict)
+class SelectCustomerWindow(QDialog):
+    customer_selected = pyqtSignal(dict)
 
     def __init__(self, parent=None):
-        super(SelectStaffWindow, self).__init__(parent)
+        super(SelectCustomerWindow, self).__init__(parent)
 
         # Set window properties
-        self.setWindowTitle("Select Staff")
+        self.setWindowTitle("Select Customer")
         self.setGeometry(300, 300, 600, 700)
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'icon.ico')
         self.setWindowIcon(QIcon(icon_path))
@@ -24,10 +24,15 @@ class SelectStaffWindow(QDialog):
 
         # Search box
         self.searchBox = QLineEdit(self)
-        self.searchBox.setPlaceholderText("Search by staff name")
+        self.searchBox.setPlaceholderText("Search by customer name")
         self.layout.addWidget(self.searchBox)
 
-        # Table view for displaying staff
+        # Search button
+        self.searchButton = QPushButton("Search", self)
+        self.searchButton.clicked.connect(self.filter_data)
+        self.layout.addWidget(self.searchButton)
+
+        # Table view for displaying customers
         self.tableView = QTableView(self)
         self.tableView.setSelectionBehavior(QTableView.SelectRows)
         self.layout.addWidget(self.tableView)
@@ -35,20 +40,15 @@ class SelectStaffWindow(QDialog):
         # Select button
         self.selectButton = QPushButton("Select", self)
         self.selectButton.clicked.connect(self.handle_select_button)
-        self.selectButton.setFocusPolicy(Qt.StrongFocus)
-        self.selectButton.setDefault(True)
+        self.selectButton.setFocusPolicy(Qt.StrongFocus)  # Ensure button can take focus
+        self.selectButton.setDefault(True)  # Set as default button
         self.layout.addWidget(self.selectButton)
-
-        # Signal for search
-        self.searchBox.textChanged.connect(self.filter_data)
 
         # Apply styles
         self.apply_stylesheet()
 
-        # Initialize empty DataFrame for displaying search results
-        self.display_df = pd.DataFrame(columns=['name', 'nrc_no', 'date_of_birth', 'Phone No.'])
-        self.model = self.create_model(self.display_df)
-        self.tableView.setModel(self.model)
+        # Load all data initially
+        self.load_all_customers()
 
     def apply_stylesheet(self):
         stylesheet = """
@@ -102,39 +102,51 @@ class SelectStaffWindow(QDialog):
         """
         self.setStyleSheet(stylesheet)
 
+    def load_all_customers(self):
+        # Load all customer data from Firestore
+        try:
+            customers_ref = DB.collection('Customer')
+            docs = customers_ref.stream()
+
+            data = []
+            for doc in docs:
+                customer_data = doc.to_dict()
+                customer_data['uid'] = doc.id
+                data.append(customer_data)
+
+            # Create DataFrame from the retrieved data
+            if data:
+                self.df = pd.DataFrame(data)
+                self.df['Phone No.'] = self.df[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
+                self.display_df = self.df[['name', 'nrc_no', 'date_of_birth', 'Phone No.']]
+            else:
+                self.df = pd.DataFrame(columns=['name', 'nrc_no', 'date_of_birth', 'Phone No.'])
+                self.display_df = self.df
+
+            # Update the table view with all data
+            self.model = self.create_model(self.display_df)
+            self.tableView.setModel(self.model)
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"An error occurred while loading customer data: {e}")
+
     def filter_data(self):
         search_text = self.searchBox.text().strip().lower()
 
         if search_text:
-            # Load data from Firestore with search text filtering
-            try:
-                staff_ref = DB.collection('Staff').where('name_lower', '>=', search_text).where('name_lower', '<=', search_text + '\uf8ff')
-                docs = staff_ref.stream()
+            # Filter the DataFrame based on the search text
+            self.filtered_df = self.df[self.df['name'].str.lower().str.contains(search_text)]
+        else:
+            # If no search text is provided, show all data
+            self.filtered_df = self.display_df
 
-                data = []
-                for doc in docs:
-                    staff_data = doc.to_dict()
-                    staff_data['uid'] = doc.id
-                    data.append(staff_data)
-
-                # Create DataFrame from the retrieved data
-                if data:
-                    df = pd.DataFrame(data)
-                    df['Phone No.'] = df[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
-                    self.display_df = df[['name', 'nrc_no', 'date_of_birth', 'Phone No.']]
-                else:
-                    self.display_df = pd.DataFrame(columns=['name', 'nrc_no', 'date_of_birth', 'Phone No.'])
-
-                # Update the table view with the new filtered data
-                self.model = self.create_model(self.display_df)
-                self.tableView.setModel(self.model)
-
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"An error occurred while searching for staff: {e}")
+        # Update the table view with the filtered data
+        self.model = self.create_model(self.filtered_df)
+        self.tableView.setModel(self.model)
 
     def create_model(self, df):
         model = QStandardItemModel(df.shape[0], df.shape[1])
-        
+
         # Set the correct headers explicitly with capitalization
         model.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Date of Birth', 'Phone No.'])
 
@@ -152,15 +164,15 @@ class SelectStaffWindow(QDialog):
             # Get the first selected row
             index = selected_indexes[0]
             row = index.row()
-            selected_data = self.display_df.iloc[row].to_dict()
-            self.staff_selected.emit(selected_data)  # Emit the selected staff data
+            selected_data = self.filtered_df.iloc[row].to_dict()
+            self.customer_selected.emit(selected_data)  # Emit the selected customer data
             self.accept()
 
 def main():
     app = QApplication(sys.argv)
 
     # Create and show the selection window
-    window = SelectStaffWindow()
+    window = SelectCustomerWindow()
     window.show()
 
     sys.exit(app.exec_())
