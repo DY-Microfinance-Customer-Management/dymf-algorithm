@@ -1,8 +1,11 @@
-import sys, os, re, requests
+import sys
+import os
+import re
+import requests
 from datetime import timedelta
 from io import BytesIO
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
@@ -36,20 +39,23 @@ class PersonnelRegisterApp(QMainWindow):
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.markAsResignButton.setEnabled(False)
-        self.newButton.setEnabled(True)  # Enable New button
+        self.newButton.setEnabled(True)
 
     def setup_connections(self):
         self.searchButton.clicked.connect(self.open_select_staff_window)
-        self.newButton.clicked.connect(self.new_staff_data)  # New button connected
+        self.newButton.clicked.connect(self.new_staff_data)
         self.name.textChanged.connect(self.not_input_number)
         self.saveButton.clicked.connect(self.prepare_save_staff_data)
         self.editButton.clicked.connect(self.edit_staff_data)
+        self.markAsResignButton.clicked.connect(self.mark_staff_as_resigned)
         self.imageButton.clicked.connect(self.select_image)
 
-        self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
-        self.tel2ByThree.textChanged.connect(self.limit_phone_length)
+        self.tel1ByOne.textChanged.connect(self.limit_phone_length)
         self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel1ByThree.textChanged.connect(self.limit_phone_length)
+        self.tel2ByOne.textChanged.connect(self.limit_phone_length)
+        self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
+        self.tel2ByThree.textChanged.connect(self.limit_phone_length)
 
     def reset_current_staff_id(self):
         self.current_staff_id = None
@@ -61,17 +67,28 @@ class PersonnelRegisterApp(QMainWindow):
 
     @QtCore.pyqtSlot(dict)
     def handle_staff_selected(self, staff_data):
+        self.current_staff_id = staff_data.get('uid', '')
+
         try:
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-            self.current_staff_id = staff_data.get('uid', '')
-            self.populate_fields_with_staff_data(staff_data)
+            data = DB.collection('Staff').document(self.current_staff_id).get().to_dict()
 
-            self.name.setText(staff_data.get("name", ""))
-            self.dateOfBirth.setDate(QtCore.QDate.fromString(staff_data.get("date_of_birth", "2000-01-01"), QtCore.Qt.ISODate))
+            # 필드에 직원 데이터 채우기
+            self.populate_fields_with_staff_data(data)
 
             self.disable_all_fields()
-            self.editButton.setEnabled(True)
-            self.markAsResignButton.setEnabled(True)
+
+            # 사임 여부에 따라 버튼 활성화 상태 변경
+            if data.get("resign", False):
+                self.markAsResignButton.setEnabled(False)
+                self.editButton.setEnabled(False)
+                self.status.setText("Resign")
+                self.status.setStyleSheet("color: red;")
+            else:
+                self.markAsResignButton.setEnabled(True)
+                self.editButton.setEnabled(True)
+                self.status.setText("Working")
+                self.status.setStyleSheet("color: green;")
 
         finally:
             QApplication.restoreOverrideCursor()
@@ -120,8 +137,11 @@ class PersonnelRegisterApp(QMainWindow):
         self.clear_fields()
         self.enable_all_fields()
         self.saveButton.setEnabled(True)
-        self.edit_mode = False  # New entry, not edit mode
+        self.edit_mode = False
         self.current_staff_id = None
+        # Set default status to "Working" for new staff
+        self.status.setText("Working")
+        self.status.setStyleSheet("color: green;")
 
     def not_input_number(self):
         name_text = self.name.text()
@@ -130,7 +150,7 @@ class PersonnelRegisterApp(QMainWindow):
             self.name.clear()
 
     def limit_phone_length(self):
-        for field in [self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
+        for field in [self.tel1ByOne, self.tel2ByOne, self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
             text = field.text()
             if len(text) > 4:
                 field.setText(text[:4])
@@ -157,6 +177,7 @@ class PersonnelRegisterApp(QMainWindow):
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
         self.imageLabel.clear()
+        self.status.clear()
 
     def disable_all_fields(self):
         self.name.setEnabled(False)
@@ -204,7 +225,8 @@ class PersonnelRegisterApp(QMainWindow):
 
         # Required fields
         required_fields = [
-            "name", "nrc_no", "date_of_birth", "gender"
+            "name", "nrc_no", "date_of_birth", "gender",
+            "salary", "ssb", "income_tax", "bonus"
         ]
 
         # Check if any required fields are missing
@@ -249,7 +271,8 @@ class PersonnelRegisterApp(QMainWindow):
             "salary": self.salary.text(),
             "ssb": self.ssb.text(),
             "income_tax": self.incomeTax.text(),
-            "bonus": self.bonus.text()
+            "bonus": self.bonus.text(),
+            "resign": False  # Default value for new or updated staff data
         }
         return staff_data
 
@@ -293,6 +316,31 @@ class PersonnelRegisterApp(QMainWindow):
         self.enable_all_fields()
         self.edit_mode = True
 
+    def mark_staff_as_resigned(self):
+        if self.current_staff_id:
+            reply = QMessageBox.question(self, 'Confirm Resignation',
+                                         "Are you sure you want to mark this staff member as resigned?",
+                                         QMessageBox.Yes | QMessageBox.No,
+                                         QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                try:
+                    # 데이터 업데이트 시도
+                    DB.collection('Staff').document(self.current_staff_id).update({"resign": True})
+                    QMessageBox.information(self, "Success", "Staff marked as resigned successfully.")
+                    
+                    # 필드를 클리어하고 관련 버튼 비활성화
+                    self.clear_fields()
+                    self.markAsResignButton.setEnabled(False)
+                    self.searchButton.setEnabled(True)
+                except Exception as e:
+                    # 오류 발생 시 오류 메시지 표시 및 로그 출력
+                    QMessageBox.critical(self, "Error", f"Failed to mark staff as resigned: {e}")
+                    print(f"Error: {e}")  # 콘솔에 오류 내용 출력
+        else:
+            # current_staff_id가 설정되지 않았을 경우 경고 메시지 출력
+            QMessageBox.warning(self, "No Staff Selected", "No staff member is currently selected.")
+
     def select_image(self):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select Image", "", "Image Files (*.png *.jpg *.jpeg)")
         if file_name:
@@ -300,7 +348,7 @@ class PersonnelRegisterApp(QMainWindow):
 
             if not pixmap.isNull():
                 self.imageLabel.setPixmap(
-                    pixmap.scaled(self.imageLabel.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+                    pixmap.scaled(self.imageLabel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 )
 
                 self.selected_image_path = file_name

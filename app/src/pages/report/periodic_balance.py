@@ -1,8 +1,13 @@
 import sys, os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5 import uic
 from PyQt5.QtCore import QDate
+from google.cloud.firestore_v1.base_query import FieldFilter
+import pandas as pd
+from openpyxl import Workbook
+
 from src.components import DB  # Firestore DB 임포트
 
 class ReportPeriodicBalanceApp(QMainWindow):
@@ -37,6 +42,7 @@ class ReportPeriodicBalanceApp(QMainWindow):
         # 로드된 데이터를 저장하는 변수
         self.loan_schedules = None
         self.overdue_schedules = None
+        self.overdue_received_schedules = None
 
         # Connect the downloadButton click event to the process_report function
         self.downloadButton.clicked.connect(self.process_report)
@@ -58,10 +64,18 @@ class ReportPeriodicBalanceApp(QMainWindow):
             try:
                 # 데이터를 가져와 처리 (데이터가 없을 경우만 DB에서 로드)
                 if self.loan_schedules is None or self.overdue_schedules is None:
-                    self.loan_schedules, self.overdue_schedules = self.retrieve_loan_and_overdue_schedules()
+                    self.loan_schedules, self.overdue_schedules, self.overdue_received_schedules = self.retrieve_loan_and_overdue_schedules()
 
                 total_principal = self.calculate_total_principal(start_date, previous_month)
-                QMessageBox.information(self, "Total Principal", f"Total principal is: {total_principal}")
+                
+                # 필터링 함수 호출 및 반환값 받기
+                filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules = self.filter_and_print_schedules(start_date, start_date.addMonths(1).addDays(-1))
+
+                # Report 저장 함수 호출
+                self.save_report_to_firestore(start_date, total_principal, filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules)
+
+                self.create_excel_report(start_date, total_principal, filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules)
+                # QMessageBox.information(self, "Total Principal", f"Total principal is: {total_principal}")
 
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to calculate data: {e}")
@@ -71,16 +85,15 @@ class ReportPeriodicBalanceApp(QMainWindow):
     def retrieve_loan_and_overdue_schedules(self):
         try:
             # Loan collection 데이터 가져오기
-            loans_ref = DB.collection('Loan').stream()  
+            loans_ref = DB.collection('Loan').where(
+                filter=FieldFilter('loan_status', '==', 'In Process')
+            ).stream()
             loan_schedules = []
             overdue_schedules = []
+            overdue_received_schedules = []
 
             for loan_doc in loans_ref:
                 loan_data = loan_doc.to_dict()
-
-                # loan_status가 'Overdue'인 것은 제외
-                if loan_data.get('loan_status') == 'Overdue':
-                    continue
 
                 loan_schedule = loan_data.get('loan_schedule', [])
                 contract_date = loan_data.get('contract_date', "")
@@ -96,26 +109,82 @@ class ReportPeriodicBalanceApp(QMainWindow):
                     })
 
             # Overdue collection 데이터 가져오기
-            overdue_ref = DB.collection('Overdue').stream()  
+            overdue_ref = DB.collection('Overdue').stream()
 
             for overdue_doc in overdue_ref:
                 overdue_data = overdue_doc.to_dict()
                 overdue_schedule = overdue_data.get('loan_schedule', [])
+                received_schedule = overdue_data.get('received_schedule', [])
 
                 # overdue_schedules 추가
                 for schedule in overdue_schedule:
-                    payment_date = schedule.get('Payment Date', '')
+                    payment_date = schedule.get('repayment_date', '')
                     overdue_schedules.append({
                         "Loan ID": overdue_doc.id,
                         "Payment Date": payment_date,
                         "Schedule": schedule
                     })
 
-            return loan_schedules, overdue_schedules
+                for received in received_schedule:
+                    payment_date = received.get('repayment_date', '')
+                    overdue_received_schedules.append({
+                        "Loan ID": overdue_doc.id,
+                        "Payment Date": payment_date,
+                        "Schedule": received
+                    })
+
+            return loan_schedules, overdue_schedules, overdue_received_schedules
 
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load data: {e}")
             return [], []
+
+    def filter_and_print_schedules(self, start_date, end_date):
+        print(f'start_date: {start_date}, end_date: {end_date}')
+
+        filtered_loan_schedules_1 = []
+        filtered_loan_schedules_2 = []
+        filtered_loan_schedules_3 = []
+        filtered_overdue_received_schedules = []
+
+        # 1. contract_date가 start_date 이전이면서 Schedule의 Payment Date가 start_date와 end_date 사이의 날짜이면서 status가 1인 모든 데이터
+        for entry in self.loan_schedules:
+            contract_date_str = entry['Contract Date']
+            if contract_date_str:
+                contract_date = QDate.fromString(contract_date_str, "yyyy-MM-dd")
+                if contract_date < start_date:
+                    payment_date_str = entry['Payment Date']
+                    payment_date = QDate.fromString(payment_date_str, "yyyy-MM-dd")
+                    if start_date <= payment_date <= end_date and entry['Schedule'].get('status') == 1:
+                        filtered_loan_schedules_1.append(entry)
+
+        # 2. contract_date가 start_date와 end_date 사이인 모든 데이터
+        for entry in self.loan_schedules:
+            contract_date_str = entry['Contract Date']
+            if contract_date_str:
+                contract_date = QDate.fromString(contract_date_str, "yyyy-MM-dd")
+                if start_date <= contract_date <= end_date:
+                    filtered_loan_schedules_2.append(entry)
+
+        # 3. contract_date가 start_date와 end_date 사이인 Schedule의 Payment Date가 start_date와 end_date 사이인 Schedule의 status가 1인 모든 데이터
+        for entry in self.loan_schedules:
+            contract_date_str = entry['Contract Date']
+            if contract_date_str:
+                contract_date = QDate.fromString(contract_date_str, "yyyy-MM-dd")
+                if start_date <= contract_date <= end_date:
+                    payment_date_str = entry['Payment Date']
+                    payment_date = QDate.fromString(payment_date_str, "yyyy-MM-dd")
+                    if start_date <= payment_date <= end_date and entry['Schedule'].get('status') == 1:
+                        filtered_loan_schedules_3.append(entry)
+
+        # 4. self.overdue_received_schedules에서 Payment Date가 start_date와 end_date 사이인 모든 데이터
+        for entry in self.overdue_received_schedules:
+            payment_date_str = entry['Payment Date']
+            payment_date = QDate.fromString(payment_date_str, "yyyy-MM-dd")
+            if start_date <= payment_date <= end_date:
+                filtered_overdue_received_schedules.append(entry)
+
+        return filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules
 
     def calculate_total_principal(self, start_date, previous_month):
         total_principal = 0
@@ -153,6 +222,125 @@ class ReportPeriodicBalanceApp(QMainWindow):
 
         total_principal += latest_principal
         return total_principal
+
+    def save_report_to_firestore(self, start_date, total_principal, filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules):
+        try:
+            # Document ID 생성 (YYYYMM 형식)
+            document_id = f"{start_date.year()}{start_date.month():02d}"
+
+            # 데이터 구성
+            start_asset = total_principal
+
+            # Plus 데이터 (filtered_loan_schedules_3)
+            plus = [entry['Schedule'] for entry in filtered_loan_schedules_2]
+
+            # Minus 데이터 (filtered_loan_schedules_2, filtered_loan_schedules_1, filtered_overdue_received_schedules)
+            minus_1 = [entry['Schedule'] for entry in filtered_loan_schedules_1]
+            minus_2 = [entry['Schedule'] for entry in filtered_loan_schedules_3]
+            minus_3 = [entry['Schedule'] for entry in filtered_overdue_received_schedules]
+            minus = minus_1 + minus_2 + minus_3
+
+            # Firestore에 저장할 데이터
+            report_data = {
+                "start_asset": start_asset,
+                "plus": plus,
+                "minus": minus
+            }
+
+            # Firestore에 데이터 저장
+            DB.collection('Report').document(document_id).set(report_data)
+
+            QMessageBox.information(self, "Success", "Report saved successfully to Firestore.")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to save report to Firestore: {e}")
+            
+    def create_excel_report(self, start_date, total_principal, filtered_loan_schedules_1, filtered_loan_schedules_2, filtered_loan_schedules_3, filtered_overdue_received_schedules):
+        try:
+            # 파일 저장 대화 상자를 통해 사용자가 파일 경로를 선택하게 함
+            options = QFileDialog.Options()
+            file_path, _ = QFileDialog.getSaveFileName(self, "Save Excel Report", "", "Excel Files (*.xlsx);;All Files (*)", options=options)
+            
+            if not file_path:
+                QMessageBox.warning(self, "Cancelled", "Excel report creation was cancelled.")
+                return
+            
+            # 확장자 확인 및 추가
+            if not file_path.endswith(".xlsx"):
+                file_path += ".xlsx"
+
+            # Create a new Excel file (workbook)
+            writer = pd.ExcelWriter(file_path, engine='openpyxl')
+
+            # 1. Periodic Loan Balance Sheet 시트 작성
+            periodic_data = []
+
+            # 시작 날짜 및 자산 금액
+            periodic_data.append({'Date': start_date.toString('yyyy-MM-dd'), 'Description': 'Total Loan Assets', 'Amount': total_principal})
+
+            # 대출 자산 + 요인
+            plus_amounts = {}
+            for entry in filtered_loan_schedules_2:
+                contract_date = entry['Contract Date']
+                principal = entry['Schedule'].get('Principal', 0)
+                if contract_date in plus_amounts:
+                    plus_amounts[contract_date] += principal
+                else:
+                    plus_amounts[contract_date] = principal
+
+            for date, amount in plus_amounts.items():
+                periodic_data.append({'Date': date, 'Description': 'Loan Asset Increase', 'Amount': amount})
+
+            # 대출 자산 - 요인
+            minus_amounts = {}
+            for entry_list in [filtered_loan_schedules_1, filtered_loan_schedules_3, filtered_overdue_received_schedules]:
+                for entry in entry_list:
+                    payment_date = entry['Payment Date']
+                    principal = entry['Schedule'].get('Principal', 0)
+                    if payment_date in minus_amounts:
+                        minus_amounts[payment_date] += principal
+                    else:
+                        minus_amounts[payment_date] = principal
+
+            for date, amount in minus_amounts.items():
+                periodic_data.append({'Date': date, 'Description': 'Loan Asset Decrease', 'Amount': -amount})
+
+            # 총 대출 자산 금액 계산 후 추가
+            end_total_principal = total_principal + sum(plus_amounts.values()) - sum(minus_amounts.values())
+            periodic_data.append({'Date': start_date.addMonths(1).toString('yyyy-MM-dd'), 'Description': 'Total Loan Assets', 'Amount': end_total_principal})
+
+            # DataFrame으로 변환하여 시트에 작성
+            periodic_df = pd.DataFrame(periodic_data)
+            periodic_df.to_excel(writer, index=False, sheet_name='Periodic Loan Balance Sheet')
+
+            # 2. Profit & Loss 시트 작성
+            profit_loss_data = []
+
+            # 필터된 데이터에서 이자 정보를 날짜별로 나열
+            for entry_list in [filtered_loan_schedules_1, filtered_loan_schedules_3]:
+                for entry in entry_list:
+                    payment_date = entry['Payment Date']
+                    interest = entry['Schedule'].get('Interest', 0)
+                    profit_loss_data.append({'Date': payment_date, 'Description': 'Interest', 'Amount': interest})
+
+            for entry in filtered_overdue_received_schedules:
+                payment_date = entry['Payment Date']
+                interest = entry['Schedule'].get('Interest', 0)
+                overdue_interest = entry['Schedule'].get('Overdue Interest', 0)
+                profit_loss_data.append({'Date': payment_date, 'Description': 'Interest', 'Amount': interest})
+                profit_loss_data.append({'Date': payment_date, 'Description': 'Overdue Interest', 'Amount': overdue_interest})
+
+            # DataFrame으로 변환하여 시트에 작성
+            profit_loss_df = pd.DataFrame(profit_loss_data)
+            profit_loss_df.to_excel(writer, index=False, sheet_name='Profit & Loss')
+
+            # Save the workbook
+            writer.close()
+            QMessageBox.information(self, "Success", "Excel report created successfully.")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to create Excel report: {e}")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -188,6 +188,7 @@ class OverdueManagementApp(QMainWindow):
             'principal': received_principal,
             'interest': received_interest,
             'overdue_interest': received_overdue_interest,
+            'repayment_date': last_schedule['repayment_date']
         }
 
         try:
