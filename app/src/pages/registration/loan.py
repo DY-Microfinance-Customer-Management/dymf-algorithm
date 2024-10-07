@@ -95,12 +95,13 @@ class RegistrationLoanApp(QMainWindow):
             self.open_select_customer_window()
 
     def open_select_customer_window(self):
-        customer_data = self.load_customer_data()  # 고객 데이터를 먼저 로드합니다.
-
-        if customer_data is not None:  # 데이터가 있는 경우에만 창을 띄웁니다.
-            self.select_customer_window = SelectCustomerWindow(customer_data)  # 데이터를 전달합니다.
+        try:
+            # 데이터를 인자로 전달하지 않고 SelectCustomerWindow 인스턴스를 생성합니다.
+            self.select_customer_window = SelectCustomerWindow()  
             self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
             self.select_customer_window.show()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to open customer selection window: {e}")
 
     def load_customer_data(self):
         customers_ref = DB.collection(u'Customer')

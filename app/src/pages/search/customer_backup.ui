@@ -542,6 +542,48 @@ border-radius: 10px;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_29">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>220</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Loan Officer</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QLineEdit" name="info2">
     <property name="geometry">
      <rect>
@@ -640,6 +682,51 @@ QLineEdit:disabled {
     border-bottom: 1px solid lightgray;
     background-color: rgb(236, 236, 236);
 }</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="selectLoanOfficerButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>220</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Select Officer</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_41">
@@ -1605,6 +1692,38 @@ border-radius: 10px;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLineEdit" name="loanOfficer">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>220</y>
+      <width>141</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+
+QLineEdit:disabled {
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+}
+</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QDateEdit" name="dateOfBirth">
     <property name="geometry">
      <rect>
@@ -1863,7 +1982,7 @@ border-radius: 10px;</string>
    <widget class="QLineEdit" name="cpNumber">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>950</x>
       <y>220</y>
       <width>171</width>
       <height>31</height>
@@ -1895,7 +2014,7 @@ QLineEdit:disabled {
    <widget class="QLabel" name="label_48">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>830</x>
       <y>220</y>
       <width>110</width>
       <height>31</height>
@@ -1937,7 +2056,7 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="label_47">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>540</x>
       <y>220</y>
       <width>110</width>
       <height>31</height>
@@ -1979,7 +2098,7 @@ border-radius: 10px;</string>
    <widget class="QComboBox" name="loanType">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>660</x>
       <y>220</y>
       <width>161</width>
       <height>30</height>
@@ -2626,6 +2745,8 @@ QLineEdit:disabled {
   <tabstop>tel2ByTwo</tabstop>
   <tabstop>tel2ByThree</tabstop>
   <tabstop>email</tabstop>
+  <tabstop>loanOfficer</tabstop>
+  <tabstop>selectLoanOfficerButton</tabstop>
   <tabstop>loanType</tabstop>
   <tabstop>cpNumber</tabstop>
   <tabstop>homePostalCode</tabstop>

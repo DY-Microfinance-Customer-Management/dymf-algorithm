@@ -1,10 +1,10 @@
 import sys
 import os
 import pandas as pd
-from PyQt5.QtWidgets import QDialog, QTableView, QLineEdit, QPushButton, QVBoxLayout, QApplication
+from PyQt5.QtWidgets import QDialog, QTableView, QLineEdit, QPushButton, QVBoxLayout, QApplication, QMessageBox
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QAbstractItemView
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 from src.components import DB
 
@@ -25,94 +25,156 @@ class SelectLoanWindow(QDialog):
 
         # Search box
         self.searchBox = QLineEdit(self)
-        self.searchBox.setPlaceholderText("Search by loan number")
+        self.searchBox.setPlaceholderText("Enter loan number or customer name")
         self.layout.addWidget(self.searchBox)
+
+        # Search button
+        self.searchButton = QPushButton("Search", self)
+        self.searchButton.clicked.connect(self.search_loan_data)
+        self.layout.addWidget(self.searchButton)
 
         # Table view for displaying loans
         self.tableView = QTableView(self)
         self.tableView.setSelectionBehavior(QTableView.SelectRows)
-        self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)  # Allow only single selection
         self.layout.addWidget(self.tableView)
 
         # Select button
         self.selectButton = QPushButton("Select", self)
         self.selectButton.clicked.connect(self.handle_select_button)
-        self.selectButton.setFocusPolicy(Qt.StrongFocus)  # Ensure button can take focus
-        self.selectButton.setDefault(True)  # Set as default button
+        self.selectButton.setFocusPolicy(Qt.StrongFocus)
+        self.selectButton.setDefault(True)
         self.layout.addWidget(self.selectButton)
 
-        # Signal for search
-        self.searchBox.textChanged.connect(self.filter_data)
+        # Apply styles
+        self.apply_stylesheet()
 
-        # Determine which collection to load from ('Loan' or 'Overdue')
+        # Set up an empty model for the table view initially
+        self.model = QStandardItemModel(0, 5)
+        self.model.setHorizontalHeaderLabels(['Loan Number', 'Loan Type', 'Contract Date', 'Customer Name', 'NRC No.'])
+        self.tableView.setModel(self.model)
+
+        # Store collection type
         self.collection_type = collection_type
 
-        # Load data
-        self.load_data()
+    def apply_stylesheet(self):
+        stylesheet = """
+        QWidget {
+            background-color: #fbfbfb;
+        }
 
-        # Set focus to Select button when window is shown
-        self.selectButton.setFocus()
+        QTableView {
+            background-color: #f1f1f1;
+            border: 1px solid transparent;
+            border-radius: 10px;
+        }
 
-    def load_data(self):
-        loans_ref = DB.collection(self.collection_type)  # Dynamically select collection
-        docs = loans_ref.stream()
+        QPushButton {
+            background-color: #0077c2;
+            color: white;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 5px 10px;
+        }
 
-        data = []
-        for doc in docs:
-            loan_data = doc.to_dict()
+        QPushButton:hover {
+            border: 1px solid white;
+        }
 
-            # Skip loans where the loan status is 'Overdue', if collection is 'Loan'
-            if self.collection_type == 'Loan' and loan_data.get('loan_status') == 'Overdue':
-                continue  # Skip this loan
+        QPushButton:pressed {
+            background-color: #005f9e;
+            padding-top: 6px;
+            padding-bottom: 4px;
+        }
 
-            loan_data['loan_id'] = doc.id  # Store the document ID
-            customer_data = self.get_customer_data(loan_data.get('uid'))  # Fetch customer details
-            loan_data.update(customer_data)  # Add customer data to loan_data
-            data.append(loan_data)
+        QPushButton:disabled {
+            background-color: lightgray;
+            color: gray;
+            border: 1px solid gray;
+        }
 
-        self.df = pd.DataFrame(data)
+        QLineEdit {
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            color: black;
+        }
 
-        if self.collection_type == 'Overdue':
-            # Select display columns: Loan Number, Loan Type, Start Date, Customer Name, and NRC No.
-            self.display_df = self.df[['loan_number', 'loan_type', 'start_date', 'customer_name', 'nrc_no']]
-            # Rename the columns to match the required capitalization
-            self.display_df.columns = ['Loan Number', 'Loan Type', 'Start Date', 'Customer Name', 'NRC No.']
-        else:
-            # Select display columns: Loan Number, Loan Type, Contract Date, Customer Name, and NRC No.
-            self.display_df = self.df[['loan_number', 'loan_type', 'contract_date', 'customer_name', 'nrc_no']]
-            # Rename the columns to match the required capitalization
-            self.display_df.columns = ['Loan Number', 'Loan Type', 'Contract Date', 'Customer Name', 'NRC No.']
+        QLineEdit:disabled {
+            border: none;
+            border-bottom: 1px solid lightgray;
+            background-color: lightgray;
+            color: lightgray;
+        }
+        """
+        self.setStyleSheet(stylesheet)
 
+    def search_loan_data(self):
+        try:
+            search_text = self.searchBox.text().strip()
 
-        # Copy the display dataframe for filtering purposes
-        self.filtered_df = self.display_df.copy()
-        self.model = self.create_model(self.filtered_df)
-        self.tableView.setModel(self.model)
+            lower_keyword = search_text.lower()
+            upper_keyword = search_text.title()
+
+            if search_text:
+                filtered_loans = []
+
+                # Fetch loan data using the given condition
+                lower_keyword_loans = DB.collection(self.collection_type).where(
+                    filter=FieldFilter('loan_number', '>=', lower_keyword)
+                ).where(
+                    filter=FieldFilter('loan_number', '<=', lower_keyword + '\uf8ff')
+                ).stream()
+
+                upper_keyword_loans = DB.collection(self.collection_type).where(
+                    filter=FieldFilter('loan_number', '>=', upper_keyword)
+                ).where(
+                    filter=FieldFilter('loan_number', '<=', upper_keyword + '\uf8ff')
+                ).stream()
+
+                for lower_doc in lower_keyword_loans:
+                    filtered_loans.append(lower_doc.to_dict())
+
+                for upper_doc in upper_keyword_loans:
+                    filtered_loans.append(upper_doc.to_dict())
+
+                if not filtered_loans:
+                    QMessageBox.warning(self, "No Data", "No loan found with the entered information.")
+                    return
+
+                # Prepare the data for displaying in the table
+                loan_data = pd.DataFrame(filtered_loans)
+
+                # Add customer information
+                loan_data['customer_name'], loan_data['nrc_no'] = zip(
+                    *loan_data['uid'].apply(self.get_customer_data)
+                )
+
+                # Select display columns
+                self.display_df = loan_data[['loan_number', 'loan_type', 'contract_date', 'customer_name', 'nrc_no']]
+                self.model = self.create_model(self.display_df)
+                self.tableView.setModel(self.model)
+
+            else:
+                QMessageBox.warning(self, "Input Error", "Please enter the loan number or customer name.")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"An error occurred while searching for loan data: {e}")
 
     def get_customer_data(self, customer_uid):
         try:
             customer_doc = DB.collection('Customer').document(customer_uid).get()
             if customer_doc.exists:
                 customer_data = customer_doc.to_dict()
-                return {
-                    'customer_name': customer_data.get('name', 'Unknown'),
-                    'nrc_no': customer_data.get('nrc_no', 'Unknown')
-                }
+                return customer_data.get('name', 'Unknown'), customer_data.get('nrc_no', 'Unknown')
             else:
-                return {'customer_name': 'Unknown', 'nrc_no': 'Unknown'}
+                return 'Unknown', 'Unknown'
         except Exception as e:
             print(f"Error loading customer data: {e}")
-            return {'customer_name': 'Error', 'nrc_no': 'Error'}
-
-    def filter_data(self):
-        search_text = self.searchBox.text().lower()
-        self.filtered_df = self.display_df[self.display_df['Loan Number'].str.lower().str.contains(search_text)]
-        self.model = self.create_model(self.filtered_df)
-        self.tableView.setModel(self.model)
+            return 'Error', 'Error'
 
     def create_model(self, df):
         model = QStandardItemModel(df.shape[0], df.shape[1])
-        
+
         # Set the correct headers explicitly with capitalization
         model.setHorizontalHeaderLabels(['Loan Number', 'Loan Type', 'Contract Date', 'Customer Name', 'NRC No.'])
 
@@ -127,27 +189,21 @@ class SelectLoanWindow(QDialog):
     def handle_select_button(self):
         selected_indexes = self.tableView.selectionModel().selectedRows()
         if selected_indexes:
-            # Get the first selected row (since only one can be selected)
+            # Get the first selected row
             index = selected_indexes[0]
             row = index.row()
-            selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
 
-            # Create a dict with loan_id and customer_name for returning
-            return_data = {
-                'loan_id': selected_data['loan_id'],  # Return loan_id
-                'customer_name': selected_data['customer_name']  # Return customer name
-            }
+            # Get the original data for the selected loan using the filtered row index
+            selected_data = self.display_df.iloc[row].to_dict()
 
-            self.loan_selected.emit(return_data)  # Emit the selected loan and customer name
+            # Emit the selected loan data, including the original document ID
+            self.loan_selected.emit(selected_data)
             self.accept()
 
 def main():
     app = QApplication(sys.argv)
-
-    # You can pass either 'Loan' or 'Overdue' as the collection type
-    window = SelectLoanWindow(collection_type='Overdue')
+    window = SelectLoanWindow(collection_type='Loan')  # Specify 'Loan' or 'Overdue'
     window.show()
-
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

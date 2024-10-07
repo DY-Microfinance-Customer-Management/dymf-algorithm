@@ -57,8 +57,10 @@ class SearchLoanApp(QMainWindow):
             if customer_name:
                 filtered_customers = []
                 
-                lower_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', lower_keyword)).where(filter=FieldFilter('name', '<=', lower_keyword + '\uf8ff')).stream()
-                upper_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', upper_keyword)).where(filter=FieldFilter('name', '<=', upper_keyword + '\uf8ff')).stream()
+                # lower_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', lower_keyword)).where(filter=FieldFilter('name', '<=', lower_keyword + '\uf8ff')).stream()
+                # upper_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '>=', upper_keyword)).where(filter=FieldFilter('name', '<=', upper_keyword + '\uf8ff')).stream()
+                lower_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '==', lower_keyword)).stream()
+                upper_keyword_customers = DB.collection('Customer').where(filter=FieldFilter('name', '==', upper_keyword)).stream()
 
                 for lower_doc in lower_keyword_customers:
                     filtered_customers.append(lower_doc.id)
@@ -78,7 +80,13 @@ class SearchLoanApp(QMainWindow):
                 # 대출 정보를 가져와서 테이블에 채우기
                 for customer_id in filtered_customers:
                     loan_ref = DB.collection('Loan').where("uid", "==", customer_id).get()
-                    self.populate_table(loan_ref, customer_id)
+                    
+                    # 데이터가 없는 경우 경고 메시지 표시
+                    if not loan_ref:
+                        QMessageBox.warning(self, "No Data", f"No loan data found for {upper_keyword}")
+                    else:
+                        self.populate_table(loan_ref, customer_id)
+
             else:
                 QMessageBox.warning(self, "Input Error", "Please enter the customer's name.")
 

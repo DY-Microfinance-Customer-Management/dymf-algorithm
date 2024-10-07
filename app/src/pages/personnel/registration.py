@@ -176,7 +176,6 @@ class PersonnelRegisterApp(QMainWindow):
         self.disable_all_fields()
         self.editButton.setEnabled(False)
         self.saveButton.setEnabled(False)
-
         self.imageLabel.clear()
         self.status.clear()
 

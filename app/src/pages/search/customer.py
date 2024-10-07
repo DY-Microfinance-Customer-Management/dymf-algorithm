@@ -43,7 +43,7 @@ class SearchCustomerApp(QMainWindow):
         self.saveButton.clicked.connect(self.prepare_save_customer_data)
         self.editButton.clicked.connect(self.edit_customer_data)
         self.imageButton.clicked.connect(self.select_image)
-        self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
+        # self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
         self.tel1ByOne.textChanged.connect(self.limit_phone_length)
         self.tel2ByOne.textChanged.connect(self.limit_phone_length)
@@ -71,21 +71,22 @@ class SearchCustomerApp(QMainWindow):
     def reset_current_customer_id(self):
         self.current_customer_id = None
 
-    def open_officer_select_dialog(self):
-        from src.components.select_loan_officer import SelectLoanOfficerWindow
-        dialog = SelectLoanOfficerWindow(self)
-        if dialog.exec_() == QDialog.Accepted:
-            selected_officer = dialog.get_selected_officer()
-            if selected_officer:
-                self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
+    # def open_officer_select_dialog(self):
+        # from src.components.select_loan_officer import SelectLoanOfficerWindow
+        # dialog = SelectLoanOfficerWindow(self)
+    #     if dialog.exec_() == QDialog.Accepted:
+    #         selected_officer = dialog.get_selected_officer()
+    #         if selected_officer:
+                # self.loanOfficer.setText(f"{selected_officer['name']} - {selected_officer['service_area']}")
 
     def open_select_customer_window(self):
-        customer_data = self.load_customer_data()  # 고객 데이터를 먼저 로드합니다.
-
-        if customer_data is not None:  # 데이터가 있는 경우에만 창을 띄웁니다.
-            self.select_customer_window = SelectCustomerWindow(customer_data)  # 데이터를 전달합니다.
+        try:
+            # 데이터를 인자로 전달하지 않고 SelectCustomerWindow 인스턴스를 생성합니다.
+            self.select_customer_window = SelectCustomerWindow()  
             self.select_customer_window.customer_selected.connect(self.handle_customer_selected)
             self.select_customer_window.show()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to open customer selection window: {e}")
 
     def load_customer_data(self):
         customers_ref = DB.collection(u'Customer')
@@ -138,13 +139,13 @@ class SearchCustomerApp(QMainWindow):
         self.loanType.setCurrentText(customer_data.get("loan_type", ""))
         self.cpNumber.setText(customer_data.get("cp_number", ""))
 
-        loan_officer = customer_data.get("loan_officer", {})
-        if isinstance(loan_officer, dict):
-            loan_officer_display = f"{loan_officer.get('name', '')} - {loan_officer.get('service_area', '')}"
-        else:
-            loan_officer_display = loan_officer
+        # loan_officer = customer_data.get("loan_officer", {})
+        # if isinstance(loan_officer, dict):
+        #     loan_officer_display = f"{loan_officer.get('name', '')} - {loan_officer.get('service_area', '')}"
+        # else:
+        #     loan_officer_display = loan_officer
 
-        self.loanOfficer.setText(loan_officer_display)
+        # self.loanOfficer.setText(loan_officer_display)
 
         home_address = customer_data.get("home_address", {})
         self.homePostalCode.setText(home_address.get("postal_code", ""))
@@ -209,7 +210,7 @@ class SearchCustomerApp(QMainWindow):
         self.tel1ByTwo.clear()
         self.tel1ByThree.clear()
         self.email.clear()
-        self.loanOfficer.clear()
+        # self.loanOfficer.clear()
         self.homePostalCode.clear()
         self.homeStreet.clear()
         self.homeCountry.clear()
@@ -245,8 +246,8 @@ class SearchCustomerApp(QMainWindow):
         self.tel1ByTwo.setEnabled(False)
         self.tel1ByThree.setEnabled(False)
         self.email.setEnabled(False)
-        self.loanOfficer.setEnabled(False)
-        self.selectLoanOfficerButton.setEnabled(False)
+        # self.loanOfficer.setEnabled(False)
+        # self.selectLoanOfficerButton.setEnabled(False)
         self.homePostalCode.setEnabled(False)
         self.homeStreet.setEnabled(False)
         self.homeCountry.setEnabled(False)
@@ -280,7 +281,7 @@ class SearchCustomerApp(QMainWindow):
         self.tel1ByTwo.setEnabled(True)
         self.tel1ByThree.setEnabled(True)
         self.email.setEnabled(True)
-        self.selectLoanOfficerButton.setEnabled(True)
+        # self.selectLoanOfficerButton.setEnabled(True)
         self.homePostalCode.setEnabled(True)
         self.homeStreet.setEnabled(True)
         self.homeCountry.setEnabled(True)
@@ -350,7 +351,7 @@ class SearchCustomerApp(QMainWindow):
             "tel2ByTwo": self.tel2ByTwo.text(),
             "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),
-            "loan_officer": self.loanOfficer.text(),
+            # "loan_officer": self.loanOfficer.text(),
             "loan_type": self.loanType.currentText(),  # Add loan type
             "home_address": {
                 "postal_code": self.homePostalCode.text(),

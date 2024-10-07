@@ -371,8 +371,6 @@ QMenu::item:hover {
      <string>6. Personnel</string>
     </property>
     <addaction name="actionPersonnelStaffRegister"/>
-    <addaction name="actionPersonnelPayroll"/>
-    <addaction name="actionPersonnelDownloadReport"/>
    </widget>
    <addaction name="Registration"/>
    <addaction name="Search"/>
@@ -951,7 +949,7 @@ QMenu::item:hover {
   </action>
   <action name="actionPersonnelStaffRegister">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Staff Register</string>

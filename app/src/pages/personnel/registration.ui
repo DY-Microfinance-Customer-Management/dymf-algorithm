@@ -6,12 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>354</height>
+    <width>1208</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Staff Registration</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fbfbfb;
+
+QPushButton {
+    background-color: #0077c2;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    border: 1px solid white;
+}
+
+QPushButton:pressed {
+    background-color: #005f9e;
+    padding-top: 6px;
+    padding-bottom: 4px;
+}
+
+QPushButton:disabled {
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="saveButton">
@@ -114,10 +142,8 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QDateEdit" name="dateOfBirth">
@@ -158,20 +184,12 @@ QLineEdit:disabled {
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">QDateEdit {
-	border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    color: black;
-}
-
-QDateEdit:disabled {
-	border: none;
-    border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+     <string notr="true">
+        QCalendarWidget QToolButton {
+            background-color: blue; /* 윗부분 배경을 파란색으로 설정 */
+            color: white; /* 글자 색을 흰색으로 설정 */
+        }
+     </string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -238,10 +256,8 @@ QDateEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -512,10 +528,8 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -594,10 +608,8 @@ color: white;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -633,10 +645,8 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -860,10 +870,8 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -899,10 +907,8 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QComboBox" name="gender">
@@ -934,20 +940,7 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QComboBox {
-	border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    color: black;
-}
-
-QComboBox:disabled {
-	border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    color: black;
-}
-</string>
+     <string notr="true">color: black;</string>
     </property>
     <item>
      <property name="text">
@@ -999,10 +992,8 @@ QComboBox:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -1050,10 +1041,8 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
     <property name="frame">
      <bool>true</bool>
@@ -1179,10 +1168,8 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_32">
@@ -1345,10 +1332,8 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_34">
@@ -1422,10 +1407,8 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_35">
@@ -1499,10 +1482,8 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="bonus">
@@ -1532,10 +1513,8 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_36">
@@ -1577,6 +1556,92 @@ border-radius: 10px;</string>
     </property>
     <property name="text">
      <string>Bonus</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_37">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>330</y>
+      <width>110</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>110</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>110</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(241, 241, 241);
+border: 1px solid #ef9a9a;
+border-radius: 10px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string>Status</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="status">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>330</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

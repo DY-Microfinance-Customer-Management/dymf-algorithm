@@ -6,11 +6,13 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon, QStandardItemModel, QStandardItem
 
 from src.components import DB
+from google.cloud.firestore_v1.base_query import FieldFilter
+
 
 class SelectCustomerWindow(QDialog):
     customer_selected = pyqtSignal(dict)
 
-    def __init__(self, customer_data, parent=None):
+    def __init__(self, parent=None):
         super(SelectCustomerWindow, self).__init__(parent)
 
         # Set window properties
@@ -24,8 +26,13 @@ class SelectCustomerWindow(QDialog):
 
         # Search box
         self.searchBox = QLineEdit(self)
-        self.searchBox.setPlaceholderText("Search by customer name")
+        self.searchBox.setPlaceholderText("Enter customer name")
         self.layout.addWidget(self.searchBox)
+
+        # Search button
+        self.searchButton = QPushButton("Search", self)
+        self.searchButton.clicked.connect(self.search_customer_data)
+        self.layout.addWidget(self.searchButton)
 
         # Table view for displaying customers
         self.tableView = QTableView(self)
@@ -35,32 +42,20 @@ class SelectCustomerWindow(QDialog):
         # Select button
         self.selectButton = QPushButton("Select", self)
         self.selectButton.clicked.connect(self.handle_select_button)
-        self.selectButton.setFocusPolicy(Qt.StrongFocus)  # Ensure button can take focus
-        self.selectButton.setDefault(True)  # Set as default button
+        self.selectButton.setFocusPolicy(Qt.StrongFocus)
+        self.selectButton.setDefault(True)
         self.layout.addWidget(self.selectButton)
-
-        # Signal for search
-        self.searchBox.textChanged.connect(self.filter_data)
 
         # Apply styles
         self.apply_stylesheet()
 
-        # Load data
-        self.df = customer_data
-
-        # Combine phone number fields into a single string
-        self.df['Phone No.'] = self.df[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(lambda x: '-'.join(filter(None, x)), axis=1)
-
-        # Select display columns
-        self.display_df = self.df[['name', 'nrc_no', 'date_of_birth', 'Phone No.']]
-
-        # Copy the display dataframe for filtering purposes
-        self.filtered_df = self.display_df.copy()
-        self.model = self.create_model(self.filtered_df)
+        # Set up an empty model for the table view initially
+        self.model = QStandardItemModel(0, 4)
+        self.model.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Date of Birth', 'Phone No.'])
         self.tableView.setModel(self.model)
 
-        # Set focus to Select button when window is shown
-        self.selectButton.setFocus()
+        # Customer Data for Selection
+        self.customer_data = None
 
     def apply_stylesheet(self):
         stylesheet = """
@@ -114,15 +109,65 @@ class SelectCustomerWindow(QDialog):
         """
         self.setStyleSheet(stylesheet)
 
-    def filter_data(self):
-        search_text = self.searchBox.text().lower()
-        self.filtered_df = self.display_df[self.display_df['name'].str.lower().str.contains(search_text)]
-        self.model = self.create_model(self.filtered_df)
-        self.tableView.setModel(self.model)
+    def search_customer_data(self):
+        try:
+            customer_name = self.searchBox.text().strip()
+
+            lower_keyword = customer_name.lower()
+            upper_keyword = customer_name.title()
+
+            if customer_name:
+                filtered_customers = []
+
+                # Fetch customer data using the given condition
+                lower_keyword_customers = DB.collection('Customer').where(
+                    filter=FieldFilter('name', '>=', lower_keyword)
+                ).where(
+                    filter=FieldFilter('name', '<=', lower_keyword + '\uf8ff')
+                ).stream()
+                
+                upper_keyword_customers = DB.collection('Customer').where(
+                    filter=FieldFilter('name', '>=', upper_keyword)
+                ).where(
+                    filter=FieldFilter('name', '<=', upper_keyword + '\uf8ff')
+                ).stream()
+
+                for lower_doc in lower_keyword_customers:
+                    customer_dict = lower_doc.to_dict()
+                    customer_dict['uid'] = lower_doc.id
+                    filtered_customers.append(customer_dict)
+
+                for upper_doc in upper_keyword_customers:
+                    customer_dict = upper_doc.to_dict()
+                    customer_dict['uid'] = upper_doc.id
+                    filtered_customers.append(customer_dict)
+
+                if not filtered_customers:
+                    QMessageBox.warning(self, "No Data", "No customer found with the entered name.")
+                    return
+
+                # Save the complete customer data for later selection
+                self.customer_data = pd.DataFrame(filtered_customers)
+
+                # Combine phone number fields into a single string
+                self.customer_data['Phone No.'] = self.customer_data[['tel1ByOne', 'tel1ByTwo', 'tel1ByThree']].apply(
+                    lambda x: '-'.join(filter(None, x)), axis=1
+                )
+
+                # Select display columns for the table view
+                self.display_df = self.customer_data[['name', 'nrc_no', 'date_of_birth', 'Phone No.']]
+                self.model = self.create_model(self.display_df)
+                self.tableView.setModel(self.model)
+
+            else:
+                QMessageBox.warning(self, "Input Error", "Please enter the customer's name.")
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"An error occurred while searching for customer data: {e}")
 
     def create_model(self, df):
         model = QStandardItemModel(df.shape[0], df.shape[1])
-        
+
         # Set the correct headers explicitly with capitalization
         model.setHorizontalHeaderLabels(['Name', 'NRC No.', 'Date of Birth', 'Phone No.'])
 
@@ -140,39 +185,18 @@ class SelectCustomerWindow(QDialog):
             # Get the first selected row
             index = selected_indexes[0]
             row = index.row()
-            selected_data = self.df.iloc[self.filtered_df.index[row]].to_dict()
-            self.customer_selected.emit(selected_data)  # Emit the selected customer data
+
+            # Get the original data for the selected customer using the filtered row index
+            selected_data = self.customer_data.iloc[self.display_df.index[row]].to_dict()
+
+            # Emit the selected customer data without explicitly listing fields
+            self.customer_selected.emit(selected_data)
             self.accept()
-
-def load_customer_data():
-    """ 고객 데이터를 불러오는 함수. 창을 띄우기 전에 데이터를 확인 """
-    customers_ref = DB.collection(u'Customer')
-    docs = customers_ref.stream()
-
-    data = []
-    for doc in docs:
-        customer_data = doc.to_dict()
-        customer_data['uid'] = doc.id
-        data.append(customer_data)
-
-    if not data:
-        # 데이터가 없으면 None을 반환하여 창을 띄우지 않음
-        return None
-
-    return pd.DataFrame(data)
-
 
 def main():
     app = QApplication(sys.argv)
-
-    # 고객 데이터를 먼저 로드
-    customer_data = load_customer_data()
-
-    # 데이터가 있으면 창을 띄움
-    if customer_data is not None:
-        window = SelectCustomerWindow(customer_data)
-        window.show()
-
+    window = SelectCustomerWindow()
+    window.show()
     sys.exit(app.exec_())
 
 
