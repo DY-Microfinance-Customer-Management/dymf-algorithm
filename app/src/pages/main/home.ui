@@ -28,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="palette">
@@ -845,7 +845,7 @@ QMenu::item:hover {
    <property name="text">
     <string>Guarantor</string>
    </property>
-      <property name="font">
+   <property name="font">
     <font>
      <family>Arial Black</family>
     </font>
@@ -950,10 +950,13 @@ QMenu::item:hover {
    </property>
   </action>
   <action name="actionPersonnelStaffRegister">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Staff Register</string>
    </property>
-      <property name="font">
+   <property name="font">
     <font>
      <family>Arial Black</family>
     </font>
@@ -966,7 +969,7 @@ QMenu::item:hover {
    <property name="text">
     <string>Payroll</string>
    </property>
-      <property name="font">
+   <property name="font">
     <font>
      <family>Arial Black</family>
     </font>
@@ -979,7 +982,7 @@ QMenu::item:hover {
    <property name="text">
     <string>Download Report</string>
    </property>
-      <property name="font">
+   <property name="font">
     <font>
      <family>Arial Black</family>
     </font>

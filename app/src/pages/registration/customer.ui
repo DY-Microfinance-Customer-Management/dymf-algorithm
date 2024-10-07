@@ -183,7 +183,7 @@ QPushButton:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">color: black;</string>
     </property>
     <item>
      <property name="text">
@@ -2182,7 +2182,7 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">color: black;</string>
     </property>
     <item>
      <property name="text">

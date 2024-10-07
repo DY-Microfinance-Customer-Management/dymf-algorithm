@@ -539,7 +539,7 @@ border-radius: 10px;</string>
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">color: black;</string>
       </property>
       <item>
        <property name="text">
@@ -1058,7 +1058,7 @@ QLineEdit:disabled {
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">color: black;</string>
       </property>
       <property name="locale">
        <locale language="English" country="UnitedStates"/>
@@ -1265,7 +1265,7 @@ border-radius: 10px;</string>
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">color: black;</string>
       </property>
       <item>
        <property name="text">

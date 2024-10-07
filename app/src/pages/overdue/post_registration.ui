@@ -391,7 +391,12 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">
+        QCalendarWidget QToolButton {
+            background-color: blue; /* 윗부분 배경을 파란색으로 설정 */
+            color: white; /* 글자 색을 흰색으로 설정 */
+        }
+     </string>
     </property>
     <property name="locale">
      <locale language="English" country="UnitedStates"/>
