@@ -45,11 +45,20 @@ class SearchCustomerApp(QMainWindow):
         self.imageButton.clicked.connect(self.select_image)
         self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
+        self.tel1ByOne.textChanged.connect(self.limit_phone_length)
+        self.tel2ByOne.textChanged.connect(self.limit_phone_length)
         self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel2ByThree.textChanged.connect(self.limit_phone_length)
         self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel1ByThree.textChanged.connect(self.limit_phone_length)
+
         self.loanType.currentIndexChanged.connect(self.toggle_cp_number)  # Toggle CP Number based on loan type
+
+    def limit_phone_length(self):
+        for field in [self.tel2ByOne, self.tel2ByTwo, self.tel2ByThree, self.tel1ByOne, self.tel1ByTwo, self.tel1ByThree]:
+            text = field.text()
+            if len(text) > 4:
+                field.setText(text[:4])
 
     def toggle_cp_number(self):
         # Enable CP Number field only if "Group Loan" is selected
@@ -117,10 +126,10 @@ class SearchCustomerApp(QMainWindow):
         self.nrcNo.setText(customer_data.get("nrc_no", ""))
         self.dateOfBirth.setDate(QtCore.QDate.fromString(customer_data.get("date_of_birth"), QtCore.Qt.ISODate))
         self.gender.setCurrentText(customer_data.get("gender", ""))
-        self.tel2ByOne.setCurrentText(customer_data.get("tel2ByOne", ""))
+        self.tel2ByOne.setText(customer_data.get("tel2ByOne", ""))
         self.tel2ByTwo.setText(customer_data.get("tel2ByTwo", ""))
         self.tel2ByThree.setText(customer_data.get("tel2ByThree", ""))
-        self.tel1ByOne.setCurrentText(customer_data.get("tel1ByOne", ""))
+        self.tel1ByOne.setText(customer_data.get("tel1ByOne", ""))
         self.tel1ByTwo.setText(customer_data.get("tel1ByTwo", ""))
         self.tel1ByThree.setText(customer_data.get("tel1ByThree", ""))
         self.email.setText(customer_data.get("email", ""))
@@ -186,12 +195,6 @@ class SearchCustomerApp(QMainWindow):
             QMessageBox.warning(self, "Invalid Input", "Name cannot contain numbers.")
             self.name.clear()
 
-    def limit_phone_length(self):
-        for field in [self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
-            text = field.text()
-            if len(text) > 4:
-                field.setText(text[:4])
-
     def clear_fields(self):
         self.searchName.clear()
         self.searchDateOfBirth.clear()
@@ -199,10 +202,10 @@ class SearchCustomerApp(QMainWindow):
         self.nrcNo.clear()
         self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
         self.gender.setCurrentIndex(0)
-        self.tel2ByOne.setCurrentIndex(0)
+        self.tel2ByOne.clear()
         self.tel2ByTwo.clear()
         self.tel2ByThree.clear()
-        self.tel1ByOne.setCurrentIndex(0)
+        self.tel1ByOne.clear()
         self.tel1ByTwo.clear()
         self.tel1ByThree.clear()
         self.email.clear()
@@ -313,7 +316,7 @@ class SearchCustomerApp(QMainWindow):
         missing_fields = []
 
         # Check tel1 related fields
-        if not all([self.tel1ByOne.currentText(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
+        if not all([self.tel1ByOne.text(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
             missing_fields.append("Tel1")
 
         # Check required fields
@@ -340,10 +343,10 @@ class SearchCustomerApp(QMainWindow):
             "nrc_no": self.nrcNo.text(),
             "date_of_birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
             "gender": self.gender.currentText(),
-            "tel1ByOne": self.tel1ByOne.currentText(),
+            "tel1ByOne": self.tel1ByOne.text(),
             "tel1ByTwo": self.tel1ByTwo.text(),
             "tel1ByThree": self.tel1ByThree.text(),
-            "tel2ByOne": self.tel2ByOne.currentText(),
+            "tel2ByOne": self.tel2ByOne.text(),
             "tel2ByTwo": self.tel2ByTwo.text(),
             "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),

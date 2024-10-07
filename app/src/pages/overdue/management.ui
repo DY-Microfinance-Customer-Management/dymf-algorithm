@@ -108,7 +108,7 @@ QPushButton:disabled {
 
 QLabel:disabled {
     border: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -182,7 +182,7 @@ border-radius: 10px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #2e9730;</string>
+     <string notr="true">background-color: #2e9730; color: white;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -275,7 +275,7 @@ border-radius: 10px;</string>
 
 QLabel:disabled {
     border: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -304,7 +304,7 @@ QLabel:disabled {
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -337,7 +337,7 @@ QLabel:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -370,7 +370,7 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -468,7 +468,7 @@ border-radius: 10px;</string>
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>

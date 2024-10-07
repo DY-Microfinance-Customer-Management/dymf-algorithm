@@ -28,7 +28,7 @@
      <x>0</x>
      <y>0</y>
      <width>1512</width>
-     <height>30</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="palette">
@@ -166,6 +166,24 @@ border-bottom: 1px solid grey;</string>
       <family>Arial Black</family>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
+    </property>
     <property name="title">
      <string>1. Registration</string>
     </property>
@@ -180,6 +198,24 @@ border-bottom: 1px solid grey;</string>
      <font>
       <family>Arial Black</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
     </property>
     <property name="title">
      <string>2. Search</string>
@@ -197,6 +233,24 @@ border-bottom: 1px solid grey;</string>
       <family>Arial Black</family>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
+    </property>
     <property name="title">
      <string>3. Repayment</string>
     </property>
@@ -208,6 +262,24 @@ border-bottom: 1px solid grey;</string>
      <font>
       <family>Arial Black</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
     </property>
     <property name="title">
      <string>4. Overdue</string>
@@ -222,6 +294,24 @@ border-bottom: 1px solid grey;</string>
       <family>Arial Black</family>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
+    </property>
     <property name="title">
      <string>0. Settings</string>
     </property>
@@ -235,12 +325,48 @@ border-bottom: 1px solid grey;</string>
       <family>Arial Black</family>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
+    </property>
     <property name="title">
      <string>5. Report</string>
     </property>
     <addaction name="actionPeriodicLoanBalanceReport"/>
    </widget>
    <widget class="QMenu" name="menu6_Personnel">
+    <property name="styleSheet">
+     <string notr="true">/* QMenu 항목 스타일 */
+QMenu::item {
+    background-color: #fbfbfb;
+    color: black; /* 기본 글자 색은 검정색 */
+}
+
+/* QMenu 항목 커서 위 스타일 */
+QMenu::item:selected {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}
+
+QMenu::item:hover {
+    background-color: #e0e0e0; /* 커서를 올렸을 때 배경을 연한 회색으로 설정 */
+    color: blue; /* 커서를 올렸을 때 글자 색을 파란색으로 설정 */
+}</string>
+    </property>
     <property name="title">
      <string>6. Personnel</string>
     </property>
@@ -719,6 +845,14 @@ border-bottom: 1px solid grey;</string>
    <property name="text">
     <string>Guarantor</string>
    </property>
+      <property name="font">
+    <font>
+     <family>Arial Black</family>
+    </font>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionRegistrationLoan">
    <property name="text">
@@ -819,15 +953,39 @@ border-bottom: 1px solid grey;</string>
    <property name="text">
     <string>Staff Register</string>
    </property>
+      <property name="font">
+    <font>
+     <family>Arial Black</family>
+    </font>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionPersonnelPayroll">
    <property name="text">
     <string>Payroll</string>
    </property>
+      <property name="font">
+    <font>
+     <family>Arial Black</family>
+    </font>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionPersonnelDownloadReport">
    <property name="text">
     <string>Download Report</string>
+   </property>
+      <property name="font">
+    <font>
+     <family>Arial Black</family>
+    </font>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
    </property>
   </action>
  </widget>

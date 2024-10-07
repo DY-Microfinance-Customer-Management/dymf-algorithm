@@ -166,10 +166,9 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="userID">
@@ -197,10 +196,9 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="userPassword">
@@ -228,10 +226,9 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_33">

@@ -166,10 +166,9 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="value">
@@ -197,10 +196,9 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="depreciationPeriod">
@@ -228,10 +226,9 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QDateEdit" name="purchaseDate">
@@ -249,20 +246,7 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QDateEdit {
-	border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    color: black;
-}
-
-QDateEdit:disabled {
-	border: none;
-    border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+     <string notr="true"/>
     </property>
     <property name="calendarPopup">
      <bool>true</bool>
@@ -312,10 +296,9 @@ QDateEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color:  rgb(236, 236, 236);
     color: lightgray;
-}
-</string>
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="userPasswordLabel_3">

@@ -375,7 +375,7 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -421,7 +421,7 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -490,20 +490,7 @@ QLineEdit:disabled {
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QComboBox {
-	border: none;
-    border-bottom: 1px solid black;
-    background-color: transparent;
-    color: black;
-}
-
-QComboBox:disabled {
-	border: none;
-    border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+     <string notr="true"/>
     </property>
     <item>
      <property name="text">
@@ -558,7 +545,7 @@ QComboBox:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>
@@ -601,7 +588,7 @@ QLineEdit:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
     color: lightgray;
 }
 </string>

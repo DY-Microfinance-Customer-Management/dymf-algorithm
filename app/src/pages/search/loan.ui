@@ -178,10 +178,8 @@ QPushButton:disabled {
 QLineEdit:disabled {
     border: none;
     border-bottom: 1px solid lightgray;
-    background-color: lightgray;
-    color: lightgray;
-}
-</string>
+    background-color: rgb(236, 236, 236);
+}</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_22">

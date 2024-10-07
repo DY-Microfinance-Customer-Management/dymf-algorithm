@@ -47,6 +47,8 @@ class RegistrationGuarantorApp(QMainWindow):
         self.imageButton.clicked.connect(self.select_image)
         self.selectLoanOfficerButton.clicked.connect(self.open_officer_select_dialog)
 
+        self.tel1ByOne.textChanged.connect(self.limit_phone_length)
+        self.tel2ByOne.textChanged.connect(self.limit_phone_length)
         self.tel2ByTwo.textChanged.connect(self.limit_phone_length)
         self.tel2ByThree.textChanged.connect(self.limit_phone_length)
         self.tel1ByTwo.textChanged.connect(self.limit_phone_length)
@@ -78,7 +80,7 @@ class RegistrationGuarantorApp(QMainWindow):
             self.name.clear()
 
     def limit_phone_length(self):
-        for field in [self.tel2ByTwo, self.tel2ByThree, self.tel1ByTwo, self.tel1ByThree]:
+        for field in [self.tel2ByOne, self.tel2ByTwo, self.tel2ByThree, self.tel1ByOne, self.tel1ByTwo, self.tel1ByThree]:
             text = field.text()
             if len(text) > 4:
                 field.setText(text[:4])
@@ -88,10 +90,10 @@ class RegistrationGuarantorApp(QMainWindow):
         self.nrcNo.clear()
         self.dateOfBirth.setDate(QtCore.QDate(2000, 1, 1))
         self.gender.setCurrentIndex(0)
-        self.tel2ByOne.setCurrentIndex(0)
+        self.tel2ByOne.clear()
         self.tel2ByTwo.clear()
         self.tel2ByThree.clear()
-        self.tel1ByOne.setCurrentIndex(0)
+        self.tel1ByOne.clear()
         self.tel1ByTwo.clear()
         self.tel1ByThree.clear()
         self.email.clear()
@@ -193,7 +195,7 @@ class RegistrationGuarantorApp(QMainWindow):
         missing_fields = []
 
         # tel1 관련 필드 검사
-        if not all([self.tel1ByOne.currentText(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
+        if not all([self.tel1ByOne.text(), self.tel1ByTwo.text(), self.tel1ByThree.text()]):
             missing_fields.append("Tel1")
 
         # 필수 필드 검사 (QComboBox와 QLineEdit을 구분)
@@ -226,10 +228,10 @@ class RegistrationGuarantorApp(QMainWindow):
             "nrc_no": self.nrcNo.text(),
             "date_of_birth": self.dateOfBirth.date().toString(QtCore.Qt.ISODate),
             "gender": self.gender.currentText(),
-            "tel1ByOne": self.tel1ByOne.currentText(),
+            "tel1ByOne": self.tel1ByOne.text(),
             "tel1ByTwo": self.tel1ByTwo.text(),
             "tel1ByThree": self.tel1ByThree.text(),
-            "tel2ByOne": self.tel2ByOne.currentText(),
+            "tel2ByOne": self.tel2ByOne.text(),
             "tel2ByTwo": self.tel2ByTwo.text(),
             "tel2ByThree": self.tel2ByThree.text(),
             "email": self.email.text(),

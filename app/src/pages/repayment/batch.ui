@@ -112,7 +112,7 @@ border-radius: 10px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #2e9730;</string>
+     <string notr="true">background-color: #2e9730; color: white;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
@@ -137,6 +137,18 @@ border-radius: 10px;</string>
      <font>
       <family>Arial Black</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+        QCalendarWidget QToolButton {
+            background-color: blue; /* 연도와 월 버튼 배경을 파란색으로 설정 */
+            color: white; /* 연도와 월 버튼 글자 색을 흰색으로 설정 */
+            border: none; /* 테두리를 없앰 */
+        }
+        QCalendarWidget QToolButton::hover {
+            background-color: darkblue; /* 커서를 올렸을 때 배경을 진한 파란색으로 설정 */
+        }
+     </string>
     </property>
     <property name="locale">
      <locale language="English" country="UnitedStates"/>
@@ -179,6 +191,18 @@ border-radius: 10px;</string>
      <font>
       <family>Arial Black</family>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+        QCalendarWidget QToolButton {
+            background-color: blue; /* 연도와 월 버튼 배경을 파란색으로 설정 */
+            color: white; /* 연도와 월 버튼 글자 색을 흰색으로 설정 */
+            border: none; /* 테두리를 없앰 */
+        }
+        QCalendarWidget QToolButton:hover {
+            background-color: darkblue; /* 커서를 올렸을 때 배경을 진한 파란색으로 설정 */
+        }
+     </string>
     </property>
     <property name="locale">
      <locale language="English" country="UnitedStates"/>
