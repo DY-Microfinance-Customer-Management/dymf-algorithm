@@ -2495,14 +2495,14 @@ border-radius: 10px;</string>
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>211</width>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2526,14 +2526,14 @@ color: white;</string>
      <rect>
       <x>10</x>
       <y>470</y>
-      <width>211</width>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2557,14 +2557,14 @@ color: white;</string>
      <rect>
       <x>10</x>
       <y>310</y>
-      <width>211</width>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

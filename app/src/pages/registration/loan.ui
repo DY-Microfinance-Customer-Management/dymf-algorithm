@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1470</width>
-    <height>775</height>
+    <width>1466</width>
+    <height>766</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,7 +98,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>

@@ -446,7 +446,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -916,7 +916,7 @@ QLabel:disabled {
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1664,7 +1664,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -1798,7 +1798,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>12</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="styleSheet">

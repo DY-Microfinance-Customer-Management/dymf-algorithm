@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
-    <height>700</height>
+    <width>797</width>
+    <height>691</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -308,7 +308,7 @@ border-radius: 10px;</string>
     <property name="font">
      <font>
       <family>Arial Black</family>
-      <pointsize>9</pointsize>
+      <pointsize>7</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
