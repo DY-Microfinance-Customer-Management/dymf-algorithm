@@ -14,7 +14,7 @@ def initialize_firebase():
     
     # JSON 파일 경로를 설정합니다.
     # json_path = os.path.join(current_dir, 'test-hungun-firebase-adminsdk-rl8wp-7e30142f0f.json')
-    json_path = os.path.join(current_dir, 'dymfsys-firebase-adminsdk-3fkh3-957df8a288.json')
+    json_path = os.path.join(current_dir, 'dymfsys-firebase-adminsdk-3fkh3-ca4acef8e5.json')
     
     if not os.path.exists(json_path):
         raise FileNotFoundError(f"JSON file not found: {json_path}")
