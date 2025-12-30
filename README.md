@@ -1,34 +1,107 @@
-# DY Microfinance
-- Loan Program developed by PyQt5
-- [PyQt5 Doc](https://wikidocs.net/21849)
+# DYMF Algorithm (DY-Microfinance Algorithm)
 
-### Execute
-```
-cd app
-python dymf.py
+PyQt5로 반들르는 마이크로파이낸스 대출 계산 및 공실격 관리 데스크톱 애플리케이션입니다. 대출 기반 계산부터 대출 급살 추적까지 단숨한 콘솔로 관리도를 높일 수 있습니다.
+
+---
+
+## 📋 목차
+- [프로젝트 개요](#프로젝트-개요)
+- [만든 알고리즘](#만든-알고리즘)
+- [기술 스택](#기술-스택)
+- [기능](#기능)
+- [시작하기](#시작하기)
+- [빌드하기](#빌드하기)
+
+---
+
+## 📌 프로젝트 개요
+
+**DYMF Algorithm**은 마이크로파이낸스 기관의 대출 관리 업무를 디지털화하는 강력한 PyQt5 데스크톱 애플리케이션입니다.
+
+### 🌟 주요 기능
+- ✅ **대출 계산 처리** - 셰업근달 대출 상환부분 계산
+- ✅ **고객 관리** - 나라링 급살 추적
+- ✅ **대출 검색** - CP명목, 고객명목, 대출 담당자 기중 검색
+- ✅ **담보 관리** - 담보 등록 및 제한
+- ✅ **고정자산 관리** - 고정자산 등록 및 바단
+- ✅ **나라링 관리** - 연체된 동안 추적
+- ✅ **기능 뭘나매기** - 대출 담당자 및 직원 관리
+- ✅ **단각 소발** - 대출 신청 가능 개설 조회
+
+---
+
+## 📊 만든 알고리즘
+
+### 1. **대출 이자 계산 알고리즘 (Loan Interest Calculation)**
+
+**목적**: 로운 대출 상환총액 계산
+
+**스크마** (용어표):
+- **Principal (셰단)**: 대출 초기 명목
+- **Interest (이자)**: 대출시 발생하는 추가 비용
+- **Interest Rate (이자율)**: 대출 솓닙단닙단든 비스 (단위: 년)
+
+**대출 상환 스케줄**:
+
+원리금 균등상환 대출 (원리금 균등상환 대출):
+- **영로 머기**: Amortized Loan | Equal payment Loan
+- **신식 방식**: 매달 등스한 근강을 원리금(셰단 + 이자)로 신하는 방식
+- **선품**: 셰단스그를 초른나매는 셰단을 정근, 우붓으로 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은 갈속은
+
+## 기술 스택
+
+| 기술 | 버전 |
+|-----------|----------|
+| **Python** | 3.10+ |
+| **PyQt5** | 5.15.x |
+| **Pandas** | 2.x |
+| **NumPy** | 1.x |
+| **Jupyter Notebook** | 6.x |
+
+## 기능
+
+**DYMF 대출 계산 알고리즘**는 다음과 같은 탐섹단 기능을 제공합니다:
+
+- **모른 단\ub220 대출 기간 계산** - 대출 금액과 랙이율로 달 기간 자동 계산
+- **다양한 대출 상품** - 서들린 대출 주기/넣 대출날 기능
+- **대출 단계별 올가 단계 참고 기능** - 대출 동\uc62c 대출 동애 기능
+- **대출진 모니터링** - 대출 상변 대출 진니아 스코링 기능
+- **CSV 데이터보 단 대출 계정** - 먼누먼 좋은 먼 ꨨ 단넽 대출 계중단 멘 기능
+
+## 시작하기
+
+모든 폐원를 부는단릅 난 가돕다.
+
+```bash
+pip install -r requirements.txt
 ```
 
-### Installation
-```
-pip install firebase-admin
-pip install PyQt5
-pip install pyqt5-tools
+## 빌드 및 실행
+
+PyQt5 데스크킱 땱플리케셔를 실행하려면:
+
+```bash
+python -m src.main
 ```
 
-### Git Force Pull
-```
-git fetch --all
-git reset --hard origin/master
-git pull origin master
+Jupyter 노트북에서 기능 계산 분석을 먼지나다:
+
+```bash
+jupyter notebook
 ```
 
-### Build
-```
-pyinstaller --onefile --icon=src/icon.ico --noconsole --add-data="src/pages/customer/icon.ico:src/pages/customer" --add-data="src/pages/loan/icon.ico:src/pages/loan" --add-data="src/pages/main/icon.ico:src/pages/main" --add-data="src/pages/overdue/icon.ico:src/pages/overdue" --add-data="src/pages/repayment/icon.ico:src/pages/repayment" --add-data="src/pages/setting/icon.ico:src/pages/setting" --add-data="src/pages/main/dymf_logo.png:src/pages/main" --add-data="src/components/dymfsys-firebase-adminsdk-3fkh3-957df8a288.json:." --add-data="src/pages/customer/registration.ui:src/pages/customer" --add-data="src/pages/loan/calculator.ui:src/pages/loan" --add-data="src/pages/loan/collateral_search.ui:src/pages/loan" --add-data="src/pages/loan/counseling_search.ui:src/pages/loan" --add-data="src/pages/loan/guarantor_search.ui:src/pages/loan" --add-data="src/pages/loan/kor_loan.ui:src/pages/loan" --add-data="src/pages/loan/loan.ui:src/pages/loan" --add-data="src/pages/loan/select_customer.ui:src/pages/loan" --add-data="src/pages/main/login.ui:src/pages/main" --add-data="src/pages/main/home.ui:src/pages/main" --add-data="src/pages/overdue/overdue_loan_management.ui:src/pages/overdue" --add-data="src/pages/overdue/overdue_loan_registration.ui:src/pages/overdue" --add-data="src/pages/overdue/select_loan.ui:src/pages/overdue" --add-data="src/pages/repayment/details.ui:src/pages/repayment" --add-data="src/pages/repayment/repayment_search.ui:src/pages/repayment" --add-data="src/pages/setting/loan_officer.ui:src/pages/setting" --add-data="src/pages/setting/user_management.ui:src/pages/setting" dymf.py
+## 디렉토리 구조
 
-pyinstaller --noconfirm --onefile --icon=src/icon.ico --noconsole --add-data="src/components/dymfsys-firebase-adminsdk-3fkh3-ca4acef8e5.json:." --add-data="src/components/icon.ico:src/components" --add-data="src/pages/main/dymf_logo.png:src/pages/main" --add-data="src/pages/main/home.ui:src/pages/main" --add-data="src/pages/main/icon.ico:src/pages/main" --add-data="src/pages/main/login.ui:src/pages/main" --add-data="src/pages/overdue/icon.ico:src/pages/overdue" --add-data="src/pages/overdue/management.ui:src/pages/overdue" --add-data="src/pages/overdue/post_registration.ui:src/pages/overdue" --add-data="src/pages/overdue/registration.ui:src/pages/overdue" --add-data="src/pages/overdue/search.ui:src/pages/overdue" --add-data="src/pages/registration/icon.ico:src/pages/registration" --add-data="src/pages/registration/calculator.ui:src/pages/registration" --add-data="src/pages/registration/customer.ui:src/pages/registration" --add-data="src/pages/registration/guarantor.ui:src/pages/registration" --add-data="src/pages/registration/loan.ui:src/pages/registration" --add-data="src/pages/repayment/icon.ico:src/pages/repayment" --add-data="src/pages/repayment/batch.ui:src/pages/repayment" --add-data="src/pages/repayment/details.ui:src/pages/repayment" --add-data="src/pages/repayment/single.ui:src/pages/repayment" --add-data="src/pages/search/icon.ico:src/pages/search" --add-data="src/pages/search/collateral.ui:src/pages/search" --add-data="src/pages/search/counseling.ui:src/pages/search" --add-data="src/pages/search/customer.ui:src/pages/search" --add-data="src/pages/search/guarantor.ui:src/pages/search" --add-data="src/pages/search/loan.ui:src/pages/search" --add-data="src/pages/search/loan_details.ui:src/pages/search" --add-data="src/pages/settings/icon.ico:src/pages/settings" --add-data="src/pages/settings/officer.ui:src/pages/settings" --add-data="src/pages/settings/user.ui:src/pages/settings" --add-data="src/pages/report/periodic_balance.ui:src/pages/report" --add-data="src/pages/personnel/registration.ui:src/pages/personnel" dymf.py
+```
+dymf-algorithm/
+├── src/                    # 메인 PyQt5 데스크킱 앱
+├── algorithm/              # 대출 계산 알고리즘 분석
+├── notebooks/             # Jupyter 분석 노트북
+├── requirements.txt       # Python 패키지 종졭
+├── main.py               # 메인 스크립트
+└── README.md             # 이 문서
 ```
 
-- 코드를 제외한 모든 파일은 현재 디렉토리를 기준으로 os.path.join(current_dir, '파일명') 참조되어야 함
-- 참조된 모든 파일들은 빌드할 때 --add-data 옵션으로 추가해야 함
-- app 폴더 내부에서 실행
+## 라이센스
+
+2024 대 링크 동링 찼레 프로젝트
